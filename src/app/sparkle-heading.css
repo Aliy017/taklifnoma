@@ -1,0 +1,233 @@
+/* Luxury sarlavha — barcha variantlar */
+.sparkle-heading-wrap {
+  overflow: hidden;
+  max-width: 100%;
+  contain: layout style;
+  transform: translateZ(0);
+}
+
+.sparkle-heading-wrap--shimmer .sparkle-text {
+  animation-duration: 8s;
+}
+
+.sparkle-heading-wrap--premium-mobile {
+  contain: layout style paint;
+}
+
+.sparkle-halo {
+  position: absolute;
+  inset: -12% -6%;
+  z-index: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 50% 55%,
+    var(--sh-halo) 0%,
+    color-mix(in srgb, var(--sh-accent) 14%, transparent) 40%,
+    transparent 70%
+  );
+  animation: sh-halo-pulse 6.5s ease-in-out infinite;
+  filter: blur(8px);
+  will-change: opacity, transform;
+}
+
+.sparkle-sweep {
+  position: absolute;
+  inset: -6% -10%;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    color-mix(in srgb, var(--sh-highlight) 28%, transparent) 49%,
+    color-mix(in srgb, var(--sh-highlight) 40%, transparent) 50%,
+    color-mix(in srgb, var(--sh-highlight) 28%, transparent) 51%,
+    transparent 62%
+  );
+  opacity: 0;
+  animation: sh-light-sweep 13s ease-in-out infinite;
+}
+
+.sparkle-text {
+  font-family: var(--font-playfair), Georgia, serif;
+  background: linear-gradient(
+    112deg,
+    var(--sh-base) 0%,
+    var(--sh-mid) 22%,
+    var(--sh-accent) 42%,
+    var(--sh-highlight) 50%,
+    var(--sh-accent) 58%,
+    var(--sh-mid) 78%,
+    var(--sh-base) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: sh-shimmer-sweep 7.5s ease-in-out infinite;
+  filter: drop-shadow(0 1px 10px color-mix(in srgb, var(--sh-accent) 28%, transparent));
+  transform: translateZ(0);
+}
+
+.sparkle-letter-twinkle {
+  width: 3px;
+  height: 3px;
+  margin-left: -1.5px;
+  margin-top: -1.5px;
+  border-radius: 50%;
+  background: var(--sh-twinkle);
+  box-shadow:
+    0 0 4px var(--sh-twinkle-glow),
+    0 0 10px color-mix(in srgb, var(--sh-accent) 35%, transparent);
+  animation: sh-letter-twinkle 4s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+/* Premium sekin shimmer — harflar tez emas, silliq */
+@keyframes sh-shimmer-sweep {
+  0%,
+  100% {
+    background-position: 88% center;
+  }
+  50% {
+    background-position: 12% center;
+  }
+}
+
+@keyframes sh-halo-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.97);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.03);
+  }
+}
+
+@keyframes sh-light-sweep {
+  0%,
+  82%,
+  100% {
+    opacity: 0;
+    transform: translateX(-4%) skewX(-6deg);
+  }
+  88% {
+    opacity: 0.55;
+  }
+  94% {
+    opacity: 0;
+    transform: translateX(4%) skewX(-6deg);
+  }
+}
+
+@keyframes sh-letter-twinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  40% {
+    opacity: 0.95;
+    transform: scale(1.2);
+  }
+  65% {
+    opacity: 0.25;
+    transform: scale(0.55);
+  }
+}
+
+/* Mobil: premium sekin — animatsiya bor, lekin juda yumshoq */
+@media (max-width: 768px) {
+  .sparkle-heading-wrap--premium-mobile .sparkle-text {
+    animation: sh-shimmer-sweep-mobile 12s ease-in-out infinite;
+    background-size: 200% 100%;
+    filter: none;
+  }
+
+  .sparkle-heading-wrap--premium-mobile .sparkle-halo {
+    animation: sh-halo-pulse-mobile 9s ease-in-out infinite;
+    filter: blur(5px);
+    inset: -8% -4%;
+  }
+
+  .sparkle-heading-wrap--premium-mobile .sparkle-sweep {
+    animation: sh-light-sweep-mobile 18s ease-in-out infinite;
+  }
+
+  .sparkle-heading-wrap--premium-mobile .sparkle-letter-twinkle {
+    animation: sh-letter-twinkle-mobile 5.5s ease-in-out infinite;
+  }
+
+  .sparkle-heading-wrap:not(.sparkle-heading-wrap--active) .sparkle-halo,
+  .sparkle-heading-wrap:not(.sparkle-heading-wrap--active) .sparkle-sweep,
+  .sparkle-heading-wrap:not(.sparkle-heading-wrap--active) .sparkle-text,
+  .sparkle-heading-wrap:not(.sparkle-heading-wrap--active) .sparkle-letter-twinkle {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes sh-shimmer-sweep-mobile {
+  0%,
+  100% {
+    background-position: 92% center;
+  }
+  50% {
+    background-position: 8% center;
+  }
+}
+
+@keyframes sh-halo-pulse-mobile {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes sh-light-sweep-mobile {
+  0%,
+  85%,
+  100% {
+    opacity: 0;
+  }
+  92% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes sh-letter-twinkle-mobile {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.15);
+  }
+  45% {
+    opacity: 0.85;
+    transform: scale(1.1);
+  }
+  70% {
+    opacity: 0.2;
+    transform: scale(0.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sparkle-text {
+    animation: none;
+    background-size: 100% 100%;
+    background-position: center;
+  }
+
+  .sparkle-halo,
+  .sparkle-sweep,
+  .sparkle-letter-twinkle {
+    animation: none;
+    opacity: 0.35;
+  }
+}

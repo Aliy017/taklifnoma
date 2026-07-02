@@ -1,0 +1,122 @@
+.variant-3 {
+  --v3-sage: #9caf88;
+  --v3-sage-dark: #7a9468;
+  --v3-sage-light: #c5d4b8;
+  --v3-white: #fafaf8;
+  --v3-rose: #c9a087;
+  --v3-rose-gold: #b8876a;
+  --v3-rose-light: #e8cfc0;
+
+  background: var(--v3-white);
+  color: #3d4a38;
+  min-height: 100vh;
+}
+
+.variant-3 .v3-geometric-bg {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239caf88' fill-opacity='0.08'%3E%3Cpath d='M30 0l15 15-15 15-15-15zM0 30l15 15-15 15-15-15zM60 30l-15 15 15 15 15-15zM30 60l-15-15 15-15 15 15z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.variant-3 .v3-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(201, 160, 135, 0.25);
+  box-shadow:
+    0 10px 40px rgba(156, 175, 136, 0.12),
+    0 2px 8px rgba(184, 135, 106, 0.08);
+}
+
+.variant-3 .v3-glow {
+  box-shadow:
+    0 0 40px rgba(201, 160, 135, 0.35),
+    0 0 80px rgba(156, 175, 136, 0.2);
+}
+
+.variant-3 .v3-text-rose {
+  color: var(--v3-rose-gold);
+}
+
+.variant-3 .v3-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--v3-rose-gold), transparent);
+}
+
+@keyframes v3-fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg) translateX(30px);
+    opacity: 0;
+  }
+}
+
+.variant-3 .v3-petal {
+  animation: v3-fall linear infinite;
+  pointer-events: none;
+}
+
+@media (min-width: 769px) {
+  .variant-3 .v3-petal {
+    will-change: transform, opacity;
+  }
+}
+
+/* Mobil: kamroq barg, yengil animatsiya */
+@keyframes v3-fall-lite {
+  0% {
+    transform: translateY(-6vh) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.5;
+  }
+  85% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(105vh) rotate(120deg);
+    opacity: 0;
+  }
+}
+
+.variant-3 .v3-petal-lite {
+  animation-name: v3-fall-lite;
+  opacity: 0.55;
+}
+
+@keyframes v3-glow-pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.08);
+  }
+}
+
+.variant-3 .v3-avatar-glow {
+  animation: v3-glow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes v3-float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.variant-3 .v3-float {
+  animation: v3-float-soft 6s ease-in-out infinite;
+}
+
+.variant-3 .v3-modal-overlay {
+  background: rgba(61, 74, 56, 0.4);
+  backdrop-filter: blur(6px);
+}

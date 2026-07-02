@@ -1,0 +1,142 @@
+.variant-10 {
+  --v10-coral: #f4845f;
+  --v10-coral-light: #ffab8a;
+  --v10-coral-dark: #d96a45;
+  --v10-gold: #d4af37;
+  --v10-gold-light: #f0d78c;
+  --v10-gold-dark: #a68b3c;
+  --v10-warm: #fff5f0;
+
+  background: var(--v10-warm);
+  color: #4a2c20;
+  min-height: 100vh;
+}
+
+.variant-10 .v10-anor-bg {
+  background-color: #fff0e8;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(244, 132, 95, 0.15), transparent),
+    url("data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-opacity='0.12' stroke-width='0.6'%3E%3Cpath d='M32 4 L60 32 L32 60 L4 32 Z'/%3E%3Ccircle cx='32' cy='32' r='14'/%3E%3Cpath d='M32 12 L52 32 L32 52 L12 32 Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: auto, 64px 64px;
+}
+
+.variant-10 .v10-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 10px 40px rgba(244, 132, 95, 0.12);
+}
+
+.variant-10 .v10-gold-text {
+  background: linear-gradient(135deg, #f0d78c, #d4af37, #a68b3c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.variant-10 .v10-coral-text {
+  color: var(--v10-coral-dark);
+}
+
+.variant-10 .v10-suzani-divider {
+  height: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='12' viewBox='0 0 80 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23D4AF37' fill-opacity='0.35'%3E%3Ccircle cx='40' cy='6' r='3'/%3E%3Cpath d='M20 6 Q30 0 40 6 Q50 12 60 6' fill='none' stroke='%23D4AF37' stroke-width='1'/%3E%3Cpath d='M0 6 Q10 2 20 6 Q30 10 40 6 Q50 2 60 6 Q70 10 80 6' fill='none' stroke='%23F4845F' stroke-opacity='0.4' stroke-width='0.8'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 80px 12px;
+}
+
+.variant-10 .v10-gumbaz {
+  position: relative;
+  border-radius: 50% 50% 8px 8px / 30% 30% 8px 8px;
+  border: 4px solid rgba(212, 175, 55, 0.65);
+  background: linear-gradient(180deg, #fff8f0 0%, #ffe8d8 50%, #ffd4c0 100%);
+  box-shadow:
+    0 0 0 6px rgba(212, 175, 55, 0.12),
+    0 0 40px rgba(212, 175, 55, 0.2),
+    0 24px 60px rgba(244, 132, 95, 0.2),
+    inset 0 8px 24px rgba(255, 255, 255, 0.6);
+}
+
+.variant-10 .v10-gumbaz::before {
+  content: "";
+  position: absolute;
+  inset: -8px -8px auto -8px;
+  height: 40%;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  border: 2px solid rgba(212, 175, 55, 0.35);
+  pointer-events: none;
+}
+
+.variant-10 .v10-seed {
+  position: absolute;
+  border-radius: 50% 50% 50% 0;
+  background: linear-gradient(135deg, #f0d78c, #d4af37);
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.35);
+}
+
+.variant-10 .v10-silk {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
+  border-radius: 2px;
+}
+
+.variant-10 .v10-countdown-box {
+  background: linear-gradient(145deg, #4a2c20, #6b3d2e);
+  border: 2px solid var(--v10-gold);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.variant-10 .v10-countdown-digit {
+  color: var(--v10-gold-light);
+  text-shadow: 0 0 12px rgba(240, 215, 140, 0.5);
+}
+
+.variant-10 .v10-rsvp-border {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(#fffaf5, #fffaf5) padding-box,
+    linear-gradient(135deg, #d4af37, #f4845f, #d4af37) border-box;
+  animation: v10-border-shine 4s linear infinite;
+}
+
+@keyframes v10-border-shine {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.08); }
+}
+
+.variant-10 .v10-input {
+  width: 100%;
+  border-radius: 0.875rem;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0.75rem 1rem;
+  color: #4a2c20;
+  outline: none;
+}
+
+.variant-10 .v10-input:focus {
+  border-color: var(--v10-gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+@keyframes v10-float-gumbaz {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.variant-10 .v10-float-gumbaz {
+  animation: v10-float-gumbaz 6s ease-in-out infinite;
+}
+
+@keyframes v10-vinyl {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.variant-10 .v10-vinyl-spin {
+  animation: v10-vinyl 3s linear infinite;
+}
+
+.variant-10 .v10-vinyl-paused {
+  animation-play-state: paused;
+}

@@ -1,0 +1,100 @@
+.variant-8 {
+  --v8-white: #ffffff;
+  --v8-azure: #2b9fd9;
+  --v8-azure-light: #5ec4f0;
+  --v8-azure-dark: #1a7ab5;
+  --v8-silver: #b8c5d0;
+  --v8-silver-dark: #8b9dc3;
+
+  background: var(--v8-white);
+  color: #1e3a4f;
+  min-height: 100vh;
+}
+
+.variant-8 .v8-mosaic-bg {
+  background-color: #fafcfd;
+  background-image: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%232B9FD9' fill-opacity='0.06'%3E%3Cpath d='M0 0h24v24H0zM24 24h24v24H24z'/%3E%3Cpath d='M24 0h24v24H24zM0 24h24v24H0z'/%3E%3C/g%3E%3Cg fill='none' stroke='%232B9FD9' stroke-opacity='0.08' stroke-width='0.5'%3E%3Cpath d='M0 24h48M24 0v48'/%3E%3Ccircle cx='24' cy='24' r='8'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 48px 48px;
+}
+
+.variant-8 .v8-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(43, 159, 217, 0.15);
+  box-shadow: 0 8px 32px rgba(43, 159, 217, 0.06);
+}
+
+.variant-8 .v8-azure-text {
+  background: linear-gradient(135deg, #5ec4f0, #2b9fd9, #1a7ab5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.variant-8 .v8-silver-text {
+  color: var(--v8-silver-dark);
+}
+
+.variant-8 .v8-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--v8-silver), var(--v8-azure-light), var(--v8-silver), transparent);
+}
+
+.variant-8 .v8-avatar-ring {
+  border-radius: 50%;
+  border: 3px solid rgba(43, 159, 217, 0.35);
+  box-shadow:
+    0 0 0 6px rgba(43, 159, 217, 0.06),
+    0 16px 48px rgba(43, 159, 217, 0.12),
+    inset 0 0 24px rgba(94, 196, 240, 0.08);
+  background: linear-gradient(145deg, #ffffff, #f0f8fc);
+}
+
+.variant-8 .v8-countdown-digit {
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(180deg, #e8ecf2 0%, #b8c5d0 45%, #8b9dc3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 1px 2px rgba(139, 157, 195, 0.3));
+}
+
+.variant-8 .v8-timeline-line {
+  background: linear-gradient(180deg, #2b9fd9, #b8c5d0, #2b9fd9);
+}
+
+.variant-8 .v8-input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(43, 159, 217, 0.2);
+  background: #fafcfd;
+  padding: 0.75rem 1rem;
+  color: #1e3a4f;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.variant-8 .v8-input:focus {
+  border-color: rgba(43, 159, 217, 0.45);
+  box-shadow: 0 0 0 3px rgba(43, 159, 217, 0.1);
+}
+
+@keyframes v8-note-spin {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+.variant-8 .v8-note-spin {
+  animation: v8-note-spin 4s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.variant-8 .v8-note-paused {
+  animation-play-state: paused;
+}
+
+.variant-8 .v8-mosaic-tile {
+  position: absolute;
+  border-radius: 4px;
+  background: linear-gradient(135deg, rgba(43, 159, 217, 0.12), rgba(94, 196, 240, 0.06));
+  border: 1px solid rgba(43, 159, 217, 0.1);
+}

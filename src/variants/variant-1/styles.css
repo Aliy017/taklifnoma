@@ -1,0 +1,55 @@
+.variant-1 {
+  --background: #f5f0e8;
+  --foreground: #1a3a2a;
+  --emerald: #047857;
+  --emerald-light: #059669;
+  --emerald-dark: #065f46;
+  --gold: #c9a84c;
+  --gold-light: #e8d5a3;
+  --gold-dark: #a68b3c;
+  --beige: #f5f0e8;
+  --beige-dark: #e8dfd0;
+
+  background: var(--beige);
+  color: var(--foreground);
+}
+
+.variant-1 .glass-card {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.variant-1 .glass-card-dark {
+  background: rgba(4, 120, 87, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  box-shadow:
+    0 8px 32px rgba(4, 120, 87, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.variant-1 .text-gradient-gold {
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.variant-1 .flip-card {
+  perspective: 1000px;
+}
+
+.variant-1 .flip-card-inner {
+  transform-style: preserve-3d;
+}
+
+.variant-1 .flip-card-front,
+.variant-1 .flip-card-back {
+  backface-visibility: hidden;
+}

@@ -1,0 +1,146 @@
+.variant-7 {
+  --v7-pink: #fce4ec;
+  --v7-pink-mid: #f8bbd0;
+  --v7-rose: #c9a087;
+  --v7-rose-gold: #b8876a;
+  --v7-rose-light: #e8cfc0;
+  --v7-blush: #fff5f7;
+
+  background: var(--v7-blush);
+  color: #5c3d45;
+  min-height: 100vh;
+}
+
+.variant-7 .v7-atlas-bg {
+  background-color: var(--v7-blush);
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23F8BBD0' stroke-opacity='0.35' stroke-width='0.7'%3E%3Cellipse cx='40' cy='40' rx='32' ry='18'/%3E%3Cpath d='M8 40 Q40 8 72 40 Q40 72 8 40'/%3E%3Cpath d='M40 8 Q72 40 40 72 Q8 40 40 8'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 80px 80px;
+  animation: v7-atlas-drift 40s linear infinite;
+}
+
+@keyframes v7-atlas-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 80px 80px; }
+}
+
+.variant-7 .v7-glass {
+  background: rgba(255, 245, 247, 0.65);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(248, 187, 208, 0.45);
+  box-shadow:
+    0 8px 32px rgba(201, 160, 135, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 768px) {
+  .variant-7 .v7-glass {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(255, 245, 247, 0.94);
+  }
+}
+
+.variant-7 .v7-glass-glow {
+  box-shadow:
+    0 8px 40px rgba(248, 187, 208, 0.25),
+    0 0 24px rgba(248, 187, 208, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.variant-7 .v7-rose-gold-text {
+  background: linear-gradient(135deg, #e8cfc0, #c9a087, #b8876a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.variant-7 .v7-ikat-divider {
+  height: 3px;
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='6' viewBox='0 0 120 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 3 Q15 0 30 3 T60 3 T90 3 T120 3' fill='none' stroke='%23C9A087' stroke-width='1.5' stroke-opacity='0.6'/%3E%3Cpath d='M0 3 Q15 6 30 3 T60 3 T90 3 T120 3' fill='none' stroke='%23F8BBD0' stroke-width='1' stroke-opacity='0.5'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 120px 6px;
+}
+
+.variant-7 .v7-ikat-btn {
+  background-image:
+    linear-gradient(135deg, rgba(255, 245, 247, 0.9), rgba(252, 228, 236, 0.8)),
+    url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 Q5 5 10 10 T20 10' fill='none' stroke='%23F8BBD0' stroke-opacity='0.3'/%3E%3C/svg%3E");
+  background-size: auto, 20px 20px;
+  border: 1px solid rgba(201, 160, 135, 0.35);
+}
+
+.variant-7 .v7-countdown-glow {
+  box-shadow:
+    0 0 20px rgba(248, 187, 208, 0.4),
+    0 0 40px rgba(248, 187, 208, 0.15),
+    inset 0 0 12px rgba(255, 245, 247, 0.8);
+  border: 1px solid rgba(248, 187, 208, 0.55);
+}
+
+.variant-7 .v7-arch {
+  perspective: 900px;
+}
+
+.variant-7 .v7-floral-arch {
+  position: relative;
+  border-radius: 50% 50% 0 0 / 40% 40% 0 0;
+  border: 2px solid rgba(248, 187, 208, 0.5);
+  background: linear-gradient(180deg, rgba(255, 245, 247, 0.8) 0%, rgba(252, 228, 236, 0.4) 100%);
+  box-shadow:
+    0 0 30px rgba(248, 187, 208, 0.2),
+    0 20px 50px rgba(201, 160, 135, 0.1);
+}
+
+@keyframes v7-float-arch {
+  0%, 100% { transform: translateY(0) rotateX(2deg); }
+  50% { transform: translateY(-10px) rotateX(-1deg); }
+}
+
+.variant-7 .v7-float-arch {
+  animation: v7-float-arch 7s ease-in-out infinite;
+}
+
+@keyframes v7-spin-vinyl {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.variant-7 .v7-vinyl-spin {
+  animation: v7-spin-vinyl 3.5s linear infinite;
+}
+
+.variant-7 .v7-vinyl-paused {
+  animation-play-state: paused;
+}
+
+.variant-7 .v7-input {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid rgba(248, 187, 208, 0.45);
+  background: rgba(255, 255, 255, 0.75);
+  padding: 0.75rem 1rem;
+  color: #5c3d45;
+  outline: none;
+}
+
+.variant-7 .v7-input:focus {
+  border-color: rgba(201, 160, 135, 0.55);
+  box-shadow: 0 0 0 3px rgba(248, 187, 208, 0.2);
+}
+
+.variant-7 .v7-petal {
+  position: absolute;
+  pointer-events: none;
+  font-size: 1.25rem;
+  opacity: 0.6;
+}
+
+@keyframes v7-petal-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(8deg); }
+}
+
+.variant-7 .v7-petal-float {
+  animation: v7-petal-float 4s ease-in-out infinite;
+}
