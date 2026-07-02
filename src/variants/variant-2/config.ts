@@ -4,7 +4,6 @@ export const variant2Config = {
   id: "variant-2",
   title: "Hashamatli ko'k 3D",
   subtitle: "To'q ko'k fon, kumush va oq yorug'lik — premium 3D effektlar",
-  musicSrc: "/variant-2/music.mp3",
   ...weddingConfig,
   schedule: weddingConfig.morningSchedule,
   gallery: [

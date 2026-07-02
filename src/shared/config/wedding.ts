@@ -2,6 +2,7 @@ const LAT = 40 + 10 / 60 + 15.6 / 3600;
 const LNG = 71 + 43 / 60 + 43.6 / 3600;
 
 export const weddingConfig = {
+  musicSrc: "/music/sokinlik.m4a",
   groom: "Firdavs",
   bride: "Marjona",
   weddingDateISO: "2026-07-19T09:00:00",

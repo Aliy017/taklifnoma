@@ -4,7 +4,6 @@ export const variant4Config = {
   id: "variant-4",
   title: "Qo'qon merosi",
   subtitle: "Chuqur ko'k, sokin oltin — milliy adras va 3D arka",
-  musicSrc: "/variant-4/music.mp3",
   ...weddingConfig,
   events: [
     {

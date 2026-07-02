@@ -4,7 +4,6 @@ export const variant6Config = {
   id: "variant-6",
   title: "Samarqand kelajagi",
   subtitle: "Oq kumush, azure ko'k — futuristik 3D milliy estetika",
-  musicSrc: "/variant-6/music.mp3",
   modelPath: "/models/couple.gltf",
   ...weddingConfig,
   about: {

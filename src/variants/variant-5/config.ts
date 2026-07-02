@@ -4,7 +4,6 @@ export const variant5Config = {
   id: "variant-5",
   title: "Atlas bog'i",
   subtitle: "Krem, sage yashil va rose gold — zamonaviy milliy estetika",
-  musicSrc: "/variant-5/music.mp3",
   ...weddingConfig,
   locations: [
     {
