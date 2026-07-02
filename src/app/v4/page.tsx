@@ -3,6 +3,8 @@ import Variant4Page from "@/variants/variant-4";
 import { variant4Config } from "@/variants/variant-4/config";
 import "@/variants/variant-4/styles.css";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: `Variant 4 | ${variant4Config.groom} & ${variant4Config.bride}`,
   description: variant4Config.subtitle,
