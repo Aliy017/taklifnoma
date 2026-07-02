@@ -1,7 +1,6 @@
 "use client";
 
 import SamarkandBackground from "./components/SamarkandBackground";
-import AudioPlayer from "./components/AudioPlayer";
 import DockNav from "./components/DockNav";
 import Hero from "./components/Hero";
 import Countdown from "./components/Countdown";
@@ -17,7 +16,6 @@ export default function Variant6Page() {
   return (
     <main className="variant-6 relative">
       <SamarkandBackground />
-      <AudioPlayer />
       <DockNav />
 
       <div className="relative z-10">

@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { variant5Config } from "../config";
-import MusicToggle from "./MusicToggle";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 
@@ -65,7 +64,7 @@ export default function Hero() {
             <SparkleHeading theme="variant-5" as="h1" intensity="high" className="text-3xl font-bold sm:text-5xl md:text-6xl">
               {groom}
             </SparkleHeading>
-            <MusicToggle />
+            <span className="font-serif text-2xl text-[#C9A087]/70 sm:text-4xl">&amp;</span>
             <SparkleHeading theme="variant-5" as="h1" intensity="high" className="text-3xl font-bold sm:text-5xl md:text-6xl">
               {bride}
             </SparkleHeading>

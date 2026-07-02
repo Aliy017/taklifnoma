@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import CreatorFooter from "@/shared/components/CreatorFooter";
 import VariantLikeButton from "@/shared/components/VariantLikeButton";
+import WeddingMusicButton from "@/shared/components/WeddingMusicButton";
 import type { CreatorThemeId } from "@/shared/config/creator-themes";
 
 interface VariantBottomBarProps {
@@ -25,6 +26,7 @@ export default function VariantBottomBar({
 
   return (
     <>
+      <WeddingMusicButton accent={accent} />
       <div className="flex justify-center px-4 py-4">
         <VariantLikeButton variantId={variantId} initialCount={initialCount} accent={accent} size="sm" />
       </div>

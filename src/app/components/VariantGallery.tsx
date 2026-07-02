@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { variants } from "@/variants/registry";
 import VariantLikeButton from "@/shared/components/VariantLikeButton";
 import CreatorFooter from "@/shared/components/CreatorFooter";
+import WeddingMusicButton from "@/shared/components/WeddingMusicButton";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 
@@ -52,6 +53,7 @@ export default function VariantGallery() {
 
   return (
     <main className="dashboard-gallery relative min-h-screen overflow-x-clip bg-[#0a0908] text-white">
+      <WeddingMusicButton accent="#c9a84c" />
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="dashboard-orb absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-[#c9a84c]/10 blur-3xl sm:h-80 sm:w-80" />
         <div className="dashboard-orb dashboard-orb-delay absolute right-[-2rem] top-1/4 h-40 w-40 rounded-full bg-emerald-900/15 blur-2xl sm:h-56 sm:w-56" />

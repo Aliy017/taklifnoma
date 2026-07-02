@@ -2,7 +2,6 @@
 
 import AdrasBackground from "./components/AdrasBackground";
 import GoldenLeaves from "./components/GoldenLeaves";
-import MusicPlayer from "./components/MusicPlayer";
 import Hero from "./components/Hero";
 import Countdown from "./components/Countdown";
 import EventCards from "./components/EventCards";
@@ -17,7 +16,6 @@ export default function Variant4Page() {
     <main className="variant-4 relative">
       <AdrasBackground />
       <GoldenLeaves />
-      <MusicPlayer />
 
       <div className="relative z-10">
         <Hero />

@@ -1,7 +1,6 @@
 "use client";
 
 import MosaicParallax from "./components/MosaicParallax";
-import MusicPlayer from "./components/MusicPlayer";
 import Hero from "./components/Hero";
 import Countdown from "./components/Countdown";
 import Timeline from "./components/Timeline";
@@ -16,7 +15,6 @@ export default function Variant8Page() {
   return (
     <main className="variant-8 relative">
       <MosaicParallax />
-      <MusicPlayer />
 
       <div className="relative z-10">
         <Hero />

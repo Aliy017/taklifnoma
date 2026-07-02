@@ -2,7 +2,6 @@
 
 import NatureBackground from "./components/NatureBackground";
 import BasilLeaves from "./components/BasilLeaves";
-import AudioPlayer from "./components/AudioPlayer";
 import Hero from "./components/Hero";
 import Countdown from "./components/Countdown";
 import Location from "./components/Location";
@@ -17,7 +16,6 @@ export default function Variant9Page() {
     <main className="variant-9 relative">
       <NatureBackground />
       <BasilLeaves />
-      <AudioPlayer />
 
       <div className="relative z-10">
         <Hero />

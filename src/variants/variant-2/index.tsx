@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import EnvelopeIntro from "./components/EnvelopeIntro";
-import MusicToggle from "./components/MusicToggle";
 import Hero from "./components/Hero";
 import EventDetails from "./components/EventDetails";
 import Timeline from "./components/Timeline";
@@ -24,7 +23,6 @@ export default function Variant2Page() {
 
       {opened && (
         <>
-          <MusicToggle />
           <Hero />
           <EventDetails />
           <Timeline />

@@ -1,7 +1,6 @@
 "use client";
 
 import PinkAtlasBackground from "./components/PinkAtlasBackground";
-import MusicPlayer from "./components/MusicPlayer";
 import Hero from "./components/Hero";
 import Countdown from "./components/Countdown";
 import Location from "./components/Location";
@@ -15,7 +14,6 @@ export default function Variant7Page() {
   return (
     <main className="variant-7 relative">
       <PinkAtlasBackground />
-      <MusicPlayer />
 
       <div className="relative z-10">
         <Hero />

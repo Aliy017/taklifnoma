@@ -1,7 +1,6 @@
 "use client";
 
 import PomegranateParallax from "./components/PomegranateParallax";
-import MusicToggle from "./components/MusicToggle";
 import Hero from "./components/Hero";
 import Countdown from "./components/Countdown";
 import Location from "./components/Location";
@@ -16,7 +15,6 @@ export default function Variant10Page() {
   return (
     <main className="variant-10 relative">
       <PomegranateParallax />
-      <MusicToggle />
 
       <div className="relative z-10">
         <Hero />
