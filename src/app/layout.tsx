@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
 import "./sparkle-heading.css";
+import WeddingMusicPrefetch from "@/shared/components/WeddingMusicPrefetch";
+import { weddingConfig } from "@/shared/config/wedding";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -34,7 +36,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uz" className={`${playfair.variable} ${montserrat.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans touch-manipulation">{children}</body>
+      <head>
+        <link
+          rel="preload"
+          href={weddingConfig.musicSrc}
+          as="fetch"
+          crossOrigin="anonymous"
+          type="audio/mp4"
+        />
+      </head>
+      <body className="min-h-full flex flex-col font-sans touch-manipulation">
+        <WeddingMusicPrefetch />
+        {children}
+      </body>
     </html>
   );
 }

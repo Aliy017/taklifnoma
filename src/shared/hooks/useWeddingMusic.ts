@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { weddingConfig } from "@/shared/config/wedding";
 import { useWeddingContext } from "@/shared/context/WeddingContext";
+import { getWeddingAudio, setWeddingAudioVolume } from "@/shared/lib/wedding-music-pool";
 
 export function useWeddingMusic() {
   const ctx = useWeddingContext();
@@ -15,10 +16,9 @@ export function useWeddingMusic() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const audio = new Audio(musicSrc);
-    audio.loop = true;
-    audio.volume = musicVolume;
-    audio.preload = "auto";
+    const audio = getWeddingAudio(musicSrc);
+    setWeddingAudioVolume(musicSrc, musicVolume);
+    audioRef.current = audio;
 
     const onError = () => setAvailable(false);
     const onPause = () => setPlaying(false);
@@ -27,36 +27,53 @@ export function useWeddingMusic() {
     audio.addEventListener("error", onError);
     audio.addEventListener("pause", onPause);
     audio.addEventListener("play", onPlay);
-    audioRef.current = audio;
+    setPlaying(!audio.paused && !audio.ended);
 
     return () => {
       audio.removeEventListener("error", onError);
       audio.removeEventListener("pause", onPause);
       audio.removeEventListener("play", onPlay);
-      audio.pause();
-      audioRef.current = null;
     };
   }, [musicSrc, musicVolume]);
 
   const play = useCallback(async () => {
-    if (!audioRef.current || !available || loading) return false;
-    setLoading(true);
+    const audio = audioRef.current;
+    if (!audio || !available) return false;
+
+    if (audio.readyState < HTMLMediaElement.HAVE_ENOUGH_DATA) {
+      setLoading(true);
+      await new Promise<void>((resolve) => {
+        const done = () => {
+          audio.removeEventListener("canplaythrough", done);
+          audio.removeEventListener("error", done);
+          resolve();
+        };
+        if (audio.readyState >= HTMLMediaElement.HAVE_ENOUGH_DATA) {
+          resolve();
+          return;
+        }
+        audio.addEventListener("canplaythrough", done, { once: true });
+        audio.addEventListener("error", done, { once: true });
+        audio.load();
+      });
+      setLoading(false);
+    }
+
     try {
-      await audioRef.current.play();
+      await audio.play();
       setPlaying(true);
       return true;
     } catch {
       setAvailable(false);
       return false;
-    } finally {
-      setLoading(false);
     }
-  }, [available, loading]);
+  }, [available]);
 
   const stop = useCallback(() => {
-    if (!audioRef.current) return;
-    audioRef.current.pause();
-    audioRef.current.currentTime = 0;
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.pause();
+    audio.currentTime = 0;
     setPlaying(false);
   }, []);
 

@@ -7,7 +7,6 @@ import { variants } from "@/variants/registry";
 import VariantLikeButton from "@/shared/components/VariantLikeButton";
 import CreatorFooter from "@/shared/components/CreatorFooter";
 import InvitationControls from "@/shared/components/InvitationControls";
-import CardMusicToggle from "@/shared/components/CardMusicToggle";
 import LocaleShell from "@/shared/components/LocaleShell";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
@@ -32,8 +31,6 @@ function VariantCard({
   index,
   lite,
   onLikeChange,
-  activeMusicCardId,
-  onMusicActivate,
 }: {
   variant: (typeof variants)[number];
   likeCount: number;
@@ -41,8 +38,6 @@ function VariantCard({
   index: number;
   lite: boolean;
   onLikeChange: (count: number) => void;
-  activeMusicCardId: string | null;
-  onMusicActivate: (cardId: string | null) => void;
 }) {
   const { t } = useLocale();
   const ref = useRef<HTMLElement>(null);
@@ -76,15 +71,9 @@ function VariantCard({
     >
       <div className="dashboard-card-border h-full overflow-hidden">
         <div className="dashboard-card-inner wow-card-interactive relative h-full overflow-hidden border border-white/5">
-          <CardMusicToggle
-            cardId={variant.id}
-            accent={variant.accent}
-            activeCardId={activeMusicCardId}
-            onActivate={onMusicActivate}
-          />
           <div className="dashboard-card-shine pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           <div
-            className={`pointer-events-none absolute inset-0 bg-gradient-to-br opacity-45 transition-opacity duration-300 group-hover:opacity-75 ${variant.gradient}`}
+            className={`pointer-events-none absolute inset-0 bg-gradient-to-br opacity-60 transition-opacity duration-300 group-hover:opacity-85 ${variant.gradient}`}
           />
           <motion.div
             className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full blur-2xl sm:h-28 sm:w-28"
@@ -178,7 +167,6 @@ function VariantGalleryInner() {
   const [likes, setLikes] = useState<LikeCounts>({});
   const [sort, setSort] = useState<SortMode>("number");
   const [loaded, setLoaded] = useState(false);
-  const [activeMusicCardId, setActiveMusicCardId] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/likes")
@@ -323,8 +311,6 @@ function VariantGalleryInner() {
               index={i}
               lite={lite}
               onLikeChange={(count) => setLikes((prev) => ({ ...prev, [variant.id]: count }))}
-              activeMusicCardId={activeMusicCardId}
-              onMusicActivate={setActiveMusicCardId}
             />
           ))}
         </div>

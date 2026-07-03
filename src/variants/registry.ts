@@ -35,7 +35,7 @@ export const variants: VariantMeta[] = [
     couple: "Firdavs & Marjona",
     date: "19 Iyul, 2026",
     accent: "#C9A087",
-    gradient: "from-stone-100/50 via-amber-50/40 to-emerald-50/30",
+    gradient: "from-amber-950/80 via-stone-900/65 to-emerald-950/55",
   },
   {
     id: "variant-1",
@@ -59,7 +59,7 @@ export const variants: VariantMeta[] = [
     couple: "Firdavs & Marjona",
     date: "19 Iyul, 2026",
     accent: "#F8BBD0",
-    gradient: "from-rose-50/60 via-pink-50/40 to-white/50",
+    gradient: "from-rose-950/75 via-pink-950/60 to-fuchsia-950/45",
   },
   {
     id: "variant-10",
@@ -71,7 +71,7 @@ export const variants: VariantMeta[] = [
     couple: "Firdavs & Marjona",
     date: "19 Iyul, 2026",
     accent: "#F4845F",
-    gradient: "from-orange-50/50 via-amber-50/30 to-rose-50/40",
+    gradient: "from-orange-950/75 via-red-950/55 to-amber-950/60",
   },
   {
     id: "variant-9",
@@ -83,7 +83,7 @@ export const variants: VariantMeta[] = [
     couple: "Firdavs & Marjona",
     date: "19 Iyul, 2026",
     accent: "#047857",
-    gradient: "from-emerald-50/50 via-green-50/30 to-stone-50/40",
+    gradient: "from-emerald-950/75 via-green-950/60 to-teal-950/45",
   },
   {
     id: "variant-3",
@@ -95,7 +95,7 @@ export const variants: VariantMeta[] = [
     couple: "Firdavs & Marjona",
     date: "19 Iyul, 2026",
     accent: "#9caf88",
-    gradient: "from-emerald-50/50 via-green-50/30 to-stone-50/40",
+    gradient: "from-emerald-900/70 via-green-900/55 to-stone-900/50",
   },
   {
     id: "variant-8",
@@ -107,7 +107,7 @@ export const variants: VariantMeta[] = [
     couple: "Firdavs & Marjona",
     date: "19 Iyul, 2026",
     accent: "#2B9FD9",
-    gradient: "from-sky-50/50 via-blue-50/30 to-slate-100/40",
+    gradient: "from-sky-950/75 via-blue-950/60 to-indigo-950/50",
   },
   {
     id: "variant-2",
