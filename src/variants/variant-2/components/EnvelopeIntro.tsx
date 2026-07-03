@@ -11,6 +11,8 @@ interface EnvelopeIntroProps {
   onOpen: () => void;
 }
 
+const ease = [0.22, 1, 0.36, 1] as const;
+
 export default function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
   const lite = useLiteMode();
   const { t } = useLocaleOptional();
@@ -20,103 +22,111 @@ export default function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
   const open = useCallback(() => {
     if (opening) return;
     setOpening(true);
-    setTimeout(onOpen, lite ? 850 : 1600);
+    setTimeout(onOpen, lite ? 700 : 1200);
   }, [lite, onOpen, opening]);
 
   return (
     <motion.div
-      className="v2-gate"
+      className="v2-entry"
       exit={{ opacity: 0 }}
-      transition={{ duration: lite ? 0.35 : 0.65 }}
+      transition={{ duration: 0.5 }}
     >
       {!lite && (
         <>
-          <div className="v2-gate-mesh" aria-hidden />
-          <div className="v2-gate-grain" aria-hidden />
+          <div className="v2-entry-bg" aria-hidden />
+          <div className="v2-entry-rays" aria-hidden />
         </>
       )}
 
       <motion.div
-        className="v2-gate-inner"
-        animate={opening ? { scale: 0.96, opacity: 0, y: -24 } : { scale: 1, opacity: 1, y: 0 }}
-        transition={{ duration: lite ? 0.5 : 0.75, ease: [0.22, 1, 0.36, 1] }}
+        className="v2-entry-shell"
+        animate={opening ? { opacity: 0, scale: 1.04, filter: "blur(8px)" } : { opacity: 1, scale: 1, filter: "blur(0px)" }}
+        transition={{ duration: lite ? 0.45 : 0.7, ease }}
       >
-        <p className="v2-gate-kicker">{t("intro.openEnvelope")}</p>
-
-        {/* ── Heart seal — standalone, centered, no overlap ── */}
-        <div className="v2-gate-seal-zone">
-          {!lite && !opening && (
-            <>
-              <span className="v2-gate-ring v2-gate-ring--a" aria-hidden />
-              <span className="v2-gate-ring v2-gate-ring--b" aria-hidden />
-            </>
-          )}
-
-          <motion.button
-            type="button"
-            className="v2-gate-seal"
-            aria-label={t("intro.open")}
-            disabled={opening}
-            onClick={open}
-            animate={
-              opening
-                ? { scale: 1.45, opacity: 0, rotateY: 180 }
-                : lite
-                  ? {}
-                  : { y: [0, -5, 0] }
-            }
-            transition={
-              opening
-                ? { duration: 0.55, ease: [0.22, 1, 0.36, 1] }
-                : { y: { duration: 3.2, repeat: Infinity, ease: "easeInOut" } }
-            }
-            whileHover={opening ? undefined : { scale: 1.06 }}
-            whileTap={opening ? undefined : { scale: 0.94 }}
-          >
-            <svg className="v2-gate-heart" viewBox="0 0 100 90" aria-hidden>
-              <defs>
-                <radialGradient id="v2GateWax" cx="40%" cy="35%" r="65%">
-                  <stop offset="0%" stopColor="#ff8fab" />
-                  <stop offset="55%" stopColor="#d62850" />
-                  <stop offset="100%" stopColor="#6b0f28" />
-                </radialGradient>
-                <filter id="v2GateShadow">
-                  <feDropShadow dx="0" dy="5" stdDeviation="5" floodOpacity="0.45" />
-                </filter>
-              </defs>
-              <path
-                filter="url(#v2GateShadow)"
-                d="M50 84 C50 84 4 56 4 28 C4 12 16 2 30 2 C42 2 48 8 50 16 C52 8 58 2 70 2 C84 2 96 12 96 28 C96 56 50 84 50 84 Z"
-                fill="url(#v2GateWax)"
-              />
-            </svg>
-            <span className="v2-gate-seal-label">{t("intro.open")}</span>
-          </motion.button>
-        </div>
-
-        {/* ── Name plate — separate block below seal ── */}
-        <motion.div
-          className="v2-gate-plate"
-          animate={opening ? { opacity: 0, y: 16 } : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+        <motion.p
+          className="v2-entry-kicker"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.6, ease }}
         >
-          <div className="v2-gate-plate-edge" aria-hidden />
-          <p className="v2-gate-name">{groom}</p>
-          <span className="v2-gate-amp" aria-hidden>
-            &
+          {t("intro.openEnvelope")}
+        </motion.p>
+
+        <motion.div
+          className="v2-entry-monogram"
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2, duration: 0.7, ease }}
+        >
+          {!lite && <span className="v2-entry-orbit" aria-hidden />}
+          <span className="v2-entry-initials">
+            {groom.charAt(0)}
+            <span className="v2-entry-initials-dot" aria-hidden>
+              ·
+            </span>
+            {bride.charAt(0)}
           </span>
-          <p className="v2-gate-name">{bride}</p>
-          <div className="v2-gate-rule" aria-hidden />
-          <p className="v2-gate-tag">{t("hero.inviteLabel")}</p>
         </motion.div>
+
+        <motion.div
+          className="v2-entry-names"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35, duration: 0.65, ease }}
+        >
+          <span className="v2-entry-name">{groom}</span>
+          <span className="v2-entry-amp">&amp;</span>
+          <span className="v2-entry-name">{bride}</span>
+        </motion.div>
+
+        <motion.div
+          className="v2-entry-line"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ delay: 0.5, duration: 0.8, ease }}
+          aria-hidden
+        />
+
+        <motion.p
+          className="v2-entry-sub"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.55, duration: 0.5 }}
+        >
+          {t("hero.inviteLabel")}
+        </motion.p>
+
+        <motion.button
+          type="button"
+          className="v2-entry-cta"
+          onClick={open}
+          disabled={opening}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.65, duration: 0.55, ease }}
+          whileHover={opening ? undefined : { scale: 1.03 }}
+          whileTap={opening ? undefined : { scale: 0.97 }}
+        >
+          <span className="v2-entry-cta-shine" aria-hidden />
+          <span>{t("intro.open")}</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path
+              d="M5 12h14M13 6l6 6-6 6"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </motion.button>
       </motion.div>
 
-      {opening && !lite && (
+      {opening && (
         <motion.div
-          className="v2-gate-burst"
-          initial={{ scale: 0.4, opacity: 0.8 }}
-          animate={{ scale: 2.8, opacity: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="v2-entry-wipe"
+          initial={{ scale: 0 }}
+          animate={{ scale: 3 }}
+          transition={{ duration: lite ? 0.65 : 0.95, ease }}
           aria-hidden
         />
       )}
