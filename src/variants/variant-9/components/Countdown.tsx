@@ -78,7 +78,7 @@ export default function Countdown() {
     timeLeft.seconds === 0;
 
   return (
-    <section id="countdown" className="mobile-section relative z-10 px-4 py-16 sm:py-24">
+    <section id="about" className="mobile-section scroll-mt-20 relative z-10 px-4 py-16 sm:py-24">
       <ScrollReveal className="mx-auto max-w-3xl">
         <div className="v9-countdown-blur relative overflow-hidden rounded-3xl p-8 text-center sm:p-10">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'1\' fill=\'%23047857\' fill-opacity=\'0.06\'/%3E%3C/svg%3E')] opacity-50" />

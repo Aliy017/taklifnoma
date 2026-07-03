@@ -8,6 +8,8 @@ import OurStory from "./components/OurStory";
 import WishesSection from "@/shared/components/WishesSection";
 import VenueSection from "@/shared/components/VenueSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
+import FloatingAmbience from "@/shared/components/FloatingAmbience";
+import VariantDockNav from "@/shared/components/VariantDockNav";
 import { variant3Config as variant3ConfigBase } from "./config";
 
 export default function Variant3Page() {
@@ -18,12 +20,13 @@ export default function Variant3Page() {
     <main className="variant-3 relative">
       <RosePetals />
       <ParallaxBackground />
+      <FloatingAmbience theme="variant-3" />
 
       <div className="relative z-10">
         <Hero />
         <OurStory />
 
-        <section className="px-4 py-16">
+        <section id="location" className="scroll-mt-20 px-4 py-16">
           <div className="v3-card mx-auto max-w-lg rounded-3xl p-8">
             <VenueSection theme="variant-3" compact />
           </div>
@@ -31,7 +34,7 @@ export default function Variant3Page() {
 
         <WishesSection theme="variant-3" />
 
-        <footer className="border-t border-[#9caf88]/20 px-4 py-10 text-center">
+        <footer className="border-t border-[#9caf88]/20 px-4 py-10 pb-28 text-center">
           <p className="font-serif text-xl text-[#3d4a38]">
             {groom} &amp; {bride}
           </p>
@@ -39,6 +42,7 @@ export default function Variant3Page() {
           <div className="v3-divider mx-auto my-4 max-w-[60px]" />
           <p className="text-xs text-[#9caf88]">Tinchlik va baraka uyingizga doim bo&apos;lsin</p>
         </footer>
+        <VariantDockNav />
         <VariantBottomBar variantId="variant-3" accent="#9caf88" />
       </div>
     </main>

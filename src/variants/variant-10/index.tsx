@@ -8,6 +8,8 @@ import Location from "./components/Location";
 import WishesSection from "@/shared/components/WishesSection";
 import SuzaniDivider from "./components/SuzaniDivider";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
+import FloatingAmbience from "@/shared/components/FloatingAmbience";
+import VariantDockNav from "@/shared/components/VariantDockNav";
 import { variant10Config as variant10ConfigBase } from "./config";
 
 export default function Variant10Page() {
@@ -17,6 +19,8 @@ export default function Variant10Page() {
   return (
     <main className="variant-10 relative">
       <PomegranateParallax />
+      <FloatingAmbience theme="variant-10" />
+      <VariantDockNav />
 
       <div className="relative z-10">
         <Hero />

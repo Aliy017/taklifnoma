@@ -89,7 +89,7 @@ export default function Location() {
   );
 
   return (
-    <section className="mobile-section px-4 py-16 sm:py-24">
+    <section id="location" className="mobile-section scroll-mt-20 px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-5xl">
         {lite ? (
           content

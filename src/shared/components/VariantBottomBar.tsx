@@ -26,7 +26,7 @@ export default function VariantBottomBar({
 
   return (
     <>
-      <InvitationControls accent={accent} />
+      <InvitationControls accent={accent} variantId={variantId} />
       <div className="flex justify-center px-4 py-4">
         <VariantLikeButton variantId={variantId} initialCount={initialCount} accent={accent} size="sm" />
       </div>

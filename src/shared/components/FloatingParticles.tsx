@@ -16,9 +16,11 @@ export default function FloatingParticles({
 }: FloatingParticlesProps) {
   const lite = useLiteMode();
 
+  const effectiveCount = lite ? Math.max(3, Math.min(count, Math.ceil(count * 0.35))) : count;
+
   const particles = useMemo(
     () =>
-      Array.from({ length: count }, (_, i) => ({
+      Array.from({ length: effectiveCount }, (_, i) => ({
         id: i,
         left: `${8 + ((i * 17) % 84)}%`,
         top: `${6 + ((i * 23) % 88)}%`,
@@ -27,10 +29,10 @@ export default function FloatingParticles({
         delay: `${-(i * 0.7)}s`,
         opacity: 0.25 + (i % 4) * 0.15,
       })),
-    [count]
+    [count, effectiveCount]
   );
 
-  if (lite) return null;
+  if (effectiveCount === 0) return null;
 
   return (
     <div className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`} aria-hidden>

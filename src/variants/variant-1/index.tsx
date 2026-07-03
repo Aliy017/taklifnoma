@@ -7,6 +7,8 @@ import OurStory from "./components/OurStory";
 import Location from "./components/Location";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
+import FloatingAmbience from "@/shared/components/FloatingAmbience";
+import VariantDockNav from "@/shared/components/VariantDockNav";
 import { variant1Config as variant1ConfigBase } from "./config";
 
 export default function Variant1Page() {
@@ -16,6 +18,7 @@ export default function Variant1Page() {
   return (
     <main className="variant-1 relative">
       <LuxuryBackground />
+      <FloatingAmbience theme="variant-1" />
 
       <div className="relative z-10">
         <Hero />
@@ -24,7 +27,7 @@ export default function Variant1Page() {
 
         <WishesSection theme="variant-1" />
 
-        <footer className="border-t border-[#d4af37]/15 px-4 py-10 text-center">
+        <footer className="border-t border-[#d4af37]/15 px-4 py-10 pb-28 text-center">
           <p className="v1-gold-text v1-heading text-xl">
             {groom} &amp; {bride}
           </p>
@@ -34,6 +37,7 @@ export default function Variant1Page() {
             Alloh ularning baxtini abadiy qilsin
           </p>
         </footer>
+        <VariantDockNav />
         <VariantBottomBar variantId="variant-1" accent="#d4af37" />
       </div>
     </main>

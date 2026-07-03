@@ -8,6 +8,8 @@ import Timeline from "./components/Timeline";
 import MapSection from "./components/MapSection";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
+import FloatingAmbience from "@/shared/components/FloatingAmbience";
+import VariantDockNav from "@/shared/components/VariantDockNav";
 import { variant8Config as variant8ConfigBase } from "./config";
 
 export default function Variant8Page() {
@@ -17,6 +19,8 @@ export default function Variant8Page() {
   return (
     <main className="variant-8 relative">
       <MosaicParallax />
+      <FloatingAmbience theme="variant-8" />
+      <VariantDockNav />
 
       <div className="relative z-10">
         <Hero />
@@ -25,7 +29,7 @@ export default function Variant8Page() {
         <MapSection />
         <WishesSection theme="variant-8" />
 
-        <footer className="border-t border-[#2B9FD9]/10 px-4 py-12 text-center">
+        <footer className="border-t border-[#2B9FD9]/10 px-4 py-12 pb-28 text-center">
           <p className="font-serif text-xl sm:text-2xl">
             <span className="v8-azure-text">{groom}</span>
             <span className="mx-2 v8-silver-text">&amp;</span>

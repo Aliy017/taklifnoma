@@ -12,7 +12,7 @@ export default function OurStory() {
   const { story } = variant1Config;
 
   return (
-    <section className="mobile-section relative px-4 py-16 sm:py-24">
+    <section id="about" className="mobile-section scroll-mt-20 relative px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-3xl">
         <div className="mb-8 text-center sm:mb-12">
           <p className="v1-label mb-3">Bizning hikoyamiz</p>

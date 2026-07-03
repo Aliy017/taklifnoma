@@ -45,7 +45,7 @@ export default function EventDetails() {
   ];
 
   return (
-    <section className="mobile-section px-4 py-14 sm:py-20">
+    <section id="about" className="mobile-section scroll-mt-20 px-4 py-14 sm:py-20">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 text-center">
           <p className="mb-2 text-xs uppercase tracking-[0.35em] text-[#8b9dc3]">Tadbir haqida</p>
@@ -65,7 +65,7 @@ export default function EventDetails() {
           ))}
         </div>
 
-        <div className="mt-12">
+        <div className="mt-12" id="location">
           <div className="v2-card rounded-2xl p-6 sm:p-8">
             <VenueSection theme="variant-2" />
           </div>

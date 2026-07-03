@@ -16,7 +16,7 @@ export default function LocationCards() {
   const { locations } = variant5Config;
 
   return (
-    <section className="mobile-section relative z-10 px-4 py-16 sm:py-24">
+    <section id="location" className="mobile-section scroll-mt-20 relative z-10 px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-5xl">
         <ScrollReveal className="mb-10 text-center">
           <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#C9A087]">Manzillar</p>

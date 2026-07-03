@@ -7,6 +7,8 @@ import Countdown from "./components/Countdown";
 import Location from "./components/Location";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
+import FloatingAmbience from "@/shared/components/FloatingAmbience";
+import VariantDockNav from "@/shared/components/VariantDockNav";
 import { variant7Config as variant7ConfigBase } from "./config";
 
 export default function Variant7Page() {
@@ -16,6 +18,8 @@ export default function Variant7Page() {
   return (
     <main className="variant-7 relative">
       <PinkAtlasBackground />
+      <FloatingAmbience theme="variant-7" />
+      <VariantDockNav />
 
       <div className="relative z-10">
         <Hero />
@@ -23,7 +27,7 @@ export default function Variant7Page() {
         <Location />
         <WishesSection theme="variant-7" />
 
-        <footer className="border-t border-[#F8BBD0]/30 px-4 py-12 text-center">
+        <footer className="border-t border-[#F8BBD0]/30 px-4 py-12 pb-28 text-center">
           <p className="font-serif text-2xl sm:text-3xl">
             <span className="v7-rose-gold-text">{groom}</span>
             <span className="mx-2 text-[#F8BBD0]">&amp;</span>

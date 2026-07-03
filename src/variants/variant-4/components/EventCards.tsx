@@ -11,7 +11,7 @@ export default function EventCards() {
   const { events, venue } = variant4Config;
 
   return (
-    <section className="mobile-section relative z-10 px-4 py-16 sm:py-24">
+    <section id="about" className="mobile-section scroll-mt-20 relative z-10 px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-5xl">
         <ScrollReveal className="mb-10 text-center">
           <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#D4AF37]/80">Tadbirlar</p>
@@ -46,7 +46,7 @@ export default function EventCards() {
         </div>
 
         <ScrollReveal delay={0.2}>
-          <div className="v4-glass overflow-hidden rounded-2xl">
+          <div id="location" className="v4-glass scroll-mt-20 overflow-hidden rounded-2xl">
             <div className="border-b border-[#D4AF37]/15 px-6 py-4">
               <SparkleHeading theme="variant-4" as="h3" sparkles={false} className="text-lg">
                 {venue.name}

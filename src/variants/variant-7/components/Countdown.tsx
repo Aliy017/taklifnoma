@@ -83,7 +83,7 @@ export default function Countdown() {
     timeLeft.seconds === 0;
 
   return (
-    <section id="countdown" className="mobile-section relative z-10 px-4 py-16 sm:py-24">
+    <section id="about" className="mobile-section scroll-mt-20 relative z-10 px-4 py-16 sm:py-24">
       <ScrollReveal className="mx-auto max-w-3xl text-center">
         <GlassCard glow className="p-8 sm:p-10">
           <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#C9A087]">Kutilmoqda</p>

@@ -8,6 +8,8 @@ import Countdown from "./components/Countdown";
 import LocationCards from "./components/LocationCards";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
+import FloatingAmbience from "@/shared/components/FloatingAmbience";
+import VariantDockNav from "@/shared/components/VariantDockNav";
 import { variant5Config as variant5ConfigBase } from "./config";
 
 export default function Variant5Page() {
@@ -18,6 +20,7 @@ export default function Variant5Page() {
     <main className="variant-5 relative">
       <AtlasBackground />
       <ParallaxFlorals />
+      <FloatingAmbience theme="variant-5" />
 
       <div className="relative z-10">
         <Hero />
@@ -25,7 +28,7 @@ export default function Variant5Page() {
         <LocationCards />
         <WishesSection theme="variant-5" />
 
-        <footer className="border-t border-[#8A9A5B]/10 px-4 py-12 text-center">
+        <footer className="border-t border-[#8A9A5B]/10 px-4 py-12 pb-28 text-center">
           <p className="font-serif text-2xl v5-sage-text">
             {groom} <span className="text-[#C9A087]">&amp;</span>{" "}
             <span className="v5-rose-text">{bride}</span>
@@ -34,6 +37,7 @@ export default function Variant5Page() {
           <div className="v5-divider mx-auto my-6 max-w-[80px]" />
           <p className="text-xs text-[#8A9A5B]/40">Alloh ularning baxtini abadiy qilsin</p>
         </footer>
+        <VariantDockNav />
         <VariantBottomBar variantId="variant-5" accent="#C9A087" />
       </div>
     </main>

@@ -202,7 +202,7 @@ function VariantGalleryInner() {
 
   return (
     <main className="dashboard-gallery relative min-h-screen overflow-x-clip bg-[#0a0908] text-white">
-      <InvitationControls accent="#c9a84c" />
+      <InvitationControls accent="#c9a84c" variantId="dashboard" />
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="dashboard-orb absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-[#c9a84c]/10 blur-3xl sm:h-80 sm:w-80" />
         <div className="dashboard-orb dashboard-orb-delay absolute right-[-2rem] top-1/4 h-40 w-40 rounded-full bg-red-900/20 blur-2xl sm:h-56 sm:w-56" />
