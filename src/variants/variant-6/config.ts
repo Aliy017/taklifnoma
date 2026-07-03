@@ -8,10 +8,6 @@ export const variant6Config = {
   ...weddingConfig,
   about: {
     title: "Biz haqimizda",
-    paragraphs: [
-      "Firdavs va Marjona — ikki yurak, bitta yo'l. Alloh taolo ularning qadamlarini birlashtirdi.",
-      "To'y — yangi hayotning pok va muqaddas boshlanishi. Bu baxtli kunda sizni sharafli mehmon sifatida kutamiz.",
-    ],
   },
 } as const;
 

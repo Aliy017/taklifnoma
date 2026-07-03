@@ -3,10 +3,12 @@ import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { variant6Config as variant6ConfigBase } from "../config";
 import SectionCard from "./SectionCard";
+import { inviteAboutParagraphs } from "@/shared/config/invite-copy";
 
 export default function About() {
   const variant6Config = useVariantConfig(variant6ConfigBase);
   const { about, groom, bride } = variant6Config;
+  const paragraphs = inviteAboutParagraphs(groom, bride);
 
   return (
     <SectionCard
@@ -20,7 +22,7 @@ export default function About() {
       }
     >
       <div className="space-y-3 sm:space-y-4">
-        {about.paragraphs.map((p, i) => (
+        {paragraphs.map((p, i) => (
           <div key={i} className="v6-story-chip">
             <span className="v6-story-num">{i + 1}</span>
             <p className="text-sm leading-relaxed v6-silver-text sm:text-base">{p}</p>

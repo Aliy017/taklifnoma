@@ -2,48 +2,53 @@
 import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { variant1Config as variant1ConfigBase } from "../config";
-import CouplePortrait from "@/shared/components/CouplePortrait";
 import SparkleHeading from "./SparkleHeading";
-import LuxuryFrame from "./LuxuryFrame";
+import HeroHex from "./HeroHex";
 
 export default function Hero() {
   const variant1Config = useVariantConfig(variant1ConfigBase);
-  const { groom, bride, displayDate, displayTimeLabel } = variant1Config;
+  const { groom, bride, displayDate, displayTimeLabel, heroBlessing, inviteText } = variant1Config;
 
   return (
     <section className="relative flex min-h-[100dvh] items-center justify-center px-4 py-20 sm:py-24">
-      <div className="relative z-10 mx-auto w-full max-w-lg sm:max-w-xl">
-        <LuxuryFrame size="lg">
-          <div className="text-center">
-            <p className="mb-4 text-[10px] uppercase tracking-[0.45em] text-[#d4af37]/80 sm:text-xs">
-              Bismillahir Rahmonir Rahim
-            </p>
+      <div className="v1-hero-stack relative z-10 mx-auto w-full max-w-md text-center">
+        <p className="v1-label mb-3">Bismillahir Rahmonir Rahim</p>
+        <p className="v1-label mb-8 text-white/30">Taklifnoma</p>
 
-            <p className="mb-2 text-[10px] uppercase tracking-[0.5em] text-white/35">Taklifnoma</p>
+        <HeroHex>
+          <SparkleHeading
+            theme="variant-1"
+            as="h1"
+            sparkles={false}
+            className="v1-heading v1-hero-name text-[1.75rem] leading-none sm:text-[2rem]"
+          >
+            {groom}
+          </SparkleHeading>
 
-            <SparkleHeading
-              theme="variant-1"
-              as="h1"
-              intensity="high"
-              className="v1-gold-text text-3xl font-light tracking-wide sm:text-5xl"
-            >
-              {groom} &amp; {bride}
-            </SparkleHeading>
+          <p className="v1-hero-amp my-2 font-serif text-lg text-[#d4af37]/75 sm:my-2.5">&amp;</p>
 
-            <div className="v1-divider mx-auto my-6 max-w-[120px]" />
+          <SparkleHeading
+            theme="variant-1"
+            as="h2"
+            sparkles={false}
+            className="v1-heading v1-hero-name block text-[1.75rem] leading-none sm:text-[2rem]"
+          >
+            {bride}
+          </SparkleHeading>
 
-            <p className="mb-8 text-sm font-light tracking-wide text-white/55 sm:text-base">
-              Sizni eng muqaddas kunimizga sharafli mehmon sifatida kutamiz
-            </p>
+          <div className="v1-divider mx-auto my-4 w-12 sm:my-5" />
 
-            <CouplePortrait theme="variant-1" className="mb-8" />
+          <p className="v1-hero-tilak">{heroBlessing}</p>
+        </HeroHex>
 
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-              <span className="v1-chip rounded-full px-4 py-2">{displayDate}</span>
-              <span className="v1-chip rounded-full px-4 py-2">{displayTimeLabel}</span>
-            </div>
-          </div>
-        </LuxuryFrame>
+        <p className="v1-hero-invite mx-auto mt-8 max-w-[17rem] sm:mt-10 sm:max-w-xs">
+          {inviteText}
+        </p>
+
+        <div className="mt-6 flex flex-wrap justify-center gap-2 sm:mt-8 sm:gap-3">
+          <span className="v1-chip px-4 py-2">{displayDate}</span>
+          <span className="v1-chip px-4 py-2">{displayTimeLabel}</span>
+        </div>
       </div>
     </section>
   );

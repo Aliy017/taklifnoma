@@ -4,6 +4,7 @@ import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 import { variant3Config as variant3ConfigBase } from "../config";
 import CouplePortrait from "@/shared/components/CouplePortrait";
 import SparkleHeading from "./SparkleHeading";
+import { inviteHearts } from "@/shared/config/invite-copy";
 
 export default function Hero() {
   const variant3Config = useVariantConfig(variant3ConfigBase);
@@ -22,8 +23,8 @@ export default function Hero() {
 
         <div className="v3-divider mx-auto my-6 max-w-xs" />
 
-        <p className="mb-10 text-lg text-[#7a9468]">
-          {weddingType} — sizni ertalabki muqaddas marosimga taklif qilamiz
+        <p className="mx-auto mb-10 max-w-lg text-base leading-relaxed text-[#7a9468] sm:text-lg">
+          {inviteHearts(groom, bride)}
         </p>
 
         <CouplePortrait theme="variant-3" className="mb-10" />

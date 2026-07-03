@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { variant4Config as variant4ConfigBase } from "../config";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import SparkleHeading from "@/shared/components/SparkleHeading";
+import { INVITE_JOURNEY } from "@/shared/config/invite-copy";
 
 export default function Hero() {
   const variant4Config = useVariantConfig(variant4ConfigBase);
@@ -68,7 +69,9 @@ export default function Hero() {
             <span className="mx-3">&amp;</span>
             {bride}
           </SparkleHeading>
-          <p className="text-lg text-white/70 sm:text-xl">{weddingType}</p>
+          <p className="mx-auto max-w-md text-base leading-relaxed text-white/65 sm:text-lg">
+            {INVITE_JOURNEY}
+          </p>
           <p className="text-sm text-[#D4AF37]/80">{displayDate}</p>
         </div>
 

@@ -1,4 +1,5 @@
 import { weddingConfig } from "@/shared/config/wedding";
+import { INVITE_WEDDING } from "@/shared/config/invite-copy";
 
 export const variant1Config = {
   id: "variant-1",
@@ -27,14 +28,16 @@ export const variant1Config = {
       desc: "Muqaddas marosim — yangi hayotning eng go'zal boshlanishi.",
     },
   ],
+  heroBlessing: "Baxt tilaklari bilan",
+  inviteText: INVITE_WEDDING,
   quotes: [
     {
       text: "Va ularning orasida siz uchun muhabbat va rahm qo'ydik.",
-      source: "Qur'on, 30:21",
+      source: "30:21",
     },
     {
       text: "Nikoh — bu sokinlik va barqarorlikning ramzi.",
-      source: "Duo va tilaklar",
+      source: "Tilaklar",
     },
   ],
 } as const;

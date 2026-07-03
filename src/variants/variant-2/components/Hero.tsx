@@ -4,6 +4,7 @@ import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 import { variant2Config as variant2ConfigBase } from "../config";
 import CouplePortrait from "@/shared/components/CouplePortrait";
 import SparkleHeading from "@/shared/components/SparkleHeading";
+import { INVITE_JOURNEY } from "@/shared/config/invite-copy";
 
 export default function Hero() {
   const variant2Config = useVariantConfig(variant2ConfigBase);
@@ -27,9 +28,8 @@ export default function Hero() {
             {bride}
           </SparkleHeading>
           <div className="v2-divider mx-auto my-6 max-w-xs lg:mx-0" />
-          <p className="mb-2 font-serif text-xl text-[#c0c8d4] sm:text-2xl">{weddingType}</p>
           <p className="mx-auto max-w-md text-base leading-relaxed text-[#c0c8d4]/80 lg:mx-0">
-            Ertalabdan boshlanadigan muqaddas marosim. Sizni sharafli mehmon sifatida kutamiz.
+            {INVITE_JOURNEY}
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-6 lg:justify-start">
             <div className="rounded-full border border-[#c0c8d4]/30 bg-[#132a4f]/50 px-5 py-2 text-sm text-white">

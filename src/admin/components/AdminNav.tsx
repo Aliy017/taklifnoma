@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users, MessageSquareHeart, LogOut, Sparkles } from "lucide-react";
+import { LayoutDashboard, Users, MessageSquareHeart, LogOut, Sparkles, Settings } from "lucide-react";
 import { motion } from "framer-motion";
 import { checkAuthApi, logoutApi } from "../lib/auth";
 import { useRouter } from "next/navigation";
@@ -11,6 +11,7 @@ const tabs = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard, short: "Bosh" },
   { href: "/admin/clients", label: "Clients", icon: Users, short: "Mijoz" },
   { href: "/admin/wishes", label: "Wishes", icon: MessageSquareHeart, short: "Tabrik" },
+  { href: "/admin/settings", label: "Settings", icon: Settings, short: "Sozlama" },
 ];
 
 export default function AdminNav() {
@@ -90,7 +91,7 @@ export default function AdminNav() {
 
       {/* Mobile bottom nav — iOS style */}
       <nav className="admin-bottom-nav admin-glass fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200/70 md:hidden">
-        <div className="mx-auto grid max-w-lg grid-cols-3 gap-1 px-2 pt-1.5 pb-2">
+        <div className="mx-auto grid max-w-lg grid-cols-4 gap-1 px-2 pt-1.5 pb-2">
           {tabs.map((tab) => {
             const active = pathname === tab.href;
             const Icon = tab.icon;

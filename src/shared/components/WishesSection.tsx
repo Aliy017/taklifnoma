@@ -46,14 +46,14 @@ const themes: Record<
 > = {
   "variant-1": {
     section: "px-4 py-14 sm:py-20",
-    label: "text-xs uppercase tracking-[0.3em] text-[#d4af37]/70",
-    subtitle: "text-white/45",
+    label: "v1-label",
+    subtitle: "text-white/45 font-light",
     card: "v1-card rounded-sm p-5 sm:p-7",
     input:
-      "w-full rounded-sm border border-[#d4af37]/25 bg-white/5 px-4 py-3 text-white/85 outline-none placeholder:text-white/30 focus:border-[#d4af37]/60",
-    button: "border border-[#d4af37]/30 text-[#d4af37]/80 hover:border-[#d4af37]/60",
-    buttonActive: "bg-[#d4af37] text-black border-[#d4af37]",
-    sideTag: "rounded-full bg-[#d4af37]/10 px-2.5 py-0.5 text-xs text-[#d4af37]/80",
+      "w-full rounded-sm border border-[#d4af37]/25 bg-white/5 px-4 py-3 text-white/85 outline-none placeholder:text-white/30 focus:border-[#d4af37]/60 font-light",
+    button: "rounded-sm border border-[#d4af37]/30 text-[#d4af37]/80 hover:border-[#d4af37]/60",
+    buttonActive: "rounded-sm bg-[#d4af37] text-black border-[#d4af37]",
+    sideTag: "rounded-sm bg-[#d4af37]/10 px-2.5 py-0.5 text-xs text-[#d4af37]/80",
     wishCard: "wish-card-luxury rounded-sm border border-[#d4af37]/20 bg-white/5 p-4",
     wishCardTop: "wish-card-luxury rounded-sm border border-[#d4af37]/35 bg-gradient-to-br from-[#d4af37]/10 to-transparent p-4 shadow-lg",
     name: "font-semibold text-white/90",

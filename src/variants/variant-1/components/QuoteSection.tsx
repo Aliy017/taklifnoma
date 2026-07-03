@@ -19,8 +19,8 @@ export default function QuoteSection() {
       <p className="font-serif text-lg font-light leading-relaxed tracking-wide text-white/85 sm:text-2xl">
         {quotes[active].text}
       </p>
-      <p className="mt-5 text-[11px] uppercase tracking-[0.3em] text-[#d4af37]/75 sm:mt-6">
-        — {quotes[active].source}
+      <p className="mt-5 v1-label text-[0.6rem] sm:mt-6">
+        {quotes[active].source ? `— ${quotes[active].source}` : null}
       </p>
     </>
   );
@@ -32,9 +32,9 @@ export default function QuoteSection() {
           theme="variant-1"
           as="h2"
           intensity="high"
-          className="v1-gold-text mb-8 text-2xl font-light tracking-wide sm:text-3xl"
+          className="v1-heading mb-8 text-2xl sm:text-3xl"
         >
-          Duo va oyat
+          Duo va tilaklar
         </SparkleHeading>
 
         <LuxuryFrame>
@@ -64,9 +64,7 @@ export default function QuoteSection() {
                   key={i}
                   type="button"
                   onClick={() => setActive(i)}
-                  className={`mobile-touch h-1.5 rounded-full transition-all ${
-                    active === i ? "w-10 bg-[#d4af37]" : "w-1.5 bg-[#d4af37]/25"
-                  }`}
+                  className={`mobile-touch v1-dot ${active === i ? "v1-dot-active" : "w-1.5"}`}
                   aria-label={`Iqtibos ${i + 1}`}
                 />
               ))}

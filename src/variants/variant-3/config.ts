@@ -30,11 +30,11 @@ export const variant3Config = {
   quotes: [
     {
       text: "Va ularning orasida siz uchun muhabbat va rahm qo'ydik.",
-      source: "Qur'on, 30:21",
+      source: "30:21",
     },
     {
       text: "Nikoh — bu sokinlik va barqarorlikning ramzi.",
-      source: "Duo va tilaklar",
+      source: "Tilaklar",
     },
   ],
 } as const;

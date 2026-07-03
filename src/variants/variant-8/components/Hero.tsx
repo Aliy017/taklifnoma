@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { variant8Config as variant8ConfigBase } from "../config";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import SparkleHeading from "@/shared/components/SparkleHeading";
+import { inviteHearts } from "@/shared/config/invite-copy";
 
 const spring = { type: "spring" as const, stiffness: 200, damping: 22 };
 
@@ -64,7 +65,9 @@ export default function Hero() {
             {bride}
           </SparkleHeading>
           <div className="v8-divider mx-auto max-w-xs" />
-          <p className="text-lg v8-silver-text">{weddingType}</p>
+          <p className="mx-auto max-w-md text-base leading-relaxed v8-silver-text sm:text-lg">
+            {inviteHearts(groom, bride)}
+          </p>
           <p className="text-sm text-[#2B9FD9]">{displayDate}</p>
         </motion.div>
       </div>

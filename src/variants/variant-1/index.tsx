@@ -4,7 +4,6 @@ import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 import LuxuryBackground from "./components/LuxuryBackground";
 import Hero from "./components/Hero";
 import OurStory from "./components/OurStory";
-import QuoteSection from "./components/QuoteSection";
 import Location from "./components/Location";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
@@ -21,16 +20,15 @@ export default function Variant1Page() {
       <div className="relative z-10">
         <Hero />
         <OurStory />
-        <QuoteSection />
         <Location />
 
         <WishesSection theme="variant-1" />
 
         <footer className="border-t border-[#d4af37]/15 px-4 py-10 text-center">
-          <p className="v1-gold-text font-serif text-xl tracking-wide">
+          <p className="v1-gold-text v1-heading text-xl">
             {groom} &amp; {bride}
           </p>
-          <p className="mt-2 text-xs uppercase tracking-[0.25em] text-white/40">{displayDate}</p>
+          <p className="v1-label mt-2 text-white/35">{displayDate}</p>
           <div className="v1-divider mx-auto my-4 max-w-[80px]" />
           <p className="text-[11px] tracking-wide text-white/30">
             Alloh ularning baxtini abadiy qilsin

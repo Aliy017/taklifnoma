@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { variant5Config as variant5ConfigBase } from "../config";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
+import { INVITE_WEDDING } from "@/shared/config/invite-copy";
 
 const spring = { type: "spring" as const, stiffness: 200, damping: 18 };
 
@@ -74,7 +75,9 @@ export default function Hero() {
 
           <div className="v5-divider mx-auto max-w-xs" />
 
-          <p className="text-lg text-[#6b7a45]">{weddingType}</p>
+          <p className="mx-auto max-w-md text-base leading-relaxed text-[#6b7a45] sm:text-lg">
+            {INVITE_WEDDING}
+          </p>
           <p className="text-sm text-[#C9A087]">{displayDate}</p>
         </div>
 

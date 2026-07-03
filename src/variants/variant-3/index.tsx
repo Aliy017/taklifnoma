@@ -5,7 +5,6 @@ import RosePetals from "./components/RosePetals";
 import ParallaxBackground from "./components/ParallaxBackground";
 import Hero from "./components/Hero";
 import OurStory from "./components/OurStory";
-import QuoteSection from "./components/QuoteSection";
 import WishesSection from "@/shared/components/WishesSection";
 import VenueSection from "@/shared/components/VenueSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
@@ -23,7 +22,6 @@ export default function Variant3Page() {
       <div className="relative z-10">
         <Hero />
         <OurStory />
-        <QuoteSection />
 
         <section className="px-4 py-16">
           <div className="v3-card mx-auto max-w-lg rounded-3xl p-8">

@@ -7,6 +7,7 @@ import { variant10Config as variant10ConfigBase } from "../config";
 import SuzaniDivider from "./SuzaniDivider";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
+import { INVITE_JOURNEY } from "@/shared/config/invite-copy";
 
 const spring = { type: "spring" as const, stiffness: 200, damping: 20 };
 
@@ -70,7 +71,9 @@ export default function Hero() {
             {bride}
           </SparkleHeading>
           <SuzaniDivider className="mx-auto max-w-xs" />
-          <p className="text-lg v10-coral-text">{weddingType}</p>
+          <p className="mx-auto max-w-md text-base leading-relaxed v10-coral-text sm:text-lg">
+            {INVITE_JOURNEY}
+          </p>
           <p className="text-sm font-medium text-[#D4AF37]">{displayDate}</p>
         </motion.div>
       </div>

@@ -26,7 +26,7 @@ export default function QuoteSection() {
     <section className="mobile-section relative px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-2xl text-center">
         <SparkleHeading theme="variant-3" as="h2" intensity="high" className="mb-6 text-2xl font-bold sm:mb-8 sm:text-3xl">
-          Duo va oyat
+          Duo va tilaklar
         </SparkleHeading>
 
         <div className="v3-card relative overflow-hidden rounded-3xl p-6 sm:p-14">

@@ -86,15 +86,233 @@
   border: 1px solid rgba(212, 175, 55, 0.28);
   background: rgba(212, 175, 55, 0.06);
   color: rgba(240, 215, 140, 0.9);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   font-size: 0.65rem;
+  font-weight: 400;
+  border-radius: 2px;
+}
+
+.variant-1 .v1-label {
+  font-size: 0.625rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(212, 175, 55, 0.72);
+  font-weight: 400;
+}
+
+.variant-1 .v1-heading {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+}
+
+.variant-1 .v1-frame-panel {
+  position: relative;
+  background: linear-gradient(160deg, rgba(16, 16, 16, 0.96), rgba(6, 6, 6, 0.99));
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.05) inset,
+    0 24px 60px rgba(0, 0, 0, 0.55);
+}
+
+.variant-1 .v1-frame-panel--hero {
+  min-height: min(70vh, 560px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* —— Hero: haqiqiy geksagon —— */
+.variant-1 .v1-hero-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.variant-1 .v1-hero-hex {
+  position: relative;
+  width: min(88vw, 320px);
+  aspect-ratio: 400 / 440;
+  margin-inline: auto;
+}
+
+.variant-1 .v1-hero-hex-stroke {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 20px 48px rgba(0, 0, 0, 0.55));
+}
+
+.variant-1 .v1-hero-hex-content {
+  position: absolute;
+  inset: 8% 14% 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  clip-path: polygon(50% 2%, 92% 26%, 92% 74%, 50% 98%, 8% 74%, 8% 26%);
+}
+
+.variant-1 .v1-hero-hex-content .sparkle-halo,
+.variant-1 .v1-hero-hex-content .sparkle-sweep {
+  display: none;
+}
+
+.variant-1 .v1-hero-hex-content .sparkle-heading-wrap {
+  overflow: visible;
+  width: auto;
+}
+
+.variant-1 .v1-hero-name {
+  letter-spacing: 0.05em;
+}
+
+.variant-1 .v1-hero-amp {
+  letter-spacing: 0.15em;
+  line-height: 1;
+}
+
+.variant-1 .v1-hero-tilak {
+  max-width: 9.5rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(212, 175, 55, 0.68);
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+.variant-1 .v1-hero-invite {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 0.8125rem;
+  font-weight: 300;
+  line-height: 1.65;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.variant-1 .v1-hex-badge {
+  clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 .variant-1 .v1-year-badge {
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  background: rgba(212, 175, 55, 0.08);
+  border: none;
+  background: rgba(212, 175, 55, 0.1);
   color: var(--v1-gold-light);
+}
+
+/* SparkleHeading bilan v1-gold-text bir vaqtda ishlatilmasin */
+.variant-1 .sparkle-text.v1-gold-text {
+  animation: none;
+  background: none;
+  -webkit-text-fill-color: unset;
+  color: inherit;
+}
+
+.variant-1 .v1-dot {
+  height: 3px;
+  border-radius: 1px;
+  background: rgba(212, 175, 55, 0.25);
+  transition: all 0.25s ease;
+}
+
+.variant-1 .v1-dot-active {
+  width: 2rem;
+  background: #d4af37;
+}
+
+/* —— Juft rasm: geksagon luxury —— */
+.variant-1 .v1-portrait-shell {
+  position: relative;
+  width: min(78vw, 280px);
+  margin-inline: auto;
+  margin-bottom: 0.5rem;
+}
+
+.variant-1 .v1-portrait-hex {
+  position: absolute;
+  inset: -6% -4% -2%;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23f0d78c'/%3E%3Cstop offset='50%25' stop-color='%23d4af37'/%3E%3Cstop offset='100%25' stop-color='%23a68b3c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpolygon points='200,20 340,95 340,305 200,380 60,305 60,95' fill='none' stroke='url(%23g)' stroke-width='1.2' opacity='0.7'/%3E%3Cpolygon points='200,36 316,98 316,302 200,364 84,302 84,98' fill='none' stroke='url(%23g)' stroke-width='0.7' opacity='0.35'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  pointer-events: none;
+}
+
+.variant-1 .v1-portrait-stage {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0.75rem 1rem 0.35rem;
+  background: radial-gradient(ellipse 85% 70% at 50% 85%, rgba(212, 175, 55, 0.06), transparent 70%);
+}
+
+.variant-1 .v1-portrait-img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(72vw, 340px);
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(0 14px 32px rgba(0, 0, 0, 0.55))
+    drop-shadow(0 4px 14px rgba(212, 175, 55, 0.12));
+}
+
+.variant-1 .v1-portrait-gap-mask {
+  position: absolute;
+  bottom: 13%;
+  left: 50%;
+  z-index: 2;
+  width: 10%;
+  height: 19%;
+  transform: translateX(-46%);
+  background: linear-gradient(160deg, rgba(14, 14, 14, 0.97), rgba(5, 5, 5, 1));
+  pointer-events: none;
+}
+
+.variant-1 .v1-portrait-base {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  z-index: 0;
+  height: 3px;
+  width: 38%;
+  transform: translateX(-50%);
+  border-radius: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .variant-1 .v1-portrait-float {
+    animation: v1-portrait-float 6s ease-in-out infinite;
+  }
+}
+
+@keyframes v1-portrait-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .variant-1 .v1-portrait-float {
+    animation: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

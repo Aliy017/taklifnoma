@@ -12,13 +12,15 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const email = String(body.email ?? "").trim().toLowerCase();
     const password = String(body.password ?? "");
+    const adminEmail = await getAdminEmail();
+    const adminPassword = await getAdminPassword();
 
-    if (email !== getAdminEmail() || password !== getAdminPassword()) {
+    if (email !== adminEmail || password !== adminPassword) {
       return NextResponse.json({ error: "Email yoki parol noto'g'ri" }, { status: 401 });
     }
 
     const jar = await cookies();
-    jar.set(ADMIN_COOKIE_NAME, getAdminPassword(), {
+    jar.set(ADMIN_COOKIE_NAME, adminPassword, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
@@ -40,6 +42,7 @@ export async function DELETE() {
 
 export async function GET() {
   const jar = await cookies();
-  const ok = jar.get(ADMIN_COOKIE_NAME)?.value === getAdminPassword();
+  const adminPassword = await getAdminPassword();
+  const ok = jar.get(ADMIN_COOKIE_NAME)?.value === adminPassword;
   return NextResponse.json({ authenticated: ok });
 }
