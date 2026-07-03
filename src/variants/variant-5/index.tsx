@@ -9,7 +9,6 @@ import LocationCards from "./components/LocationCards";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
 import FloatingAmbience from "@/shared/components/FloatingAmbience";
-import VariantDockNav from "@/shared/components/VariantDockNav";
 import { variant5Config as variant5ConfigBase } from "./config";
 
 export default function Variant5Page() {
@@ -37,7 +36,6 @@ export default function Variant5Page() {
           <div className="v5-divider mx-auto my-6 max-w-[80px]" />
           <p className="text-xs text-[#8A9A5B]/40">Alloh ularning baxtini abadiy qilsin</p>
         </footer>
-        <VariantDockNav />
         <VariantBottomBar variantId="variant-5" accent="#C9A087" />
       </div>
     </main>

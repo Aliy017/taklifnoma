@@ -132,6 +132,11 @@
   pointer-events: none;
   animation: wow-float-particle var(--wow-dur, 5s) ease-in-out infinite;
   animation-delay: var(--wow-delay, 0s);
+  box-shadow: 0 0 6px currentColor;
+}
+
+.wow-particle--lite {
+  box-shadow: 0 0 4px currentColor;
 }
 
 .wow-orb {
@@ -212,11 +217,11 @@
   0%,
   100% {
     transform: translate3d(0, 0, 0) rotate(0deg);
-    opacity: 0.35;
+    opacity: 0.5;
   }
   50% {
     transform: translate3d(var(--fa-dx, 8px), var(--fa-dy, -12px), 0) rotate(12deg);
-    opacity: 0.75;
+    opacity: 0.92;
   }
 }
 

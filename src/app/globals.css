@@ -597,6 +597,28 @@ main,
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
+.dashboard-gallery--light {
+  color-scheme: light;
+}
+
+.dashboard-gallery--light .language-switcher-btn {
+  color: rgba(15, 23, 42, 0.72);
+  border-color: rgba(15, 23, 42, 0.14);
+  background: rgba(255, 255, 255, 0.85);
+  opacity: 1;
+}
+
+.dashboard-gallery--light .language-switcher-btn:hover,
+.dashboard-gallery--light .language-switcher-btn:focus-visible {
+  color: rgba(15, 23, 42, 0.92);
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--lang-accent, #c9a84c) 22%, transparent);
+}
+
+.dashboard-gallery--light .language-switcher-btn-label {
+  color: inherit;
+}
+
 .invitation-controls .wedding-music-wrap {
   position: static;
 }

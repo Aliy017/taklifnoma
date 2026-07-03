@@ -9,7 +9,6 @@ import MapSection from "./components/MapSection";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
 import FloatingAmbience from "@/shared/components/FloatingAmbience";
-import VariantDockNav from "@/shared/components/VariantDockNav";
 import { variant8Config as variant8ConfigBase } from "./config";
 
 export default function Variant8Page() {
@@ -20,7 +19,6 @@ export default function Variant8Page() {
     <main className="variant-8 relative">
       <MosaicParallax />
       <FloatingAmbience theme="variant-8" />
-      <VariantDockNav />
 
       <div className="relative z-10">
         <Hero />

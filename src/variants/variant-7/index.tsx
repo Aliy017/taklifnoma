@@ -8,7 +8,6 @@ import Location from "./components/Location";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
 import FloatingAmbience from "@/shared/components/FloatingAmbience";
-import VariantDockNav from "@/shared/components/VariantDockNav";
 import { variant7Config as variant7ConfigBase } from "./config";
 
 export default function Variant7Page() {
@@ -19,7 +18,6 @@ export default function Variant7Page() {
     <main className="variant-7 relative">
       <PinkAtlasBackground />
       <FloatingAmbience theme="variant-7" />
-      <VariantDockNav />
 
       <div className="relative z-10">
         <Hero />

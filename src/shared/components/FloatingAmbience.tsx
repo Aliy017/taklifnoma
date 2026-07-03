@@ -21,13 +21,13 @@ export default function FloatingAmbience({ theme, className = "" }: FloatingAmbi
     const count = lite ? config.shapesLite : config.shapes;
     return Array.from({ length: count }, (_, i) => ({
       id: i,
-      left: `${6 + ((i * 19) % 88)}%`,
-      top: `${8 + ((i * 27) % 84)}%`,
-      size: lite ? 10 + (i % 2) * 4 : 14 + (i % 3) * 6,
+      left: `${5 + ((i * 19) % 90)}%`,
+      top: `${6 + ((i * 27) % 88)}%`,
+      size: lite ? 16 + (i % 2) * 6 : 20 + (i % 3) * 8,
       dur: `${8 + (i % 4) * 2}s`,
       delay: `${-(i * 1.3)}s`,
-      driftX: i % 2 === 0 ? 12 : -10,
-      driftY: i % 3 === 0 ? -16 : -10,
+      driftX: i % 2 === 0 ? 14 : -12,
+      driftY: i % 3 === 0 ? -18 : -12,
     }));
   }, [config.shapes, config.shapesLite, lite]);
 
@@ -36,7 +36,7 @@ export default function FloatingAmbience({ theme, className = "" }: FloatingAmbi
 
   return (
     <div
-      className={`floating-ambience pointer-events-none fixed inset-0 z-[1] overflow-hidden ${className}`}
+      className={`floating-ambience pointer-events-none fixed inset-0 z-[2] overflow-hidden ${className}`}
       aria-hidden
     >
       {orbs.map((orb, i) => (
@@ -73,12 +73,13 @@ export default function FloatingAmbience({ theme, className = "" }: FloatingAmbi
         />
       ))}
 
-      <FloatingParticles count={particleCount} color={config.particleColor} />
-      {config.secondaryParticleColor && !lite && (
+      <FloatingParticles count={particleCount} color={config.particleColor} lite={lite} />
+      {config.secondaryParticleColor && (
         <FloatingParticles
-          count={Math.max(4, Math.floor(particleCount * 0.45))}
+          count={lite ? Math.max(4, Math.floor(particleCount * 0.4)) : Math.max(6, Math.floor(particleCount * 0.5))}
           color={config.secondaryParticleColor}
-          className="opacity-70"
+          className="opacity-80"
+          lite={lite}
         />
       )}
     </div>

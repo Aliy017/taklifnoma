@@ -9,7 +9,6 @@ import Location from "./components/Location";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
 import FloatingAmbience from "@/shared/components/FloatingAmbience";
-import VariantDockNav from "@/shared/components/VariantDockNav";
 import { variant9Config as variant9ConfigBase } from "./config";
 
 export default function Variant9Page() {
@@ -21,7 +20,6 @@ export default function Variant9Page() {
       <NatureBackground />
       <BasilLeaves />
       <FloatingAmbience theme="variant-9" />
-      <VariantDockNav />
 
       <div className="relative z-10">
         <Hero />

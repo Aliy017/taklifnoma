@@ -7,29 +7,33 @@ interface FloatingParticlesProps {
   count?: number;
   color?: string;
   className?: string;
+  /** Telefonda ham ko'rinishi uchun alohida o'lcham */
+  lite?: boolean;
 }
 
 export default function FloatingParticles({
   count = 12,
   color = "rgba(255, 255, 255, 0.6)",
   className = "",
+  lite: liteProp,
 }: FloatingParticlesProps) {
-  const lite = useLiteMode();
+  const liteMode = useLiteMode();
+  const lite = liteProp ?? liteMode;
 
-  const effectiveCount = lite ? Math.max(3, Math.min(count, Math.ceil(count * 0.35))) : count;
+  const effectiveCount = lite ? Math.max(6, Math.min(count, Math.ceil(count * 0.55))) : count;
 
   const particles = useMemo(
     () =>
       Array.from({ length: effectiveCount }, (_, i) => ({
         id: i,
-        left: `${8 + ((i * 17) % 84)}%`,
-        top: `${6 + ((i * 23) % 88)}%`,
-        size: 2 + (i % 3),
+        left: `${5 + ((i * 17) % 90)}%`,
+        top: `${4 + ((i * 23) % 92)}%`,
+        size: lite ? 5 + (i % 3) * 2 : 6 + (i % 4) * 2,
         dur: `${4 + (i % 5) * 1.2}s`,
         delay: `${-(i * 0.7)}s`,
-        opacity: 0.25 + (i % 4) * 0.15,
+        opacity: lite ? 0.55 + (i % 3) * 0.12 : 0.45 + (i % 4) * 0.12,
       })),
-    [count, effectiveCount]
+    [effectiveCount, lite]
   );
 
   if (effectiveCount === 0) return null;
@@ -39,13 +43,14 @@ export default function FloatingParticles({
       {particles.map((p) => (
         <span
           key={p.id}
-          className="wow-particle"
+          className={`wow-particle${lite ? " wow-particle--lite" : ""}`}
           style={{
             left: p.left,
             top: p.top,
             width: p.size,
             height: p.size,
             backgroundColor: color,
+            color,
             opacity: p.opacity,
             ["--wow-dur" as string]: p.dur,
             ["--wow-delay" as string]: p.delay,

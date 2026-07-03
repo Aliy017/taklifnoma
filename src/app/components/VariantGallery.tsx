@@ -21,7 +21,7 @@ const dashboardSparkles = Array.from({ length: 18 }, (_, i) => ({
   y: ((i * 41 + 29) % 100),
   size: (i % 3) + 2,
   delay: (i % 6) * 0.7,
-  color: i % 2 === 0 ? "rgba(201,168,76,0.55)" : "rgba(255,255,255,0.35)",
+  color: i % 2 === 0 ? "rgba(201,168,76,0.65)" : "rgba(180,140,80,0.35)",
 }));
 
 function VariantCard({
@@ -201,12 +201,12 @@ function VariantGalleryInner() {
     : { initial: { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5 } };
 
   return (
-    <main className="dashboard-gallery relative min-h-screen overflow-x-clip bg-[#0a0908] text-white">
+    <main className="dashboard-gallery dashboard-gallery--light relative min-h-screen overflow-x-clip bg-[#fafafa] text-slate-900">
       <InvitationControls accent="#c9a84c" variantId="dashboard" />
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="dashboard-orb absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-[#c9a84c]/10 blur-3xl sm:h-80 sm:w-80" />
-        <div className="dashboard-orb dashboard-orb-delay absolute right-[-2rem] top-1/4 h-40 w-40 rounded-full bg-red-900/20 blur-2xl sm:h-56 sm:w-56" />
-        <div className="dashboard-orb absolute bottom-1/4 left-[-3rem] h-48 w-48 rounded-full bg-emerald-900/12 blur-3xl" style={{ animationDelay: "-6s" }} />
+        <div className="dashboard-orb absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-[#c9a84c]/14 blur-3xl sm:h-80 sm:w-80" />
+        <div className="dashboard-orb dashboard-orb-delay absolute right-[-2rem] top-1/4 h-40 w-40 rounded-full bg-rose-200/50 blur-2xl sm:h-56 sm:w-56" />
+        <div className="dashboard-orb absolute bottom-1/4 left-[-3rem] h-48 w-48 rounded-full bg-emerald-100/70 blur-3xl" style={{ animationDelay: "-6s" }} />
         {!lite &&
           dashboardSparkles.map((s) => (
             <span
@@ -223,7 +223,7 @@ function VariantGalleryInner() {
             />
           ))}
         <div
-          className="absolute inset-0 opacity-[0.035]"
+          className="absolute inset-0 opacity-[0.045]"
           style={{
             backgroundImage: "radial-gradient(circle at 1px 1px, #c9a84c 1px, transparent 0)",
             backgroundSize: "24px 24px",
@@ -244,12 +244,12 @@ function VariantGalleryInner() {
           >
             Firdavs &amp; Marjona
           </SparkleHeading>
-          <p className="mx-auto mt-2 max-w-sm text-xs text-white/45 sm:mt-3 sm:max-w-md sm:text-sm">
+          <p className="mx-auto mt-2 max-w-sm text-xs text-slate-500 sm:mt-3 sm:max-w-md sm:text-sm">
             10 ta dizayn — yoqtiring va oching
           </p>
-          <div className="mx-auto mt-3 flex flex-wrap items-center justify-center gap-2 text-[10px] text-white/35 sm:text-xs">
-            <span className="rounded-full border border-white/10 px-2.5 py-0.5">19 Iyul, 2026</span>
-            <span className="rounded-full border border-white/10 px-2.5 py-0.5">Bo&apos;ston to&apos;yxonasi</span>
+          <div className="mx-auto mt-3 flex flex-wrap items-center justify-center gap-2 text-[10px] text-slate-500 sm:text-xs">
+            <span className="rounded-full border border-slate-200 bg-white/80 px-2.5 py-0.5">19 Iyul, 2026</span>
+            <span className="rounded-full border border-slate-200 bg-white/80 px-2.5 py-0.5">Bo&apos;ston to&apos;yxonasi</span>
           </div>
         </motion.header>
 
@@ -269,22 +269,22 @@ function VariantGalleryInner() {
             <motion.div
               key={stat.label}
               whileHover={lite ? undefined : { y: -3, scale: 1.02 }}
-              className="flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-xl border border-white/8 bg-white/[0.03] px-2 py-2 sm:gap-2 sm:rounded-2xl sm:px-4 sm:py-2.5"
+              className="flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white/90 px-2 py-2 shadow-sm sm:gap-2 sm:rounded-2xl sm:px-4 sm:py-2.5"
             >
               <span className="font-serif text-base font-bold text-[#c9a84c] sm:text-lg">{stat.value}</span>
-              <span className="text-[9px] uppercase tracking-wider text-white/35 sm:text-[10px]">{stat.label}</span>
+              <span className="text-[9px] uppercase tracking-wider text-slate-400 sm:text-[10px]">{stat.label}</span>
             </motion.div>
           ))}
         </motion.div>
 
         <div className="mb-3 flex items-center justify-between gap-2 sm:mb-4">
-          <p className="text-xs text-white/40 sm:text-sm">{t("gallery.variants")}</p>
-          <div className="flex rounded-full border border-white/10 bg-white/5 p-0.5 text-[10px] sm:text-xs">
+          <p className="text-xs text-slate-500 sm:text-sm">{t("gallery.variants")}</p>
+          <div className="flex rounded-full border border-slate-200 bg-white p-0.5 text-[10px] shadow-sm sm:text-xs">
             <button
               type="button"
               onClick={() => setSort("number")}
               className={`rounded-full px-2.5 py-1 transition sm:px-3 sm:py-1.5 ${
-                sort === "number" ? "bg-[#c9a84c] text-black" : "text-white/50 hover:text-white/80"
+                sort === "number" ? "bg-[#c9a84c] text-black" : "text-slate-500 hover:text-slate-800"
               }`}
             >
               {t("gallery.sort.number")}
@@ -293,7 +293,7 @@ function VariantGalleryInner() {
               type="button"
               onClick={() => setSort("likes")}
               className={`rounded-full px-2.5 py-1 transition sm:px-3 sm:py-1.5 ${
-                sort === "likes" ? "bg-[#c9a84c] text-black" : "text-white/50 hover:text-white/80"
+                sort === "likes" ? "bg-[#c9a84c] text-black" : "text-slate-500 hover:text-slate-800"
               }`}
             >
               {t("gallery.sort.likes")}

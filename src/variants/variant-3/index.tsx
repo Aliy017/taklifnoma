@@ -9,7 +9,6 @@ import WishesSection from "@/shared/components/WishesSection";
 import VenueSection from "@/shared/components/VenueSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
 import FloatingAmbience from "@/shared/components/FloatingAmbience";
-import VariantDockNav from "@/shared/components/VariantDockNav";
 import { variant3Config as variant3ConfigBase } from "./config";
 
 export default function Variant3Page() {
@@ -42,7 +41,6 @@ export default function Variant3Page() {
           <div className="v3-divider mx-auto my-4 max-w-[60px]" />
           <p className="text-xs text-[#9caf88]">Tinchlik va baraka uyingizga doim bo&apos;lsin</p>
         </footer>
-        <VariantDockNav />
         <VariantBottomBar variantId="variant-3" accent="#9caf88" />
       </div>
     </main>

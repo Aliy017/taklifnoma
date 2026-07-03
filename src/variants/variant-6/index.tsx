@@ -9,7 +9,6 @@ import MapSection from "./components/MapSection";
 import Wishes from "./components/Wishes";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
 import FloatingAmbience from "@/shared/components/FloatingAmbience";
-import VariantDockNav from "@/shared/components/VariantDockNav";
 import { useLocale } from "@/shared/i18n/LocaleContext";
 import { variant6Config as variant6ConfigBase } from "./config";
 
@@ -22,7 +21,6 @@ export default function Variant6Page() {
     <main className="variant-6 relative">
       <SamarkandBackground />
       <FloatingAmbience theme="variant-6" />
-      <VariantDockNav />
 
       <div className="relative z-10">
         <Hero />

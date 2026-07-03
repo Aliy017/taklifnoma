@@ -9,7 +9,6 @@ import EventCards from "./components/EventCards";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
 import FloatingAmbience from "@/shared/components/FloatingAmbience";
-import VariantDockNav from "@/shared/components/VariantDockNav";
 import { variant4Config as variant4ConfigBase } from "./config";
 
 export default function Variant4Page() {
@@ -38,7 +37,6 @@ export default function Variant4Page() {
           <div className="v4-divider mx-auto my-6 max-w-[80px]" />
           <p className="text-xs text-white/30">Alloh ularning baxtini abadiy qilsin</p>
         </footer>
-        <VariantDockNav />
         <VariantBottomBar variantId="variant-4" accent="#D4AF37" />
       </div>
     </main>

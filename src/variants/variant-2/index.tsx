@@ -11,7 +11,6 @@ import Gallery from "./components/Gallery";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
 import FloatingAmbience from "@/shared/components/FloatingAmbience";
-import VariantDockNav from "@/shared/components/VariantDockNav";
 import { variant2Config as variant2ConfigBase } from "./config";
 
 export default function Variant2Page() {
@@ -42,7 +41,6 @@ export default function Variant2Page() {
             <div className="v2-divider mx-auto my-6 max-w-[80px]" />
             <p className="text-xs text-[#c0c8d4]/40">Alloh ularning baxtini abadiy qilsin</p>
           </footer>
-          <VariantDockNav />
           <VariantBottomBar variantId="variant-2" accent="#8b9dc3" />
         </>
       )}

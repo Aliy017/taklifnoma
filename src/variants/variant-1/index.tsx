@@ -8,7 +8,6 @@ import Location from "./components/Location";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
 import FloatingAmbience from "@/shared/components/FloatingAmbience";
-import VariantDockNav from "@/shared/components/VariantDockNav";
 import { variant1Config as variant1ConfigBase } from "./config";
 
 export default function Variant1Page() {
@@ -37,7 +36,6 @@ export default function Variant1Page() {
             Alloh ularning baxtini abadiy qilsin
           </p>
         </footer>
-        <VariantDockNav />
         <VariantBottomBar variantId="variant-1" accent="#d4af37" />
       </div>
     </main>
