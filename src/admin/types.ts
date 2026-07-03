@@ -1,3 +1,5 @@
+import type { LocaleId, SlugScript } from "@/shared/i18n/types";
+
 export type WishStatus = "pending" | "approved";
 
 export type TemplateId =
@@ -22,6 +24,8 @@ export interface AdminClient {
   locationMapUrl: string;
   audioUrl: string;
   templateId: TemplateId;
+  defaultLocale?: LocaleId;
+  slugScript?: SlugScript;
   pageViews: number;
   active: boolean;
   createdAt: string;
@@ -44,7 +48,20 @@ export interface ClientFormData {
   locationMapUrl: string;
   audioUrl: string;
   templateId: TemplateId;
+  defaultLocale: LocaleId;
+  slugScript: SlugScript;
 }
+
+export const LOCALE_OPTIONS: { id: LocaleId; label: string }[] = [
+  { id: "uz-latin", label: "O'zbek (lotin)" },
+  { id: "uz-cyrillic", label: "Ўзбек (кирилл)" },
+  { id: "ru", label: "Русский" },
+];
+
+export const SLUG_SCRIPT_OPTIONS: { id: SlugScript; label: string }[] = [
+  { id: "latin", label: "Lotin slug (firdavs-marjona)" },
+  { id: "cyrillic", label: "Kirill slug (фирдавс-маржона)" },
+];
 
 export const TEMPLATE_OPTIONS: { id: TemplateId; label: string; route: string }[] = [
   { id: "variant-1", label: "Template v1 — Luxury oltin", route: "/v1" },

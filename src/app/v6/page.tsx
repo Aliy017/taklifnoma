@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import LocaleShell from "@/shared/components/LocaleShell";
 import Variant6Page from "@/variants/variant-6";
 import { variant6Config } from "@/variants/variant-6/config";
 import "@/variants/variant-6/styles.css";
@@ -11,5 +12,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <Variant6Page />;
+  return (
+    <LocaleShell>
+      <Variant6Page />
+    </LocaleShell>
+  );
 }

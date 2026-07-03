@@ -1,14 +1,7 @@
 import { readStore, writeStore } from "@/shared/lib/data-store";
 import type { InvitationClient, InvitationWish } from "@/shared/types/client";
 import { weddingConfig } from "@/shared/config/wedding";
-
-function slugify(groom: string, bride: string) {
-  return `${groom}-${bride}`
-    .toLowerCase()
-    .replace(/['']/g, "")
-    .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9-]/g, "");
-}
+import { slugify } from "@/shared/lib/slugify";
 
 export const DEFAULT_CLIENTS: InvitationClient[] = [
   {
@@ -23,6 +16,8 @@ export const DEFAULT_CLIENTS: InvitationClient[] = [
     locationAddress: weddingConfig.venue.address,
     audioUrl: weddingConfig.musicSrc,
     templateId: "variant-6",
+    defaultLocale: "uz-latin",
+    slugScript: "latin",
     pageViews: 0,
     active: true,
     createdAt: "2026-01-01T00:00:00.000Z",
@@ -39,6 +34,8 @@ export const DEFAULT_CLIENTS: InvitationClient[] = [
     locationAddress: "Vodil, Farg'ona viloyati",
     audioUrl: weddingConfig.musicSrc,
     templateId: "variant-5",
+    defaultLocale: "uz-latin",
+    slugScript: "latin",
     pageViews: 0,
     active: true,
     createdAt: "2026-04-01T00:00:00.000Z",
@@ -86,12 +83,15 @@ export interface ClientInput {
   locationAddress?: string;
   audioUrl: string;
   templateId: InvitationClient["templateId"];
+  defaultLocale?: InvitationClient["defaultLocale"];
+  slugScript?: InvitationClient["slugScript"];
   active?: boolean;
 }
 
 export async function createClient(input: ClientInput): Promise<InvitationClient> {
   const clients = await readClients();
-  const slug = slugify(input.groomName, input.brideName);
+  const script = input.slugScript ?? "latin";
+  const slug = slugify(input.groomName, input.brideName, script);
   if (clients.some((c) => c.slug === slug)) {
     throw new Error("Bu slug allaqachon mavjud");
   }
@@ -107,6 +107,8 @@ export async function createClient(input: ClientInput): Promise<InvitationClient
     locationAddress: input.locationAddress,
     audioUrl: input.audioUrl,
     templateId: input.templateId,
+    defaultLocale: input.defaultLocale ?? "uz-latin",
+    slugScript: script,
     pageViews: 0,
     active: input.active ?? true,
     createdAt: new Date().toISOString(),
@@ -119,7 +121,8 @@ export async function updateClient(id: string, input: ClientInput): Promise<Invi
   const clients = await readClients();
   const idx = clients.findIndex((c) => c.id === id);
   if (idx === -1) throw new Error("Mijoz topilmadi");
-  const slug = slugify(input.groomName, input.brideName);
+  const script = input.slugScript ?? clients[idx].slugScript ?? "latin";
+  const slug = slugify(input.groomName, input.brideName, script);
   if (clients.some((c) => c.slug === slug && c.id !== id)) {
     throw new Error("Bu slug allaqachon mavjud");
   }
@@ -127,6 +130,8 @@ export async function updateClient(id: string, input: ClientInput): Promise<Invi
     ...clients[idx],
     ...input,
     slug,
+    defaultLocale: input.defaultLocale ?? clients[idx].defaultLocale ?? "uz-latin",
+    slugScript: script,
   };
   const next = [...clients];
   next[idx] = updated;
@@ -148,5 +153,3 @@ export async function readInvitationWishes(): Promise<InvitationWish[]> {
 export async function writeInvitationWishes(wishes: InvitationWish[]) {
   await writeStore("invitation_wishes", wishes);
 }
-
-export { slugify };

@@ -2,17 +2,22 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { weddingConfig } from "@/shared/config/wedding";
+import { useWeddingContext } from "@/shared/context/WeddingContext";
 
 export function useWeddingMusic() {
+  const ctx = useWeddingContext();
+  const musicSrc = ctx?.wedding.musicSrc ?? weddingConfig.musicSrc;
+  const musicVolume = ctx?.wedding.musicVolume ?? weddingConfig.musicVolume;
+
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [playing, setPlaying] = useState(false);
   const [available, setAvailable] = useState(true);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const audio = new Audio(weddingConfig.musicSrc);
+    const audio = new Audio(musicSrc);
     audio.loop = true;
-    audio.volume = weddingConfig.musicVolume;
+    audio.volume = musicVolume;
     audio.preload = "auto";
 
     const onError = () => setAvailable(false);
@@ -31,7 +36,7 @@ export function useWeddingMusic() {
       audio.pause();
       audioRef.current = null;
     };
-  }, []);
+  }, [musicSrc, musicVolume]);
 
   const play = useCallback(async () => {
     if (!audioRef.current || !available || loading) return false;

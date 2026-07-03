@@ -6,9 +6,12 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { variants } from "@/variants/registry";
 import VariantLikeButton from "@/shared/components/VariantLikeButton";
 import CreatorFooter from "@/shared/components/CreatorFooter";
-import WeddingMusicButton from "@/shared/components/WeddingMusicButton";
+import InvitationControls from "@/shared/components/InvitationControls";
+import CardMusicToggle from "@/shared/components/CardMusicToggle";
+import LocaleShell from "@/shared/components/LocaleShell";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
+import { useLocale } from "@/shared/i18n/LocaleContext";
 
 type LikeCounts = Record<string, number>;
 type SortMode = "number" | "likes";
@@ -29,6 +32,8 @@ function VariantCard({
   index,
   lite,
   onLikeChange,
+  activeMusicCardId,
+  onMusicActivate,
 }: {
   variant: (typeof variants)[number];
   likeCount: number;
@@ -36,7 +41,10 @@ function VariantCard({
   index: number;
   lite: boolean;
   onLikeChange: (count: number) => void;
+  activeMusicCardId: string | null;
+  onMusicActivate: (cardId: string | null) => void;
 }) {
+  const { t } = useLocale();
   const ref = useRef<HTMLElement>(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -68,6 +76,12 @@ function VariantCard({
     >
       <div className="dashboard-card-border h-full overflow-hidden">
         <div className="dashboard-card-inner wow-card-interactive relative h-full overflow-hidden border border-white/5">
+          <CardMusicToggle
+            cardId={variant.id}
+            accent={variant.accent}
+            activeCardId={activeMusicCardId}
+            onActivate={onMusicActivate}
+          />
           <div className="dashboard-card-shine pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           <div
             className={`pointer-events-none absolute inset-0 bg-gradient-to-br opacity-45 transition-opacity duration-300 group-hover:opacity-75 ${variant.gradient}`}
@@ -102,7 +116,7 @@ function VariantCard({
                 </motion.span>
                 {isTop && (
                   <span className="rounded-full bg-[#c9a84c]/20 px-1.5 py-0.5 text-[9px] uppercase tracking-wider text-[#c9a84c]">
-                    Mashhur
+                    {t("gallery.popular")}
                   </span>
                 )}
                 <span className="truncate text-[10px] text-white/30 sm:hidden">{variant.date}</span>
@@ -140,14 +154,14 @@ function VariantCard({
                     boxShadow: `0 4px 20px ${variant.accent}44`,
                   }}
                 >
-                  Ko&apos;rish
+                  {t("gallery.view")}
                   <motion.span aria-hidden animate={lite ? undefined : { x: [0, 3, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>
                     →
                   </motion.span>
                 </Link>
               ) : (
                 <span className="shrink-0 rounded-full border border-white/15 px-3 py-1.5 text-xs text-white/35">
-                  Tez orada
+                  {t("gallery.soon")}
                 </span>
               )}
             </div>
@@ -158,11 +172,13 @@ function VariantCard({
   );
 }
 
-export default function VariantGallery() {
+function VariantGalleryInner() {
   const lite = useLiteMode();
+  const { t } = useLocale();
   const [likes, setLikes] = useState<LikeCounts>({});
   const [sort, setSort] = useState<SortMode>("number");
   const [loaded, setLoaded] = useState(false);
+  const [activeMusicCardId, setActiveMusicCardId] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/likes")
@@ -198,7 +214,7 @@ export default function VariantGallery() {
 
   return (
     <main className="dashboard-gallery relative min-h-screen overflow-x-clip bg-[#0a0908] text-white">
-      <WeddingMusicButton accent="#c9a84c" />
+      <InvitationControls accent="#c9a84c" />
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="dashboard-orb absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-[#c9a84c]/10 blur-3xl sm:h-80 sm:w-80" />
         <div className="dashboard-orb dashboard-orb-delay absolute right-[-2rem] top-1/4 h-40 w-40 rounded-full bg-red-900/20 blur-2xl sm:h-56 sm:w-56" />
@@ -255,11 +271,11 @@ export default function VariantGallery() {
           className="mb-4 flex items-center justify-center gap-2 sm:mb-5 sm:gap-3"
         >
           {[
-            { value: variants.length, label: "Variant" },
-            { value: totalLikes, label: "Yoqtirish" },
+            { value: variants.length, label: t("gallery.stat.variants") },
+            { value: totalLikes, label: t("gallery.stat.likes") },
             {
               value: topVariant && (likes[topVariant.id] ?? 0) > 0 ? `#${topVariant.number}` : "—",
-              label: "Mashhur",
+              label: t("gallery.stat.popular"),
             },
           ].map((stat) => (
             <motion.div
@@ -274,7 +290,7 @@ export default function VariantGallery() {
         </motion.div>
 
         <div className="mb-3 flex items-center justify-between gap-2 sm:mb-4">
-          <p className="text-xs text-white/40 sm:text-sm">Variantlar</p>
+          <p className="text-xs text-white/40 sm:text-sm">{t("gallery.variants")}</p>
           <div className="flex rounded-full border border-white/10 bg-white/5 p-0.5 text-[10px] sm:text-xs">
             <button
               type="button"
@@ -283,7 +299,7 @@ export default function VariantGallery() {
                 sort === "number" ? "bg-[#c9a84c] text-black" : "text-white/50 hover:text-white/80"
               }`}
             >
-              Raqam
+              {t("gallery.sort.number")}
             </button>
             <button
               type="button"
@@ -292,7 +308,7 @@ export default function VariantGallery() {
                 sort === "likes" ? "bg-[#c9a84c] text-black" : "text-white/50 hover:text-white/80"
               }`}
             >
-              Yoqtirish
+              {t("gallery.sort.likes")}
             </button>
           </div>
         </div>
@@ -307,6 +323,8 @@ export default function VariantGallery() {
               index={i}
               lite={lite}
               onLikeChange={(count) => setLikes((prev) => ({ ...prev, [variant.id]: count }))}
+              activeMusicCardId={activeMusicCardId}
+              onMusicActivate={setActiveMusicCardId}
             />
           ))}
         </div>
@@ -314,5 +332,13 @@ export default function VariantGallery() {
 
       <CreatorFooter theme="dashboard" className="mt-8 sm:mt-10" />
     </main>
+  );
+}
+
+export default function VariantGallery() {
+  return (
+    <LocaleShell>
+      <VariantGalleryInner />
+    </LocaleShell>
   );
 }

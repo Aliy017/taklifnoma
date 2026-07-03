@@ -7,7 +7,7 @@ import { variant10Config as variant10ConfigBase } from "../config";
 import SuzaniDivider from "./SuzaniDivider";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
-import { INVITE_JOURNEY } from "@/shared/config/invite-copy";
+import { useInviteCopy } from "@/shared/config/invite-copy";
 
 const spring = { type: "spring" as const, stiffness: 200, damping: 20 };
 
@@ -15,6 +15,7 @@ export default function Hero() {
   const variant10Config = useVariantConfig(variant10ConfigBase);
   const lite = useLiteMode();
   const { groom, bride, displayDate, weddingType } = variant10Config;
+  const { inviteJourney } = useInviteCopy();
 
   const gumbaz = (
     <div className={lite ? "" : "v10-float-gumbaz"}>
@@ -72,7 +73,7 @@ export default function Hero() {
           </SparkleHeading>
           <SuzaniDivider className="mx-auto max-w-xs" />
           <p className="mx-auto max-w-md text-base leading-relaxed v10-coral-text sm:text-lg">
-            {INVITE_JOURNEY}
+            {inviteJourney}
           </p>
           <p className="text-sm font-medium text-[#D4AF37]">{displayDate}</p>
         </motion.div>

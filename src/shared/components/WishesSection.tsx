@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState, FormEvent } from "react";
 import { motion } from "framer-motion";
 import type { Wish, WishSide } from "@/shared/types/wish";
-import { WISH_SIDE_LABELS } from "@/shared/types/wish";
+import { useLocale } from "@/shared/i18n/LocaleContext";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import WishLikeButton from "@/shared/components/WishLikeButton";
@@ -253,6 +253,7 @@ function WishCard({
   onLike,
   onDelete,
   deleting,
+  sideLabel,
 }: {
   wish: Wish;
   rank: number;
@@ -262,7 +263,9 @@ function WishCard({
   onLike: (id: string, likes: number) => void;
   onDelete: (id: string) => void;
   deleting: boolean;
+  sideLabel: string;
 }) {
+  const { t } = useLocale();
   const isFeatured = rank <= 3 && wish.likes > 0;
   const cardClass = isFeatured ? theme.wishCardTop : theme.wishCard;
 
@@ -283,7 +286,7 @@ function WishCard({
             </span>
           )}
           <span className={theme.name}>{wish.name}</span>
-          <span className={theme.sideTag}>{WISH_SIDE_LABELS[wish.side]}</span>
+          <span className={theme.sideTag}>{sideLabel}</span>
         </div>
         <div className="flex shrink-0 items-center gap-1.5">
           {moderator && (
@@ -293,7 +296,7 @@ function WishCard({
               disabled={deleting}
               className="rounded-full border border-red-400/40 bg-red-500/10 px-2.5 py-1 text-[10px] font-medium text-red-600 transition hover:bg-red-500/20 disabled:opacity-50 sm:text-xs"
             >
-              {deleting ? "..." : "O'chirish"}
+              {deleting ? "..." : t("wishes.delete")}
             </button>
           )}
           <WishLikeButton
@@ -334,7 +337,8 @@ export default function WishesSection({
 }) {
   const lite = useLiteMode();
   const clientSlug = useClientSlug();
-  const t = themes[theme];
+  const { t } = useLocale();
+  const tTheme = themes[theme];
   const [wishes, setWishes] = useState<Wish[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -360,10 +364,16 @@ export default function WishesSection({
     setModerator(readModeratorMode());
   }, [loadWishes]);
 
+  const sideLabels: Record<WishSide, string> = {
+    groom: t("wishes.side.groom"),
+    bride: t("wishes.side.bride"),
+    general: t("wishes.side.general"),
+  };
+
   function toggleModerator(on: boolean) {
     setModerator(on);
     saveModeratorMode(on);
-    setModNotice(on ? "Moderatsiya yoqildi — tabriklarni o'chirishingiz mumkin" : "Moderatsiya o'chirildi");
+    setModNotice(on ? t("wishes.moderationOn") : t("wishes.moderationOff"));
     setTimeout(() => setModNotice(""), 4000);
   }
 
@@ -375,7 +385,7 @@ export default function WishesSection({
   }
 
   async function handleDelete(id: string) {
-    if (!confirm("Bu tabrikni o'chirasizmi?")) return;
+    if (!confirm(t("wishes.deleteConfirm"))) return;
 
     setDeletingId(id);
     setDeleteError("");
@@ -392,7 +402,7 @@ export default function WishesSection({
     }
 
     const data = (await res.json().catch(() => null)) as { error?: string } | null;
-    setDeleteError(data?.error ?? "O'chirib bo'lmadi");
+    setDeleteError(data?.error ?? t("wishes.deleteFailed"));
   }
 
   async function handleSubmit(e: FormEvent) {
@@ -417,7 +427,7 @@ export default function WishesSection({
       setSent(true);
       setForm({ name: "", side: "general", message: "" });
       if (clientSlug) {
-        setModNotice("Tabrigingiz yuborildi — moderatsiyadan o'tgach ko'rinadi");
+        setModNotice(t("wishes.pendingNotice"));
         setTimeout(() => setModNotice(""), 4000);
       } else {
         await loadWishes();
@@ -432,47 +442,47 @@ export default function WishesSection({
   return (
     <section
       id={embedded ? undefined : "tabriklar"}
-      className={embedded ? undefined : `mobile-section scroll-mt-20 ${t.section}`}
+      className={embedded ? undefined : `mobile-section scroll-mt-20 ${tTheme.section}`}
     >
       <div className={embedded ? "" : "mx-auto max-w-2xl"}>
         {!embedded && (
         <div className="mb-8 text-center sm:mb-10">
-          <p className={t.label}>Tabriklar</p>
+          <p className={tTheme.label}>{t("wishes.label")}</p>
           <SparkleHeading
             theme={theme as SparkleThemeId}
             as="h2"
             intensity={lite ? "normal" : "high"}
             className="mt-2 text-2xl font-bold sm:text-4xl"
           >
-            Tabriklaringizni qoldiring
+            {t("wishes.title")}
           </SparkleHeading>
-          <p className={`mt-2 text-sm ${t.subtitle}`}>
-            Qalbingizdagi eng iliq so&apos;zlarni shu yerga yozing — tabriklaringiz biz uchun juda qadrli
+          <p className={`mt-2 text-sm ${tTheme.subtitle}`}>
+            {t("wishes.subtitle")}
           </p>
         </div>
         )}
 
         {embedded && (
-          <p className={`mb-6 text-center text-sm ${t.subtitle}`}>
-            Qalbingizdagi eng iliq so&apos;zlarni shu yerga yozing — tabriklaringiz biz uchun juda qadrli
+          <p className={`mb-6 text-center text-sm ${tTheme.subtitle}`}>
+            {t("wishes.subtitle")}
           </p>
         )}
 
-        <div className={`mb-8 sm:mb-10 ${t.card}`}>
+        <div className={`mb-8 sm:mb-10 ${tTheme.card}`}>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className={`mb-1 block text-sm ${t.subtitle}`}>Ismingiz</label>
+              <label className={`mb-1 block text-sm ${tTheme.subtitle}`}>{t("wishes.name")}</label>
               <input
                 required
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                placeholder="To'liq ism"
-                className={t.input}
+                placeholder={t("wishes.namePlaceholder")}
+                className={tTheme.input}
               />
             </div>
 
             <div>
-              <label className={`mb-2 block text-sm ${t.subtitle}`}>Kim tomondan (ixtiyoriy)</label>
+              <label className={`mb-2 block text-sm ${tTheme.subtitle}`}>{t("wishes.side")}</label>
               <div className="flex flex-wrap gap-2">
                 {(["general", "groom", "bride"] as WishSide[]).map((side) => (
                   <button
@@ -480,33 +490,33 @@ export default function WishesSection({
                     type="button"
                     onClick={() => setForm({ ...form, side })}
                     className={`rounded-full px-4 py-2 text-xs font-medium transition ${
-                      form.side === side ? t.buttonActive : t.button
+                      form.side === side ? tTheme.buttonActive : tTheme.button
                     }`}
                   >
-                    {WISH_SIDE_LABELS[side]}
+                    {sideLabels[side]}
                   </button>
                 ))}
               </div>
             </div>
 
             <div>
-              <label className={`mb-1 block text-sm ${t.subtitle}`}>Tabrik</label>
+              <label className={`mb-1 block text-sm ${tTheme.subtitle}`}>{t("wishes.message")}</label>
               <textarea
                 required
                 rows={3}
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
-                placeholder="Yangi turmush qurganlarga tabriklar..."
-                className={`${t.input} resize-none`}
+                placeholder={t("wishes.messagePlaceholder")}
+                className={`${tTheme.input} resize-none`}
               />
             </div>
 
             <button
               type="submit"
               disabled={submitting}
-              className={`w-full rounded-full py-3.5 font-medium transition disabled:opacity-60 ${t.buttonActive}`}
+              className={`w-full rounded-full py-3.5 font-medium transition disabled:opacity-60 ${tTheme.buttonActive}`}
             >
-              {submitting ? "Yuborilmoqda..." : "Tabrik yuborish"}
+              {submitting ? t("wishes.submitting") : t("wishes.submit")}
             </button>
 
             {formError && <p className="text-center text-sm text-red-600">{formError}</p>}
@@ -515,44 +525,44 @@ export default function WishesSection({
 
             {moderator && (
               <p className="text-center text-xs text-red-600/80">
-                Moderatsiya faol — haqoratli tabriklarni o&apos;chiring
+                {t("wishes.moderationActive")}
                 <button
                   type="button"
                   onClick={() => toggleModerator(false)}
                   className="ml-2 underline underline-offset-2"
                 >
-                  Yopish
+                  {t("wishes.moderationClose")}
                 </button>
               </p>
             )}
 
             {sent &&
               (lite ? (
-                <p className={`text-center text-sm ${t.success}`}>Rahmat! Tabrigingiz qabul qilindi</p>
+                <p className={`text-center text-sm ${tTheme.success}`}>{t("wishes.success")}</p>
               ) : (
                 <motion.p
                   initial={{ opacity: 0, y: -5 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`text-center text-sm ${t.success}`}
+                  className={`text-center text-sm ${tTheme.success}`}
                 >
-                  Rahmat! Tabrigingiz qabul qilindi
+                  {t("wishes.success")}
                 </motion.p>
               ))}
           </form>
         </div>
 
         <div className="wishes-luxury-panel">
-          <div className={`wishes-luxury-inner ${t.card} !rounded-[calc(1.25rem-1px)] p-4 sm:p-5`}>
+          <div className={`wishes-luxury-inner ${tTheme.card} !rounded-[calc(1.25rem-1px)] p-4 sm:p-5`}>
             <SparkleHeading
               theme={theme as SparkleThemeId}
               as="h3"
               sparkles={false}
               className="mb-1 text-center text-lg font-semibold sm:text-xl"
             >
-              So&apos;nggi tabriklar
+              {t("wishes.recent")}
             </SparkleHeading>
-            <p className={`mb-4 text-center text-xs ${t.meta}`}>
-              Mehmonlar tabriklari — eng ko&apos;p yoqtirilganlari birinchi
+            <p className={`mb-4 text-center text-xs ${tTheme.meta}`}>
+              {t("wishes.recentHint")}
             </p>
 
             {deleteError && (
@@ -561,15 +571,15 @@ export default function WishesSection({
 
             {moderator && (
               <p className="mb-3 text-center text-[10px] uppercase tracking-wider text-red-500/70">
-                Moderatsiya rejimi
+                {t("wishes.moderationActive")}
               </p>
             )}
 
             {loading ? (
-              <p className={`text-center text-sm ${t.meta}`}>Yuklanmoqda...</p>
+              <p className={`text-center text-sm ${tTheme.meta}`}>{t("wishes.loading")}</p>
             ) : displayWishes.length === 0 ? (
-              <p className={`text-center text-sm ${t.meta}`}>
-                Hali tabrik yo&apos;q — birinchi bo&apos;lib tabrik qoldiring!
+              <p className={`text-center text-sm ${tTheme.meta}`}>
+                {t("wishes.empty")}
               </p>
             ) : (
               <div className="max-h-[460px] space-y-3 overflow-y-auto pr-0.5 sm:pr-1">
@@ -578,12 +588,13 @@ export default function WishesSection({
                     key={wish.id}
                     wish={wish}
                     rank={i + 1}
-                    theme={t}
+                    theme={tTheme}
                     lite={lite}
                     moderator={moderator}
                     onLike={handleLikeUpdate}
                     onDelete={handleDelete}
                     deleting={deletingId === wish.id}
+                    sideLabel={sideLabels[wish.side]}
                   />
                 ))}
               </div>

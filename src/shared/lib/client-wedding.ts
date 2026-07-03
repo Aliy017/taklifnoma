@@ -79,9 +79,12 @@ export function clientToWeddingConfig(client: InvitationClient): DynamicWeddingC
   };
 }
 
+import type { LocaleId } from "@/shared/i18n/types";
+
 export interface ClientWeddingContextValue {
   clientId: string;
   clientSlug: string;
+  defaultLocale: LocaleId;
   wedding: DynamicWeddingConfig;
 }
 
@@ -89,6 +92,7 @@ export function buildClientContext(client: InvitationClient): ClientWeddingConte
   return {
     clientId: client.id,
     clientSlug: client.slug,
+    defaultLocale: client.defaultLocale ?? "uz-latin",
     wedding: clientToWeddingConfig(client),
   };
 }

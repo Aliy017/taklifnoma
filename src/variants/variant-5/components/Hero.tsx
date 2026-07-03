@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { variant5Config as variant5ConfigBase } from "../config";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
-import { INVITE_WEDDING } from "@/shared/config/invite-copy";
+import { useInviteCopy } from "@/shared/config/invite-copy";
 
 const spring = { type: "spring" as const, stiffness: 200, damping: 18 };
 
@@ -14,6 +14,7 @@ export default function Hero() {
   const variant5Config = useVariantConfig(variant5ConfigBase);
   const lite = useLiteMode();
   const { groom, bride, displayDate, weddingType } = variant5Config;
+  const { inviteWedding } = useInviteCopy();
 
   const frame = (
     <div className="v5-float-3d mx-auto">
@@ -76,7 +77,7 @@ export default function Hero() {
           <div className="v5-divider mx-auto max-w-xs" />
 
           <p className="mx-auto max-w-md text-base leading-relaxed text-[#6b7a45] sm:text-lg">
-            {INVITE_WEDDING}
+            {inviteWedding}
           </p>
           <p className="text-sm text-[#C9A087]">{displayDate}</p>
         </div>

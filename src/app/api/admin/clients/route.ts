@@ -38,6 +38,8 @@ export async function POST(request: NextRequest) {
       locationAddress: body.locationAddress ? String(body.locationAddress) : undefined,
       audioUrl: String(body.audioUrl ?? ""),
       templateId: body.templateId,
+      defaultLocale: body.defaultLocale,
+      slugScript: body.slugScript,
       active: body.active !== false,
     });
     return NextResponse.json(client, { status: 201 });
@@ -64,6 +66,8 @@ export async function PATCH(request: NextRequest) {
       locationAddress: body.locationAddress ? String(body.locationAddress) : undefined,
       audioUrl: String(body.audioUrl ?? ""),
       templateId: body.templateId,
+      defaultLocale: body.defaultLocale,
+      slugScript: body.slugScript,
       active: body.active !== false,
     });
     return NextResponse.json(client);

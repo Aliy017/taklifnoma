@@ -8,7 +8,7 @@ interface ClientTableProps {
   clients: AdminClient[];
   onEdit: (client: AdminClient) => void;
   onDelete: (id: string) => void;
-  onCopyLink: (slug: string) => void;
+  onCopyLink: (slug: string, defaultLocale?: string) => void;
 }
 
 export default function ClientTable({ clients, onEdit, onDelete, onCopyLink }: ClientTableProps) {
@@ -64,7 +64,7 @@ export default function ClientTable({ clients, onEdit, onDelete, onCopyLink }: C
                     </button>
                     <button
                       type="button"
-                      onClick={() => onCopyLink(client.slug)}
+                      onClick={() => onCopyLink(client.slug, client.defaultLocale)}
                       className="rounded-lg p-2 text-[#c9a84c] hover:bg-[#c9a84c]/10"
                       title="Link nusxalash"
                     >

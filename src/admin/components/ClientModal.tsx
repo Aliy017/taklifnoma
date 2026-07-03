@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import GlassModal from "./GlassModal";
 import type { AdminClient, ClientFormData, TemplateId } from "../types";
-import { TEMPLATE_OPTIONS } from "../types";
+import { LOCALE_OPTIONS, SLUG_SCRIPT_OPTIONS, TEMPLATE_OPTIONS } from "../types";
+import { slugify } from "@/shared/lib/slugify";
 
 const emptyForm: ClientFormData = {
   groomName: "",
@@ -14,6 +15,8 @@ const emptyForm: ClientFormData = {
   locationMapUrl: "",
   audioUrl: "",
   templateId: "variant-6",
+  defaultLocale: "uz-latin",
+  slugScript: "latin",
 };
 
 interface ClientModalProps {
@@ -26,6 +29,13 @@ interface ClientModalProps {
 export default function ClientModal({ open, onClose, onSave, editing }: ClientModalProps) {
   const [form, setForm] = useState<ClientFormData>(emptyForm);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [localeOpen, setLocaleOpen] = useState(false);
+  const [slugOpen, setSlugOpen] = useState(false);
+
+  const slugPreview =
+    form.groomName.trim() && form.brideName.trim()
+      ? slugify(form.groomName.trim(), form.brideName.trim(), form.slugScript)
+      : "—";
 
   useEffect(() => {
     if (editing) {
@@ -37,11 +47,15 @@ export default function ClientModal({ open, onClose, onSave, editing }: ClientMo
         locationMapUrl: editing.locationMapUrl,
         audioUrl: editing.audioUrl,
         templateId: editing.templateId,
+        defaultLocale: editing.defaultLocale ?? "uz-latin",
+        slugScript: editing.slugScript ?? "latin",
       });
     } else {
       setForm(emptyForm);
     }
     setDropdownOpen(false);
+    setLocaleOpen(false);
+    setSlugOpen(false);
   }, [editing, open]);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -55,6 +69,8 @@ export default function ClientModal({ open, onClose, onSave, editing }: ClientMo
   }
 
   const selectedTemplate = TEMPLATE_OPTIONS.find((t) => t.id === form.templateId);
+  const selectedLocale = LOCALE_OPTIONS.find((l) => l.id === form.defaultLocale);
+  const selectedSlugScript = SLUG_SCRIPT_OPTIONS.find((s) => s.id === form.slugScript);
 
   return (
     <GlassModal open={open} onClose={onClose} title={editing ? "Mijozni tahrirlash" : "Yangi mijoz"} wide>
@@ -123,6 +139,75 @@ export default function ClientModal({ open, onClose, onSave, editing }: ClientMo
             onChange={(e) => setForm({ ...form, audioUrl: e.target.value })}
             placeholder="/music/sokinlik.m4a"
           />
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="relative">
+            <label className="mb-1.5 block text-xs font-medium text-slate-500">Til (link uchun)</label>
+            <button
+              type="button"
+              onClick={() => setLocaleOpen((v) => !v)}
+              className="admin-input flex items-center justify-between text-left"
+            >
+              <span className="truncate text-sm">{selectedLocale?.label ?? "Tanlang"}</span>
+              <ChevronDown className={`h-4 w-4 shrink-0 transition ${localeOpen ? "rotate-180" : ""}`} />
+            </button>
+            {localeOpen && (
+              <div className="admin-glass absolute left-0 right-0 z-20 mt-1 overflow-hidden rounded-xl border border-slate-200/80 p-1 shadow-xl">
+                {LOCALE_OPTIONS.map((opt) => (
+                  <button
+                    key={opt.id}
+                    type="button"
+                    onClick={() => {
+                      setForm({ ...form, defaultLocale: opt.id });
+                      setLocaleOpen(false);
+                    }}
+                    className={`w-full rounded-lg px-3 py-2.5 text-left text-sm transition hover:bg-slate-50 ${
+                      form.defaultLocale === opt.id ? "bg-[#0f2744]/8 font-medium text-[#0f2744]" : "text-slate-600"
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="relative">
+            <label className="mb-1.5 block text-xs font-medium text-slate-500">Slug yozuvi</label>
+            <button
+              type="button"
+              onClick={() => setSlugOpen((v) => !v)}
+              className="admin-input flex items-center justify-between text-left"
+            >
+              <span className="truncate text-sm">{selectedSlugScript?.label ?? "Tanlang"}</span>
+              <ChevronDown className={`h-4 w-4 shrink-0 transition ${slugOpen ? "rotate-180" : ""}`} />
+            </button>
+            {slugOpen && (
+              <div className="admin-glass absolute left-0 right-0 z-20 mt-1 overflow-hidden rounded-xl border border-slate-200/80 p-1 shadow-xl">
+                {SLUG_SCRIPT_OPTIONS.map((opt) => (
+                  <button
+                    key={opt.id}
+                    type="button"
+                    onClick={() => {
+                      setForm({ ...form, slugScript: opt.id });
+                      setSlugOpen(false);
+                    }}
+                    className={`w-full rounded-lg px-3 py-2.5 text-left text-sm transition hover:bg-slate-50 ${
+                      form.slugScript === opt.id ? "bg-[#0f2744]/8 font-medium text-[#0f2744]" : "text-slate-600"
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-slate-200/80 bg-slate-50/80 px-3 py-2.5">
+          <p className="text-[10px] uppercase tracking-wider text-slate-400">Slug ko&apos;rinishi</p>
+          <p className="mt-0.5 font-mono text-sm text-[#0f2744]">/{slugPreview}</p>
         </div>
 
         <div className="relative">

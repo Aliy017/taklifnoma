@@ -10,7 +10,7 @@ interface ClientCardProps {
   index: number;
   onEdit: (client: AdminClient) => void;
   onDelete: (id: string) => void;
-  onCopyLink: (slug: string) => void;
+  onCopyLink: (slug: string, defaultLocale?: string) => void;
 }
 
 export default function ClientCard({ client, index, onEdit, onDelete, onCopyLink }: ClientCardProps) {
@@ -63,7 +63,7 @@ export default function ClientCard({ client, index, onEdit, onDelete, onCopyLink
         </button>
         <button
           type="button"
-          onClick={() => onCopyLink(client.slug)}
+          onClick={() => onCopyLink(client.slug, client.defaultLocale)}
           className="flex min-h-[40px] items-center justify-center gap-1 rounded-xl border border-[#c9a84c]/30 text-xs font-medium text-[#a68b3c] hover:bg-[#c9a84c]/8"
         >
           <Copy className="h-3.5 w-3.5" />

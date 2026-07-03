@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { variant8Config as variant8ConfigBase } from "../config";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import SparkleHeading from "@/shared/components/SparkleHeading";
-import { inviteHearts } from "@/shared/config/invite-copy";
+import { useInviteCopy } from "@/shared/config/invite-copy";
 
 const spring = { type: "spring" as const, stiffness: 200, damping: 22 };
 
@@ -14,6 +14,7 @@ export default function Hero() {
   const variant8Config = useVariantConfig(variant8ConfigBase);
   const lite = useLiteMode();
   const { groom, bride, displayDate, weddingType } = variant8Config;
+  const { inviteHearts } = useInviteCopy();
 
   const avatar = (
     <div className="relative mx-auto" style={{ perspective: 800 }}>

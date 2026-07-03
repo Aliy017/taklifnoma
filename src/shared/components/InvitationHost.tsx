@@ -4,6 +4,7 @@ import { useEffect, type ComponentType } from "react";
 import type { ClientWeddingContextValue } from "@/shared/lib/client-wedding";
 import type { TemplateId } from "@/admin/types";
 import { WeddingProvider } from "@/shared/context/WeddingContext";
+import LocaleShell from "@/shared/components/LocaleShell";
 
 import Variant1Page from "@/variants/variant-1";
 import Variant2Page from "@/variants/variant-2";
@@ -53,8 +54,10 @@ export default function InvitationHost({ context, templateId }: InvitationHostPr
   }, [context.clientSlug]);
 
   return (
-    <WeddingProvider value={context}>
-      <Page />
-    </WeddingProvider>
+    <LocaleShell defaultLocale={context.defaultLocale}>
+      <WeddingProvider value={context}>
+        <Page />
+      </WeddingProvider>
+    </LocaleShell>
   );
 }

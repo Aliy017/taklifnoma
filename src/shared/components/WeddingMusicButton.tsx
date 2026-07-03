@@ -1,10 +1,12 @@
 "use client";
 
 import { useWeddingMusic } from "@/shared/hooks/useWeddingMusic";
+import { useLocale } from "@/shared/i18n/LocaleContext";
 
 interface WeddingMusicButtonProps {
   accent?: string;
   className?: string;
+  variant?: "fixed" | "inline";
 }
 
 function NoteIcon({ color }: { color: string }) {
@@ -40,7 +42,9 @@ function EqualizerBars({ color }: { color: string }) {
 export default function WeddingMusicButton({
   accent = "#c9a84c",
   className = "",
+  variant = "fixed",
 }: WeddingMusicButtonProps) {
+  const { t } = useLocale();
   const { playing, available, loading, play, stop } = useWeddingMusic();
 
   if (!available) return null;
@@ -50,9 +54,14 @@ export default function WeddingMusicButton({
     else void play();
   };
 
+  const wrapClass =
+    variant === "fixed"
+      ? `wedding-music-wrap fixed right-3 top-3 z-[100] sm:right-4 sm:top-4 ${className}`
+      : `wedding-music-wrap ${className}`;
+
   return (
     <div
-      className={`wedding-music-wrap fixed right-3 top-3 z-[100] sm:right-4 sm:top-4 ${className}`}
+      className={wrapClass}
       style={
         {
           "--wm-accent": accent,
@@ -65,8 +74,8 @@ export default function WeddingMusicButton({
         onClick={handleClick}
         disabled={loading}
         className={`wedding-music-btn mobile-touch ${playing ? "wedding-music-btn--live" : ""}`}
-        aria-label={playing ? "Musiqani o'chirish" : "Musiqani yoqish"}
-        title={playing ? "O'chirish" : "Fon musiqasi"}
+        aria-label={playing ? t("music.unmute") : t("music.mute")}
+        title={playing ? t("music.stop") : t("music.play")}
       >
         <span className="wedding-music-btn-glow" aria-hidden />
         <span className="wedding-music-btn-ring" aria-hidden />
@@ -85,7 +94,7 @@ export default function WeddingMusicButton({
           type="button"
           onClick={stop}
           className="wedding-music-stop mobile-touch"
-          aria-label="Musiqani o'chirish"
+          aria-label={t("music.stop")}
         >
           ×
         </button>

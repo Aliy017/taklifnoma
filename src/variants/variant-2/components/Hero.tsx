@@ -4,11 +4,12 @@ import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 import { variant2Config as variant2ConfigBase } from "../config";
 import CouplePortrait from "@/shared/components/CouplePortrait";
 import SparkleHeading from "@/shared/components/SparkleHeading";
-import { INVITE_JOURNEY } from "@/shared/config/invite-copy";
+import { useInviteCopy } from "@/shared/config/invite-copy";
 
 export default function Hero() {
   const variant2Config = useVariantConfig(variant2ConfigBase);
   const { groom, bride, displayDate, displayTimeLabel, weddingType } = variant2Config;
+  const { inviteJourney } = useInviteCopy();
 
   return (
     <section className="relative overflow-hidden px-4 pb-24 pt-16 sm:pt-20">
@@ -29,7 +30,7 @@ export default function Hero() {
           </SparkleHeading>
           <div className="v2-divider mx-auto my-6 max-w-xs lg:mx-0" />
           <p className="mx-auto max-w-md text-base leading-relaxed text-[#c0c8d4]/80 lg:mx-0">
-            {INVITE_JOURNEY}
+            {inviteJourney}
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-6 lg:justify-start">
             <div className="rounded-full border border-[#c0c8d4]/30 bg-[#132a4f]/50 px-5 py-2 text-sm text-white">

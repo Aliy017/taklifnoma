@@ -1,4 +1,5 @@
 import type { TemplateId } from "@/admin/types";
+import type { LocaleId, SlugScript } from "@/shared/i18n/types";
 
 export interface InvitationClient {
   id: string;
@@ -12,6 +13,8 @@ export interface InvitationClient {
   locationAddress?: string;
   audioUrl: string;
   templateId: TemplateId;
+  defaultLocale?: LocaleId;
+  slugScript?: SlugScript;
   pageViews: number;
   active: boolean;
   createdAt: string;

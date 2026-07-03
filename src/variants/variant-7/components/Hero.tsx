@@ -7,7 +7,7 @@ import { variant7Config as variant7ConfigBase } from "../config";
 import FloralArchDecor from "./FloralArchDecor";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
-import { INVITE_JOURNEY } from "@/shared/config/invite-copy";
+import { useInviteCopy } from "@/shared/config/invite-copy";
 
 const spring = { type: "spring" as const, stiffness: 200, damping: 20 };
 
@@ -15,6 +15,7 @@ export default function Hero() {
   const variant7Config = useVariantConfig(variant7ConfigBase);
   const lite = useLiteMode();
   const { groom, bride, displayDate, weddingType } = variant7Config;
+  const { inviteJourney } = useInviteCopy();
 
   const arch = (
     <div className="v7-arch relative mx-auto w-full max-w-sm">
@@ -75,7 +76,7 @@ export default function Hero() {
           </SparkleHeading>
           <div className="v7-ikat-divider mx-auto max-w-xs" />
           <p className="mx-auto max-w-md text-base leading-relaxed text-[#8d6b63] sm:text-lg">
-            {INVITE_JOURNEY}
+            {inviteJourney}
           </p>
           <p className="text-sm text-[#C9A087]">{displayDate}</p>
         </motion.div>

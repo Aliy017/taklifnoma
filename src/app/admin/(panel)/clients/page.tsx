@@ -31,9 +31,12 @@ export default function ClientsPage() {
     setModalOpen(true);
   }
 
-  function copyLink(slug: string) {
+  function copyLink(slug: string, defaultLocale?: string) {
     const origin = typeof window !== "undefined" ? window.location.origin : "https://taklifnoma.uz";
-    const url = `${origin}/${slug}`;
+    let url = `${origin}/${slug}`;
+    if (defaultLocale && defaultLocale !== "uz-latin") {
+      url += `?lang=${defaultLocale}`;
+    }
     navigator.clipboard.writeText(url).then(() => showToast("Link nusxalandi!"));
   }
 

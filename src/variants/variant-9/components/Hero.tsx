@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { variant9Config as variant9ConfigBase } from "../config";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import SparkleHeading from "@/shared/components/SparkleHeading";
-import { INVITE_WEDDING } from "@/shared/config/invite-copy";
+import { useInviteCopy } from "@/shared/config/invite-copy";
 
 const spring = { type: "spring" as const, stiffness: 200, damping: 20 };
 
@@ -17,6 +17,7 @@ export default function Hero() {
   const variant9Config = useVariantConfig(variant9ConfigBase);
   const lite = useLiteMode();
   const { groom, bride, displayDate, weddingType } = variant9Config;
+  const { inviteWedding } = useInviteCopy();
 
   const arch = (
     <div className={lite ? "" : "v9-float-organic"}>
@@ -98,7 +99,7 @@ export default function Hero() {
           </SparkleHeading>
           <div className="v9-bodom-divider mx-auto max-w-[200px]" />
           <p className="mx-auto max-w-md text-base leading-relaxed text-[#065f46]/80 sm:text-lg">
-            {INVITE_WEDDING}
+            {inviteWedding}
           </p>
           <p className="text-sm text-[#047857]">{displayDate}</p>
         </motion.div>
