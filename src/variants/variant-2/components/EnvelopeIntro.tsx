@@ -11,63 +11,61 @@ interface EnvelopeIntroProps {
   onOpen: () => void;
 }
 
-function HeartSeal({
+function WaxSeal({
   label,
   opening,
   onClick,
 }: {
   label: string;
   opening: boolean;
-  onClick: () => void;
+  onClick: (e: React.MouseEvent) => void;
 }) {
   return (
     <motion.button
       type="button"
       onClick={onClick}
       disabled={opening}
-      className="v2-envelope-seal"
+      className="v2-env-seal"
       aria-label={label}
       animate={
         opening
-          ? { scale: 0, opacity: 0, rotateZ: 20 }
-          : { scale: [1, 1.06, 1], opacity: 1 }
+          ? { scale: 0, opacity: 0, rotateZ: 12 }
+          : { scale: 1, opacity: 1 }
       }
-      transition={
-        opening
-          ? { duration: 0.45, ease: [0.4, 0, 0.2, 1] }
-          : { duration: 2.4, repeat: Infinity, ease: "easeInOut" }
-      }
-      whileHover={opening ? undefined : { scale: 1.08 }}
-      whileTap={opening ? undefined : { scale: 0.96 }}
+      transition={opening ? { duration: 0.4 } : { duration: 0.3 }}
+      whileHover={opening ? undefined : { scale: 1.05, translateZ: 8 }}
+      whileTap={opening ? undefined : { scale: 0.97 }}
     >
-      <span className="v2-envelope-seal-glow" aria-hidden />
-      <svg viewBox="0 0 120 110" className="v2-envelope-heart" aria-hidden>
-        <defs>
-          <linearGradient id="v2HeartFill" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#ff8fab" />
-            <stop offset="45%" stopColor="#e63956" />
-            <stop offset="100%" stopColor="#9f1239" />
-          </linearGradient>
-          <linearGradient id="v2HeartShine" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="rgba(255,255,255,0.55)" />
-            <stop offset="100%" stopColor="rgba(255,255,255,0)" />
-          </linearGradient>
-          <filter id="v2HeartShadow" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#ff4d6d" floodOpacity="0.45" />
-          </filter>
-        </defs>
-        <path
-          filter="url(#v2HeartShadow)"
-          d="M60 98 C60 98 8 62 8 34 C8 18 20 8 34 8 C46 8 56 16 60 26 C64 16 74 8 86 8 C100 8 112 18 112 34 C112 62 60 98 60 98 Z"
-          fill="url(#v2HeartFill)"
-        />
-        <path
-          d="M60 98 C60 98 8 62 8 34 C8 18 20 8 34 8 C46 8 56 16 60 26 C64 16 74 8 86 8 C100 8 112 18 112 34 C112 62 60 98 60 98 Z"
-          fill="url(#v2HeartShine)"
-          opacity="0.35"
-        />
-      </svg>
-      <span className="v2-envelope-open-label">{label}</span>
+      <span className="v2-env-seal-halo" aria-hidden />
+      <span className="v2-env-seal-disc" aria-hidden>
+        <svg viewBox="0 0 100 92" className="v2-env-seal-heart" aria-hidden>
+          <defs>
+            <radialGradient id="v2Wax" cx="38%" cy="32%" r="68%">
+              <stop offset="0%" stopColor="#ff7b96" />
+              <stop offset="50%" stopColor="#d62850" />
+              <stop offset="100%" stopColor="#7a1230" />
+            </radialGradient>
+            <radialGradient id="v2WaxShine" cx="35%" cy="25%" r="50%">
+              <stop offset="0%" stopColor="#fff" />
+              <stop offset="100%" stopColor="transparent" />
+            </radialGradient>
+            <filter id="v2WaxShadow">
+              <feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#000" floodOpacity="0.4" />
+            </filter>
+          </defs>
+          <path
+            filter="url(#v2WaxShadow)"
+            d="M50 86 C50 86 6 58 6 30 C6 14 18 4 32 4 C42 4 48 10 50 18 C52 10 58 4 68 4 C82 4 94 14 94 30 C94 58 50 86 50 86 Z"
+            fill="url(#v2Wax)"
+          />
+          <path
+            d="M50 86 C50 86 6 58 6 30 C6 14 18 4 32 4 C42 4 48 10 50 18 C52 10 58 4 68 4 C82 4 94 14 94 30 C94 58 50 86 50 86 Z"
+            fill="url(#v2WaxShine)"
+            opacity="0.25"
+          />
+        </svg>
+        <span className="v2-env-seal-text">{label}</span>
+      </span>
     </motion.button>
   );
 }
@@ -82,8 +80,16 @@ export default function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
   const handleOpen = useCallback(() => {
     if (opening) return;
     setOpening(true);
-    setTimeout(onOpen, lite ? 900 : 2000);
+    setTimeout(onOpen, lite ? 950 : 2100);
   }, [lite, onOpen, opening]);
+
+  const handleSealClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      handleOpen();
+    },
+    [handleOpen]
+  );
 
   const handleMove = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
@@ -91,57 +97,49 @@ export default function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
       const rect = event.currentTarget.getBoundingClientRect();
       const px = (event.clientX - rect.left) / rect.width - 0.5;
       const py = (event.clientY - rect.top) / rect.height - 0.5;
-      setTilt({ x: py * -10, y: px * 14 });
+      setTilt({ x: py * -8, y: px * 10 });
     },
     [lite, opening]
   );
 
   return (
     <motion.div
-      className="v2-envelope-overlay"
+      className="v2-env-overlay"
       exit={{ opacity: 0 }}
-      transition={{ duration: lite ? 0.4 : 0.8 }}
+      transition={{ duration: lite ? 0.4 : 0.75 }}
     >
       {!lite && (
-        <div className="v2-envelope-aurora" aria-hidden>
-          <span className="v2-envelope-aurora-blob v2-envelope-aurora-blob--a" />
-          <span className="v2-envelope-aurora-blob v2-envelope-aurora-blob--b" />
-        </div>
+        <>
+          <div className="v2-env-vignette" aria-hidden />
+          <div className="v2-env-particles" aria-hidden>
+            {Array.from({ length: 12 }).map((_, i) => (
+              <span
+                key={i}
+                className="v2-env-particle"
+                style={{
+                  left: `${10 + ((i * 19) % 80)}%`,
+                  top: `${8 + ((i * 29) % 84)}%`,
+                  animationDelay: `${i * 0.4}s`,
+                }}
+              />
+            ))}
+          </div>
+        </>
       )}
 
-      {!lite && (
-        <div className="v2-envelope-sparkles" aria-hidden>
-          {Array.from({ length: 18 }).map((_, i) => (
-            <span
-              key={i}
-              className="v2-envelope-sparkle"
-              style={{
-                left: `${8 + ((i * 17) % 84)}%`,
-                top: `${6 + ((i * 23) % 88)}%`,
-                animationDelay: `${i * 0.35}s`,
-              }}
-            />
-          ))}
-        </div>
-      )}
-
-      <div className="v2-envelope-content">
+      <div className="v2-env-layout">
         <motion.p
-          className="v2-envelope-eyebrow"
-          initial={{ opacity: 0, y: 12 }}
+          className="v2-env-kicker"
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.55 }}
         >
           {t("intro.openEnvelope")}
         </motion.p>
 
-        <div
-          className="v2-envelope-stage"
-          onMouseMove={handleMove}
-          onMouseLeave={() => setTilt({ x: 0, y: 0 })}
-        >
+        <div className="v2-env-stage" onMouseMove={handleMove} onMouseLeave={() => setTilt({ x: 0, y: 0 })}>
           <motion.div
-            className="v2-envelope-rig"
+            className="v2-env-rig"
             onClick={handleOpen}
             role="button"
             tabIndex={0}
@@ -153,55 +151,74 @@ export default function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
             }}
             animate={
               opening
-                ? { y: -18, scale: 1.02 }
+                ? { y: -14, scale: 1.015 }
                 : lite
                   ? {}
-                  : { y: [0, -8, 0], rotateX: tilt.x, rotateY: tilt.y }
+                  : {
+                      y: [0, -6, 0],
+                      rotateX: tilt.x,
+                      rotateY: tilt.y,
+                    }
             }
             transition={
               opening
-                ? { duration: 0.55, ease: [0.22, 1, 0.36, 1] }
-                : { y: { duration: 5, repeat: Infinity, ease: "easeInOut" }, rotateX: { duration: 0.35 }, rotateY: { duration: 0.35 } }
+                ? { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
+                : {
+                    y: { duration: 4.5, repeat: Infinity, ease: "easeInOut" },
+                    rotateX: { duration: 0.3 },
+                    rotateY: { duration: 0.3 },
+                  }
             }
           >
-            <div className="v2-envelope-shadow" aria-hidden />
+            <div className="v2-env-floor-shadow" aria-hidden />
 
-            <div className="v2-envelope-body">
-              <div className="v2-envelope-body-shine" aria-hidden />
-              <div className="v2-envelope-body-inner">
-                <p className="v2-envelope-names">
-                  {groom}
-                  <span className="v2-envelope-amp">&amp;</span>
-                  {bride}
-                </p>
-                <div className="v2-envelope-divider" />
-                <p className="v2-envelope-caption">{t("hero.inviteLabel")}</p>
+            {/* Back panel — depth */}
+            <div className="v2-env-back" aria-hidden />
+
+            {/* Pocket / body */}
+            <div className="v2-env-pocket">
+              <div className="v2-env-pocket-texture" aria-hidden />
+              <div className="v2-env-pocket-content">
+                <p className="v2-env-name v2-env-name--groom">{groom}</p>
+                <span className="v2-env-amp" aria-hidden>
+                  &
+                </span>
+                <p className="v2-env-name v2-env-name--bride">{bride}</p>
+                <div className="v2-env-rule" aria-hidden />
+                <p className="v2-env-tag">{t("hero.inviteLabel")}</p>
               </div>
             </div>
 
-            <div className="v2-envelope-fold v2-envelope-fold--left" aria-hidden />
-            <div className="v2-envelope-fold v2-envelope-fold--right" aria-hidden />
+            {/* Side creases */}
+            <div className="v2-env-crease v2-env-crease--l" aria-hidden />
+            <div className="v2-env-crease v2-env-crease--r" aria-hidden />
 
+            {/* Top flap */}
             <motion.div
-              className="v2-envelope-flap-wrap"
-              animate={{ rotateX: opening ? -168 : 0 }}
-              transition={{ duration: lite ? 0.65 : 1.15, ease: [0.22, 1, 0.36, 1] }}
+              className="v2-env-flap-holder"
+              animate={{ rotateX: opening ? -175 : 0 }}
+              transition={{ duration: lite ? 0.7 : 1.2, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="v2-envelope-flap">
-                <div className="v2-envelope-flap-shine" aria-hidden />
+              <div className="v2-env-flap">
+                <div className="v2-env-flap-sheen" aria-hidden />
               </div>
             </motion.div>
 
-            <HeartSeal label={t("intro.open")} opening={opening} onClick={handleOpen} />
+            <WaxSeal label={t("intro.open")} opening={opening} onClick={handleSealClick} />
 
             <AnimatePresence>
               {opening && (
                 <motion.div
-                  className="v2-envelope-letter"
-                  initial={{ y: 28, opacity: 0, rotateX: 12 }}
-                  animate={{ y: -72, opacity: 1, rotateX: 0 }}
-                  transition={{ delay: lite ? 0.15 : 0.35, duration: lite ? 0.55 : 0.85, ease: [0.22, 1, 0.36, 1] }}
+                  className="v2-env-letter"
+                  initial={{ y: 36, opacity: 0, scale: 0.96 }}
+                  animate={{ y: -88, opacity: 1, scale: 1 }}
+                  transition={{
+                    delay: lite ? 0.2 : 0.4,
+                    duration: lite ? 0.6 : 0.9,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                 >
+                  <div className="v2-env-letter-edge" aria-hidden />
                   <p>{t("intro.inviteReveal")}</p>
                 </motion.div>
               )}
