@@ -8,21 +8,23 @@ import ScrollReveal from "./ScrollReveal";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import MapEmbed from "@/shared/components/MapEmbed";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
+import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
 
 const spring = { type: "spring" as const, stiffness: 260, damping: 22 };
 
 export default function Location() {
   const variant7Config = useVariantConfig(variant7ConfigBase);
   const lite = useLiteMode();
+  const { t } = useLocaleOptional();
   const { venue, displayTimeLabel } = variant7Config;
 
   return (
     <section id="location" className="mobile-section relative z-10 px-4 py-16 sm:py-24">
       <ScrollReveal className="mx-auto max-w-3xl">
         <div className="mb-8 text-center">
-          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#C9A087]">Manzil</p>
+          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#C9A087]">{t("nav.location")}</p>
           <SparkleHeading theme="variant-7" as="h2" intensity="high" className="text-2xl font-bold sm:text-4xl">
-            To&apos;y joyi
+            {t("map.title")}
           </SparkleHeading>
           <div className="v7-ikat-divider mx-auto mt-4 max-w-[180px]" />
         </div>
@@ -47,7 +49,7 @@ export default function Location() {
                 transition={spring}
                 className="v7-ikat-btn mt-4 inline-block rounded-full px-5 py-2 text-sm font-medium text-[#5c3d45]"
               >
-                Xaritada ochish →
+                {t("nav.openMap")} →
               </motion.a>
             </div>
             <MapEmbed

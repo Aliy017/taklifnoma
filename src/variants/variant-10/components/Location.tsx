@@ -2,6 +2,7 @@
 import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { variant10Config as variant10ConfigBase } from "../config";
+import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
 import ScrollReveal from "./ScrollReveal";
 import SuzaniDivider from "./SuzaniDivider";
 import SparkleHeading from "@/shared/components/SparkleHeading";
@@ -9,15 +10,16 @@ import MapEmbed from "@/shared/components/MapEmbed";
 
 export default function Location() {
   const variant10Config = useVariantConfig(variant10ConfigBase);
+  const { t } = useLocaleOptional();
   const { venue, displayTimeLabel } = variant10Config;
 
   return (
     <section id="location" className="mobile-section relative z-10 px-4 py-16">
       <ScrollReveal className="mx-auto max-w-3xl">
         <div className="mb-8 text-center">
-          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#D4AF37]">Manzil</p>
+          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#D4AF37]">{t("nav.location")}</p>
           <SparkleHeading theme="variant-10" as="h2" intensity="high" className="text-2xl font-bold sm:text-3xl">
-            To&apos;y joyi
+            {t("map.title")}
           </SparkleHeading>
           <SuzaniDivider className="mx-auto mt-4 max-w-[200px]" />
         </div>
@@ -35,7 +37,7 @@ export default function Location() {
               rel="noopener noreferrer"
               className="mt-3 inline-block rounded-full border border-[#D4AF37]/40 px-5 py-2 text-sm text-[#a68b3c] transition hover:bg-[#D4AF37]/10"
             >
-              Xaritada ochish →
+              {t("nav.openMap")} →
             </a>
           </div>
           <MapEmbed

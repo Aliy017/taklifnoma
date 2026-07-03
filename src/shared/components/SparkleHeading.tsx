@@ -269,7 +269,7 @@ export default function SparkleHeading({
   }, [isVisible]);
 
   const wrapClass = [
-    "sparkle-heading-wrap relative mx-auto w-full max-w-full",
+    "sparkle-heading-wrap relative mx-auto w-fit max-w-full",
     sparkles ? "" : "sparkle-heading-wrap--shimmer",
     premiumMobile ? "sparkle-heading-wrap--premium-mobile" : "",
     isVisible ? "sparkle-heading-wrap--active" : "",

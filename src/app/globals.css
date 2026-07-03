@@ -311,6 +311,84 @@ main,
   }
 }
 
+/* Dashboard — oq tema kartalar */
+.dashboard-card-light {
+  transition: box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dashboard-card-light-border {
+  border-radius: 0.9rem;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(226, 232, 240, 0.9),
+    rgba(201, 168, 76, 0.35),
+    rgba(226, 232, 240, 0.9)
+  );
+  background-size: 200% 200%;
+  transition: background-position 0.6s ease, box-shadow 0.35s ease;
+}
+
+.dashboard-card-light:hover .dashboard-card-light-border {
+  background-position: 100% 100%;
+  box-shadow:
+    0 12px 32px rgba(15, 23, 42, 0.08),
+    0 0 0 1px rgba(201, 168, 76, 0.12);
+}
+
+.dashboard-card-light-inner {
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 4px 16px rgba(15, 23, 42, 0.03);
+  min-height: 9.5rem;
+}
+
+.dashboard-card-light-shine {
+  opacity: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.85) 49%,
+    rgba(201, 168, 76, 0.12) 50%,
+    rgba(255, 255, 255, 0.85) 51%,
+    transparent 62%
+  );
+  background-size: 220% 100%;
+  transition: opacity 0.35s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dashboard-card-light:hover .dashboard-card-light-shine {
+    opacity: 1;
+    animation: dashboard-shimmer 2.2s ease-in-out infinite;
+  }
+
+  .dashboard-card-light-badge {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .dashboard-card-light:hover .dashboard-card-light-badge {
+    box-shadow: 0 4px 18px color-mix(in srgb, currentColor 28%, transparent);
+  }
+}
+
+@media (min-width: 640px) {
+  .dashboard-card-light-border {
+    border-radius: 1rem;
+  }
+
+  .dashboard-card-light-inner {
+    min-height: 10rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-card-light-shine {
+    animation: none !important;
+  }
+}
+
 /* Tabriklar — luxury ko'rinish */
 .wishes-luxury-panel {
   position: relative;
@@ -578,19 +656,34 @@ main,
   width: 1.75rem;
   height: 1.75rem;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--wm-accent) 6%, rgba(255, 255, 255, 0.92));
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(10px);
 }
 
-.variant-2 .wedding-music-btn-core,
-.variant-4 .wedding-music-btn-core,
-.variant-6 .wedding-music-btn-core,
-.variant-8 .wedding-music-btn-core,
-.variant-10 .wedding-music-btn-core,
-.dashboard-gallery .wedding-music-btn-core {
+.wedding-music-btn--light .wedding-music-btn-core {
+  background: color-mix(in srgb, var(--wm-accent) 6%, rgba(255, 255, 255, 0.96));
+  box-shadow:
+    0 1px 3px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.wedding-music-btn--dark .wedding-music-btn-core {
+  background: color-mix(in srgb, var(--wm-accent) 12%, rgba(8, 10, 18, 0.88));
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.invitation-controls--surface-light .wedding-music-btn-core,
+.dashboard-gallery--light .wedding-music-btn-core {
+  background: color-mix(in srgb, var(--wm-accent) 6%, rgba(255, 255, 255, 0.96));
+  box-shadow:
+    0 1px 3px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.invitation-controls--surface-dark .wedding-music-btn-core {
   background: color-mix(in srgb, var(--wm-accent) 12%, rgba(8, 10, 18, 0.88));
   box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.35),
@@ -601,18 +694,10 @@ main,
   color-scheme: light;
 }
 
-.dashboard-gallery--light .language-switcher-btn {
-  color: rgba(15, 23, 42, 0.72);
+.dashboard-gallery--light .language-switcher-btn--light {
+  color: rgba(15, 23, 42, 0.9);
   border-color: rgba(15, 23, 42, 0.14);
-  background: rgba(255, 255, 255, 0.85);
-  opacity: 1;
-}
-
-.dashboard-gallery--light .language-switcher-btn:hover,
-.dashboard-gallery--light .language-switcher-btn:focus-visible {
-  color: rgba(15, 23, 42, 0.92);
-  background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 4px 18px color-mix(in srgb, var(--lang-accent, #c9a84c) 22%, transparent);
+  background: rgba(255, 255, 255, 0.96);
 }
 
 .dashboard-gallery--light .language-switcher-btn-label {
@@ -631,23 +716,33 @@ main,
   min-width: 1.625rem;
   height: 1.375rem;
   padding: 0 0.38rem;
-  border: none;
+  border: 1px solid transparent;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.03);
-  color: rgba(255, 255, 255, 0.38);
   font-size: 0.5rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.08em;
   line-height: 1;
   backdrop-filter: blur(8px);
   overflow: hidden;
   isolation: isolate;
-  opacity: 0.72;
+  opacity: 1;
   transition:
-    opacity 0.45s ease,
     color 0.35s ease,
     background 0.35s ease,
+    border-color 0.35s ease,
     box-shadow 0.45s ease;
+}
+
+.language-switcher-btn--dark {
+  background: rgba(0, 0, 0, 0.88);
+  color: rgba(255, 255, 255, 0.96);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.language-switcher-btn--light {
+  background: rgba(255, 255, 255, 0.96);
+  color: rgba(15, 23, 42, 0.9);
+  border-color: rgba(15, 23, 42, 0.14);
 }
 
 .language-switcher-btn::before {
@@ -674,14 +769,22 @@ main,
   transition: opacity 0.4s ease;
 }
 
-.language-switcher-btn:hover,
-.language-switcher-btn:focus-visible {
-  opacity: 1;
-  color: rgba(255, 255, 255, 0.92);
-  background: rgba(255, 255, 255, 0.07);
+.language-switcher-btn--dark:hover,
+.language-switcher-btn--dark:focus-visible {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.96);
+  border-color: rgba(255, 255, 255, 0.28);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.06),
-    0 4px 18px color-mix(in srgb, var(--lang-accent, #c9a84c) 18%, transparent);
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 4px 18px color-mix(in srgb, var(--lang-accent, #c9a84c) 22%, transparent);
+}
+
+.language-switcher-btn--light:hover,
+.language-switcher-btn--light:focus-visible {
+  color: rgba(15, 23, 42, 0.98);
+  background: #fff;
+  border-color: rgba(15, 23, 42, 0.2);
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--lang-accent, #c9a84c) 22%, transparent);
 }
 
 .language-switcher-btn:hover::before,
@@ -695,6 +798,7 @@ main,
   display: block;
   min-width: 1.1rem;
   text-align: center;
+  color: inherit;
 }
 
 .language-switcher-orbit {

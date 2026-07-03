@@ -4,6 +4,7 @@ import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { variant10Config as variant10ConfigBase } from "../config";
+import { useCountdownLabels } from "@/shared/hooks/useCountdownLabels";
 import ScrollReveal from "./ScrollReveal";
 import SuzaniDivider from "./SuzaniDivider";
 import SparkleHeading from "@/shared/components/SparkleHeading";
@@ -80,24 +81,26 @@ export default function Countdown() {
     timeLeft.minutes === 0 &&
     timeLeft.seconds === 0;
 
+  const labels = useCountdownLabels(isPast);
+
   return (
     <section id="about" className="mobile-section scroll-mt-20 relative z-10 px-4 py-16 sm:py-24">
       <ScrollReveal className="mx-auto max-w-3xl text-center">
-        <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#D4AF37]">Kutilmoqda</p>
+        <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#D4AF37]">{labels.eyebrow}</p>
         <SparkleHeading theme="variant-10" as="h2" intensity="high" className="mb-4 text-2xl font-bold sm:text-4xl">
-          {isPast ? "To'y boshlandi!" : "To'ygacha qolgan vaqt"}
+          {labels.heading}
         </SparkleHeading>
         <SuzaniDivider className="mx-auto mb-10 max-w-[240px]" />
 
         {mounted ? (
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8">
-            <Digit value={timeLeft.days} label="Kun" />
+            <Digit value={timeLeft.days} label={labels.days} />
             <span className="mb-6 text-2xl text-[#D4AF37]">:</span>
-            <Digit value={timeLeft.hours} label="Soat" />
+            <Digit value={timeLeft.hours} label={labels.hours} />
             <span className="mb-6 text-2xl text-[#D4AF37]">:</span>
-            <Digit value={timeLeft.minutes} label="Daqiqa" />
+            <Digit value={timeLeft.minutes} label={labels.minutes} />
             <span className="mb-6 text-2xl text-[#D4AF37]">:</span>
-            <Digit value={timeLeft.seconds} label="Soniya" />
+            <Digit value={timeLeft.seconds} label={labels.seconds} />
           </div>
         ) : (
           <div className="flex justify-center gap-4">

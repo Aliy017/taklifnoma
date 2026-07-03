@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { variants } from "@/variants/registry";
 import VariantLikeButton from "@/shared/components/VariantLikeButton";
 import CreatorFooter from "@/shared/components/CreatorFooter";
@@ -14,6 +14,16 @@ import { useLocale } from "@/shared/i18n/LocaleContext";
 
 type LikeCounts = Record<string, number>;
 type SortMode = "number" | "likes";
+
+function accentButtonText(accent: string): string {
+  const hex = accent.replace("#", "");
+  if (hex.length !== 6) return "#fff";
+  const r = parseInt(hex.slice(0, 2), 16);
+  const g = parseInt(hex.slice(2, 4), 16);
+  const b = parseInt(hex.slice(4, 6), 16);
+  const luminance = (r * 299 + g * 587 + b * 114) / 1000;
+  return luminance > 165 ? "#1e293b" : "#fff";
+}
 
 const dashboardSparkles = Array.from({ length: 18 }, (_, i) => ({
   id: i,
@@ -41,74 +51,63 @@ function VariantCard({
 }) {
   const { t } = useLocale();
   const ref = useRef<HTMLElement>(null);
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const rotateX = useSpring(useTransform(my, [-0.5, 0.5], [6, -6]), { stiffness: 260, damping: 22 });
-  const rotateY = useSpring(useTransform(mx, [-0.5, 0.5], [-6, 6]), { stiffness: 260, damping: 22 });
-
-  function onMove(e: MouseEvent<HTMLElement>) {
-    if (lite || !ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    mx.set((e.clientX - rect.left) / rect.width - 0.5);
-    my.set((e.clientY - rect.top) / rect.height - 0.5);
-  }
-
-  function onLeave() {
-    mx.set(0);
-    my.set(0);
-  }
+  const btnText = accentButtonText(variant.accent);
 
   return (
     <motion.article
       ref={ref}
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
-      initial={lite ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.98 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ delay: lite ? 0 : Math.min(index * 0.05, 0.4), duration: lite ? 0.25 : 0.45 }}
-      style={lite ? undefined : { rotateX, rotateY, perspective: 900 }}
-      className="dashboard-card-lift group relative"
+      initial={lite ? { opacity: 0 } : { opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: lite ? 0 : Math.min(index * 0.04, 0.35), duration: lite ? 0.25 : 0.4 }}
+      whileHover={lite ? undefined : { y: -5, transition: { duration: 0.25 } }}
+      className="dashboard-card-light group relative"
     >
-      <div className="dashboard-card-border h-full overflow-hidden">
-        <div className="dashboard-card-inner wow-card-interactive relative h-full overflow-hidden border border-white/5">
-          <div className="dashboard-card-shine pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      <div className="dashboard-card-light-border relative h-full">
+        <div className="dashboard-card-light-inner relative flex h-full flex-col overflow-visible rounded-[0.9rem] bg-white sm:rounded-2xl">
           <div
-            className={`pointer-events-none absolute inset-0 bg-gradient-to-br opacity-60 transition-opacity duration-300 group-hover:opacity-85 ${variant.gradient}`}
-          />
-          <motion.div
-            className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full blur-2xl sm:h-28 sm:w-28"
-            style={{ backgroundColor: variant.accent }}
-            animate={lite ? undefined : { scale: [1, 1.15, 1], opacity: [0.12, 0.28, 0.12] }}
-            transition={{ duration: 4 + (index % 3), repeat: Infinity, ease: "easeInOut" }}
-          />
-          <div
-            className="pointer-events-none absolute inset-x-0 top-0 h-px opacity-0 transition-opacity group-hover:opacity-100"
+            className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-100"
             style={{
-              background: `linear-gradient(90deg, transparent, ${variant.accent}88, transparent)`,
+              background: `linear-gradient(145deg, #ffffff 0%, ${variant.accent}0d 42%, #ffffff 100%)`,
             }}
           />
+          <motion.div
+            className="pointer-events-none absolute -right-6 -top-6 h-28 w-28 rounded-full blur-2xl sm:h-32 sm:w-32"
+            style={{ backgroundColor: variant.accent }}
+            animate={lite ? undefined : { scale: [1, 1.12, 1], opacity: [0.12, 0.22, 0.12] }}
+            transition={{ duration: 4.5 + (index % 3), repeat: Infinity, ease: "easeInOut" }}
+          />
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0 h-[2px] rounded-t-[inherit] opacity-70"
+            style={{
+              background: `linear-gradient(90deg, transparent 5%, ${variant.accent} 50%, transparent 95%)`,
+            }}
+          />
+          <div className="dashboard-card-light-shine pointer-events-none absolute inset-0 rounded-[inherit]" />
 
-          <div className="relative z-10 p-3 sm:p-4">
-            <div className="mb-2 flex items-center justify-between gap-2">
+          <div className="relative z-10 flex flex-1 flex-col p-3.5 sm:p-4">
+            <div className="mb-2.5 flex items-center justify-between gap-2">
               <div className="flex min-w-0 items-center gap-1.5">
                 <motion.span
-                  whileHover={lite ? undefined : { scale: 1.08, rotate: -3 }}
-                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg font-serif text-sm font-bold sm:h-8 sm:w-8 sm:rounded-xl sm:text-base"
+                  whileHover={lite ? undefined : { scale: 1.06 }}
+                  className="dashboard-card-light-badge flex h-7 w-7 shrink-0 items-center justify-center rounded-lg font-serif text-sm font-bold sm:h-8 sm:w-8 sm:rounded-xl sm:text-base"
                   style={{
-                    backgroundColor: `${variant.accent}22`,
                     color: variant.accent,
-                    border: `1px solid ${variant.accent}55`,
-                    boxShadow: `0 0 20px ${variant.accent}22`,
+                    borderColor: `${variant.accent}44`,
+                    backgroundColor: `${variant.accent}12`,
+                    boxShadow: `0 2px 12px ${variant.accent}18`,
                   }}
                 >
                   {variant.number}
                 </motion.span>
                 {isTop && (
-                  <span className="rounded-full bg-[#c9a84c]/20 px-1.5 py-0.5 text-[9px] uppercase tracking-wider text-[#c9a84c]">
+                  <span
+                    className="rounded-full px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wider"
+                    style={{ backgroundColor: `${variant.accent}18`, color: variant.accent }}
+                  >
                     {t("gallery.popular")}
                   </span>
                 )}
-                <span className="truncate text-[10px] text-white/30 sm:hidden">{variant.date}</span>
+                <span className="truncate text-[10px] text-slate-400 sm:hidden">{variant.date}</span>
               </div>
               <VariantLikeButton
                 variantId={variant.id}
@@ -119,37 +118,40 @@ function VariantCard({
               />
             </div>
 
-            <h2 className="font-serif text-base font-semibold leading-snug transition-colors group-hover:text-white sm:text-lg">
+            <h2 className="font-serif text-base font-semibold leading-snug text-slate-900 transition-colors group-hover:text-slate-950 sm:text-lg">
               {variant.title}
             </h2>
-            <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-white/50 transition-colors group-hover:text-white/65 sm:text-sm">
+            <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-slate-500 sm:text-sm">
               {variant.subtitle}
             </p>
 
-            <div className="mt-3 flex items-center justify-between gap-2 border-t border-white/8 pt-2.5">
-              <p className="hidden text-[10px] text-white/30 sm:block">
-                {variant.couple}
-                <span className="mx-1 text-white/15">·</span>
-                {variant.date}
-              </p>
-              <p className="text-[10px] text-white/30 sm:hidden">{variant.couple}</p>
+            <div className="mt-auto flex items-end justify-between gap-3 border-t border-slate-100 pt-3">
+              <div className="min-w-0 pb-0.5">
+                <p className="truncate text-[11px] font-medium text-slate-600 sm:text-xs">{variant.couple}</p>
+                <p className="mt-0.5 hidden truncate text-[10px] text-slate-400 sm:block">{variant.date}</p>
+              </div>
 
               {variant.status === "ready" ? (
                 <Link
                   href={variant.route}
-                  className="inline-flex shrink-0 items-center gap-1 rounded-full px-3.5 py-1.5 text-xs font-medium text-black transition hover:brightness-110 hover:shadow-lg sm:px-4 sm:py-2 sm:text-sm"
+                  className="inline-flex shrink-0 items-center gap-1 rounded-full px-3.5 py-1.5 text-xs font-semibold transition hover:brightness-105 hover:shadow-md sm:px-4 sm:py-2 sm:text-sm"
                   style={{
                     backgroundColor: variant.accent,
-                    boxShadow: `0 4px 20px ${variant.accent}44`,
+                    color: btnText,
+                    boxShadow: `0 4px 16px ${variant.accent}33`,
                   }}
                 >
                   {t("gallery.view")}
-                  <motion.span aria-hidden animate={lite ? undefined : { x: [0, 3, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>
+                  <motion.span
+                    aria-hidden
+                    animate={lite ? undefined : { x: [0, 3, 0] }}
+                    transition={{ repeat: Infinity, duration: 1.5 }}
+                  >
                     →
                   </motion.span>
                 </Link>
               ) : (
-                <span className="shrink-0 rounded-full border border-white/15 px-3 py-1.5 text-xs text-white/35">
+                <span className="shrink-0 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs text-slate-400">
                   {t("gallery.soon")}
                 </span>
               )}
@@ -234,7 +236,7 @@ function VariantGalleryInner() {
       <div className="relative mx-auto max-w-5xl px-3 pb-0 pt-8 sm:px-5 sm:pt-12">
         <motion.header {...fadeIn} className="mb-6 text-center sm:mb-8">
           <p className="mb-2 text-[10px] uppercase tracking-[0.4em] text-[#c9a84c] sm:text-xs">
-            To&apos;y taklifnomasi
+            {t("gallery.dashboardEyebrow")}
           </p>
           <SparkleHeading
             theme="variant-4"
@@ -245,7 +247,7 @@ function VariantGalleryInner() {
             Firdavs &amp; Marjona
           </SparkleHeading>
           <p className="mx-auto mt-2 max-w-sm text-xs text-slate-500 sm:mt-3 sm:max-w-md sm:text-sm">
-            10 ta dizayn — yoqtiring va oching
+            {t("gallery.dashboardSubtitle")}
           </p>
           <div className="mx-auto mt-3 flex flex-wrap items-center justify-center gap-2 text-[10px] text-slate-500 sm:text-xs">
             <span className="rounded-full border border-slate-200 bg-white/80 px-2.5 py-0.5">19 Iyul, 2026</span>

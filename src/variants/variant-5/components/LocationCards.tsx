@@ -7,21 +7,23 @@ import ScrollReveal from "./ScrollReveal";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import MapEmbed from "@/shared/components/MapEmbed";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
+import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
 
 const spring = { type: "spring" as const, stiffness: 260, damping: 22 };
 
 export default function LocationCards() {
   const variant5Config = useVariantConfig(variant5ConfigBase);
   const lite = useLiteMode();
+  const { t } = useLocaleOptional();
   const { locations } = variant5Config;
 
   return (
     <section id="location" className="mobile-section scroll-mt-20 relative z-10 px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-5xl">
         <ScrollReveal className="mb-10 text-center">
-          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#C9A087]">Manzillar</p>
+          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#C9A087]">{t("venue.pluralLabel")}</p>
           <SparkleHeading theme="variant-5" as="h2" intensity="high" className="text-2xl font-bold sm:text-4xl">
-            To&apos;y joylari
+            {t("venue.pluralTitle")}
           </SparkleHeading>
         </ScrollReveal>
 
@@ -55,7 +57,7 @@ export default function LocationCards() {
                       rel="noopener noreferrer"
                       className="mt-2 inline-block text-sm text-[#C9A087] transition hover:text-[#b8876a]"
                     >
-                      Xaritada ochish →
+                      {t("nav.openMap")} →
                     </a>
                   </div>
                 </div>

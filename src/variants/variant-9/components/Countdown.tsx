@@ -4,6 +4,7 @@ import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { variant9Config as variant9ConfigBase } from "../config";
+import { useCountdownLabels } from "@/shared/hooks/useCountdownLabels";
 import ScrollReveal from "./ScrollReveal";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
@@ -77,27 +78,29 @@ export default function Countdown() {
     timeLeft.minutes === 0 &&
     timeLeft.seconds === 0;
 
+  const labels = useCountdownLabels(isPast);
+
   return (
     <section id="about" className="mobile-section scroll-mt-20 relative z-10 px-4 py-16 sm:py-24">
       <ScrollReveal className="mx-auto max-w-3xl">
         <div className="v9-countdown-blur relative overflow-hidden rounded-3xl p-8 text-center sm:p-10">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'1\' fill=\'%23047857\' fill-opacity=\'0.06\'/%3E%3C/svg%3E')] opacity-50" />
           <div className="relative">
-            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#047857]">Tabiat bilan kutamiz</p>
+            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#047857]">{labels.eyebrow}</p>
             <SparkleHeading theme="variant-9" as="h2" intensity="high" className="mb-8 text-2xl font-bold sm:text-3xl">
-              {isPast ? "To'y boshlandi!" : "To'ygacha qolgan vaqt"}
+              {labels.heading}
             </SparkleHeading>
             <div className="v9-bodom-divider mx-auto mb-8 max-w-[160px]" />
 
             {mounted ? (
               <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6">
-                <Unit value={timeLeft.days} label="Kun" />
+                <Unit value={timeLeft.days} label={labels.days} />
                 <span className="mb-6 text-[#9CAF88]">·</span>
-                <Unit value={timeLeft.hours} label="Soat" />
+                <Unit value={timeLeft.hours} label={labels.hours} />
                 <span className="mb-6 text-[#9CAF88]">·</span>
-                <Unit value={timeLeft.minutes} label="Daqiqa" />
+                <Unit value={timeLeft.minutes} label={labels.minutes} />
                 <span className="mb-6 text-[#9CAF88]">·</span>
-                <Unit value={timeLeft.seconds} label="Soniya" />
+                <Unit value={timeLeft.seconds} label={labels.seconds} />
               </div>
             ) : (
               <div className="flex justify-center gap-3">

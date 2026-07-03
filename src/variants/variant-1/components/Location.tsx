@@ -4,39 +4,41 @@ import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 import { motion } from "framer-motion";
 import { variant1Config as variant1ConfigBase } from "../config";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
+import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
 import SparkleHeading from "./SparkleHeading";
 import MapEmbed from "@/shared/components/MapEmbed";
 
 export default function Location() {
   const variant1Config = useVariantConfig(variant1ConfigBase);
   const lite = useLiteMode();
+  const { t } = useLocaleOptional();
   const { venue, displayDate, displayTimeLabel, morningSchedule } = variant1Config;
 
   const content = (
     <>
       <div className="mb-10 text-center sm:mb-12">
-        <p className="v1-label mb-3">Tadbir joyi</p>
+        <p className="v1-label mb-3">{t("venue.eventLabel")}</p>
         <SparkleHeading
           theme="variant-1"
           as="h2"
           intensity="high"
           className="v1-heading text-2xl sm:text-4xl"
         >
-          Bizni qayerda topasiz
+          {t("venue.whereTitle")}
         </SparkleHeading>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
         <div className="space-y-6">
           <div className="v1-card rounded-sm p-6 sm:p-8">
-            <p className="v1-label">Manzil</p>
+            <p className="v1-label">{t("nav.location")}</p>
             <h3 className="v1-heading mt-2 text-lg text-white/90 sm:text-xl">{venue.name}</h3>
             <p className="mt-1 text-sm leading-relaxed text-white/50">{venue.address}</p>
             <p className="mt-1 text-xs text-white/35">{venue.coordinatesDMS}</p>
 
             <div className="v1-divider my-5" />
 
-            <p className="v1-label">Vaqt</p>
+            <p className="v1-label">{t("venue.timeLabel")}</p>
             <p className="mt-2 text-sm text-white/75">{displayDate}</p>
             <p className="text-sm text-white/50">{displayTimeLabel}</p>
 
@@ -46,13 +48,13 @@ export default function Location() {
               rel="noopener noreferrer"
               className="v1-chip mt-6 inline-flex items-center gap-2 px-5 py-2.5 transition hover:border-[#d4af37]/50 hover:bg-[#d4af37]/10"
             >
-              Xaritada ochish
+              {t("nav.openMap")}
               <span aria-hidden>→</span>
             </a>
           </div>
 
           <div className="v1-card rounded-sm p-6 sm:p-8">
-            <p className="v1-label mb-5">Kun dasturi</p>
+            <p className="v1-label mb-5">{t("venue.scheduleLabel")}</p>
             <div className="space-y-4">
               {morningSchedule.map((item) => (
                 <div key={item.time} className="flex gap-4 border-b border-[#d4af37]/10 pb-4 last:border-0 last:pb-0">
@@ -71,7 +73,7 @@ export default function Location() {
 
         <div className="v1-card overflow-hidden rounded-sm">
           <div className="border-b border-[#d4af37]/15 px-6 py-4">
-            <p className="text-sm font-medium text-white/80">Xarita</p>
+            <p className="text-sm font-medium text-white/80">{t("venue.mapHeading")}</p>
             <p className="mt-0.5 text-xs text-white/45">{venue.name}</p>
           </div>
           <MapEmbed

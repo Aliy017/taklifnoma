@@ -66,12 +66,28 @@ export type MessageKey =
   | "map.show"
   | "map.openExternal"
   | "map.iframeTitle"
+  | "venue.eventLabel"
+  | "venue.whereTitle"
+  | "venue.timeLabel"
+  | "venue.mapHeading"
+  | "venue.scheduleLabel"
+  | "venue.pluralLabel"
+  | "venue.pluralTitle"
+  | "venue.defaultName"
+  | "venue.defaultAddress"
   | "wedding.type"
   | "time.at"
   | "time.morning"
   | "time.afternoon"
   | "time.evening"
-  | "hero.coupleAlt";
+  | "hero.coupleAlt"
+  | "hero.inviteLabel"
+  | "hero.blessingWish"
+  | "section.ourStory"
+  | "section.aboutEvent"
+  | "lang.switchAria"
+  | "gallery.dashboardEyebrow"
+  | "gallery.dashboardSubtitle";
 
 type Messages = Record<MessageKey, string>;
 
@@ -144,12 +160,28 @@ const uzLatin: Messages = {
   "map.show": "Xaritani ko'rish",
   "map.openExternal": "Tashqi xaritada ochish",
   "map.iframeTitle": "To'y joyi xaritasi",
+  "venue.eventLabel": "Tadbir joyi",
+  "venue.whereTitle": "Bizni qayerda topasiz",
+  "venue.timeLabel": "Vaqt",
+  "venue.mapHeading": "Xarita",
+  "venue.scheduleLabel": "Kun dasturi",
+  "venue.pluralLabel": "Manzillar",
+  "venue.pluralTitle": "To'y joylari",
+  "venue.defaultName": "Bo'ston to'yxonasi",
+  "venue.defaultAddress": "Vodil, Farg'ona viloyati",
   "wedding.type": "To'y marosimi",
   "time.at": "Soat {time}",
   "time.morning": "Ertalab, soat {time}",
   "time.afternoon": "Kunduzi, soat {time}",
   "time.evening": "Kechqurun, soat {time}",
   "hero.coupleAlt": "{groom} va {bride}",
+  "hero.inviteLabel": "Taklifnoma",
+  "hero.blessingWish": "Baxt tilaklari bilan",
+  "section.ourStory": "Bizning hikoyamiz",
+  "section.aboutEvent": "Tadbir haqida",
+  "lang.switchAria": "Til: {label}. Boshqa tilga o'tish",
+  "gallery.dashboardEyebrow": "To'y taklifnomasi",
+  "gallery.dashboardSubtitle": "10 ta dizayn — yoqtiring va oching",
 };
 
 const uzCyrillic: Messages = {
@@ -222,12 +254,28 @@ const uzCyrillic: Messages = {
   "map.show": "Харитани кўриш",
   "map.openExternal": "Ташқи харитада очиш",
   "map.iframeTitle": "Тўй жойи харитаси",
+  "venue.eventLabel": "Тадбир жойи",
+  "venue.whereTitle": "Бизни қаерда топасиз",
+  "venue.timeLabel": "Вақт",
+  "venue.mapHeading": "Харита",
+  "venue.scheduleLabel": "Кун дастури",
+  "venue.pluralLabel": "Манзиллар",
+  "venue.pluralTitle": "Тўй жойлари",
+  "venue.defaultName": "Бўстон тўйхонаси",
+  "venue.defaultAddress": "Водил, Фарғона вилояти",
   "wedding.type": "Тўй маросими",
   "time.at": "Соат {time}",
   "time.morning": "Эрталаб, соат {time}",
   "time.afternoon": "Кундузи, соат {time}",
   "time.evening": "Кечқурун, соат {time}",
   "hero.coupleAlt": "{groom} ва {bride}",
+  "hero.inviteLabel": "Taklifnoma",
+  "hero.blessingWish": "Бахт тилаклари билан",
+  "section.ourStory": "Бизning hikoyamiz",
+  "section.aboutEvent": "Тadbir haqida",
+  "lang.switchAria": "Тил: {label}. Бoshqa tilga o'tish",
+  "gallery.dashboardEyebrow": "Тўй taklifnomasi",
+  "gallery.dashboardSubtitle": "10 ta dizayn — yoqtiring va oching",
 };
 
 const ru: Messages = {
@@ -299,12 +347,28 @@ const ru: Messages = {
   "map.show": "Показать карту",
   "map.openExternal": "Открыть во внешнем приложении",
   "map.iframeTitle": "Карта места проведения",
+  "venue.eventLabel": "Место проведения",
+  "venue.whereTitle": "Где нас найти",
+  "venue.timeLabel": "Время",
+  "venue.mapHeading": "Карта",
+  "venue.scheduleLabel": "Программа дня",
+  "venue.pluralLabel": "Адреса",
+  "venue.pluralTitle": "Места проведения",
+  "venue.defaultName": "Банкетный зал Bo'ston",
+  "venue.defaultAddress": "Водил, Ферганская область",
   "wedding.type": "Свадебная церемония",
   "time.at": "В {time}",
   "time.morning": "Утром, в {time}",
   "time.afternoon": "Днём, в {time}",
   "time.evening": "Вечером, в {time}",
   "hero.coupleAlt": "{groom} и {bride}",
+  "hero.inviteLabel": "Приглашение",
+  "hero.blessingWish": "С наилучшими пожеланиями",
+  "section.ourStory": "Наша история",
+  "section.aboutEvent": "О мероприятии",
+  "lang.switchAria": "Язык: {label}. Переключить язык",
+  "gallery.dashboardEyebrow": "Свадебное приглашение",
+  "gallery.dashboardSubtitle": "10 дизайнов — лайкните и откройте",
 };
 
 export const MESSAGES: Record<LocaleId, Messages> = {

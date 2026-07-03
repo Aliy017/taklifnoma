@@ -49,6 +49,8 @@
 }
 
 .variant-7 .v7-rose-gold-text {
+  display: inline-block;
+  padding-inline: 0.08em;
   background: linear-gradient(135deg, #e8cfc0, #c9a087, #b8876a);
   -webkit-background-clip: text;
   background-clip: text;

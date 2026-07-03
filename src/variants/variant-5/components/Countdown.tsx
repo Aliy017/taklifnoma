@@ -4,6 +4,7 @@ import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { variant5Config as variant5ConfigBase } from "../config";
+import { useCountdownLabels } from "@/shared/hooks/useCountdownLabels";
 import ScrollReveal from "./ScrollReveal";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
@@ -81,23 +82,25 @@ export default function Countdown() {
     timeLeft.minutes === 0 &&
     timeLeft.seconds === 0;
 
+  const labels = useCountdownLabels(isPast);
+
   return (
     <section id="about" className="mobile-section scroll-mt-20 relative z-10 px-4 py-16 sm:py-24">
       <ScrollReveal className="mx-auto max-w-3xl text-center">
-        <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#C9A087]">Kutilmoqda</p>
+        <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#C9A087]">{labels.eyebrow}</p>
         <SparkleHeading theme="variant-5" as="h2" intensity="high" className="mb-10 text-2xl font-bold sm:text-4xl">
-          {isPast ? "To'y boshlandi!" : "To'ygacha qolgan vaqt"}
+          {labels.heading}
         </SparkleHeading>
 
         {mounted ? (
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6">
-            <TimeUnit value={timeLeft.days} label="Kun" />
+            <TimeUnit value={timeLeft.days} label={labels.days} />
             <span className="mb-6 hidden text-xl text-[#C9A087]/50 sm:inline">·</span>
-            <TimeUnit value={timeLeft.hours} label="Soat" />
+            <TimeUnit value={timeLeft.hours} label={labels.hours} />
             <span className="mb-6 hidden text-xl text-[#C9A087]/50 sm:inline">·</span>
-            <TimeUnit value={timeLeft.minutes} label="Daqiqa" />
+            <TimeUnit value={timeLeft.minutes} label={labels.minutes} />
             <span className="mb-6 hidden text-xl text-[#C9A087]/50 sm:inline">·</span>
-            <TimeUnit value={timeLeft.seconds} label="Soniya" />
+            <TimeUnit value={timeLeft.seconds} label={labels.seconds} />
           </div>
         ) : (
           <div className="flex justify-center gap-3 sm:gap-6">

@@ -4,6 +4,7 @@ import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { variant4Config as variant4ConfigBase } from "../config";
+import { useCountdownLabels } from "@/shared/hooks/useCountdownLabels";
 import ScrollReveal from "./ScrollReveal";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
@@ -83,28 +84,30 @@ export default function Countdown() {
     timeLeft.minutes === 0 &&
     timeLeft.seconds === 0;
 
+  const labels = useCountdownLabels(isPast);
+
   return (
     <section id="countdown" className="mobile-section relative z-10 px-4 py-16 sm:py-24">
       <ScrollReveal className="mx-auto max-w-4xl">
         <div className="v4-glass rounded-3xl p-6 text-center sm:p-10">
-          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#D4AF37]/80">Kutilayotgan kun</p>
+          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#D4AF37]/80">{labels.eyebrow}</p>
           <SparkleHeading theme="variant-4" as="h2" intensity="high" className="mb-8 text-2xl font-bold sm:text-4xl">
-            {isPast ? "To'y boshlandi!" : "To'ygacha qolgan vaqt"}
+            {labels.heading}
           </SparkleHeading>
 
           {mounted ? (
             <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-5">
-              <FlipUnit value={timeLeft.days} label="Kun" />
+              <FlipUnit value={timeLeft.days} label={labels.days} />
               <span className="mb-5 hidden text-2xl text-[#D4AF37]/60 sm:inline">:</span>
-              <FlipUnit value={timeLeft.hours} label="Soat" />
+              <FlipUnit value={timeLeft.hours} label={labels.hours} />
               <span className="mb-5 hidden text-2xl text-[#D4AF37]/60 sm:inline">:</span>
-              <FlipUnit value={timeLeft.minutes} label="Daqiqa" />
+              <FlipUnit value={timeLeft.minutes} label={labels.minutes} />
               <span className="mb-5 hidden text-2xl text-[#D4AF37]/60 sm:inline">:</span>
-              <FlipUnit value={timeLeft.seconds} label="Soniya" />
+              <FlipUnit value={timeLeft.seconds} label={labels.seconds} />
             </div>
           ) : (
             <div className="flex justify-center gap-2 sm:gap-5">
-              {["Kun", "Soat", "Daqiqa", "Soniya"].map((label) => (
+              {[labels.days, labels.hours, labels.minutes, labels.seconds].map((label) => (
                 <div key={label} className="flex flex-col items-center gap-1.5">
                   <div className="v4-glass flex h-16 w-14 items-center justify-center rounded-xl sm:h-24 sm:w-20">
                     <span className="font-serif text-2xl text-[#D4AF37]">--</span>

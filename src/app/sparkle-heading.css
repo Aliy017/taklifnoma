@@ -1,6 +1,6 @@
 /* Luxury sarlavha — barcha variantlar */
 .sparkle-heading-wrap {
-  overflow: hidden;
+  overflow: visible;
   max-width: 100%;
   contain: layout style;
   transform: translateZ(0);
@@ -48,6 +48,11 @@
 }
 
 .sparkle-text {
+  display: inline-block;
+  max-width: 100%;
+  padding-inline: 0.12em;
+  padding-block: 0.05em;
+  overflow-wrap: anywhere;
   font-family: var(--font-playfair), Georgia, serif;
   background: linear-gradient(
     112deg,

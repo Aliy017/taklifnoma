@@ -1,7 +1,11 @@
+"use client";
+
 import { weddingConfig } from "@/shared/config/wedding";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import MapEmbed from "@/shared/components/MapEmbed";
 import type { SparkleThemeId } from "@/shared/config/sparkle-themes";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
+import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
 
 export type VenueTheme = "variant-1" | "variant-2" | "variant-3";
 
@@ -75,38 +79,40 @@ interface VenueSectionProps {
 }
 
 export default function VenueSection({ theme, compact = false }: VenueSectionProps) {
-  const t = themes[theme];
+  const styles = themes[theme];
   const sparkleTheme = theme as SparkleThemeId;
-  const { venue, displayDate, displayTimeLabel, weddingTypeDescription } = weddingConfig;
+  const { t } = useLocaleOptional();
+  const { venue, displayDate, displayTimeLabel, weddingTypeDescription } =
+    useVariantConfig(weddingConfig);
 
   if (compact) {
     return (
       <div className="text-center">
-        <p className={t.label}>Tadbir joyi</p>
+        <p className={styles.label}>{t("venue.eventLabel")}</p>
         <SparkleHeading
           theme={sparkleTheme}
           as="h3"
           sparkles={false}
           intensity="high"
-          className={`mt-2 ${t.title}`}
+          className={`mt-2 ${styles.title}`}
         >
           {venue.name}
         </SparkleHeading>
-        <p className={`mt-1 ${t.sub}`}>{venue.address}</p>
-        <p className={`mt-1 ${t.sub}`}>
+        <p className={`mt-1 ${styles.sub}`}>{venue.address}</p>
+        <p className={`mt-1 ${styles.sub}`}>
           {displayDate} · {displayTimeLabel}
         </p>
-        <a href={venue.mapsLink} target="_blank" rel="noopener noreferrer" className={`mt-4 ${t.link}`}>
-          Xaritada ochish
+        <a href={venue.mapsLink} target="_blank" rel="noopener noreferrer" className={`mt-4 ${styles.link}`}>
+          {t("nav.openMap")}
         </a>
-        <div className={`mt-6 ${t.mapWrap}`}>
+        <div className={`mt-6 ${styles.mapWrap}`}>
           <MapEmbed
             mapUrl={venue.mapUrl}
             mapsLink={venue.mapsLink}
             iframeClassName="h-48 w-full border-0 sm:h-56"
-            placeholderClassName={t.mapPlaceholder}
-            buttonClassName={t.mapButton}
-            linkClassName={t.mapLink}
+            placeholderClassName={styles.mapPlaceholder}
+            buttonClassName={styles.mapButton}
+            linkClassName={styles.mapLink}
             minHeightClass="min-h-[12rem]"
           />
         </div>
@@ -117,30 +123,30 @@ export default function VenueSection({ theme, compact = false }: VenueSectionPro
   return (
     <div className="grid gap-6 md:grid-cols-2">
       <div className="flex flex-col justify-center">
-        <p className={`mb-2 ${t.label}`}>Tadbir joyi</p>
+        <p className={`mb-2 ${styles.label}`}>{t("venue.eventLabel")}</p>
         <SparkleHeading
           theme={sparkleTheme}
           as="h2"
           intensity="high"
-          className={`mb-4 ${t.title}`}
+          className={`mb-4 ${styles.title}`}
         >
-          Bizni qayerda topasiz
+          {t("venue.whereTitle")}
         </SparkleHeading>
-        <p className={`mb-4 ${t.text}`}>{weddingTypeDescription}</p>
+        <p className={`mb-4 ${styles.text}`}>{weddingTypeDescription}</p>
 
         <div className="space-y-4">
           <div>
-            <SparkleHeading theme={sparkleTheme} as="h3" sparkles={false} className={`text-lg ${t.heading}`}>
+            <SparkleHeading theme={sparkleTheme} as="h3" sparkles={false} className={`text-lg ${styles.heading}`}>
               {venue.name}
             </SparkleHeading>
-            <p className={t.sub}>{venue.address}</p>
-            <p className={`mt-1 ${t.sub}`}>{venue.coordinatesDMS}</p>
+            <p className={styles.sub}>{venue.address}</p>
+            <p className={`mt-1 ${styles.sub}`}>{venue.coordinatesDMS}</p>
           </div>
           <div>
-            <SparkleHeading theme={sparkleTheme} as="h3" sparkles={false} className={`text-lg ${t.heading}`}>
-              Vaqt
+            <SparkleHeading theme={sparkleTheme} as="h3" sparkles={false} className={`text-lg ${styles.heading}`}>
+              {t("venue.timeLabel")}
             </SparkleHeading>
-            <p className={t.sub}>
+            <p className={styles.sub}>
               {displayDate} — {displayTimeLabel}
             </p>
           </div>
@@ -150,20 +156,20 @@ export default function VenueSection({ theme, compact = false }: VenueSectionPro
           href={venue.mapsLink}
           target="_blank"
           rel="noopener noreferrer"
-          className={`mt-6 ${t.link}`}
+          className={`mt-6 ${styles.link}`}
         >
-          Xaritada ochish →
+          {t("nav.openMap")} →
         </a>
       </div>
 
-      <div className={t.mapWrap}>
+      <div className={styles.mapWrap}>
         <MapEmbed
           mapUrl={venue.mapUrl}
           mapsLink={venue.mapsLink}
           iframeClassName="h-56 w-full border-0 sm:h-64 md:h-full md:min-h-[280px]"
-          placeholderClassName={t.mapPlaceholder}
-          buttonClassName={t.mapButton}
-          linkClassName={t.mapLink}
+          placeholderClassName={styles.mapPlaceholder}
+          buttonClassName={styles.mapButton}
+          linkClassName={styles.mapLink}
           minHeightClass="min-h-[14rem] md:min-h-[280px]"
         />
       </div>

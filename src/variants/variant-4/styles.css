@@ -37,6 +37,8 @@
 }
 
 .variant-4 .v4-gold-text {
+  display: inline-block;
+  padding-inline: 0.08em;
   background: linear-gradient(135deg, #f0d78c, #d4af37, #b8942e);
   -webkit-background-clip: text;
   background-clip: text;

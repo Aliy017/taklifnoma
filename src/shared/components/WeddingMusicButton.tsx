@@ -2,11 +2,13 @@
 
 import { useWeddingMusic } from "@/shared/hooks/useWeddingMusic";
 import { useLocale } from "@/shared/i18n/LocaleContext";
+import type { ControlSurface } from "@/shared/config/lang-switcher-surfaces";
 
 interface WeddingMusicButtonProps {
   accent?: string;
   className?: string;
   variant?: "fixed" | "inline";
+  surface?: ControlSurface;
 }
 
 function NoteIcon({ color }: { color: string }) {
@@ -43,6 +45,7 @@ export default function WeddingMusicButton({
   accent = "#c9a84c",
   className = "",
   variant = "fixed",
+  surface = "dark",
 }: WeddingMusicButtonProps) {
   const { t } = useLocale();
   const { playing, available, loading, play, stop } = useWeddingMusic();
@@ -73,7 +76,7 @@ export default function WeddingMusicButton({
         type="button"
         onClick={handleClick}
         disabled={loading}
-        className={`wedding-music-btn mobile-touch ${playing ? "wedding-music-btn--live" : ""}`}
+        className={`wedding-music-btn wedding-music-btn--${surface} mobile-touch ${playing ? "wedding-music-btn--live" : ""}`}
         aria-label={playing ? t("music.unmute") : t("music.mute")}
         title={playing ? t("music.stop") : t("music.play")}
       >

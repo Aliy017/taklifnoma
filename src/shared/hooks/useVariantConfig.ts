@@ -6,6 +6,7 @@ import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
 import type { DynamicWeddingConfig } from "@/shared/lib/client-wedding";
 import { formatDisplayDate, formatTimeLabel } from "@/shared/lib/locale-format";
 import { latinToCyrillic } from "@/shared/i18n/transliterate";
+import { localizeVenueField } from "@/shared/lib/localize-venue";
 
 /**
  * Merges static variant config with per-client wedding data from context.
@@ -48,6 +49,28 @@ export function useVariantConfig<T extends Record<string, unknown>>(base: T): T 
     const bride = String(config.bride ?? "");
     const venue = config.venue as DynamicWeddingConfig["venue"] | undefined;
 
+    const localizedVenue = venue
+      ? {
+          ...venue,
+          name: localizeVenueField(venue.name, locale, "venue.defaultName", t),
+          address: localizeVenueField(venue.address, locale, "venue.defaultAddress", t),
+        }
+      : venue;
+
+    const locations = config.locations as
+      | Array<{ venue?: string; address?: string; [key: string]: unknown }>
+      | undefined;
+
+    const localizedLocations = locations?.map((loc) => ({
+      ...loc,
+      ...(typeof loc.venue === "string"
+        ? { venue: localizeVenueField(loc.venue, locale, "venue.defaultName", t) }
+        : {}),
+      ...(typeof loc.address === "string"
+        ? { address: localizeVenueField(loc.address, locale, "venue.defaultAddress", t) }
+        : {}),
+    }));
+
     return {
       ...config,
       groom: locale === "uz-cyrillic" ? latinToCyrillic(groom) : localizeName(groom),
@@ -57,13 +80,11 @@ export function useVariantConfig<T extends Record<string, unknown>>(base: T): T 
         ? formatDisplayDate(weddingDateISO, locale)
         : (config.displayDate as string | undefined),
       displayTimeLabel: formatTimeLabel(displayTime, locale),
-      venue: venue
-        ? {
-            ...venue,
-            name: localizeName(venue.name),
-            address: localizeName(venue.address),
-          }
-        : venue,
+      venue: localizedVenue,
+      ...(localizedLocations ? { locations: localizedLocations } : {}),
+      inviteText: t("invite.wedding"),
+      heroBlessing: t("hero.blessingWish"),
+      weddingTypeDescription: t("invite.wedding"),
     } as unknown as T;
   }, [base, ctx, locale, t, localizeName]);
 }

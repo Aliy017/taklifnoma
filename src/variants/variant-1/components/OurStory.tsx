@@ -4,18 +4,20 @@ import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 import { motion } from "framer-motion";
 import { variant1Config as variant1ConfigBase } from "../config";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
+import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
 import SparkleHeading from "./SparkleHeading";
 
 export default function OurStory() {
   const variant1Config = useVariantConfig(variant1ConfigBase);
   const lite = useLiteMode();
+  const { t } = useLocaleOptional();
   const { story } = variant1Config;
 
   return (
     <section id="about" className="mobile-section scroll-mt-20 relative px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-3xl">
         <div className="mb-8 text-center sm:mb-12">
-          <p className="v1-label mb-3">Bizning hikoyamiz</p>
+          <p className="v1-label mb-3">{t("section.ourStory")}</p>
           <SparkleHeading
             theme="variant-1"
             as="h2"

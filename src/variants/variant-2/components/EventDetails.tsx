@@ -4,10 +4,12 @@ import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 import TiltCard from "./TiltCard";
 import VenueSection from "@/shared/components/VenueSection";
 import SparkleHeading from "@/shared/components/SparkleHeading";
+import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
 import { variant2Config as variant2ConfigBase } from "../config";
 
 export default function EventDetails() {
   const variant2Config = useVariantConfig(variant2ConfigBase);
+  const { t } = useLocaleOptional();
   const { venue, displayDate, displayTimeLabel, weddingType, groom, bride } = variant2Config;
 
   const cards = [
@@ -28,7 +30,7 @@ export default function EventDetails() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
       ),
-      title: "Manzil",
+      title: t("nav.location"),
       value: venue.name,
       sub: venue.address,
     },
@@ -48,7 +50,7 @@ export default function EventDetails() {
     <section id="about" className="mobile-section scroll-mt-20 px-4 py-14 sm:py-20">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 text-center">
-          <p className="mb-2 text-xs uppercase tracking-[0.35em] text-[#8b9dc3]">Tadbir haqida</p>
+          <p className="mb-2 text-xs uppercase tracking-[0.35em] text-[#8b9dc3]">{t("section.aboutEvent")}</p>
           <SparkleHeading theme="variant-2" as="h2" intensity="high" className="text-3xl font-bold sm:text-4xl">
             Muhim ma&apos;lumotlar
           </SparkleHeading>

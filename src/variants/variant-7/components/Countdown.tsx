@@ -4,6 +4,7 @@ import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { variant7Config as variant7ConfigBase } from "../config";
+import { useCountdownLabels } from "@/shared/hooks/useCountdownLabels";
 import GlassCard from "./GlassCard";
 import ScrollReveal from "./ScrollReveal";
 import SparkleHeading from "@/shared/components/SparkleHeading";
@@ -82,25 +83,27 @@ export default function Countdown() {
     timeLeft.minutes === 0 &&
     timeLeft.seconds === 0;
 
+  const labels = useCountdownLabels(isPast);
+
   return (
     <section id="about" className="mobile-section scroll-mt-20 relative z-10 px-4 py-16 sm:py-24">
       <ScrollReveal className="mx-auto max-w-3xl text-center">
         <GlassCard glow className="p-8 sm:p-10">
-          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#C9A087]">Kutilmoqda</p>
+          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#C9A087]">{labels.eyebrow}</p>
           <SparkleHeading theme="variant-7" as="h2" intensity="high" className="mb-8 text-2xl font-bold sm:text-4xl">
-            {isPast ? "To'y boshlandi!" : "To'ygacha qolgan vaqt"}
+            {labels.heading}
           </SparkleHeading>
           <div className="v7-ikat-divider mx-auto mb-8 max-w-[200px]" />
 
           {mounted ? (
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6">
-              <Unit value={timeLeft.days} label="Kun" />
+              <Unit value={timeLeft.days} label={labels.days} />
               <span className="mb-6 hidden text-[#F8BBD0] sm:inline">♥</span>
-              <Unit value={timeLeft.hours} label="Soat" />
+              <Unit value={timeLeft.hours} label={labels.hours} />
               <span className="mb-6 hidden text-[#F8BBD0] sm:inline">♥</span>
-              <Unit value={timeLeft.minutes} label="Daqiqa" />
+              <Unit value={timeLeft.minutes} label={labels.minutes} />
               <span className="mb-6 hidden text-[#F8BBD0] sm:inline">♥</span>
-              <Unit value={timeLeft.seconds} label="Soniya" />
+              <Unit value={timeLeft.seconds} label={labels.seconds} />
             </div>
           ) : (
             <div className="flex justify-center gap-3">

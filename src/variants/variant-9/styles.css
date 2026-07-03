@@ -27,6 +27,8 @@
 }
 
 .variant-9 .v9-emerald-text {
+  display: inline-block;
+  padding-inline: 0.08em;
   background: linear-gradient(135deg, #059669, #047857, #065f46);
   -webkit-background-clip: text;
   background-clip: text;

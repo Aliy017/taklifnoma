@@ -24,6 +24,8 @@
 }
 
 .variant-8 .v8-azure-text {
+  display: inline-block;
+  padding-inline: 0.08em;
   background: linear-gradient(135deg, #5ec4f0, #2b9fd9, #1a7ab5);
   -webkit-background-clip: text;
   background-clip: text;

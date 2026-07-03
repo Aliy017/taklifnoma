@@ -59,6 +59,8 @@
 }
 
 .variant-1 .v1-gold-text {
+  display: inline-block;
+  padding-inline: 0.08em;
   background: linear-gradient(135deg, #f5e6b8, #d4af37, #a68b3c, #f0d78c);
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -153,7 +155,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  clip-path: polygon(50% 2%, 92% 26%, 92% 74%, 50% 98%, 8% 74%, 8% 26%);
+  padding-inline: 0.5rem;
+  overflow: visible;
 }
 
 .variant-1 .v1-hero-hex-content .sparkle-halo,

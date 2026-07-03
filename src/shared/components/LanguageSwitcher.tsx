@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useLocale } from "@/shared/i18n/LocaleContext";
 import { LOCALE_IDS, LOCALE_LABELS, type LocaleId } from "@/shared/i18n/types";
+import type { LangSwitcherSurface } from "@/shared/config/lang-switcher-surfaces";
 
 const NEXT_LOCALE: Record<LocaleId, LocaleId> = {
   "uz-latin": "uz-cyrillic",
@@ -12,10 +13,14 @@ const NEXT_LOCALE: Record<LocaleId, LocaleId> = {
 
 interface LanguageSwitcherProps {
   accent?: string;
+  surface?: LangSwitcherSurface;
 }
 
-export default function LanguageSwitcher({ accent = "#c9a84c" }: LanguageSwitcherProps) {
-  const { locale, setLocale } = useLocale();
+export default function LanguageSwitcher({
+  accent = "#c9a84c",
+  surface = "dark",
+}: LanguageSwitcherProps) {
+  const { locale, setLocale, t } = useLocale();
 
   function cycleLocale() {
     const idx = LOCALE_IDS.indexOf(locale);
@@ -27,8 +32,8 @@ export default function LanguageSwitcher({ accent = "#c9a84c" }: LanguageSwitche
     <motion.button
       type="button"
       onClick={cycleLocale}
-      className="language-switcher-btn mobile-touch"
-      aria-label={`Til: ${LOCALE_LABELS[locale]}. Boshqa tilga o'tish`}
+      className={`language-switcher-btn language-switcher-btn--${surface} mobile-touch`}
+      aria-label={t("lang.switchAria", { label: LOCALE_LABELS[locale] })}
       style={
         {
           "--lang-accent": accent,

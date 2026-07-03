@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import GlassCard from "./GlassCard";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { variant1Config as variant1ConfigBase } from "../config";
+import { useCountdownLabels } from "@/shared/hooks/useCountdownLabels";
 
 
 interface TimeLeft {
@@ -58,30 +59,32 @@ export default function Countdown() {
     timeLeft.minutes === 0 &&
     timeLeft.seconds === 0;
 
+  const labels = useCountdownLabels(isPast);
+
   return (
     <section id="countdown" className="mobile-section px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-4xl">
         <GlassCard dark className="text-center">
           <p className="mb-2 font-serif text-xs uppercase tracking-[0.2em] text-gold sm:tracking-[0.25em]">
-            Kutilayotgan kun
+            {labels.eyebrow}
           </p>
           <SparkleHeading theme="variant-1" as="h2" intensity="high" className="mb-6 text-2xl font-bold sm:mb-10 sm:text-4xl">
-            {isPast ? "To'y boshlandi!" : "To'ygacha qolgan vaqt"}
+            {labels.heading}
           </SparkleHeading>
 
           {mounted ? (
             <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-6">
-              <FlipDigit value={timeLeft.days} label="Kun" />
+              <FlipDigit value={timeLeft.days} label={labels.days} />
               <span className="mb-5 hidden font-serif text-2xl text-gold sm:inline">:</span>
-              <FlipDigit value={timeLeft.hours} label="Soat" />
+              <FlipDigit value={timeLeft.hours} label={labels.hours} />
               <span className="mb-5 hidden font-serif text-2xl text-gold sm:inline">:</span>
-              <FlipDigit value={timeLeft.minutes} label="Daqiqa" />
+              <FlipDigit value={timeLeft.minutes} label={labels.minutes} />
               <span className="mb-5 hidden font-serif text-2xl text-gold sm:inline">:</span>
-              <FlipDigit value={timeLeft.seconds} label="Soniya" />
+              <FlipDigit value={timeLeft.seconds} label={labels.seconds} />
             </div>
           ) : (
             <div className="flex justify-center gap-2 sm:gap-6">
-              {["Kun", "Soat", "Daqiqa", "Soniya"].map((label) => (
+              {[labels.days, labels.hours, labels.minutes, labels.seconds].map((label) => (
                 <div key={label} className="flex flex-col items-center gap-1.5">
                   <div className="flex h-16 w-14 items-center justify-center rounded-xl bg-emerald/10 sm:h-24 sm:w-20">
                     <span className="font-serif text-2xl font-bold text-emerald">--</span>

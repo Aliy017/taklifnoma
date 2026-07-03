@@ -7,21 +7,23 @@ import ScrollReveal from "./ScrollReveal";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import MapEmbed from "@/shared/components/MapEmbed";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
+import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
 
 const spring = { type: "spring" as const, stiffness: 260, damping: 22 };
 
 export default function Location() {
   const variant9Config = useVariantConfig(variant9ConfigBase);
   const lite = useLiteMode();
+  const { t } = useLocaleOptional();
   const { venue, displayTimeLabel } = variant9Config;
 
   return (
     <section id="location" className="mobile-section relative z-10 px-4 py-16">
       <ScrollReveal className="mx-auto max-w-3xl">
         <div className="mb-8 text-center">
-          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#047857]">Manzil</p>
+          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#047857]">{t("nav.location")}</p>
           <SparkleHeading theme="variant-9" as="h2" intensity="high" className="text-2xl font-bold sm:text-3xl">
-            To&apos;y joyi
+            {t("map.title")}
           </SparkleHeading>
           <div className="v9-bodom-divider mx-auto mt-4 max-w-[140px]" />
         </div>
@@ -43,7 +45,7 @@ export default function Location() {
               rel="noopener noreferrer"
               className="mt-3 inline-block text-sm text-[#047857] hover:underline"
             >
-              Xaritada ochish →
+              {t("nav.openMap")} →
             </a>
           </div>
           <MapEmbed

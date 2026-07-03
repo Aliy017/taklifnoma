@@ -14,7 +14,7 @@ import { useSearchParams } from "next/navigation";
 import type { MessageKey } from "./messages";
 import { translate } from "./messages";
 import { localizeText } from "./transliterate";
-import { parseLocaleParam, type LocaleId } from "./types";
+import { parseLocaleParam, localeToQuery, type LocaleId } from "./types";
 
 const STORAGE_KEY = "taklifnoma-locale";
 
@@ -67,6 +67,15 @@ export function LocaleProvider({
     setLocaleState(next);
     try {
       localStorage.setItem(STORAGE_KEY, next);
+      if (typeof window !== "undefined") {
+        const params = new URLSearchParams(window.location.search);
+        const q = localeToQuery(next);
+        if (q) params.set("lang", q);
+        else params.delete("lang");
+        const qs = params.toString();
+        const url = `${window.location.pathname}${qs ? `?${qs}` : ""}${window.location.hash}`;
+        window.history.replaceState(null, "", url);
+      }
     } catch {
       /* ignore */
     }

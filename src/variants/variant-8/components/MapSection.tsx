@@ -7,21 +7,23 @@ import LiquidScroll from "./LiquidScroll";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import MapEmbed from "@/shared/components/MapEmbed";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
+import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
 
 const spring = { type: "spring" as const, stiffness: 260, damping: 22 };
 
 export default function MapSection() {
   const variant8Config = useVariantConfig(variant8ConfigBase);
   const lite = useLiteMode();
+  const { t } = useLocaleOptional();
   const { venue, displayTimeLabel } = variant8Config;
 
   return (
     <section id="location" className="mobile-section relative z-10 px-4 py-16 sm:py-24">
       <LiquidScroll className="mx-auto max-w-3xl">
         <div className="mb-8 text-center">
-          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#2B9FD9]">Manzil</p>
+          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#2B9FD9]">{t("nav.location")}</p>
           <SparkleHeading theme="variant-8" as="h2" intensity="high" className="text-2xl font-bold sm:text-3xl">
-            To&apos;y joyi
+            {t("map.title")}
           </SparkleHeading>
         </div>
 

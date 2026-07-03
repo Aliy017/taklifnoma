@@ -62,6 +62,8 @@
 .variant-6 .v6-azure-text,
 .variant-6 .v6-red-text,
 .variant-6 .v6-accent-text {
+  display: inline-block;
+  padding-inline: 0.08em;
   background: linear-gradient(135deg, var(--v6-red-light), var(--v6-red-mid), var(--v6-red-deep), var(--v6-gold));
   background-size: 200% auto;
   -webkit-background-clip: text;
