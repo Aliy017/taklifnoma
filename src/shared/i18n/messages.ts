@@ -62,6 +62,9 @@ export type MessageKey =
   | "map.label"
   | "map.title"
   | "map.iframeTitle"
+  | "map.loadHint"
+  | "map.showButton"
+  | "map.openExternal"
   | "venue.eventLabel"
   | "venue.whereTitle"
   | "venue.timeLabel"
@@ -122,14 +125,14 @@ const uzLatin: Messages = {
   "invite.hearts": "{groom} va {bride} — ikki yurak, bitta yo'l. Alloh taolo ularning qadamlarini birlashtirdi.",
   "invite.blessing": "Alloh ularning baxtini abadiy qilsin",
   "wishes.label": "Tabriklar",
-  "wishes.title": "Tabriklaringizni qoldiring",
+  "wishes.title": "Yangi turmush qurayotganlarga tabriklar",
   "wishes.subtitle":
     "Qalbingizdagi eng iliq so'zlarni shu yerga yozing — tabriklaringiz biz uchun juda qadrli",
   "wishes.name": "Ismingiz",
   "wishes.namePlaceholder": "To'liq ism",
   "wishes.side": "Kim tomondan (ixtiyoriy)",
   "wishes.message": "Tabrik",
-  "wishes.messagePlaceholder": "Yangi turmush qurganlarga tabriklar...",
+  "wishes.messagePlaceholder": "Yangi turmush qurayotganlarga tabriklar...",
   "wishes.submit": "Tabrik yuborish",
   "wishes.submitting": "Yuborilmoqda...",
   "wishes.success": "Rahmat! Tabrigingiz qabul qilindi",
@@ -174,6 +177,9 @@ const uzLatin: Messages = {
   "map.label": "Manzil",
   "map.title": "To'y joyi",
   "map.iframeTitle": "To'y joyi xaritasi",
+  "map.loadHint": "Xarita faqat tugma bosilganda yuklanadi",
+  "map.showButton": "Xaritani ko'rish",
+  "map.openExternal": "Tashqi xaritada ochish",
   "venue.eventLabel": "Tadbir joyi",
   "venue.whereTitle": "Bizni qayerda topasiz",
   "venue.timeLabel": "Vaqt",
@@ -234,14 +240,14 @@ const uzCyrillic: Messages = {
   "invite.hearts": "{groom} ва {bride} — икки юрак, битта йўл. Аллоҳ таоло уларнинг қадамларини бирлаштирди.",
   "invite.blessing": "Аллоҳ уларнинг бахтини абадий қилсин",
   "wishes.label": "Табриклар",
-  "wishes.title": "Табрикларингизни қолдиринг",
+  "wishes.title": "Янги турмуш қураётганларга табриклар",
   "wishes.subtitle":
     "Қалбингиздаги энг илик сўзларни шу ерга ёзинг — табрикларингиз биз учун жуда қадрли",
   "wishes.name": "Исмингиз",
   "wishes.namePlaceholder": "Тўлиқ исм",
   "wishes.side": "Ким томондан (ихтиёрий)",
   "wishes.message": "Табрик",
-  "wishes.messagePlaceholder": "Янги турмуш қурганларга табриклар...",
+  "wishes.messagePlaceholder": "Янги турмуш қураётганларга табриклар...",
   "wishes.submit": "Табрик юбориш",
   "wishes.submitting": "Юборилмоқда...",
   "wishes.success": "Рахмат! Табрикингиз қабул қилинди",
@@ -286,6 +292,9 @@ const uzCyrillic: Messages = {
   "map.label": "Манзил",
   "map.title": "Тўй жойи",
   "map.iframeTitle": "Тўй жойи харитаси",
+  "map.loadHint": "Харита фақат тугма босилганда юкланади",
+  "map.showButton": "Харитани кўриш",
+  "map.openExternal": "Ташқи харитада очиш",
   "venue.eventLabel": "Тадбир жойи",
   "venue.whereTitle": "Бизни қаерда топасиз",
   "venue.timeLabel": "Вақт",
@@ -349,7 +358,7 @@ const ru: Messages = {
   "invite.hearts": "{groom} и {bride} — два сердца, один путь. Аллах объединил их шаги.",
   "invite.blessing": "Пусть Аллах дарует им вечное счастье",
   "wishes.label": "Поздравления",
-  "wishes.title": "Оставьте своё поздравление",
+  "wishes.title": "Поздравления вступающим в брак",
   "wishes.subtitle":
     "Напишите здесь самые тёплые слова — ваши поздравления очень дороги для нас",
   "wishes.name": "Ваше имя",
@@ -401,6 +410,9 @@ const ru: Messages = {
   "map.label": "Адрес",
   "map.title": "Место проведения",
   "map.iframeTitle": "Карта места проведения",
+  "map.loadHint": "Карта загружается только после нажатия кнопки",
+  "map.showButton": "Показать карту",
+  "map.openExternal": "Открыть во внешней карте",
   "venue.eventLabel": "Место проведения",
   "venue.whereTitle": "Где нас найти",
   "venue.timeLabel": "Время",

@@ -57,6 +57,58 @@ main,
   max-width: 100%;
 }
 
+/* Qirqilgan burchaklar — chamfered decorative shapes */
+:root {
+  --shape-cut-sm: polygon(5% 0%, 95% 0%, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0% 95%, 0% 5%);
+  --shape-cut-md: polygon(7% 0%, 93% 0%, 100% 7%, 100% 93%, 93% 100%, 7% 100%, 0% 93%, 0% 7%);
+  --shape-cut-lg: polygon(9% 0%, 91% 0%, 100% 9%, 100% 91%, 91% 100%, 9% 100%, 0% 91%, 0% 9%);
+}
+
+.shape-cut {
+  clip-path: var(--shape-cut-md);
+  border-radius: 0 !important;
+}
+
+.shape-cut-sm {
+  clip-path: var(--shape-cut-sm);
+  border-radius: 0 !important;
+}
+
+.shape-cut-lg {
+  clip-path: var(--shape-cut-lg);
+  border-radius: 0 !important;
+}
+
+[class*="variant-"] .v1-card,
+[class*="variant-"] .v2-card,
+[class*="variant-"] .v3-card,
+[class*="variant-"] .v4-glass,
+[class*="variant-"] .v5-card,
+[class*="variant-"] .v6-glass,
+[class*="variant-"] .v6-section-panel,
+[class*="variant-"] .v6-story-chip,
+[class*="variant-"] .v6-venue-card,
+[class*="variant-"] .v6-map-frame,
+[class*="variant-"] .v6-wishes-form,
+[class*="variant-"] .v7-glass,
+[class*="variant-"] .v8-card,
+[class*="variant-"] .v9-card,
+[class*="variant-"] .v10-card,
+[class*="variant-"] .v10-countdown-box {
+  clip-path: var(--shape-cut-md);
+  border-radius: 0 !important;
+}
+
+.wishes-luxury-panel,
+.wishes-luxury-inner {
+  clip-path: var(--shape-cut-md);
+  border-radius: 0 !important;
+}
+
+.wishes-luxury-inner {
+  clip-path: var(--shape-cut-sm);
+}
+
 /* Mobil birinchi: katta bosish maydonlari */
 @media (max-width: 768px) {
   .mobile-section {
