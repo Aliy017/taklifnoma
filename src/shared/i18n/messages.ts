@@ -106,7 +106,10 @@ export type MessageKey =
   | "schedule.brideGreeting.title"
   | "schedule.brideGreeting.desc"
   | "gallery.dashboardEyebrow"
-  | "gallery.dashboardSubtitle";
+  | "gallery.dashboardSubtitle"
+  | "intro.openEnvelope"
+  | "intro.open"
+  | "intro.inviteReveal";
 
 type Messages = Record<MessageKey, string>;
 
@@ -220,6 +223,9 @@ const uzLatin: Messages = {
   "lang.switchAria": "Til: {label}. Boshqa tilga o'tish",
   "gallery.dashboardEyebrow": "To'y taklifnomasi",
   "gallery.dashboardSubtitle": "10 ta dizayn — yoqtiring va oching",
+  "intro.openEnvelope": "Taklifnomani oching",
+  "intro.open": "Oching",
+  "intro.inviteReveal": "Sizni to'yimizga taklif qilamiz",
 };
 
 const uzCyrillic: Messages = {
@@ -337,6 +343,9 @@ const uzCyrillic: Messages = {
   "lang.switchAria": "Тил: {label}. Бошқа тилга ўтиш",
   "gallery.dashboardEyebrow": "Тўй taklifnomasi",
   "gallery.dashboardSubtitle": "10 ta dizayn — yoqtiring va oching",
+  "intro.openEnvelope": "Такlifnomani oching",
+  "intro.open": "Oching",
+  "intro.inviteReveal": "Sizni to'yimizga taklif qilamiz",
 };
 
 const ru: Messages = {
@@ -449,6 +458,9 @@ const ru: Messages = {
   "lang.switchAria": "Язык: {label}. Переключить язык",
   "gallery.dashboardEyebrow": "Свадебное приглашение",
   "gallery.dashboardSubtitle": "10 дизайнов — лайкните и откройте",
+  "intro.openEnvelope": "Откройте приглашение",
+  "intro.open": "Открыть",
+  "intro.inviteReveal": "Приглашаем вас на нашу свадьбу",
 };
 
 export const MESSAGES: Record<LocaleId, Messages> = {
