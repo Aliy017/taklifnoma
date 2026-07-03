@@ -77,11 +77,16 @@
   position: fixed;
   inset: 0;
   z-index: 50;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  max-width: 100vw;
+  height: 100dvh;
   overflow: hidden;
   background: #030810;
   padding: 1.5rem;
+  box-sizing: border-box;
 }
 
 .v2-entry-bg {
@@ -116,14 +121,15 @@
   position: relative;
   z-index: 1;
   display: flex;
-  width: 100%;
-  max-width: 22rem;
-  min-height: min(72vh, 22rem);
+  width: min(calc(100vw - 3rem), 26rem);
+  max-width: 26rem;
+  min-height: min(72vh, 24rem);
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   gap: 0;
+  margin: 0 auto;
 }
 
 .v2-entry-names {

@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
@@ -18,6 +19,11 @@ export default function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
   const { t } = useLocaleOptional();
   const { groom, bride } = useVariantConfig(variant2ConfigBase);
   const [opening, setOpening] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const open = useCallback(() => {
     if (opening) return;
@@ -25,7 +31,7 @@ export default function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
     setTimeout(onOpen, lite ? 750 : 1300);
   }, [lite, onOpen, opening]);
 
-  return (
+  const overlay = (
     <motion.div
       className="v2-entry"
       exit={{ opacity: 0 }}
@@ -66,14 +72,7 @@ export default function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
           aria-hidden
         />
 
-        <motion.p
-          className="v2-entry-sub"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.28, duration: 0.5 }}
-        >
-          {t("hero.inviteLabel")}
-        </motion.p>
+        <p className="v2-entry-sub">{t("hero.inviteLabel")}</p>
 
         <motion.button
           type="button"
@@ -120,4 +119,8 @@ export default function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
       )}
     </motion.div>
   );
+
+  if (!mounted) return null;
+
+  return createPortal(overlay, document.body);
 }

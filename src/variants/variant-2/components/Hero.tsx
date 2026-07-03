@@ -18,8 +18,8 @@ export default function Hero() {
         <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-white/5 blur-[80px]" />
       </div>
 
-      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-2">
-        <div className="order-2 text-center lg:order-1 lg:text-left">
+      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-10 px-0 sm:gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="order-2 mx-auto w-full max-w-xl text-center lg:order-1 lg:mx-0 lg:max-w-none lg:text-left">
           <p className="mb-4 text-xs uppercase tracking-[0.4em] text-[#8b9dc3]">
             Bismillahir Rahmonir Rahim
           </p>
@@ -39,7 +39,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="order-1 lg:order-2">
+        <div className="order-1 mx-auto w-full max-w-sm lg:order-2 lg:max-w-none">
           <CouplePortrait theme="variant-2" />
         </div>
       </div>

@@ -19,13 +19,13 @@ export default function Variant2Page() {
   const { groom, bride, displayDate } = variant2Config;
 
   return (
-    <main className="variant-2 relative w-full min-h-dvh overflow-x-hidden">
+    <main className="variant-2 relative isolate w-full min-h-dvh">
       <AnimatePresence>
         {!opened && <EnvelopeIntro key="envelope" onOpen={() => setOpened(true)} />}
       </AnimatePresence>
 
       {opened && (
-        <>
+        <div className="relative z-10 w-full">
           <FloatingAmbience theme="variant-2" />
           <Hero />
           <EventDetails />
@@ -42,7 +42,7 @@ export default function Variant2Page() {
             <p className="text-xs text-[#c0c8d4]/40">Alloh ularning baxtini abadiy qilsin</p>
           </footer>
           <VariantBottomBar variantId="variant-2" accent="#8b9dc3" />
-        </>
+        </div>
       )}
     </main>
   );
