@@ -44,15 +44,13 @@ export default function Location() {
           <div className="v1-card rounded-sm p-6 sm:p-8">
             <p className="v1-label mb-5">{t("venue.scheduleLabel")}</p>
             <div className="space-y-4">
-              {morningSchedule.map((item) => (
-                <div key={item.time} className="flex gap-4 border-b border-[#d4af37]/10 pb-4 last:border-0 last:pb-0">
-                  <div className="v1-year-badge v1-hex-badge h-11 w-11 shrink-0 text-[10px] sm:text-[11px]">
-                    {item.time}
-                  </div>
-                  <div className="min-w-0 pt-0.5">
-                    <p className="v1-heading text-sm text-white/85">{item.title}</p>
-                    <p className="mt-0.5 text-sm leading-relaxed text-white/45">{item.desc}</p>
-                  </div>
+              {morningSchedule.map((item, index) => (
+                <div
+                  key={`${item.title}-${index}`}
+                  className="border-b border-[#d4af37]/10 pb-4 last:border-0 last:pb-0"
+                >
+                  <p className="v1-heading text-sm text-white/85">{item.title}</p>
+                  <p className="mt-0.5 text-sm leading-relaxed text-white/45">{item.desc}</p>
                 </div>
               ))}
             </div>

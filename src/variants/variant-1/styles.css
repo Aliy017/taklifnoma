@@ -159,18 +159,23 @@
   overflow: visible;
 }
 
-.variant-1 .v1-hero-hex-content .sparkle-halo,
-.variant-1 .v1-hero-hex-content .sparkle-sweep {
-  display: none;
-}
-
 .variant-1 .v1-hero-hex-content .sparkle-heading-wrap {
   overflow: visible;
   width: auto;
 }
 
-.variant-1 .v1-hero-name {
-  letter-spacing: 0.05em;
+.variant-1 .v1-hero-hex-content .v1-hero-name.sparkle-text {
+  font-weight: 200;
+  letter-spacing: 0.14em;
+  text-transform: none;
+}
+
+.variant-1 .v1-countdown-digit {
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  background: linear-gradient(160deg, rgba(212, 175, 55, 0.1), rgba(8, 8, 8, 0.85));
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.06) inset,
+    0 8px 24px rgba(0, 0, 0, 0.45);
 }
 
 .variant-1 .v1-hero-amp {

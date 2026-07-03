@@ -69,14 +69,17 @@ function randomSparkle(
   anchor: Anchor,
   colors: string[],
   intensity: "high" | "normal",
-  premium: boolean
+  premium: boolean,
+  slow: boolean
 ): SparkleParticle {
-  const angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.4;
-  const distance = premium
-    ? 14 + Math.random() * 22
-    : intensity === "high"
-      ? 28 + Math.random() * 40
-      : 18 + Math.random() * 28;
+  const angle = -Math.PI / 2 + (Math.random() - 0.5) * (slow ? 1.0 : 1.4);
+  const distance = slow
+    ? 10 + Math.random() * 16
+    : premium
+      ? 14 + Math.random() * 22
+      : intensity === "high"
+        ? 28 + Math.random() * 40
+        : 18 + Math.random() * 28;
   const shapes: SparkleParticle["shape"][] = ["star", "diamond", "dot"];
 
   return {
@@ -85,10 +88,16 @@ function randomSparkle(
     y: anchor.y + (Math.random() - 0.5) * 5,
     dx: Math.cos(angle) * distance,
     dy: Math.sin(angle) * distance,
-    size: premium ? 4 + Math.random() * 5 : intensity === "high" ? 5 + Math.random() * 8 : 4 + Math.random() * 6,
+    size: slow
+      ? 3 + Math.random() * 4
+      : premium
+        ? 4 + Math.random() * 5
+        : intensity === "high"
+          ? 5 + Math.random() * 8
+          : 4 + Math.random() * 6,
     color: colors[Math.floor(Math.random() * colors.length)],
     shape: shapes[Math.floor(Math.random() * shapes.length)],
-    duration: premium ? 1.4 + Math.random() * 1.1 : 0.7 + Math.random() * 0.6,
+    duration: slow ? 2.2 + Math.random() * 1.6 : premium ? 1.4 + Math.random() * 1.1 : 0.7 + Math.random() * 0.6,
     rotate: Math.random() * 120,
   };
 }
@@ -131,6 +140,7 @@ export interface SparkleHeadingProps {
   children: ReactNode;
   intensity?: "high" | "normal";
   sparkles?: boolean;
+  pace?: "slow" | "normal";
 }
 
 export default function SparkleHeading({
@@ -140,6 +150,7 @@ export default function SparkleHeading({
   children,
   intensity = "normal",
   sparkles = true,
+  pace = "normal",
 }: SparkleHeadingProps) {
   const lite = useLiteMode();
   const premiumMobile = lite;
@@ -188,10 +199,14 @@ export default function SparkleHeading({
           id: `tw-${i}-${a.x.toFixed(1)}-${a.y.toFixed(1)}`,
           x: a.x,
           y: a.y,
-          delay: premiumMobile ? (i * 0.42) % 5.5 : (i * 0.22) % 3.2,
+          delay: premiumMobile
+            ? (i * 0.42) % 5.5
+            : pace === "slow"
+              ? (i * 0.55) % 6.5
+              : (i * 0.22) % 3.2,
         }))
     );
-  }, [premiumMobile, sparkles]);
+  }, [pace, premiumMobile, sparkles]);
 
   useLayoutEffect(() => {
     measure();
@@ -234,14 +249,15 @@ export default function SparkleHeading({
   useEffect(() => {
     if (!useJsParticles || !isVisible || anchors.length === 0) return;
 
-    const maxParticles = intensity === "high" ? 16 : 12;
-    const intervalMs = intensity === "high" ? 520 : 680;
+    const maxParticles = pace === "slow" ? 10 : intensity === "high" ? 16 : 12;
+    const intervalMs =
+      pace === "slow" ? (intensity === "high" ? 980 : 1200) : intensity === "high" ? 520 : 680;
 
     const spawn = (count = 1) => {
       const batch: SparkleParticle[] = [];
       for (let i = 0; i < count; i += 1) {
         const anchor = anchors[Math.floor(Math.random() * anchors.length)];
-        batch.push(randomSparkle(anchor, palette.sparkles, intensity, false));
+        batch.push(randomSparkle(anchor, palette.sparkles, intensity, false, pace === "slow"));
       }
 
       setParticles((prev) => [...prev, ...batch].slice(-maxParticles));
@@ -255,14 +271,14 @@ export default function SparkleHeading({
 
     const interval = window.setInterval(() => spawn(1), intervalMs);
     const burstInterval = window.setInterval(() => {
-      if (Math.random() > 0.55) spawn(intensity === "high" ? 2 : 1);
-    }, intensity === "high" ? 3200 : 4200);
+      if (Math.random() > (pace === "slow" ? 0.72 : 0.55)) spawn(intensity === "high" ? 2 : 1);
+    }, pace === "slow" ? 5200 : intensity === "high" ? 3200 : 4200);
 
     return () => {
       window.clearInterval(interval);
       window.clearInterval(burstInterval);
     };
-  }, [anchors, intensity, isVisible, palette.sparkles, useJsParticles]);
+  }, [anchors, intensity, isVisible, pace, palette.sparkles, useJsParticles]);
 
   useEffect(() => {
     if (!isVisible) setParticles([]);
@@ -271,6 +287,7 @@ export default function SparkleHeading({
   const wrapClass = [
     "sparkle-heading-wrap relative mx-auto w-fit max-w-full",
     sparkles ? "" : "sparkle-heading-wrap--shimmer",
+    pace === "slow" ? "sparkle-heading-wrap--slow" : "",
     premiumMobile ? "sparkle-heading-wrap--premium-mobile" : "",
     isVisible ? "sparkle-heading-wrap--active" : "",
   ]

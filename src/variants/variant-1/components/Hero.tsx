@@ -21,8 +21,9 @@ export default function Hero() {
           <SparkleHeading
             theme="variant-1"
             as="h1"
-            sparkles={false}
-            className="v1-heading v1-hero-name text-[1.75rem] leading-tight sm:text-[2rem]"
+            intensity="high"
+            pace="slow"
+            className="v1-heading v1-hero-name text-[1.85rem] leading-tight sm:text-[2.25rem]"
           >
             {groom}
           </SparkleHeading>
@@ -32,8 +33,9 @@ export default function Hero() {
           <SparkleHeading
             theme="variant-1"
             as="h2"
-            sparkles={false}
-            className="v1-heading v1-hero-name block text-[1.75rem] leading-tight sm:text-[2rem]"
+            intensity="high"
+            pace="slow"
+            className="v1-heading v1-hero-name block text-[1.85rem] leading-tight sm:text-[2.25rem]"
           >
             {bride}
           </SparkleHeading>

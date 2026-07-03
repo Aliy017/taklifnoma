@@ -2,7 +2,6 @@
 import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { useEffect, useState } from "react";
-import GlassCard from "./GlassCard";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { variant1Config as variant1ConfigBase } from "../config";
 import { useCountdownLabels } from "@/shared/hooks/useCountdownLabels";
@@ -32,10 +31,10 @@ function FlipDigit({ value, label }: { value: number; label: string }) {
 
   return (
     <div className="flex flex-col items-center gap-1.5 sm:gap-2">
-      <div className="flex h-16 w-14 items-center justify-center rounded-xl bg-emerald/10 shadow sm:h-24 sm:w-20 sm:rounded-2xl">
-        <span className="font-serif text-2xl font-bold text-emerald sm:text-4xl">{display}</span>
+      <div className="v1-countdown-digit flex h-16 w-14 items-center justify-center rounded-sm sm:h-24 sm:w-20">
+        <span className="v1-heading text-2xl font-light text-[#f0d78c] sm:text-4xl">{display}</span>
       </div>
-      <span className="text-[10px] uppercase tracking-widest text-emerald/60 sm:text-sm">{label}</span>
+      <span className="v1-label text-[10px] sm:text-[11px]">{label}</span>
     </div>
   );
 }
@@ -64,37 +63,40 @@ export default function Countdown() {
   return (
     <section id="countdown" className="mobile-section px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-4xl">
-        <GlassCard dark className="text-center">
-          <p className="mb-2 font-serif text-xs uppercase tracking-[0.2em] text-gold sm:tracking-[0.25em]">
-            {labels.eyebrow}
-          </p>
-          <SparkleHeading theme="variant-1" as="h2" intensity="high" className="mb-6 text-2xl font-bold sm:mb-10 sm:text-4xl">
+        <div className="v1-card rounded-sm p-6 text-center sm:p-10">
+          <p className="v1-label mb-2">{labels.eyebrow}</p>
+          <SparkleHeading
+            theme="variant-1"
+            as="h2"
+            intensity="high"
+            className="v1-heading mb-6 text-2xl sm:mb-10 sm:text-4xl"
+          >
             {labels.heading}
           </SparkleHeading>
 
           {mounted ? (
             <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-6">
               <FlipDigit value={timeLeft.days} label={labels.days} />
-              <span className="mb-5 hidden font-serif text-2xl text-gold sm:inline">:</span>
+              <span className="mb-5 hidden font-serif text-2xl text-[#d4af37]/50 sm:inline">:</span>
               <FlipDigit value={timeLeft.hours} label={labels.hours} />
-              <span className="mb-5 hidden font-serif text-2xl text-gold sm:inline">:</span>
+              <span className="mb-5 hidden font-serif text-2xl text-[#d4af37]/50 sm:inline">:</span>
               <FlipDigit value={timeLeft.minutes} label={labels.minutes} />
-              <span className="mb-5 hidden font-serif text-2xl text-gold sm:inline">:</span>
+              <span className="mb-5 hidden font-serif text-2xl text-[#d4af37]/50 sm:inline">:</span>
               <FlipDigit value={timeLeft.seconds} label={labels.seconds} />
             </div>
           ) : (
             <div className="flex justify-center gap-2 sm:gap-6">
               {[labels.days, labels.hours, labels.minutes, labels.seconds].map((label) => (
                 <div key={label} className="flex flex-col items-center gap-1.5">
-                  <div className="flex h-16 w-14 items-center justify-center rounded-xl bg-emerald/10 sm:h-24 sm:w-20">
-                    <span className="font-serif text-2xl font-bold text-emerald">--</span>
+                  <div className="v1-countdown-digit flex h-16 w-14 items-center justify-center rounded-sm sm:h-24 sm:w-20">
+                    <span className="v1-heading text-2xl font-light text-[#f0d78c]">--</span>
                   </div>
-                  <span className="text-[10px] uppercase text-emerald/60 sm:text-sm">{label}</span>
+                  <span className="v1-label text-[10px] sm:text-[11px]">{label}</span>
                 </div>
               ))}
             </div>
           )}
-        </GlassCard>
+        </div>
       </div>
     </section>
   );

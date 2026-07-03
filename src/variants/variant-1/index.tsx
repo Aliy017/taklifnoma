@@ -3,6 +3,7 @@ import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import LuxuryBackground from "./components/LuxuryBackground";
 import Hero from "./components/Hero";
+import Countdown from "./components/Countdown";
 import OurStory from "./components/OurStory";
 import Location from "./components/Location";
 import WishesSection from "@/shared/components/WishesSection";
@@ -23,6 +24,7 @@ export default function Variant1Page() {
 
       <div className="relative z-10">
         <Hero />
+        <Countdown />
         <OurStory />
         <Location />
 
