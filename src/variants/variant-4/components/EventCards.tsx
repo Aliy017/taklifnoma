@@ -1,11 +1,13 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
-import { variant4Config } from "../config";
+import { variant4Config as variant4ConfigBase } from "../config";
 import ScrollReveal from "./ScrollReveal";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import MapEmbed from "@/shared/components/MapEmbed";
 
 export default function EventCards() {
+  const variant4Config = useVariantConfig(variant4ConfigBase);
   const { events, venue } = variant4Config;
 
   return (

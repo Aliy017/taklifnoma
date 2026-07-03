@@ -1,12 +1,14 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { variant3Config } from "../config";
+import { variant3Config as variant3ConfigBase } from "../config";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import SparkleHeading from "./SparkleHeading";
 
 export default function QuoteSection() {
+  const variant3Config = useVariantConfig(variant3ConfigBase);
   const lite = useLiteMode();
   const { quotes } = variant3Config;
   const [active, setActive] = useState(0);

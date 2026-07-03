@@ -1,14 +1,16 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { variant8Config } from "../config";
+import { variant8Config as variant8ConfigBase } from "../config";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 
 const spring = { type: "spring" as const, stiffness: 200, damping: 22 };
 
 export default function Hero() {
+  const variant8Config = useVariantConfig(variant8ConfigBase);
   const lite = useLiteMode();
   const { groom, bride, displayDate, weddingType } = variant8Config;
 

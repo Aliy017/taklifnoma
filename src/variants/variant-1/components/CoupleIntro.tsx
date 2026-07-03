@@ -1,12 +1,14 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { motion } from "framer-motion";
 import GlassCard from "./GlassCard";
 import SparkleHeading from "@/shared/components/SparkleHeading";
-import { variant1Config } from "../config";
+import { variant1Config as variant1ConfigBase } from "../config";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 
 export default function CoupleIntro() {
+  const variant1Config = useVariantConfig(variant1ConfigBase);
   const lite = useLiteMode();
   const { groom, bride, displayDate, displayTimeLabel, weddingType } = variant1Config;
 

@@ -1,13 +1,15 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { variant1Config } from "../config";
+import { variant1Config as variant1ConfigBase } from "../config";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import SparkleHeading from "./SparkleHeading";
 import LuxuryFrame from "./LuxuryFrame";
 
 export default function QuoteSection() {
+  const variant1Config = useVariantConfig(variant1ConfigBase);
   const lite = useLiteMode();
   const { quotes } = variant1Config;
   const [active, setActive] = useState(0);

@@ -1,4 +1,5 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import RosePetals from "./components/RosePetals";
 import ParallaxBackground from "./components/ParallaxBackground";
@@ -8,9 +9,10 @@ import QuoteSection from "./components/QuoteSection";
 import WishesSection from "@/shared/components/WishesSection";
 import VenueSection from "@/shared/components/VenueSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
-import { variant3Config } from "./config";
+import { variant3Config as variant3ConfigBase } from "./config";
 
 export default function Variant3Page() {
+  const variant3Config = useVariantConfig(variant3ConfigBase);
   const { groom, bride, displayDate } = variant3Config;
 
   return (

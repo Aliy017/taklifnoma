@@ -1,7 +1,8 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { motion } from "framer-motion";
-import { variant9Config } from "../config";
+import { variant9Config as variant9ConfigBase } from "../config";
 import ScrollReveal from "./ScrollReveal";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import MapEmbed from "@/shared/components/MapEmbed";
@@ -10,6 +11,7 @@ import { useLiteMode } from "@/shared/hooks/useLiteMode";
 const spring = { type: "spring" as const, stiffness: 260, damping: 22 };
 
 export default function Location() {
+  const variant9Config = useVariantConfig(variant9ConfigBase);
   const lite = useLiteMode();
   const { venue, displayTimeLabel } = variant9Config;
 

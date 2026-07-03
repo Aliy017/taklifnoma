@@ -1,12 +1,14 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
-import { variant10Config } from "../config";
+import { variant10Config as variant10ConfigBase } from "../config";
 import ScrollReveal from "./ScrollReveal";
 import SuzaniDivider from "./SuzaniDivider";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import MapEmbed from "@/shared/components/MapEmbed";
 
 export default function Location() {
+  const variant10Config = useVariantConfig(variant10ConfigBase);
   const { venue, displayTimeLabel } = variant10Config;
 
   return (

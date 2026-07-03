@@ -1,12 +1,14 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { variant7Config } from "../config";
+import { variant7Config as variant7ConfigBase } from "../config";
 
 const spring = { type: "spring" as const, stiffness: 300, damping: 20 };
 
 export default function MusicPlayer() {
+  const variant7Config = useVariantConfig(variant7ConfigBase);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [playing, setPlaying] = useState(false);
   const [available, setAvailable] = useState(true);

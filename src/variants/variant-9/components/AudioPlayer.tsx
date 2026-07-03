@@ -1,12 +1,14 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { variant9Config } from "../config";
+import { variant9Config as variant9ConfigBase } from "../config";
 
 const spring = { type: "spring" as const, stiffness: 300, damping: 22 };
 
 export default function AudioPlayer() {
+  const variant9Config = useVariantConfig(variant9ConfigBase);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [playing, setPlaying] = useState(false);
   const [available, setAvailable] = useState(true);

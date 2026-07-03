@@ -1,4 +1,5 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import LuxuryBackground from "./components/LuxuryBackground";
 import Hero from "./components/Hero";
@@ -7,9 +8,10 @@ import QuoteSection from "./components/QuoteSection";
 import Location from "./components/Location";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
-import { variant1Config } from "./config";
+import { variant1Config as variant1ConfigBase } from "./config";
 
 export default function Variant1Page() {
+  const variant1Config = useVariantConfig(variant1ConfigBase);
   const { groom, bride, displayDate } = variant1Config;
 
   return (

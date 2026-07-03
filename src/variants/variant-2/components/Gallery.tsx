@@ -1,8 +1,9 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { useRef, type MouseEvent } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { variant2Config } from "../config";
+import { variant2Config as variant2ConfigBase } from "../config";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 
@@ -49,6 +50,7 @@ function GalleryItem({ label, gradient, lite }: { label: string; gradient: strin
 }
 
 export default function Gallery() {
+  const variant2Config = useVariantConfig(variant2ConfigBase);
   const lite = useLiteMode();
   const { gallery } = variant2Config;
 

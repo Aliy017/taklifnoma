@@ -1,7 +1,8 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { motion } from "framer-motion";
-import { variant8Config } from "../config";
+import { variant8Config as variant8ConfigBase } from "../config";
 import LiquidScroll from "./LiquidScroll";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
@@ -9,6 +10,7 @@ import { useLiteMode } from "@/shared/hooks/useLiteMode";
 const spring = { type: "spring" as const, stiffness: 260, damping: 22 };
 
 export default function Timeline() {
+  const variant8Config = useVariantConfig(variant8ConfigBase);
   const lite = useLiteMode();
   const { timeline } = variant8Config;
 

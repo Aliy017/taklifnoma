@@ -1,9 +1,11 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
-import { variant6Config } from "../config";
+import { variant6Config as variant6ConfigBase } from "../config";
 import SectionCard from "./SectionCard";
 
 export default function About() {
+  const variant6Config = useVariantConfig(variant6ConfigBase);
   const { about, groom, bride } = variant6Config;
 
   return (

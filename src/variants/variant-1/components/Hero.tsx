@@ -1,11 +1,13 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
-import { variant1Config } from "../config";
+import { variant1Config as variant1ConfigBase } from "../config";
 import CouplePortrait from "@/shared/components/CouplePortrait";
 import SparkleHeading from "./SparkleHeading";
 import LuxuryFrame from "./LuxuryFrame";
 
 export default function Hero() {
+  const variant1Config = useVariantConfig(variant1ConfigBase);
   const { groom, bride, displayDate, displayTimeLabel } = variant1Config;
 
   return (

@@ -1,11 +1,13 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { motion } from "framer-motion";
-import { variant1Config } from "../config";
+import { variant1Config as variant1ConfigBase } from "../config";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import SparkleHeading from "./SparkleHeading";
 
 export default function OurStory() {
+  const variant1Config = useVariantConfig(variant1ConfigBase);
   const lite = useLiteMode();
   const { story } = variant1Config;
 

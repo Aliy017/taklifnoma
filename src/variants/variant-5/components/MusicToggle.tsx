@@ -1,13 +1,15 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { variant5Config } from "../config";
+import { variant5Config as variant5ConfigBase } from "../config";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 
 const spring = { type: "spring" as const, stiffness: 300, damping: 20 };
 
 export default function MusicToggle() {
+  const variant5Config = useVariantConfig(variant5ConfigBase);
   const lite = useLiteMode();
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [playing, setPlaying] = useState(false);

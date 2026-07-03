@@ -1,11 +1,13 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { variant2Config } from "../config";
+import { variant2Config as variant2ConfigBase } from "../config";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 
 export default function MusicToggle() {
+  const variant2Config = useVariantConfig(variant2ConfigBase);
   const lite = useLiteMode();
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [playing, setPlaying] = useState(false);

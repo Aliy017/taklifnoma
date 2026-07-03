@@ -1,11 +1,11 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { useEffect, useState } from "react";
 import GlassCard from "./GlassCard";
 import SparkleHeading from "@/shared/components/SparkleHeading";
-import { variant1Config } from "../config";
+import { variant1Config as variant1ConfigBase } from "../config";
 
-const WEDDING_DATE = new Date(variant1Config.weddingDateISO);
 
 interface TimeLeft {
   days: number;
@@ -14,7 +14,8 @@ interface TimeLeft {
   seconds: number;
 }
 
-function calculateTimeLeft(): TimeLeft {
+function calculateTimeLeft(weddingDateISO: string): TimeLeft {
+  const WEDDING_DATE = new Date(weddingDateISO);
   const diff = WEDDING_DATE.getTime() - Date.now();
   if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
   return {
@@ -39,13 +40,14 @@ function FlipDigit({ value, label }: { value: number; label: string }) {
 }
 
 export default function Countdown() {
+  const variant1Config = useVariantConfig(variant1ConfigBase);
   const [mounted, setMounted] = useState(false);
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
     setMounted(true);
-    setTimeLeft(calculateTimeLeft());
-    const timer = setInterval(() => setTimeLeft(calculateTimeLeft()), 1000);
+    setTimeLeft(calculateTimeLeft(variant1Config.weddingDateISO));
+    const timer = setInterval(() => setTimeLeft(calculateTimeLeft(variant1Config.weddingDateISO)), 1000);
     return () => clearInterval(timer);
   }, []);
 

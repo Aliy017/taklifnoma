@@ -1,14 +1,14 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { variant10Config } from "../config";
+import { variant10Config as variant10ConfigBase } from "../config";
 import ScrollReveal from "./ScrollReveal";
 import SuzaniDivider from "./SuzaniDivider";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 
-const WEDDING_DATE = new Date(variant10Config.weddingDateISO);
 const spring = { type: "spring" as const, stiffness: 280, damping: 24 };
 
 interface TimeLeft {
@@ -18,7 +18,8 @@ interface TimeLeft {
   seconds: number;
 }
 
-function calculateTimeLeft(): TimeLeft {
+function calculateTimeLeft(weddingDateISO: string): TimeLeft {
+  const WEDDING_DATE = new Date(weddingDateISO);
   const diff = WEDDING_DATE.getTime() - Date.now();
   if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
   return {
@@ -61,13 +62,14 @@ function Digit({ value, label }: { value: number; label: string }) {
 }
 
 export default function Countdown() {
+  const variant10Config = useVariantConfig(variant10ConfigBase);
   const [mounted, setMounted] = useState(false);
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
     setMounted(true);
-    setTimeLeft(calculateTimeLeft());
-    const timer = setInterval(() => setTimeLeft(calculateTimeLeft()), 1000);
+    setTimeLeft(calculateTimeLeft(variant10Config.weddingDateISO));
+    const timer = setInterval(() => setTimeLeft(calculateTimeLeft(variant10Config.weddingDateISO)), 1000);
     return () => clearInterval(timer);
   }, []);
 

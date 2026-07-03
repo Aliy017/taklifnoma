@@ -1,12 +1,14 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { variant2Config } from "../config";
+import { variant2Config as variant2ConfigBase } from "../config";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 
 export default function Timeline() {
+  const variant2Config = useVariantConfig(variant2ConfigBase);
   const lite = useLiteMode();
   const [active, setActive] = useState(0);
   const { schedule } = variant2Config;

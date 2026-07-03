@@ -1,4 +1,5 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import AtlasBackground from "./components/AtlasBackground";
 import ParallaxFlorals from "./components/ParallaxFlorals";
@@ -7,9 +8,10 @@ import Countdown from "./components/Countdown";
 import LocationCards from "./components/LocationCards";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
-import { variant5Config } from "./config";
+import { variant5Config as variant5ConfigBase } from "./config";
 
 export default function Variant5Page() {
+  const variant5Config = useVariantConfig(variant5ConfigBase);
   const { groom, bride, displayDate } = variant5Config;
 
   return (

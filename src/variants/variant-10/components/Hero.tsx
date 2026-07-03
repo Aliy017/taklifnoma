@@ -1,8 +1,9 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { variant10Config } from "../config";
+import { variant10Config as variant10ConfigBase } from "../config";
 import SuzaniDivider from "./SuzaniDivider";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
@@ -10,6 +11,7 @@ import { useLiteMode } from "@/shared/hooks/useLiteMode";
 const spring = { type: "spring" as const, stiffness: 200, damping: 20 };
 
 export default function Hero() {
+  const variant10Config = useVariantConfig(variant10ConfigBase);
   const lite = useLiteMode();
   const { groom, bride, displayDate, weddingType } = variant10Config;
 

@@ -1,7 +1,8 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { motion } from "framer-motion";
-import { variant5Config } from "../config";
+import { variant5Config as variant5ConfigBase } from "../config";
 import ScrollReveal from "./ScrollReveal";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import MapEmbed from "@/shared/components/MapEmbed";
@@ -10,6 +11,7 @@ import { useLiteMode } from "@/shared/hooks/useLiteMode";
 const spring = { type: "spring" as const, stiffness: 260, damping: 22 };
 
 export default function LocationCards() {
+  const variant5Config = useVariantConfig(variant5ConfigBase);
   const lite = useLiteMode();
   const { locations } = variant5Config;
 

@@ -1,13 +1,15 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { variant6Config } from "../config";
+import { variant6Config as variant6ConfigBase } from "../config";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 
 const spring = { type: "spring" as const, stiffness: 300, damping: 22 };
 
 export default function AudioPlayer() {
+  const variant6Config = useVariantConfig(variant6ConfigBase);
   const lite = useLiteMode();
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [playing, setPlaying] = useState(false);

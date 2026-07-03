@@ -1,4 +1,5 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import NatureBackground from "./components/NatureBackground";
 import BasilLeaves from "./components/BasilLeaves";
@@ -7,9 +8,10 @@ import Countdown from "./components/Countdown";
 import Location from "./components/Location";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
-import { variant9Config } from "./config";
+import { variant9Config as variant9ConfigBase } from "./config";
 
 export default function Variant9Page() {
+  const variant9Config = useVariantConfig(variant9ConfigBase);
   const { groom, bride, displayDate } = variant9Config;
 
   return (

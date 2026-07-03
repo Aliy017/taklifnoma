@@ -10,6 +10,7 @@ import WishLikeButton from "@/shared/components/WishLikeButton";
 import { checkModeratorUnlock, MODERATOR_KEY, readModeratorMode, saveModeratorMode } from "@/shared/config/wish-moderation";
 import { sparkleThemes } from "@/shared/config/sparkle-themes";
 import type { SparkleThemeId } from "@/shared/config/sparkle-themes";
+import { useClientSlug } from "@/shared/context/WeddingContext";
 
 export type WishesTheme =
   | "variant-1"
@@ -332,6 +333,7 @@ export default function WishesSection({
   embedded?: boolean;
 }) {
   const lite = useLiteMode();
+  const clientSlug = useClientSlug();
   const t = themes[theme];
   const [wishes, setWishes] = useState<Wish[]>([]);
   const [loading, setLoading] = useState(true);
@@ -347,10 +349,11 @@ export default function WishesSection({
   const displayWishes = useMemo(() => sortWishes(wishes), [wishes]);
 
   const loadWishes = useCallback(async () => {
-    const res = await fetch("/api/wishes");
+    const url = clientSlug ? `/api/wishes?client=${encodeURIComponent(clientSlug)}` : "/api/wishes";
+    const res = await fetch(url);
     if (res.ok) setWishes(await res.json());
     setLoading(false);
-  }, []);
+  }, [clientSlug]);
 
   useEffect(() => {
     loadWishes();
@@ -407,13 +410,18 @@ export default function WishesSection({
     const res = await fetch("/api/wishes", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify({ ...form, ...(clientSlug ? { clientSlug } : {}) }),
     });
     setSubmitting(false);
     if (res.ok) {
       setSent(true);
       setForm({ name: "", side: "general", message: "" });
-      await loadWishes();
+      if (clientSlug) {
+        setModNotice("Tabrigingiz yuborildi — moderatsiyadan o'tgach ko'rinadi");
+        setTimeout(() => setModNotice(""), 4000);
+      } else {
+        await loadWishes();
+      }
       setTimeout(() => setSent(false), 3000);
     } else {
       const data = (await res.json().catch(() => null)) as { error?: string } | null;

@@ -1,7 +1,8 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { motion } from "framer-motion";
-import { variant7Config } from "../config";
+import { variant7Config as variant7ConfigBase } from "../config";
 import GlassCard from "./GlassCard";
 import ScrollReveal from "./ScrollReveal";
 import SparkleHeading from "@/shared/components/SparkleHeading";
@@ -11,6 +12,7 @@ import { useLiteMode } from "@/shared/hooks/useLiteMode";
 const spring = { type: "spring" as const, stiffness: 260, damping: 22 };
 
 export default function Location() {
+  const variant7Config = useVariantConfig(variant7ConfigBase);
   const lite = useLiteMode();
   const { venue, displayTimeLabel } = variant7Config;
 

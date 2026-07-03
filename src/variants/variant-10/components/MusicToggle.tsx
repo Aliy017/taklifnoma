@@ -1,10 +1,12 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { variant10Config } from "../config";
+import { variant10Config as variant10ConfigBase } from "../config";
 
 export default function MusicToggle() {
+  const variant10Config = useVariantConfig(variant10ConfigBase);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [playing, setPlaying] = useState(false);
   const [available, setAvailable] = useState(true);

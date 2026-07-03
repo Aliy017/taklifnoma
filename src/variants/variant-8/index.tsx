@@ -1,4 +1,5 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import MosaicParallax from "./components/MosaicParallax";
 import Hero from "./components/Hero";
@@ -7,9 +8,10 @@ import Timeline from "./components/Timeline";
 import MapSection from "./components/MapSection";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
-import { variant8Config } from "./config";
+import { variant8Config as variant8ConfigBase } from "./config";
 
 export default function Variant8Page() {
+  const variant8Config = useVariantConfig(variant8ConfigBase);
   const { groom, bride, displayDate } = variant8Config;
 
   return (

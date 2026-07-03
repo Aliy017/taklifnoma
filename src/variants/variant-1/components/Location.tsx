@@ -1,12 +1,14 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { motion } from "framer-motion";
-import { variant1Config } from "../config";
+import { variant1Config as variant1ConfigBase } from "../config";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import SparkleHeading from "./SparkleHeading";
 import MapEmbed from "@/shared/components/MapEmbed";
 
 export default function Location() {
+  const variant1Config = useVariantConfig(variant1ConfigBase);
   const lite = useLiteMode();
   const { venue, displayDate, displayTimeLabel, morningSchedule } = variant1Config;
 

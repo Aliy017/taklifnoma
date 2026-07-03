@@ -1,4 +1,5 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
@@ -9,9 +10,10 @@ import Timeline from "./components/Timeline";
 import Gallery from "./components/Gallery";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
-import { variant2Config } from "./config";
+import { variant2Config as variant2ConfigBase } from "./config";
 
 export default function Variant2Page() {
+  const variant2Config = useVariantConfig(variant2ConfigBase);
   const [opened, setOpened] = useState(false);
   const { groom, bride, displayDate } = variant2Config;
 

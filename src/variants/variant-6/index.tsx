@@ -1,4 +1,5 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import SamarkandBackground from "./components/SamarkandBackground";
 import DockNav from "./components/DockNav";
@@ -8,9 +9,10 @@ import About from "./components/About";
 import MapSection from "./components/MapSection";
 import Wishes from "./components/Wishes";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
-import { variant6Config } from "./config";
+import { variant6Config as variant6ConfigBase } from "./config";
 
 export default function Variant6Page() {
+  const variant6Config = useVariantConfig(variant6ConfigBase);
   const { groom, bride, displayDate } = variant6Config;
 
   return (

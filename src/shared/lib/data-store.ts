@@ -2,18 +2,22 @@ import { promises as fs } from "fs";
 import path from "path";
 import { Redis } from "@upstash/redis";
 
-export type StoreKey = "likes" | "wishes" | "rsvp";
+export type StoreKey = "likes" | "wishes" | "rsvp" | "clients" | "invitation_wishes";
 
 const KV_KEYS: Record<StoreKey, string> = {
   likes: "taklifnoma:likes",
   wishes: "taklifnoma:wishes",
   rsvp: "taklifnoma:rsvp",
+  clients: "taklifnoma:clients",
+  invitation_wishes: "taklifnoma:invitation_wishes",
 };
 
 const FILE_NAMES: Record<StoreKey, string> = {
   likes: "likes.json",
   wishes: "wishes.json",
   rsvp: "rsvp.json",
+  clients: "clients.json",
+  invitation_wishes: "invitation_wishes.json",
 };
 
 function getRedis(): Redis | null {

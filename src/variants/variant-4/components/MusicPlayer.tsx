@@ -1,11 +1,13 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { variant4Config } from "../config";
+import { variant4Config as variant4ConfigBase } from "../config";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 
 export default function MusicPlayer() {
+  const variant4Config = useVariantConfig(variant4ConfigBase);
   const lite = useLiteMode();
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [playing, setPlaying] = useState(false);

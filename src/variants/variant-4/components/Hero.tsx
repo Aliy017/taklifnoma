@@ -1,12 +1,14 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { variant4Config } from "../config";
+import { variant4Config as variant4ConfigBase } from "../config";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 
 export default function Hero() {
+  const variant4Config = useVariantConfig(variant4ConfigBase);
   const lite = useLiteMode();
   const { groom, bride, weddingType, displayDate } = variant4Config;
 

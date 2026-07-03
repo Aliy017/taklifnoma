@@ -1,4 +1,5 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import PomegranateParallax from "./components/PomegranateParallax";
 import Hero from "./components/Hero";
@@ -7,9 +8,10 @@ import Location from "./components/Location";
 import WishesSection from "@/shared/components/WishesSection";
 import SuzaniDivider from "./components/SuzaniDivider";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
-import { variant10Config } from "./config";
+import { variant10Config as variant10ConfigBase } from "./config";
 
 export default function Variant10Page() {
+  const variant10Config = useVariantConfig(variant10ConfigBase);
   const { groom, bride, displayDate } = variant10Config;
 
   return (

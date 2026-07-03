@@ -1,7 +1,8 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import { motion } from "framer-motion";
-import { variant6Config } from "../config";
+import { variant6Config as variant6ConfigBase } from "../config";
 import SectionCard from "./SectionCard";
 import MapEmbed from "@/shared/components/MapEmbed";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
@@ -9,6 +10,7 @@ import { useLiteMode } from "@/shared/hooks/useLiteMode";
 const spring = { type: "spring" as const, stiffness: 260, damping: 22 };
 
 export default function MapSection() {
+  const variant6Config = useVariantConfig(variant6ConfigBase);
   const lite = useLiteMode();
   const { venue, displayTimeLabel } = variant6Config;
 

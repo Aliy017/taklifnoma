@@ -1,4 +1,5 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import PinkAtlasBackground from "./components/PinkAtlasBackground";
 import Hero from "./components/Hero";
@@ -6,9 +7,10 @@ import Countdown from "./components/Countdown";
 import Location from "./components/Location";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
-import { variant7Config } from "./config";
+import { variant7Config as variant7ConfigBase } from "./config";
 
 export default function Variant7Page() {
+  const variant7Config = useVariantConfig(variant7ConfigBase);
   const { groom, bride, displayDate } = variant7Config;
 
   return (

@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import type { Wish, WishSide } from "@/shared/types/wish";
 import { MODERATOR_KEY } from "@/shared/config/wish-moderation";
 import { readStore, writeStore } from "@/shared/lib/data-store";
+import {
+  getClientBySlug,
+  readInvitationWishes,
+  writeInvitationWishes,
+} from "@/shared/lib/clients-store";
+import type { InvitationWish } from "@/shared/types/client";
 import { handleApiError } from "@/shared/lib/api-error";
 
 export const dynamic = "force-dynamic";
@@ -11,16 +17,42 @@ function normalizeWish(wish: Wish): Wish {
   return { ...wish, likes: wish.likes ?? 0 };
 }
 
-async function readWishes(): Promise<Wish[]> {
+async function readLegacyWishes(): Promise<Wish[]> {
   return (await readStore<Wish[]>("wishes", [])).map(normalizeWish);
 }
 
-async function writeWishes(wishes: Wish[]) {
+async function writeLegacyWishes(wishes: Wish[]) {
   await writeStore("wishes", wishes);
 }
 
-export async function GET() {
-  const wishes = await readWishes();
+export async function GET(request: NextRequest) {
+  const clientSlug = request.nextUrl.searchParams.get("client");
+
+  if (clientSlug) {
+    const client = await getClientBySlug(clientSlug);
+    if (!client) {
+      return NextResponse.json({ error: "Mijoz topilmadi" }, { status: 404 });
+    }
+    const wishes = await readInvitationWishes();
+    const approved = wishes
+      .filter((w) => w.clientSlug === clientSlug && w.status === "approved")
+      .sort((a, b) => {
+        if (b.likes !== a.likes) return b.likes - a.likes;
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      })
+      .slice(0, 10)
+      .map((w) => ({
+        id: w.id,
+        name: w.guestName,
+        side: w.side,
+        message: w.message,
+        createdAt: w.createdAt,
+        likes: w.likes,
+      }));
+    return NextResponse.json(approved);
+  }
+
+  const wishes = await readLegacyWishes();
   const sorted = [...wishes].sort((a, b) => {
     if (b.likes !== a.likes) return b.likes - a.likes;
     return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
@@ -34,6 +66,7 @@ export async function POST(request: NextRequest) {
     const name = String(body.name ?? "").trim();
     const message = String(body.message ?? "").trim();
     const side = (body.side ?? "general") as WishSide;
+    const clientSlug = body.clientSlug ? String(body.clientSlug).trim() : "";
 
     if (!name || name.length > 80) {
       return NextResponse.json({ error: "Ism kiritilishi shart" }, { status: 400 });
@@ -45,7 +78,32 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Noto'g'ri tomondan tanlov" }, { status: 400 });
     }
 
-    const wishes = await readWishes();
+    if (clientSlug) {
+      const client = await getClientBySlug(clientSlug);
+      if (!client || !client.active) {
+        return NextResponse.json({ error: "Taklifnoma topilmadi" }, { status: 404 });
+      }
+      const wishes = await readInvitationWishes();
+      const newWish: InvitationWish = {
+        id: crypto.randomUUID(),
+        clientId: client.id,
+        clientSlug,
+        guestName: name,
+        side,
+        message,
+        status: "pending",
+        likes: 0,
+        createdAt: new Date().toISOString(),
+      };
+      wishes.push(newWish);
+      await writeInvitationWishes(wishes);
+      return NextResponse.json(
+        { id: newWish.id, name, side, message, createdAt: newWish.createdAt, likes: 0 },
+        { status: 201 }
+      );
+    }
+
+    const wishes = await readLegacyWishes();
     const newWish: Wish = {
       id: crypto.randomUUID(),
       name,
@@ -54,10 +112,8 @@ export async function POST(request: NextRequest) {
       createdAt: new Date().toISOString(),
       likes: 0,
     };
-
     wishes.push(newWish);
-    await writeWishes(wishes);
-
+    await writeLegacyWishes(wishes);
     return NextResponse.json(newWish, { status: 201 });
   } catch (error) {
     return handleApiError(error);
@@ -78,14 +134,17 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "Tabrik ID kerak" }, { status: 400 });
     }
 
-    const wishes = await readWishes();
-    const exists = wishes.some((w) => w.id === wishId);
-
-    if (!exists) {
-      return NextResponse.json({ error: "Tabrik topilmadi" }, { status: 404 });
+    const legacy = await readLegacyWishes();
+    if (legacy.some((w) => w.id === wishId)) {
+      await writeLegacyWishes(legacy.filter((w) => w.id !== wishId));
+      return NextResponse.json({ ok: true });
     }
 
-    await writeWishes(wishes.filter((w) => w.id !== wishId));
+    const wishes = await readInvitationWishes();
+    if (!wishes.some((w) => w.id === wishId)) {
+      return NextResponse.json({ error: "Tabrik topilmadi" }, { status: 404 });
+    }
+    await writeInvitationWishes(wishes.filter((w) => w.id !== wishId));
     return NextResponse.json({ ok: true });
   } catch (error) {
     return handleApiError(error);

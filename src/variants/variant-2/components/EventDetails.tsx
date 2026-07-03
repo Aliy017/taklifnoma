@@ -1,11 +1,13 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import TiltCard from "./TiltCard";
 import VenueSection from "@/shared/components/VenueSection";
 import SparkleHeading from "@/shared/components/SparkleHeading";
-import { variant2Config } from "../config";
+import { variant2Config as variant2ConfigBase } from "../config";
 
 export default function EventDetails() {
+  const variant2Config = useVariantConfig(variant2ConfigBase);
   const { venue, displayDate, displayTimeLabel, weddingType, groom, bride } = variant2Config;
 
   const cards = [

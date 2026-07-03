@@ -1,8 +1,9 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import { variant6Config } from "../config";
+import { variant6Config as variant6ConfigBase } from "../config";
 import GlassPanel from "./GlassPanel";
 import CoupleFrame from "./CoupleFrame";
 import SparkleHeading from "@/shared/components/SparkleHeading";
@@ -18,6 +19,7 @@ const Scene3D = dynamic(() => import("./Scene3D"), {
 });
 
 export default function Hero() {
+  const variant6Config = useVariantConfig(variant6ConfigBase);
   const lite = useLiteMode();
   const { groom, bride, displayDate, weddingType } = variant6Config;
 

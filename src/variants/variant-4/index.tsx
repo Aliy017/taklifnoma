@@ -1,4 +1,5 @@
 "use client";
+import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 
 import AdrasBackground from "./components/AdrasBackground";
 import GoldenLeaves from "./components/GoldenLeaves";
@@ -7,9 +8,10 @@ import Countdown from "./components/Countdown";
 import EventCards from "./components/EventCards";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
-import { variant4Config } from "./config";
+import { variant4Config as variant4ConfigBase } from "./config";
 
 export default function Variant4Page() {
+  const variant4Config = useVariantConfig(variant4ConfigBase);
   const { groom, bride, displayDate } = variant4Config;
 
   return (
