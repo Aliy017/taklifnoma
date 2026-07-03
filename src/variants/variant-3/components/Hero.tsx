@@ -8,7 +8,7 @@ import { useInviteCopy } from "@/shared/config/invite-copy";
 
 export default function Hero() {
   const variant3Config = useVariantConfig(variant3ConfigBase);
-  const { groom, bride, displayDate, displayTimeLabel, weddingType } = variant3Config;
+  const { groom, bride, displayDateTime, weddingType } = variant3Config;
   const { inviteHearts } = useInviteCopy();
 
   return (
@@ -32,10 +32,7 @@ export default function Hero() {
 
         <div className="flex flex-wrap justify-center gap-4">
           <span className="v3-card rounded-full px-6 py-2 text-sm text-[#3d4a38]">
-            {displayDate}
-          </span>
-          <span className="v3-card rounded-full px-6 py-2 text-sm text-[#3d4a38]">
-            {displayTimeLabel}
+            {displayDateTime}
           </span>
           <span className="v3-card rounded-full px-6 py-2 text-sm text-[#3d4a38]">
             {weddingType}

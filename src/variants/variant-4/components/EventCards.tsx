@@ -49,16 +49,13 @@ export default function EventCards() {
           <div id="location" className="v4-glass scroll-mt-20 overflow-hidden rounded-2xl">
             <div className="border-b border-[#D4AF37]/15 px-6 py-4">
               <SparkleHeading theme="variant-4" as="h3" sparkles={false} className="text-lg">
-                {venue.name}
+                {venue.region}
               </SparkleHeading>
-              <p className="text-sm text-white/50">{venue.address}</p>
+              <p className="text-sm text-white/50">{venue.place}</p>
             </div>
             <MapEmbed
               mapUrl={venue.mapUrl}
               mapsLink={venue.mapsLink}
-              placeholderClassName="border-0 border-t border-[#D4AF37]/15 bg-black/20"
-              buttonClassName="rounded-full border border-[#D4AF37]/40 bg-[#D4AF37]/10 px-6 py-2.5 text-sm text-[#D4AF37] transition hover:bg-[#D4AF37]/20"
-              linkClassName="text-xs text-[#D4AF37]/70 underline underline-offset-2"
               iframeClassName="h-56 w-full border-0 sm:h-72"
             />
           </div>

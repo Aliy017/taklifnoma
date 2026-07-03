@@ -1,5 +1,6 @@
 import { weddingConfig } from "@/shared/config/wedding";
 import type { InvitationClient } from "@/shared/types/client";
+import { resolveClientLocation } from "@/shared/lib/resolve-location";
 
 export type DynamicWeddingConfig = {
   musicSrc: string;
@@ -10,9 +11,12 @@ export type DynamicWeddingConfig = {
   displayDate: string;
   displayTime: string;
   displayTimeLabel: string;
+  displayDateTime: string;
   weddingType: string;
   weddingTypeDescription: string;
   venue: {
+    region: string;
+    place: string;
     name: string;
     address: string;
     coordinates: { lat: number; lng: number };
@@ -53,10 +57,12 @@ function formatTimeLabel(time: string): string {
 }
 
 export function clientToWeddingConfig(client: InvitationClient): DynamicWeddingConfig {
-  const weddingDateISO = `${client.weddingDate}T${client.weddingTime || "09:00"}:00`;
-  const mapsLink =
-    client.locationMapUrl ||
-    weddingConfig.venue.mapsLink;
+  const weddingTime = client.weddingTime || "09:00";
+  const weddingDateISO = `${client.weddingDate}T${weddingTime}:00`;
+  const displayDate = formatDisplayDate(client.weddingDate);
+  const displayTimeLabel = formatTimeLabel(weddingTime);
+  const mapsLink = client.locationMapUrl || weddingConfig.venue.mapsLink;
+  const { region, place } = resolveClientLocation(client);
 
   return {
     ...weddingConfig,
@@ -64,13 +70,16 @@ export function clientToWeddingConfig(client: InvitationClient): DynamicWeddingC
     groom: client.groomName,
     bride: client.brideName,
     weddingDateISO,
-    displayDate: formatDisplayDate(client.weddingDate),
-    displayTime: client.weddingTime || "09:00",
-    displayTimeLabel: formatTimeLabel(client.weddingTime || "09:00"),
+    displayDate,
+    displayTime: weddingTime,
+    displayTimeLabel,
+    displayDateTime: `${displayDate} — ${displayTimeLabel}`,
     venue: {
       ...weddingConfig.venue,
-      name: client.locationName || weddingConfig.venue.name,
-      address: client.locationAddress || weddingConfig.venue.address,
+      region,
+      place,
+      name: region,
+      address: place,
       mapUrl: client.locationMapUrl.includes("embed")
         ? client.locationMapUrl
         : client.locationMapUrl || weddingConfig.venue.mapUrl,

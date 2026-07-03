@@ -12,7 +12,7 @@ export default function Location() {
   const variant1Config = useVariantConfig(variant1ConfigBase);
   const lite = useLiteMode();
   const { t } = useLocaleOptional();
-  const { venue, displayDate, displayTimeLabel, morningSchedule } = variant1Config;
+  const { venue, displayDateTime, morningSchedule } = variant1Config;
 
   const content = (
     <>
@@ -32,25 +32,13 @@ export default function Location() {
         <div className="space-y-6">
           <div className="v1-card rounded-sm p-6 sm:p-8">
             <p className="v1-label">{t("nav.location")}</p>
-            <h3 className="v1-heading mt-2 text-lg text-white/90 sm:text-xl">{venue.name}</h3>
-            <p className="mt-1 text-sm leading-relaxed text-white/50">{venue.address}</p>
-            <p className="mt-1 text-xs text-white/35">{venue.coordinatesDMS}</p>
+            <h3 className="v1-heading mt-2 text-lg text-white/90 sm:text-xl">{venue.region}</h3>
+            <p className="mt-1 text-sm leading-relaxed text-white/50">{venue.place}</p>
 
             <div className="v1-divider my-5" />
 
             <p className="v1-label">{t("venue.timeLabel")}</p>
-            <p className="mt-2 text-sm text-white/75">{displayDate}</p>
-            <p className="text-sm text-white/50">{displayTimeLabel}</p>
-
-            <a
-              href={venue.mapsLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="v1-chip mt-6 inline-flex items-center gap-2 px-5 py-2.5 transition hover:border-[#d4af37]/50 hover:bg-[#d4af37]/10"
-            >
-              {t("nav.openMap")}
-              <span aria-hidden>→</span>
-            </a>
+            <p className="mt-2 text-sm text-white/75">{displayDateTime}</p>
           </div>
 
           <div className="v1-card rounded-sm p-6 sm:p-8">
@@ -74,16 +62,15 @@ export default function Location() {
         <div className="v1-card overflow-hidden rounded-sm">
           <div className="border-b border-[#d4af37]/15 px-6 py-4">
             <p className="text-sm font-medium text-white/80">{t("venue.mapHeading")}</p>
-            <p className="mt-0.5 text-xs text-white/45">{venue.name}</p>
+            <p className="mt-0.5 text-xs text-white/45">
+              {venue.region}
+              {venue.place ? `, ${venue.place}` : ""}
+            </p>
           </div>
           <MapEmbed
             mapUrl={venue.mapUrl}
             mapsLink={venue.mapsLink}
-            placeholderClassName="border-0 bg-black/30 text-white/50"
-            buttonClassName="rounded-sm border border-[#d4af37]/40 bg-[#d4af37]/10 px-6 py-2.5 text-sm text-[#d4af37] transition hover:border-[#d4af37]/70 hover:bg-[#d4af37]/15"
-            linkClassName="text-xs text-[#d4af37]/70 underline underline-offset-2"
             iframeClassName="h-56 w-full border-0 sm:h-72 lg:min-h-[320px] lg:h-full"
-            minHeightClass="min-h-[14rem] lg:min-h-[320px]"
           />
         </div>
       </div>

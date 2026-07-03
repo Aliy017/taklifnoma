@@ -58,3 +58,8 @@ export function formatTimeLabel(time: string, locale: LocaleId): string {
   if (h < 17) return t("time.afternoon", { time });
   return t("time.evening", { time });
 }
+
+/** e.g. "19 Iyul, 2026 — Ertalab, soat 09:00" */
+export function formatDisplayDateTime(isoOrDate: string, time: string, locale: LocaleId): string {
+  return `${formatDisplayDate(isoOrDate, locale)} — ${formatTimeLabel(time, locale)}`;
+}

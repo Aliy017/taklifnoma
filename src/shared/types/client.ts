@@ -9,7 +9,13 @@ export interface InvitationClient {
   weddingDate: string;
   weddingTime: string;
   locationMapUrl: string;
+  /** Viloyat, masalan: Farg'ona viloyati */
+  locationRegion?: string;
+  /** Joy nomi, masalan: Vodil */
+  locationPlace?: string;
+  /** @deprecated Use locationRegion / locationPlace */
   locationName?: string;
+  /** @deprecated Use locationRegion / locationPlace */
   locationAddress?: string;
   audioUrl: string;
   templateId: TemplateId;

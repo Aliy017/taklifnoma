@@ -36,7 +36,6 @@ export type MessageKey =
   | "wishes.side.groom"
   | "wishes.side.bride"
   | "wishes.side.general"
-  | "nav.openMap"
   | "countdown.days"
   | "countdown.hours"
   | "countdown.minutes"
@@ -62,9 +61,6 @@ export type MessageKey =
   | "countdown.started"
   | "map.label"
   | "map.title"
-  | "map.lazyHint"
-  | "map.show"
-  | "map.openExternal"
   | "map.iframeTitle"
   | "venue.eventLabel"
   | "venue.whereTitle"
@@ -73,8 +69,8 @@ export type MessageKey =
   | "venue.scheduleLabel"
   | "venue.pluralLabel"
   | "venue.pluralTitle"
-  | "venue.defaultName"
-  | "venue.defaultAddress"
+  | "venue.defaultRegion"
+  | "venue.defaultPlace"
   | "wedding.type"
   | "time.at"
   | "time.morning"
@@ -152,7 +148,6 @@ const uzLatin: Messages = {
   "wishes.side.groom": "Kuyov tomondan",
   "wishes.side.bride": "Kelin tomondan",
   "wishes.side.general": "Umumiy tabrik",
-  "nav.openMap": "Xaritada ochish",
   "countdown.days": "Kun",
   "countdown.hours": "Soat",
   "countdown.minutes": "Daqiqa",
@@ -178,9 +173,6 @@ const uzLatin: Messages = {
   "countdown.started": "To'y boshlandi!",
   "map.label": "Manzil",
   "map.title": "To'y joyi",
-  "map.lazyHint": "Xarita faqat tugma bosilganda yuklanadi",
-  "map.show": "Xaritani ko'rish",
-  "map.openExternal": "Tashqi xaritada ochish",
   "map.iframeTitle": "To'y joyi xaritasi",
   "venue.eventLabel": "Tadbir joyi",
   "venue.whereTitle": "Bizni qayerda topasiz",
@@ -189,8 +181,8 @@ const uzLatin: Messages = {
   "venue.scheduleLabel": "Kun dasturi",
   "venue.pluralLabel": "Manzillar",
   "venue.pluralTitle": "To'y joylari",
-  "venue.defaultName": "Bo'ston to'yxonasi",
-  "venue.defaultAddress": "Vodil, Farg'ona viloyati",
+  "venue.defaultRegion": "Farg'ona viloyati",
+  "venue.defaultPlace": "Vodil",
   "wedding.type": "To'y marosimi",
   "time.at": "Soat {time}",
   "time.morning": "Ertalab, soat {time}",
@@ -268,7 +260,6 @@ const uzCyrillic: Messages = {
   "wishes.side.groom": "Куёв томондан",
   "wishes.side.bride": "Келин томондан",
   "wishes.side.general": "Умумий табрик",
-  "nav.openMap": "Харитада очиш",
   "countdown.days": "Кун",
   "countdown.hours": "Соат",
   "countdown.minutes": "Дақиқа",
@@ -294,9 +285,6 @@ const uzCyrillic: Messages = {
   "countdown.started": "Тўй бошланди!",
   "map.label": "Манзил",
   "map.title": "Тўй жойи",
-  "map.lazyHint": "Харита фақат тугма босилганда юкланади",
-  "map.show": "Харитани кўриш",
-  "map.openExternal": "Ташқи харитада очиш",
   "map.iframeTitle": "Тўй жойи харитаси",
   "venue.eventLabel": "Тадбир жойи",
   "venue.whereTitle": "Бизни қаерда топасиз",
@@ -305,8 +293,8 @@ const uzCyrillic: Messages = {
   "venue.scheduleLabel": "Кун дастури",
   "venue.pluralLabel": "Манзиллар",
   "venue.pluralTitle": "Тўй жойлари",
-  "venue.defaultName": "Бўстон тўйхонаси",
-  "venue.defaultAddress": "Водил, Фарғона вилояти",
+  "venue.defaultRegion": "Фарғона вилояти",
+  "venue.defaultPlace": "Водил",
   "wedding.type": "Тўй маросими",
   "time.at": "Соат {time}",
   "time.morning": "Эрталаб, соат {time}",
@@ -387,7 +375,6 @@ const ru: Messages = {
   "wishes.side.groom": "Со стороны жениха",
   "wishes.side.bride": "Со стороны невесты",
   "wishes.side.general": "Общее поздравление",
-  "nav.openMap": "Открыть на карте",
   "countdown.days": "Дней",
   "countdown.hours": "Часов",
   "countdown.minutes": "Минут",
@@ -413,9 +400,6 @@ const ru: Messages = {
   "countdown.started": "Свадьба началась!",
   "map.label": "Адрес",
   "map.title": "Место проведения",
-  "map.lazyHint": "Карта загружается только по нажатию кнопки",
-  "map.show": "Показать карту",
-  "map.openExternal": "Открыть во внешнем приложении",
   "map.iframeTitle": "Карта места проведения",
   "venue.eventLabel": "Место проведения",
   "venue.whereTitle": "Где нас найти",
@@ -424,8 +408,8 @@ const ru: Messages = {
   "venue.scheduleLabel": "Программа дня",
   "venue.pluralLabel": "Адреса",
   "venue.pluralTitle": "Места проведения",
-  "venue.defaultName": "Банкетный зал Bo'ston",
-  "venue.defaultAddress": "Водил, Ферганская область",
+  "venue.defaultRegion": "Ферганская область",
+  "venue.defaultPlace": "Водил",
   "wedding.type": "Свадебная церемония",
   "time.at": "В {time}",
   "time.morning": "Утром, в {time}",

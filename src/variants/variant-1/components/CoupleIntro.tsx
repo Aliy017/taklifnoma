@@ -10,7 +10,7 @@ import { useLiteMode } from "@/shared/hooks/useLiteMode";
 export default function CoupleIntro() {
   const variant1Config = useVariantConfig(variant1ConfigBase);
   const lite = useLiteMode();
-  const { groom, bride, displayDate, displayTimeLabel, weddingType } = variant1Config;
+  const { groom, bride, displayDateTime, weddingType } = variant1Config;
 
   const content = (
     <GlassCard className="text-center">
@@ -38,10 +38,7 @@ export default function CoupleIntro() {
 
       <div className="mt-6 flex flex-col items-center gap-3 text-sm text-emerald/70 sm:mt-8 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-6">
         <div className="flex items-center gap-2">
-          <span>{displayDate}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span>{displayTimeLabel}</span>
+          <span>{displayDateTime}</span>
         </div>
         <div className="flex items-center gap-2">
           <span>{weddingType}</span>

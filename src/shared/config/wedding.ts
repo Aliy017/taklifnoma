@@ -10,12 +10,15 @@ export const weddingConfig = {
   displayDate: "19 Iyul, 2026",
   displayTime: "09:00",
   displayTimeLabel: "Ertalab, soat 09:00",
+  displayDateTime: "19 Iyul, 2026 — Ertalab, soat 09:00",
   weddingType: "To'y marosimi",
   weddingTypeDescription:
     "An'anaviy to'y marosimi — duo, baxt va yangi oilaviy hayotning boshlanishi.",
   venue: {
-    name: "Bo'ston to'yxonasi",
-    address: "Vodil, Farg'ona viloyati",
+    region: "Farg'ona viloyati",
+    place: "Vodil",
+    name: "Farg'ona viloyati",
+    address: "Vodil",
     coordinates: { lat: LAT, lng: LNG },
     coordinatesDMS: "40°10'15.6\"N 71°43'43.6\"E",
     mapUrl: `https://www.openstreetmap.org/export/embed.html?bbox=${(LNG - 0.012).toFixed(4)}%2C${(LAT - 0.01).toFixed(4)}%2C${(LNG + 0.012).toFixed(4)}%2C${(LAT + 0.01).toFixed(4)}&layer=mapnik&marker=${LAT.toFixed(6)}%2C${LNG.toFixed(6)}`,

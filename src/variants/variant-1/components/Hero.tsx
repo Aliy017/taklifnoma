@@ -9,7 +9,7 @@ import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
 export default function Hero() {
   const variant1Config = useVariantConfig(variant1ConfigBase);
   const { t } = useLocaleOptional();
-  const { groom, bride, displayDate, displayTimeLabel, heroBlessing, inviteText } = variant1Config;
+  const { groom, bride, displayDateTime, heroBlessing, inviteText } = variant1Config;
 
   return (
     <section className="relative flex min-h-[100dvh] items-center justify-center px-4 py-20 sm:py-24">
@@ -48,8 +48,7 @@ export default function Hero() {
         </p>
 
         <div className="mt-6 flex flex-wrap justify-center gap-2 sm:mt-8 sm:gap-3">
-          <span className="v1-chip px-4 py-2">{displayDate}</span>
-          <span className="v1-chip px-4 py-2">{displayTimeLabel}</span>
+          <span className="v1-chip px-4 py-2">{displayDateTime}</span>
         </div>
       </div>
     </section>

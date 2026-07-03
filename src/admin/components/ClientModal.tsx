@@ -13,6 +13,8 @@ const emptyForm: ClientFormData = {
   weddingDate: "",
   weddingTime: "",
   locationMapUrl: "",
+  locationRegion: "",
+  locationPlace: "",
   audioUrl: "/music/sokinlik.m4a",
   templateId: "variant-6",
   defaultLocale: "uz-latin",
@@ -51,6 +53,8 @@ export default function ClientModal({ open, onClose, onSave, editing }: ClientMo
         weddingDate: editing.weddingDate,
         weddingTime: editing.weddingTime,
         locationMapUrl: editing.locationMapUrl,
+        locationRegion: editing.locationRegion ?? "",
+        locationPlace: editing.locationPlace ?? "",
         audioUrl: editing.audioUrl || "/music/sokinlik.m4a",
         templateId: editing.templateId,
         defaultLocale: editing.defaultLocale ?? "uz-latin",
@@ -130,6 +134,27 @@ export default function ClientModal({ open, onClose, onSave, editing }: ClientMo
                 className="admin-input"
                 value={form.weddingTime}
                 onChange={(e) => setForm({ ...form, weddingTime: e.target.value })}
+              />
+            </div>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label className="mb-2 block text-xs font-medium text-slate-500">Viloyat</label>
+              <input
+                className="admin-input"
+                value={form.locationRegion}
+                onChange={(e) => setForm({ ...form, locationRegion: e.target.value })}
+                placeholder="Farg'ona viloyati"
+              />
+            </div>
+            <div>
+              <label className="mb-2 block text-xs font-medium text-slate-500">Joy nomi</label>
+              <input
+                className="admin-input"
+                value={form.locationPlace}
+                onChange={(e) => setForm({ ...form, locationPlace: e.target.value })}
+                placeholder="Vodil"
               />
             </div>
           </div>

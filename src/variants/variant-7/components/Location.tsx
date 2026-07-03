@@ -16,7 +16,7 @@ export default function Location() {
   const variant7Config = useVariantConfig(variant7ConfigBase);
   const lite = useLiteMode();
   const { t } = useLocaleOptional();
-  const { venue, displayTimeLabel } = variant7Config;
+  const { venue, displayDateTime } = variant7Config;
 
   return (
     <section id="location" className="mobile-section relative z-10 px-4 py-16 sm:py-24">
@@ -36,28 +36,14 @@ export default function Location() {
           <GlassCard glow className="overflow-hidden">
             <div className="p-6 sm:p-8">
               <SparkleHeading theme="variant-7" as="h3" sparkles={false} className="text-xl font-semibold">
-                {venue.name}
+                {venue.region}
               </SparkleHeading>
-              <p className="mt-1 text-sm text-[#8d6b63]">{venue.address}</p>
-              <p className="mt-2 text-sm text-[#C9A087]">{displayTimeLabel}</p>
-              <motion.a
-                href={venue.mapsLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={lite ? undefined : { scale: 1.02 }}
-                whileTap={lite ? undefined : { scale: 0.98 }}
-                transition={spring}
-                className="v7-ikat-btn mt-4 inline-block rounded-full px-5 py-2 text-sm font-medium text-[#5c3d45]"
-              >
-                {t("nav.openMap")} →
-              </motion.a>
+              <p className="mt-1 text-sm text-[#8d6b63]">{venue.place}</p>
+              <p className="mt-2 text-sm text-[#C9A087]">{displayDateTime}</p>
             </div>
             <MapEmbed
               mapUrl={venue.mapUrl}
               mapsLink={venue.mapsLink}
-              placeholderClassName="border-0 border-t border-[#F8BBD0]/30 bg-white/30"
-              buttonClassName="v7-ikat-btn rounded-full px-5 py-2 text-sm font-medium text-[#5c3d45]"
-              linkClassName="text-xs text-[#C9A087] underline underline-offset-2"
               iframeClassName="h-56 w-full border-0 border-t border-[#F8BBD0]/30 sm:h-64"
             />
           </GlassCard>

@@ -12,8 +12,8 @@ export const DEFAULT_CLIENTS: InvitationClient[] = [
     weddingDate: "2026-07-19",
     weddingTime: "09:00",
     locationMapUrl: weddingConfig.venue.mapUrl,
-    locationName: weddingConfig.venue.name,
-    locationAddress: weddingConfig.venue.address,
+    locationRegion: weddingConfig.venue.region,
+    locationPlace: weddingConfig.venue.place,
     audioUrl: weddingConfig.musicSrc,
     templateId: "variant-6",
     defaultLocale: "uz-latin",
@@ -30,8 +30,8 @@ export const DEFAULT_CLIENTS: InvitationClient[] = [
     weddingDate: "2026-08-20",
     weddingTime: "18:00",
     locationMapUrl: weddingConfig.venue.mapUrl,
-    locationName: "Bo'ston to'yxonasi",
-    locationAddress: "Vodil, Farg'ona viloyati",
+    locationRegion: "Farg'ona viloyati",
+    locationPlace: "Vodil",
     audioUrl: weddingConfig.musicSrc,
     templateId: "variant-5",
     defaultLocale: "uz-latin",
@@ -79,6 +79,8 @@ export interface ClientInput {
   weddingDate: string;
   weddingTime: string;
   locationMapUrl: string;
+  locationRegion?: string;
+  locationPlace?: string;
   locationName?: string;
   locationAddress?: string;
   audioUrl: string;
@@ -103,6 +105,8 @@ export async function createClient(input: ClientInput): Promise<InvitationClient
     weddingDate: input.weddingDate,
     weddingTime: input.weddingTime,
     locationMapUrl: input.locationMapUrl,
+    locationRegion: input.locationRegion,
+    locationPlace: input.locationPlace,
     locationName: input.locationName,
     locationAddress: input.locationAddress,
     audioUrl: input.audioUrl,

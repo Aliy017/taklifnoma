@@ -22,6 +22,8 @@ export interface AdminClient {
   weddingDate: string;
   weddingTime: string;
   locationMapUrl: string;
+  locationRegion?: string;
+  locationPlace?: string;
   audioUrl: string;
   templateId: TemplateId;
   defaultLocale?: LocaleId;
@@ -46,6 +48,8 @@ export interface ClientFormData {
   weddingDate: string;
   weddingTime: string;
   locationMapUrl: string;
+  locationRegion: string;
+  locationPlace: string;
   audioUrl: string;
   templateId: TemplateId;
   defaultLocale: LocaleId;

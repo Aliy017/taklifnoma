@@ -51,25 +51,13 @@ export default function LocationCards() {
                   <div className="border-t border-[#C9A087]/15 pt-4">
                     <p className="font-medium text-[#3d4a38]">{loc.venue}</p>
                     <p className="text-sm text-[#8A9A5B]/70">{loc.address}</p>
-                    <a
-                      href={loc.mapsLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-2 inline-block text-sm text-[#C9A087] transition hover:text-[#b8876a]"
-                    >
-                      {t("nav.openMap")} →
-                    </a>
                   </div>
                 </div>
                 <MapEmbed
                   mapUrl={loc.mapUrl}
                   mapsLink={loc.mapsLink}
                   title={`${loc.title} xaritasi`}
-                  placeholderClassName="border-0 border-t border-[#C9A087]/10 bg-[#FDFBF7]"
-                  buttonClassName="rounded-full border border-[#C9A087]/40 px-5 py-2 text-sm text-[#C9A087] transition hover:bg-[#C9A087]/10"
-                  linkClassName="text-xs text-[#8A9A5B] underline underline-offset-2"
                   iframeClassName="h-48 w-full border-0 border-t border-[#C9A087]/10 sm:h-56"
-                  minHeightClass="min-h-[12rem]"
                 />
               </motion.div>
             </ScrollReveal>

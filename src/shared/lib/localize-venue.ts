@@ -3,11 +3,11 @@ import { latinToCyrillic } from "@/shared/i18n/transliterate";
 import type { MessageKey } from "@/shared/i18n/messages";
 import type { LocaleId } from "@/shared/i18n/types";
 
-type VenueDefaultKey = "venue.defaultName" | "venue.defaultAddress";
+type VenueDefaultKey = "venue.defaultRegion" | "venue.defaultPlace";
 
 const DEFAULTS: Record<VenueDefaultKey, string> = {
-  "venue.defaultName": weddingConfig.venue.name,
-  "venue.defaultAddress": weddingConfig.venue.address,
+  "venue.defaultRegion": weddingConfig.venue.region,
+  "venue.defaultPlace": weddingConfig.venue.place,
 };
 
 export function localizeVenueField(

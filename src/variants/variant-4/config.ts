@@ -12,8 +12,8 @@ export const variant4Config = {
       time: "07:30",
       timeLabel: "Ertalab, soat 07:30",
       description: "Mehmonlarni iliq kutib olish va duo bilan boshlanish",
-      venue: weddingConfig.venue.name,
-      address: weddingConfig.venue.address,
+      venue: weddingConfig.venue.region,
+      address: weddingConfig.venue.place,
     },
     {
       id: "asosiy",
@@ -21,8 +21,8 @@ export const variant4Config = {
       time: "09:00",
       timeLabel: "Ertalab, soat 09:00",
       description: "Nikoh marosimi, duo va an'anaviy dasturxon",
-      venue: weddingConfig.venue.name,
-      address: weddingConfig.venue.address,
+      venue: weddingConfig.venue.region,
+      address: weddingConfig.venue.place,
     },
   ],
 } as const;

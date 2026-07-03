@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { useWeddingContext } from "@/shared/context/WeddingContext";
 import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
 import type { DynamicWeddingConfig } from "@/shared/lib/client-wedding";
-import { formatDisplayDate, formatTimeLabel } from "@/shared/lib/locale-format";
+import { formatDisplayDate, formatTimeLabel, formatDisplayDateTime } from "@/shared/lib/locale-format";
 import { localizeVenueField } from "@/shared/lib/localize-venue";
 import { localizeScheduleArray, localizeStoryArray } from "@/shared/lib/localize-content";
 
@@ -39,6 +39,7 @@ export function useVariantConfig<T extends Record<string, unknown>>(base: T): T 
         displayDate: w.displayDate,
         displayTime: w.displayTime,
         displayTimeLabel: w.displayTimeLabel,
+        displayDateTime: w.displayDateTime,
         weddingType: w.weddingType,
         musicSrc: w.musicSrc,
         venue: w.venue,
@@ -52,8 +53,30 @@ export function useVariantConfig<T extends Record<string, unknown>>(base: T): T 
     const localizedVenue = venue
       ? {
           ...venue,
-          name: localizeVenueField(venue.name, locale, "venue.defaultName", t),
-          address: localizeVenueField(venue.address, locale, "venue.defaultAddress", t),
+          region: localizeVenueField(
+            venue.region ?? venue.name,
+            locale,
+            "venue.defaultRegion",
+            t
+          ),
+          place: localizeVenueField(
+            venue.place ?? venue.address,
+            locale,
+            "venue.defaultPlace",
+            t
+          ),
+          name: localizeVenueField(
+            venue.region ?? venue.name,
+            locale,
+            "venue.defaultRegion",
+            t
+          ),
+          address: localizeVenueField(
+            venue.place ?? venue.address,
+            locale,
+            "venue.defaultPlace",
+            t
+          ),
         }
       : venue;
 
@@ -64,10 +87,10 @@ export function useVariantConfig<T extends Record<string, unknown>>(base: T): T 
     const localizedLocations = locations?.map((loc) => ({
       ...loc,
       ...(typeof loc.venue === "string"
-        ? { venue: localizeVenueField(loc.venue, locale, "venue.defaultName", t) }
+        ? { venue: localizeVenueField(loc.venue, locale, "venue.defaultRegion", t) }
         : {}),
       ...(typeof loc.address === "string"
-        ? { address: localizeVenueField(loc.address, locale, "venue.defaultAddress", t) }
+        ? { address: localizeVenueField(loc.address, locale, "venue.defaultPlace", t) }
         : {}),
     }));
 
@@ -90,6 +113,9 @@ export function useVariantConfig<T extends Record<string, unknown>>(base: T): T 
         ? formatDisplayDate(weddingDateISO, locale)
         : (config.displayDate as string | undefined),
       displayTimeLabel: formatTimeLabel(displayTime, locale),
+      displayDateTime: weddingDateISO
+        ? formatDisplayDateTime(weddingDateISO, displayTime, locale)
+        : (config.displayDateTime as string | undefined),
       venue: localizedVenue,
       ...(localizedLocations ? { locations: localizedLocations } : {}),
       ...(localizedStory ? { story: localizedStory } : {}),

@@ -11,7 +11,7 @@ import MapEmbed from "@/shared/components/MapEmbed";
 export default function Location() {
   const variant10Config = useVariantConfig(variant10ConfigBase);
   const { t } = useLocaleOptional();
-  const { venue, displayTimeLabel } = variant10Config;
+  const { venue, displayDateTime } = variant10Config;
 
   return (
     <section id="location" className="mobile-section relative z-10 px-4 py-16">
@@ -27,25 +27,14 @@ export default function Location() {
         <div className="v10-card overflow-hidden rounded-2xl">
           <div className="border-b border-[#D4AF37]/20 bg-gradient-to-r from-[#fff5f0] to-[#ffe8d8] p-6 sm:p-8">
             <SparkleHeading theme="variant-10" as="h3" sparkles={false} className="text-xl">
-              {venue.name}
+              {venue.region}
             </SparkleHeading>
-            <p className="mt-1 text-sm text-[#6b3d2e]/80">{venue.address}</p>
-            <p className="mt-2 text-sm font-medium text-[#D4AF37]">{displayTimeLabel}</p>
-            <a
-              href={venue.mapsLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 inline-block rounded-full border border-[#D4AF37]/40 px-5 py-2 text-sm text-[#a68b3c] transition hover:bg-[#D4AF37]/10"
-            >
-              {t("nav.openMap")} →
-            </a>
+            <p className="mt-1 text-sm text-[#6b3d2e]/80">{venue.place}</p>
+            <p className="mt-2 text-sm font-medium text-[#D4AF37]">{displayDateTime}</p>
           </div>
           <MapEmbed
             mapUrl={venue.mapUrl}
             mapsLink={venue.mapsLink}
-            placeholderClassName="border-0 bg-[#fff5f0]"
-            buttonClassName="rounded-full border border-[#D4AF37]/40 px-5 py-2 text-sm text-[#a68b3c] transition hover:bg-[#D4AF37]/10"
-            linkClassName="text-xs text-[#a68b3c]/70 underline underline-offset-2"
             iframeClassName="h-56 w-full border-0 sm:h-64"
           />
         </div>

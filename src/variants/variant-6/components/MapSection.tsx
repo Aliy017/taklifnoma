@@ -14,7 +14,7 @@ export default function MapSection() {
   const variant6Config = useVariantConfig(variant6ConfigBase);
   const lite = useLiteMode();
   const { t } = useLocale();
-  const { venue, displayTimeLabel } = variant6Config;
+  const { venue, displayDateTime } = variant6Config;
 
   return (
     <SectionCard
@@ -30,10 +30,10 @@ export default function MapSection() {
       }
     >
       <div className="v6-venue-card mb-5 text-center sm:mb-6">
-        <h3 className="font-serif text-lg font-semibold text-[#2a1515] sm:text-xl">{venue.name}</h3>
-        <p className="mt-1 text-sm v6-silver-text">{venue.address}</p>
+        <h3 className="font-serif text-lg font-semibold text-[#2a1515] sm:text-xl">{venue.region}</h3>
+        <p className="mt-1 text-sm v6-silver-text">{venue.place}</p>
         <p className="mt-2 inline-flex rounded-full bg-[#C62828]/10 px-3 py-1 text-xs font-medium text-[#C62828] sm:text-sm">
-          {displayTimeLabel}
+          {displayDateTime}
         </p>
       </div>
 
@@ -46,9 +46,6 @@ export default function MapSection() {
         <MapEmbed
           mapUrl={venue.mapUrl}
           mapsLink={venue.mapsLink}
-          placeholderClassName="bg-[#fff5f2]"
-          buttonClassName="rounded-full bg-[#C62828]/12 px-6 py-2.5 text-sm font-medium text-[#C62828] transition hover:bg-[#C62828]/20"
-          linkClassName="text-xs text-[#8b6360] underline underline-offset-2"
           iframeClassName="h-52 w-full border-0 sm:h-64"
         />
       </motion.div>

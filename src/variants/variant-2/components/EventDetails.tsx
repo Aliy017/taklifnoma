@@ -10,7 +10,7 @@ import { variant2Config as variant2ConfigBase } from "../config";
 export default function EventDetails() {
   const variant2Config = useVariantConfig(variant2ConfigBase);
   const { t } = useLocaleOptional();
-  const { venue, displayDate, displayTimeLabel, weddingType, groom, bride } = variant2Config;
+  const { venue, displayDateTime, weddingType, groom, bride } = variant2Config;
 
   const cards = [
     {
@@ -20,8 +20,8 @@ export default function EventDetails() {
         </svg>
       ),
       title: "Sana",
-      value: displayDate,
-      sub: displayTimeLabel,
+      value: displayDateTime,
+      sub: "",
     },
     {
       icon: (
@@ -31,8 +31,8 @@ export default function EventDetails() {
         </svg>
       ),
       title: t("nav.location"),
-      value: venue.name,
-      sub: venue.address,
+      value: venue.region,
+      sub: venue.place,
     },
     {
       icon: (
