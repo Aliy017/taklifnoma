@@ -1,15 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
+import { useLocale } from "@/shared/i18n/LocaleContext";
 
 const iconClass = "v6-dock-svg";
 
-const links = [
+const linkDefs = [
   {
     href: "#about",
-    label: "Biz haqimizda",
-    short: "Haqimizda",
+    labelKey: "nav.about" as const,
+    shortKey: "nav.aboutShort" as const,
     icon: (
       <svg viewBox="0 0 24 24" className={iconClass} fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 20.5s-5.5-3.6-5.5-9.2a3.7 3.7 0 0 1 6.6-2.2 3.7 3.7 0 0 1 6.6 2.2c0 5.6-5.5 9.2-5.5 9.2z" />
@@ -18,8 +19,8 @@ const links = [
   },
   {
     href: "#location",
-    label: "Manzil",
-    short: "Manzil",
+    labelKey: "nav.location" as const,
+    shortKey: "nav.location" as const,
     icon: (
       <svg viewBox="0 0 24 24" className={iconClass} fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 21s5.5-4.4 5.5-9.5a5.5 5.5 0 1 0-11 0C6.5 16.6 12 21 12 21z" />
@@ -29,8 +30,8 @@ const links = [
   },
   {
     href: "#tabriklar",
-    label: "Tabriklar",
-    short: "Tabrik",
+    labelKey: "nav.wishes" as const,
+    shortKey: "nav.wishesShort" as const,
     icon: (
       <svg viewBox="0 0 24 24" className={iconClass} fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 4.2l1.35 3.95h4.2l-3.4 2.45 1.3 4.05L12 12.8l-3.45 2.85 1.3-4.05-3.4-2.45h4.2L12 4.2z" />
@@ -42,10 +43,22 @@ const links = [
 const spring = { type: "spring" as const, stiffness: 480, damping: 34 };
 
 export default function DockNav() {
-  const [active, setActive] = useState(links[0].href);
+  const { t } = useLocale();
+  const navLinks = useMemo(
+    () =>
+      linkDefs.map((link) => ({
+        href: link.href,
+        label: t(link.labelKey),
+        short: t(link.shortKey),
+        icon: link.icon,
+      })),
+    [t]
+  );
+
+  const [active, setActive] = useState(linkDefs[0].href);
 
   useEffect(() => {
-    const sections = links
+    const sections = navLinks
       .map((l) => document.querySelector(l.href))
       .filter((el): el is HTMLElement => el instanceof HTMLElement);
 
@@ -63,7 +76,7 @@ export default function DockNav() {
 
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
-  }, []);
+  }, [navLinks]);
 
   function scrollTo(href: string) {
     setActive(href);
@@ -73,10 +86,10 @@ export default function DockNav() {
   return (
     <nav
       className="fixed bottom-[max(0.5rem,env(safe-area-inset-bottom))] left-1/2 z-50 -translate-x-1/2"
-      aria-label="Asosiy bo'limlar"
+      aria-label={t("nav.sections")}
     >
       <div className="v6-dock v6-dock-glass flex items-stretch rounded-full p-1">
-        {links.map((link) => {
+        {navLinks.map((link) => {
           const isActive = active === link.href;
           return (
             <motion.button

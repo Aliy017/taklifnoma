@@ -7,6 +7,7 @@ import { variant6Config as variant6ConfigBase } from "../config";
 import GlassPanel from "./GlassPanel";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
+import { useLocale } from "@/shared/i18n/LocaleContext";
 
 const spring = { type: "spring" as const, stiffness: 280, damping: 24 };
 
@@ -64,6 +65,7 @@ function Digit({ value, label }: { value: number; label: string }) {
 
 export default function Countdown() {
   const variant6Config = useVariantConfig(variant6ConfigBase);
+  const { t } = useLocale();
   const [mounted, setMounted] = useState(false);
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
@@ -91,20 +93,20 @@ export default function Countdown() {
         transition={spring}
       >
         <GlassPanel glow className="p-8 text-center sm:p-10">
-          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#EF4444]">Kutilmoqda</p>
+          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#EF4444]">{t("countdown.waiting")}</p>
           <SparkleHeading theme="variant-6" as="h2" intensity="high" className="mb-8 text-2xl font-bold sm:text-3xl">
-            {isPast ? "To'y boshlandi!" : "To'ygacha qolgan vaqt"}
+            {isPast ? t("countdown.started") : t("countdown.until")}
           </SparkleHeading>
 
           {mounted ? (
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6">
-              <Digit value={timeLeft.days} label="Kun" />
+              <Digit value={timeLeft.days} label={t("countdown.days")} />
               <span className="mb-6 hidden text-[#EF4444]/40 sm:inline">:</span>
-              <Digit value={timeLeft.hours} label="Soat" />
+              <Digit value={timeLeft.hours} label={t("countdown.hours")} />
               <span className="mb-6 hidden text-[#EF4444]/40 sm:inline">:</span>
-              <Digit value={timeLeft.minutes} label="Daqiqa" />
+              <Digit value={timeLeft.minutes} label={t("countdown.minutes")} />
               <span className="mb-6 hidden text-[#EF4444]/40 sm:inline">:</span>
-              <Digit value={timeLeft.seconds} label="Soniya" />
+              <Digit value={timeLeft.seconds} label={t("countdown.seconds")} />
             </div>
           ) : (
             <div className="flex justify-center gap-3">

@@ -4,17 +4,19 @@ import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 import { variant6Config as variant6ConfigBase } from "../config";
 import SectionCard from "./SectionCard";
 import { useInviteCopy } from "@/shared/config/invite-copy";
+import { useLocale } from "@/shared/i18n/LocaleContext";
 
 export default function About() {
   const variant6Config = useVariantConfig(variant6ConfigBase);
-  const { about, groom, bride } = variant6Config;
+  const { groom, bride } = variant6Config;
   const { inviteAboutParagraphs } = useInviteCopy();
+  const { t } = useLocale();
   const paragraphs = inviteAboutParagraphs(groom, bride);
 
   return (
     <SectionCard
       id="about"
-      label={about.title}
+      label={t("section.about")}
       title={`${groom} & ${bride}`}
       icon={
         <svg viewBox="0 0 24 24" className="h-5 w-5 text-[#C62828]" fill="currentColor">

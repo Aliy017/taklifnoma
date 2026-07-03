@@ -2,6 +2,7 @@
 
 import {
   createContext,
+  Suspense,
   useCallback,
   useContext,
   useEffect,
@@ -36,6 +37,17 @@ function readStoredLocale(): LocaleId | null {
   }
 }
 
+function LocaleUrlSync({ onLocale }: { onLocale: (locale: LocaleId) => void }) {
+  const searchParams = useSearchParams();
+  const urlLocale = parseLocaleParam(searchParams.get("lang"));
+
+  useEffect(() => {
+    if (urlLocale) onLocale(urlLocale);
+  }, [urlLocale, onLocale]);
+
+  return null;
+}
+
 export function LocaleProvider({
   defaultLocale = "uz-latin",
   children,
@@ -43,25 +55,13 @@ export function LocaleProvider({
   defaultLocale?: LocaleId;
   children: ReactNode;
 }) {
-  const searchParams = useSearchParams();
-  const urlLocale = parseLocaleParam(searchParams.get("lang"));
-
   const [locale, setLocaleState] = useState<LocaleId>(() => {
-    return urlLocale ?? readStoredLocale() ?? defaultLocale;
+    return readStoredLocale() ?? defaultLocale;
   });
 
   useEffect(() => {
-    if (urlLocale) setLocaleState(urlLocale);
-  }, [urlLocale]);
-
-  useEffect(() => {
-    setLocaleState((prev) => {
-      if (urlLocale) return urlLocale;
-      const stored = readStoredLocale();
-      if (stored) return stored;
-      return prev ?? defaultLocale;
-    });
-  }, [defaultLocale, urlLocale]);
+    setLocaleState((prev) => readStoredLocale() ?? defaultLocale ?? prev);
+  }, [defaultLocale]);
 
   const setLocale = useCallback((next: LocaleId) => {
     setLocaleState(next);
@@ -87,7 +87,14 @@ export function LocaleProvider({
     [locale, setLocale, t, localizeName]
   );
 
-  return <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>;
+  return (
+    <LocaleContext.Provider value={value}>
+      <Suspense fallback={null}>
+        <LocaleUrlSync onLocale={setLocale} />
+      </Suspense>
+      {children}
+    </LocaleContext.Provider>
+  );
 }
 
 export function useLocale() {
@@ -96,4 +103,29 @@ export function useLocale() {
     throw new Error("useLocale must be used within LocaleProvider");
   }
   return ctx;
+}
+
+export function useLocaleOptional(): LocaleContextValue {
+  const ctx = useContext(LocaleContext);
+  const fallbackLocale: LocaleId = "uz-latin";
+  const t = useCallback(
+    (key: MessageKey, params?: Record<string, string>) =>
+      translate(ctx?.locale ?? fallbackLocale, key, params),
+    [ctx?.locale]
+  );
+  const localizeName = useCallback(
+    (name: string) => localizeText(name, ctx?.locale ?? fallbackLocale),
+    [ctx?.locale]
+  );
+
+  return useMemo(
+    () =>
+      ctx ?? {
+        locale: fallbackLocale,
+        setLocale: () => {},
+        t,
+        localizeName,
+      },
+    [ctx, t, localizeName]
+  );
 }

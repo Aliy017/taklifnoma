@@ -49,7 +49,29 @@ export type MessageKey =
   | "gallery.sort.likes"
   | "gallery.stat.variants"
   | "gallery.stat.likes"
-  | "gallery.stat.popular";
+  | "gallery.stat.popular"
+  | "nav.about"
+  | "nav.aboutShort"
+  | "nav.location"
+  | "nav.wishes"
+  | "nav.wishesShort"
+  | "nav.sections"
+  | "section.about"
+  | "countdown.waiting"
+  | "countdown.until"
+  | "countdown.started"
+  | "map.label"
+  | "map.title"
+  | "map.lazyHint"
+  | "map.show"
+  | "map.openExternal"
+  | "map.iframeTitle"
+  | "wedding.type"
+  | "time.at"
+  | "time.morning"
+  | "time.afternoon"
+  | "time.evening"
+  | "hero.coupleAlt";
 
 type Messages = Record<MessageKey, string>;
 
@@ -106,6 +128,28 @@ const uzLatin: Messages = {
   "gallery.stat.variants": "Variant",
   "gallery.stat.likes": "Yoqtirish",
   "gallery.stat.popular": "Mashhur",
+  "nav.about": "Biz haqimizda",
+  "nav.aboutShort": "Haqimizda",
+  "nav.location": "Manzil",
+  "nav.wishes": "Tabriklar",
+  "nav.wishesShort": "Tabrik",
+  "nav.sections": "Asosiy bo'limlar",
+  "section.about": "Biz haqimizda",
+  "countdown.waiting": "Kutilmoqda",
+  "countdown.until": "To'ygacha qolgan vaqt",
+  "countdown.started": "To'y boshlandi!",
+  "map.label": "Manzil",
+  "map.title": "To'y joyi",
+  "map.lazyHint": "Xarita faqat tugma bosilganda yuklanadi",
+  "map.show": "Xaritani ko'rish",
+  "map.openExternal": "Tashqi xaritada ochish",
+  "map.iframeTitle": "To'y joyi xaritasi",
+  "wedding.type": "To'y marosimi",
+  "time.at": "Soat {time}",
+  "time.morning": "Ertalab, soat {time}",
+  "time.afternoon": "Kunduzi, soat {time}",
+  "time.evening": "Kechqurun, soat {time}",
+  "hero.coupleAlt": "{groom} va {bride}",
 };
 
 const uzCyrillic: Messages = {
@@ -162,6 +206,28 @@ const uzCyrillic: Messages = {
   "gallery.stat.variants": "Вариант",
   "gallery.stat.likes": "Ёқтириш",
   "gallery.stat.popular": "Машҳур",
+  "nav.about": "Биз ҳақимизда",
+  "nav.aboutShort": "Ҳақимизда",
+  "nav.location": "Манзил",
+  "nav.wishes": "Табриклар",
+  "nav.wishesShort": "Табрик",
+  "nav.sections": "Асосий бўлимлар",
+  "section.about": "Биз ҳақимизда",
+  "countdown.waiting": "Кутилмоқда",
+  "countdown.until": "Тўйгача қолган вақт",
+  "countdown.started": "Тўй бошланди!",
+  "map.label": "Манзил",
+  "map.title": "Тўй жойи",
+  "map.lazyHint": "Харита фақат тугма босилганда юкланади",
+  "map.show": "Харитани кўриш",
+  "map.openExternal": "Ташқи харитада очиш",
+  "map.iframeTitle": "Тўй жойи харитаси",
+  "wedding.type": "Тўй маросими",
+  "time.at": "Соат {time}",
+  "time.morning": "Эрталаб, соат {time}",
+  "time.afternoon": "Кундузи, соат {time}",
+  "time.evening": "Кечқурун, соат {time}",
+  "hero.coupleAlt": "{groom} ва {bride}",
 };
 
 const ru: Messages = {
@@ -217,6 +283,28 @@ const ru: Messages = {
   "gallery.stat.variants": "Вариант",
   "gallery.stat.likes": "Лайки",
   "gallery.stat.popular": "Популярный",
+  "nav.about": "О нас",
+  "nav.aboutShort": "О нас",
+  "nav.location": "Адрес",
+  "nav.wishes": "Поздравления",
+  "nav.wishesShort": "Поздрав.",
+  "nav.sections": "Основные разделы",
+  "section.about": "О нас",
+  "countdown.waiting": "Ожидание",
+  "countdown.until": "До свадьбы осталось",
+  "countdown.started": "Свадьба началась!",
+  "map.label": "Адрес",
+  "map.title": "Место проведения",
+  "map.lazyHint": "Карта загружается только по нажатию кнопки",
+  "map.show": "Показать карту",
+  "map.openExternal": "Открыть во внешнем приложении",
+  "map.iframeTitle": "Карта места проведения",
+  "wedding.type": "Свадебная церемония",
+  "time.at": "В {time}",
+  "time.morning": "Утром, в {time}",
+  "time.afternoon": "Днём, в {time}",
+  "time.evening": "Вечером, в {time}",
+  "hero.coupleAlt": "{groom} и {bride}",
 };
 
 export const MESSAGES: Record<LocaleId, Messages> = {

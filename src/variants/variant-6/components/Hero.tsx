@@ -8,6 +8,7 @@ import GlassPanel from "./GlassPanel";
 import CoupleFrame from "./CoupleFrame";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
+import { useLocale } from "@/shared/i18n/LocaleContext";
 
 const Scene3D = dynamic(() => import("./Scene3D"), {
   ssr: false,
@@ -21,7 +22,9 @@ const Scene3D = dynamic(() => import("./Scene3D"), {
 export default function Hero() {
   const variant6Config = useVariantConfig(variant6ConfigBase);
   const lite = useLiteMode();
+  const { t } = useLocale();
   const { groom, bride, displayDate, weddingType } = variant6Config;
+  const coupleAlt = t("hero.coupleAlt", { groom, bride });
 
   return (
     <section className="relative flex min-h-[100dvh] flex-col items-center justify-center px-3 pb-24 pt-14 sm:px-4 sm:pb-28 sm:pt-16">
@@ -32,7 +35,7 @@ export default function Hero() {
 
         <div className="mb-5 sm:mb-8">
           {lite ? (
-            <CoupleFrame alt={`${groom} va ${bride}`} />
+            <CoupleFrame alt={coupleAlt} />
           ) : (
             <motion.div
               initial={{ opacity: 0, y: 20 }}

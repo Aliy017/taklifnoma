@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
 
 interface MapEmbedProps {
   mapUrl: string;
@@ -17,7 +18,7 @@ interface MapEmbedProps {
 export default function MapEmbed({
   mapUrl,
   mapsLink,
-  title = "To'y joyi xaritasi",
+  title,
   className = "",
   iframeClassName = "h-56 w-full border-0 sm:h-72",
   placeholderClassName = "rounded-2xl border border-dashed border-black/10 bg-black/[0.03]",
@@ -25,16 +26,18 @@ export default function MapEmbed({
   linkClassName = "text-xs underline underline-offset-2 opacity-60 transition hover:opacity-100",
   minHeightClass = "min-h-[14rem]",
 }: MapEmbedProps) {
+  const { t } = useLocaleOptional();
   const [open, setOpen] = useState(false);
+  const iframeTitle = title ?? t("map.iframeTitle");
 
   if (!open) {
     return (
       <div
         className={`flex flex-col items-center justify-center gap-3 px-4 py-8 text-center ${placeholderClassName} ${minHeightClass} ${className}`}
       >
-        <p className="text-sm opacity-70">Xarita faqat tugma bosilganda yuklanadi</p>
+        <p className="text-sm opacity-70">{t("map.lazyHint")}</p>
         <button type="button" onClick={() => setOpen(true)} className={buttonClassName}>
-          Xaritani ko&apos;rish
+          {t("map.show")}
         </button>
         <a
           href={mapsLink}
@@ -42,7 +45,7 @@ export default function MapEmbed({
           rel="noopener noreferrer"
           className={linkClassName}
         >
-          Tashqi xaritada ochish
+          {t("map.openExternal")}
         </a>
       </div>
     );
@@ -51,7 +54,7 @@ export default function MapEmbed({
   return (
     <div className={className}>
       <iframe
-        title={title}
+        title={iframeTitle}
         src={mapUrl}
         className={iframeClassName}
         loading="lazy"

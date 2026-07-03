@@ -6,19 +6,21 @@ import { variant6Config as variant6ConfigBase } from "../config";
 import SectionCard from "./SectionCard";
 import MapEmbed from "@/shared/components/MapEmbed";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
+import { useLocale } from "@/shared/i18n/LocaleContext";
 
 const spring = { type: "spring" as const, stiffness: 260, damping: 22 };
 
 export default function MapSection() {
   const variant6Config = useVariantConfig(variant6ConfigBase);
   const lite = useLiteMode();
+  const { t } = useLocale();
   const { venue, displayTimeLabel } = variant6Config;
 
   return (
     <SectionCard
       id="location"
-      label="Manzil"
-      title="To'y joyi"
+      label={t("map.label")}
+      title={t("map.title")}
       wide
       icon={
         <svg viewBox="0 0 24 24" className="h-5 w-5 text-[#C62828]" fill="none" stroke="currentColor" strokeWidth="1.75">

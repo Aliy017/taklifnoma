@@ -9,11 +9,13 @@ import About from "./components/About";
 import MapSection from "./components/MapSection";
 import Wishes from "./components/Wishes";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
+import { useLocale } from "@/shared/i18n/LocaleContext";
 import { variant6Config as variant6ConfigBase } from "./config";
 
 export default function Variant6Page() {
   const variant6Config = useVariantConfig(variant6ConfigBase);
   const { groom, bride, displayDate } = variant6Config;
+  const { t } = useLocale();
 
   return (
     <main className="variant-6 relative">
@@ -35,7 +37,7 @@ export default function Variant6Page() {
           </p>
           <p className="mt-2 text-sm v6-silver-text">{displayDate}</p>
           <div className="v6-divider mx-auto my-6 max-w-[80px]" />
-          <p className="text-xs text-[#b88888]/70">Alloh ularning baxtini abadiy qilsin</p>
+          <p className="text-xs text-[#b88888]/70">{t("invite.blessing")}</p>
         </footer>
         <VariantBottomBar variantId="variant-6" accent="#C41E3A" />
       </div>
