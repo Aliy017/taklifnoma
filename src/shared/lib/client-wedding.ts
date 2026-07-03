@@ -60,7 +60,7 @@ export function clientToWeddingConfig(client: InvitationClient): DynamicWeddingC
 
   return {
     ...weddingConfig,
-    musicSrc: client.audioUrl || weddingConfig.musicSrc,
+    musicSrc: client.audioUrl?.trim() || weddingConfig.musicSrc,
     groom: client.groomName,
     bride: client.brideName,
     weddingDateISO,

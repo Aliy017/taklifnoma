@@ -3,6 +3,7 @@
 import { Copy, Pencil, Trash2 } from "lucide-react";
 import type { AdminClient } from "../types";
 import { TEMPLATE_OPTIONS } from "../types";
+import { latinToCyrillic } from "@/shared/i18n/transliterate";
 
 interface ClientTableProps {
   clients: AdminClient[];
@@ -33,6 +34,9 @@ export default function ClientTable({ clients, onEdit, onDelete, onCopyLink }: C
                 <td className="px-5 py-4">
                   <p className="font-medium text-[#0f2744]">
                     {client.groomName} & {client.brideName}
+                  </p>
+                  <p className="mt-0.5 text-xs text-slate-400">
+                    {latinToCyrillic(client.groomName)} & {latinToCyrillic(client.brideName)}
                   </p>
                   <p className="mt-0.5 font-mono text-xs text-[#c9a84c]">/{client.slug}</p>
                 </td>

@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users, MessageSquareHeart, LogOut, Sparkles, Settings } from "lucide-react";
+import { LayoutDashboard, Users, MessageSquareHeart, LogOut, Sparkles, Settings, Moon, Sun } from "lucide-react";
 import { motion } from "framer-motion";
 import { checkAuthApi, logoutApi } from "../lib/auth";
 import { useRouter } from "next/navigation";
+import { useAdminTheme } from "../hooks/useAdminTheme";
 
 const tabs = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard, short: "Bosh" },
@@ -17,6 +18,7 @@ const tabs = [
 export default function AdminNav() {
   const pathname = usePathname();
   const router = useRouter();
+  const { theme, toggleTheme } = useAdminTheme();
 
   function handleLogout() {
     logoutApi().then(() => router.replace("/admin/login"));
@@ -58,14 +60,25 @@ export default function AdminNav() {
             })}
           </nav>
 
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-slate-500 transition hover:bg-red-50 hover:text-red-600"
-          >
-            <LogOut className="h-4 w-4" />
-            Chiqish
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200/70 text-slate-500 transition hover:bg-slate-100 hover:text-[#0f2744]"
+              aria-label={theme === "dark" ? "Yorug' rejim" : "Qorong'u rejim"}
+              title={theme === "dark" ? "Yorug' rejim" : "Qorong'u rejim"}
+            >
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-slate-500 transition hover:bg-red-50 hover:text-red-600"
+            >
+              <LogOut className="h-4 w-4" />
+              Chiqish
+            </button>
+          </div>
         </div>
       </header>
 
@@ -78,14 +91,24 @@ export default function AdminNav() {
             </span>
             <span className="text-sm font-bold text-[#0f2744]">Taklifnoma Admin</span>
           </Link>
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-red-500"
-            aria-label="Chiqish"
-          >
-            <LogOut className="h-4 w-4" />
-          </button>
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-[#0f2744]"
+              aria-label={theme === "dark" ? "Yorug' rejim" : "Qorong'u rejim"}
+            >
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-red-500"
+              aria-label="Chiqish"
+            >
+              <LogOut className="h-4 w-4" />
+            </button>
+          </div>
         </div>
       </header>
 

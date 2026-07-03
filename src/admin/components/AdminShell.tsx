@@ -6,11 +6,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { checkAuthApi } from "../lib/auth";
 import { AdminProvider } from "../context/AdminContext";
 import AdminNav from "./AdminNav";
+import { useAdminTheme } from "../hooks/useAdminTheme";
 
 export default function AdminShell({ children }: { children: ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const [ready, setReady] = useState(false);
+  const { theme } = useAdminTheme();
 
   useEffect(() => {
     checkAuthApi().then((ok) => {
@@ -32,7 +34,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
 
   return (
     <AdminProvider>
-      <div className="admin-root">
+      <div className={`admin-root ${theme === "dark" ? "admin-theme-dark" : ""}`}>
         <AdminNav />
         <AnimatePresence mode="wait">
           <motion.main

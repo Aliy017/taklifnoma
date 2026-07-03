@@ -145,3 +145,219 @@
   color: #fff;
   box-shadow: 0 4px 14px rgba(15, 39, 68, 0.22);
 }
+
+/* ── Dark theme ── */
+.admin-root.admin-theme-dark {
+  --admin-bg: #0a0f1a;
+  --admin-surface: #121a2b;
+  --admin-navy: #e8edf5;
+  --admin-navy-soft: #cbd5e1;
+  --admin-gold: #d4b86a;
+  --admin-gold-soft: #9a8450;
+  --admin-slate: #94a3b8;
+  --admin-slate-dark: #e2e8f0;
+  --admin-border: rgba(255, 255, 255, 0.08);
+  --admin-glass: rgba(18, 26, 43, 0.88);
+  color-scheme: dark;
+}
+
+.admin-root.admin-theme-dark .admin-glass {
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.admin-root.admin-theme-dark .admin-input {
+  background: #1a2438;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+}
+
+.admin-root.admin-theme-dark .admin-input::placeholder {
+  color: #64748b;
+}
+
+.admin-root.admin-theme-dark .admin-stat-card,
+.admin-root.admin-theme-dark .admin-client-card,
+.admin-root.admin-theme-dark .admin-table-wrap {
+  background: var(--admin-surface);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+}
+
+.admin-root.admin-theme-dark .admin-btn-primary {
+  background: linear-gradient(135deg, #1e3a5f, #2d4a73);
+}
+
+.admin-root.admin-theme-dark .text-\[\#0f2744\] {
+  color: #e8edf5 !important;
+}
+
+.admin-root.admin-theme-dark .text-slate-400,
+.admin-root.admin-theme-dark .text-slate-500,
+.admin-root.admin-theme-dark .text-slate-600 {
+  color: #94a3b8 !important;
+}
+
+.admin-root.admin-theme-dark .bg-slate-50,
+.admin-root.admin-theme-dark .bg-slate-100,
+.admin-root.admin-theme-dark .hover\:bg-slate-50:hover,
+.admin-root.admin-theme-dark .hover\:bg-slate-100:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.admin-root.admin-theme-dark .border-slate-200,
+.admin-root.admin-theme-dark .border-slate-200\/60,
+.admin-root.admin-theme-dark .border-slate-200\/70,
+.admin-root.admin-theme-dark .border-slate-200\/80 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.admin-root.admin-theme-dark .admin-nav-active {
+  color: #e8edf5;
+}
+
+.admin-root.admin-theme-dark .admin-nav-item:not(.admin-nav-active) .admin-nav-icon-wrap {
+  background: rgba(255, 255, 255, 0.06);
+  color: #94a3b8;
+}
+
+.admin-root.admin-theme-dark .admin-picker-card {
+  background: #1a2438;
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+}
+
+.admin-root.admin-theme-dark .admin-picker-card:hover {
+  background: #222d45;
+  border-color: rgba(201, 168, 76, 0.35);
+}
+
+.admin-root.admin-theme-dark .admin-picker-card--active {
+  background: rgba(201, 168, 76, 0.12);
+  border-color: rgba(201, 168, 76, 0.45);
+  color: #f1f5f9;
+}
+
+.admin-root .admin-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.625rem;
+}
+
+@media (min-width: 640px) {
+  .admin-root .admin-picker-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.admin-root .admin-picker-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  min-height: 4.5rem;
+  padding: 0.875rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid var(--admin-border);
+  background: #fff;
+  text-align: left;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.admin-root .admin-picker-card:hover {
+  border-color: rgba(201, 168, 76, 0.35);
+  box-shadow: 0 4px 16px rgba(15, 39, 68, 0.06);
+}
+
+.admin-root .admin-picker-card--active {
+  border-color: rgba(201, 168, 76, 0.55);
+  background: rgba(201, 168, 76, 0.08);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.12);
+}
+
+.admin-root .admin-picker-card-num {
+  display: inline-flex;
+  height: 1.5rem;
+  min-width: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgba(15, 39, 68, 0.08);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #0f2744;
+}
+
+.admin-root .admin-picker-card--active .admin-picker-card-num {
+  background: rgba(201, 168, 76, 0.2);
+  color: #8a7030;
+}
+
+.admin-root .admin-picker-card-label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--admin-slate-dark);
+}
+
+.admin-root .admin-picker-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.admin-root .admin-picker-chip {
+  min-height: 2.75rem;
+  padding: 0.625rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid var(--admin-border);
+  background: #fff;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--admin-slate-dark);
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.admin-root .admin-picker-chip:hover {
+  border-color: rgba(201, 168, 76, 0.35);
+}
+
+.admin-root .admin-picker-chip--active {
+  border-color: rgba(201, 168, 76, 0.55);
+  background: rgba(201, 168, 76, 0.1);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
+}
+
+.admin-root.admin-theme-dark .admin-picker-chip {
+  background: #1a2438;
+  color: #cbd5e1;
+}
+
+.admin-root .admin-form-section {
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid var(--admin-border);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.admin-root.admin-theme-dark .admin-form-section {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.admin-root .admin-search-input {
+  width: 100%;
+  min-height: 44px;
+  border-radius: 0.875rem;
+  border: 1px solid var(--admin-border);
+  background: #fff;
+  padding: 0.625rem 0.875rem 0.625rem 2.5rem;
+  font-size: 0.9375rem;
+  color: var(--admin-slate-dark);
+  outline: none;
+}
+
+.admin-root.admin-theme-dark .admin-search-input {
+  background: #1a2438;
+  color: #e2e8f0;
+}

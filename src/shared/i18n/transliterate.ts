@@ -91,6 +91,38 @@ export function latinToCyrillic(text: string): string {
 }
 
 export function localizeText(text: string, locale: "uz-latin" | "uz-cyrillic" | "ru"): string {
-  if (locale === "uz-cyrillic") return latinToCyrillic(text);
-  return text;
+  if (locale === "uz-latin") return text;
+  return latinToCyrillic(text);
+}
+
+const CYRILLIC_TO_LATIN: Record<string, string> = {};
+for (const [latin, cyrillic] of Object.entries(LATIN_TO_CYRILLIC)) {
+  if (!CYRILLIC_TO_LATIN[cyrillic]) {
+    CYRILLIC_TO_LATIN[cyrillic] = latin;
+  }
+}
+
+const CYRILLIC_KEYS = Object.keys(CYRILLIC_TO_LATIN).sort((a, b) => b.length - a.length);
+
+/** Lowercase Latin form for fuzzy search across scripts. */
+export function normalizeSearchText(text: string): string {
+  let result = "";
+  let i = 0;
+  const lower = text.trim().toLowerCase();
+  while (i < lower.length) {
+    let matched = false;
+    for (const key of CYRILLIC_KEYS) {
+      if (lower.slice(i, i + key.length) === key) {
+        result += CYRILLIC_TO_LATIN[key];
+        i += key.length;
+        matched = true;
+        break;
+      }
+    }
+    if (!matched) {
+      result += lower[i];
+      i += 1;
+    }
+  }
+  return latinToCyrillic(result).toLowerCase();
 }

@@ -67,7 +67,28 @@ export default function WeddingMusicButton({
     prevPlayingRef.current = playing;
   }, [playing]);
 
-  if (!available) return null;
+  const wrapClass =
+    variant === "fixed"
+      ? `wedding-music-wrap fixed right-3 top-3 z-[100] sm:right-4 sm:top-4 ${startCue ? "wedding-music-wrap--start-cue " : ""}${className}`
+      : `wedding-music-wrap ${startCue ? "wedding-music-wrap--start-cue " : ""}${className}`;
+
+  if (!available) {
+    return (
+      <div className={wrapClass} style={{ "--wm-accent": accent } as React.CSSProperties}>
+        <button
+          type="button"
+          onClick={() => void play()}
+          className={`wedding-music-btn wedding-music-btn--${surface} mobile-touch`}
+          aria-label={t("music.play")}
+          title={t("music.play")}
+        >
+          <span className="wedding-music-btn-core">
+            <NoteIcon color={accent} />
+          </span>
+        </button>
+      </div>
+    );
+  }
 
   const handleClick = () => {
     if (playing) stop();
@@ -78,11 +99,6 @@ export default function WeddingMusicButton({
     if (event.animationName !== "wedding-music-start-cue") return;
     setStartCue(false);
   };
-
-  const wrapClass =
-    variant === "fixed"
-      ? `wedding-music-wrap fixed right-3 top-3 z-[100] sm:right-4 sm:top-4 ${startCue ? "wedding-music-wrap--start-cue " : ""}${className}`
-      : `wedding-music-wrap ${startCue ? "wedding-music-wrap--start-cue " : ""}${className}`;
 
   return (
     <div

@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { Plus } from "lucide-react";
+import { useMemo, useState } from "react";
+import { Plus, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import PageHeader from "@/admin/components/PageHeader";
 import ClientCard from "@/admin/components/ClientCard";
 import ClientTable from "@/admin/components/ClientTable";
 import ClientModal from "@/admin/components/ClientModal";
 import { useAdmin } from "@/admin/context/AdminContext";
+import { filterClientsByQuery } from "@/admin/lib/client-search";
 import type { AdminClient } from "@/admin/types";
 
 export default function ClientsPage() {
@@ -15,6 +16,12 @@ export default function ClientsPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState<AdminClient | null>(null);
   const [toast, setToast] = useState("");
+  const [search, setSearch] = useState("");
+
+  const filteredClients = useMemo(
+    () => filterClientsByQuery(clients, search),
+    [clients, search]
+  );
 
   function showToast(msg: string) {
     setToast(msg);
@@ -82,15 +89,27 @@ export default function ClientsPage() {
         }
       />
 
+      <div className="relative mb-5">
+        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+        <input
+          type="search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="admin-search-input"
+          placeholder="Ism, familiya yoki slug bo'yicha qidiring (lotin, kirill, rus)..."
+          aria-label="Mijozlarni qidirish"
+        />
+      </div>
+
       <ClientTable
-        clients={clients}
+        clients={filteredClients}
         onEdit={openEdit}
         onDelete={handleDelete}
         onCopyLink={copyLink}
       />
 
       <div className="mt-4 grid gap-3 md:hidden">
-        {clients.map((client, i) => (
+        {filteredClients.map((client, i) => (
           <ClientCard
             key={client.id}
             client={client}
@@ -100,8 +119,10 @@ export default function ClientsPage() {
             onCopyLink={copyLink}
           />
         ))}
-        {clients.length === 0 && (
-          <p className="py-12 text-center text-sm text-slate-400">Hali mijoz yo&apos;q</p>
+        {filteredClients.length === 0 && (
+          <p className="py-12 text-center text-sm text-slate-400">
+            {search.trim() ? "Qidiruv bo'yicha natija topilmadi" : "Hali mijoz yo'q"}
+          </p>
         )}
       </div>
 

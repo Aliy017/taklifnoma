@@ -21,6 +21,7 @@ export function useWeddingMusic(options: UseWeddingMusicOptions = {}) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setAvailable(true);
     const audio = getWeddingAudio(musicSrc);
     setWeddingAudioVolume(musicSrc, musicVolume);
     audioRef.current = audio;
@@ -43,7 +44,12 @@ export function useWeddingMusic(options: UseWeddingMusicOptions = {}) {
 
   const play = useCallback(async () => {
     const audio = audioRef.current;
-    if (!audio || !available) return false;
+    if (!audio) return false;
+
+    if (!available) {
+      audio.load();
+      setAvailable(true);
+    }
 
     if (audio.readyState < HTMLMediaElement.HAVE_ENOUGH_DATA) {
       setLoading(true);
@@ -86,7 +92,7 @@ export function useWeddingMusic(options: UseWeddingMusicOptions = {}) {
   }, []);
 
   useEffect(() => {
-    if (!autoPlay || !available) return;
+    if (!autoPlay) return;
 
     const audio = audioRef.current;
     if (audio && !audio.paused && !audio.ended) return;
@@ -99,9 +105,7 @@ export function useWeddingMusic(options: UseWeddingMusicOptions = {}) {
       return play();
     };
 
-    void attempt().then((ok) => {
-      if (ok || cancelled) return;
-
+    const bindGestureRetry = () => {
       let retried = false;
       const onGesture = () => {
         if (retried || cancelled) return;
@@ -109,20 +113,36 @@ export function useWeddingMusic(options: UseWeddingMusicOptions = {}) {
         removeListeners?.();
         void attempt();
       };
-
       window.addEventListener("pointerdown", onGesture);
       window.addEventListener("keydown", onGesture);
       removeListeners = () => {
         window.removeEventListener("pointerdown", onGesture);
         window.removeEventListener("keydown", onGesture);
       };
-    });
+    };
+
+    const startAutoplay = () => {
+      void attempt().then((ok) => {
+        if (!ok && !cancelled) bindGestureRetry();
+      });
+    };
+
+    if (audio && audio.readyState < HTMLMediaElement.HAVE_FUTURE_DATA) {
+      const onReady = () => {
+        audio.removeEventListener("canplay", onReady);
+        startAutoplay();
+      };
+      audio.addEventListener("canplay", onReady);
+      removeListeners = () => audio.removeEventListener("canplay", onReady);
+    } else {
+      startAutoplay();
+    }
 
     return () => {
       cancelled = true;
       removeListeners?.();
     };
-  }, [autoPlay, available, play]);
+  }, [autoPlay, play, musicSrc]);
 
   return { playing, available, loading, play, stop };
 }

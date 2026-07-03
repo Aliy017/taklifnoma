@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Copy, Pencil, Trash2, ExternalLink, Eye } from "lucide-react";
 import type { AdminClient } from "../types";
 import { TEMPLATE_OPTIONS } from "../types";
+import { latinToCyrillic } from "@/shared/i18n/transliterate";
 
 interface ClientCardProps {
   client: AdminClient;
@@ -28,6 +29,9 @@ export default function ClientCard({ client, index, onEdit, onDelete, onCopyLink
           <h3 className="font-serif text-lg font-semibold text-[#0f2744]">
             {client.groomName} & {client.brideName}
           </h3>
+          <p className="mt-0.5 text-xs text-slate-400">
+            RU/kirill: {latinToCyrillic(client.groomName)} & {latinToCyrillic(client.brideName)}
+          </p>
           <p className="mt-0.5 text-xs text-slate-500">
             {client.weddingDate} · {client.weddingTime}
           </p>

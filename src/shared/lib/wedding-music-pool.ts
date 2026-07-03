@@ -8,7 +8,16 @@ export function getWeddingAudio(src: string): HTMLAudioElement {
     audio = new Audio(src);
     audio.loop = true;
     audio.preload = "auto";
-    audio.crossOrigin = "anonymous";
+    if (typeof window !== "undefined" && /^https?:\/\//.test(src)) {
+      try {
+        const url = new URL(src, window.location.origin);
+        if (url.origin !== window.location.origin) {
+          audio.crossOrigin = "anonymous";
+        }
+      } catch {
+        /* ignore invalid URL */
+      }
+    }
     audioBySrc.set(src, audio);
     audio.load();
   }

@@ -5,7 +5,6 @@ import { useWeddingContext } from "@/shared/context/WeddingContext";
 import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
 import type { DynamicWeddingConfig } from "@/shared/lib/client-wedding";
 import { formatDisplayDate, formatTimeLabel } from "@/shared/lib/locale-format";
-import { latinToCyrillic } from "@/shared/i18n/transliterate";
 import { localizeVenueField } from "@/shared/lib/localize-venue";
 import { localizeScheduleArray, localizeStoryArray } from "@/shared/lib/localize-content";
 
@@ -84,8 +83,8 @@ export function useVariantConfig<T extends Record<string, unknown>>(base: T): T 
 
     return {
       ...config,
-      groom: locale === "uz-cyrillic" ? latinToCyrillic(groom) : localizeName(groom),
-      bride: locale === "uz-cyrillic" ? latinToCyrillic(bride) : localizeName(bride),
+      groom: localizeName(groom),
+      bride: localizeName(bride),
       weddingType: t("wedding.type"),
       displayDate: weddingDateISO
         ? formatDisplayDate(weddingDateISO, locale)

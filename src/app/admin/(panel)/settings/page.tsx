@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { KeyRound, Mail, ShieldCheck } from "lucide-react";
+import { KeyRound, Mail, ShieldCheck, Moon, Sun } from "lucide-react";
 import PageHeader from "@/admin/components/PageHeader";
 import { changeCredentialsApi, fetchAdminEmailApi } from "@/admin/lib/auth";
+import { useAdminTheme } from "@/admin/hooks/useAdminTheme";
 
 export default function AdminSettingsPage() {
+  const { theme, toggleTheme } = useAdminTheme();
   const [currentEmail, setCurrentEmail] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
@@ -52,8 +54,25 @@ export default function AdminSettingsPage() {
     <div className="admin-page space-y-6">
       <PageHeader
         title="Sozlamalar"
-        description="Kirish emaili va parolini boshqaring"
+        description="Kirish emaili, parol va ko'rinish"
       />
+
+      <div className="admin-glass mx-auto mb-6 flex max-w-lg items-center justify-between rounded-2xl border border-slate-200/60 p-4 sm:p-5">
+        <div>
+          <p className="text-sm font-semibold text-[#0f2744]">Ko&apos;rinish</p>
+          <p className="text-xs text-slate-500">
+            {theme === "dark" ? "Qorong'u rejim yoqilgan" : "Yorug' rejim yoqilgan"}
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={toggleTheme}
+          className="admin-btn-primary min-w-[8.5rem]"
+        >
+          {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          {theme === "dark" ? "Yorug' rejim" : "Qorong'u rejim"}
+        </button>
+      </div>
 
       <div className="admin-glass mx-auto max-w-lg rounded-2xl border border-slate-200/60 p-5 sm:p-7">
         <div className="mb-6 flex items-center gap-3">

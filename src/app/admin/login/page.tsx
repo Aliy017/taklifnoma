@@ -5,9 +5,11 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Lock, Mail, Sparkles } from "lucide-react";
 import { loginApi } from "@/admin/lib/auth";
+import { useAdminTheme } from "@/admin/hooks/useAdminTheme";
 
 export default function AdminLoginPage() {
   const router = useRouter();
+  const { theme } = useAdminTheme();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -27,7 +29,7 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="admin-root flex min-h-[100dvh] items-center justify-center px-4 py-8">
+    <div className={`admin-root flex min-h-[100dvh] items-center justify-center px-4 py-8 ${theme === "dark" ? "admin-theme-dark" : ""}`}>
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-[#c9a84c]/10 blur-3xl" />
         <div className="absolute bottom-0 right-0 h-48 w-48 rounded-full bg-[#0f2744]/8 blur-3xl" />
