@@ -77,7 +77,7 @@ export const variants: VariantMeta[] = [
     id: "variant-6",
     number: 6,
     title: "Samarqand kelajagi",
-    subtitle: "Qizil atlas, oltin naqsh, 3D canvas va iOS dock",
+    subtitle: "Qizil atlas, oltin naqsh va 3D canvas",
     route: "/v6",
     status: "ready",
     couple: "Firdavs & Marjona",
