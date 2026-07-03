@@ -5,7 +5,12 @@ import { weddingConfig } from "@/shared/config/wedding";
 import { useWeddingContext } from "@/shared/context/WeddingContext";
 import { getWeddingAudio, setWeddingAudioVolume } from "@/shared/lib/wedding-music-pool";
 
-export function useWeddingMusic() {
+interface UseWeddingMusicOptions {
+  autoPlay?: boolean;
+}
+
+export function useWeddingMusic(options: UseWeddingMusicOptions = {}) {
+  const { autoPlay = false } = options;
   const ctx = useWeddingContext();
   const musicSrc = ctx?.wedding.musicSrc ?? weddingConfig.musicSrc;
   const musicVolume = ctx?.wedding.musicVolume ?? weddingConfig.musicVolume;
@@ -63,7 +68,10 @@ export function useWeddingMusic() {
       await audio.play();
       setPlaying(true);
       return true;
-    } catch {
+    } catch (err) {
+      if (err instanceof DOMException && err.name === "NotAllowedError") {
+        return false;
+      }
       setAvailable(false);
       return false;
     }
@@ -76,6 +84,45 @@ export function useWeddingMusic() {
     audio.currentTime = 0;
     setPlaying(false);
   }, []);
+
+  useEffect(() => {
+    if (!autoPlay || !available) return;
+
+    const audio = audioRef.current;
+    if (audio && !audio.paused && !audio.ended) return;
+
+    let cancelled = false;
+    let removeListeners: (() => void) | undefined;
+
+    const attempt = async () => {
+      if (cancelled) return false;
+      return play();
+    };
+
+    void attempt().then((ok) => {
+      if (ok || cancelled) return;
+
+      let retried = false;
+      const onGesture = () => {
+        if (retried || cancelled) return;
+        retried = true;
+        removeListeners?.();
+        void attempt();
+      };
+
+      window.addEventListener("pointerdown", onGesture);
+      window.addEventListener("keydown", onGesture);
+      removeListeners = () => {
+        window.removeEventListener("pointerdown", onGesture);
+        window.removeEventListener("keydown", onGesture);
+      };
+    });
+
+    return () => {
+      cancelled = true;
+      removeListeners?.();
+    };
+  }, [autoPlay, available, play]);
 
   return { playing, available, loading, play, stop };
 }

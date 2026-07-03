@@ -1,11 +1,13 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { useWeddingMusic } from "@/shared/hooks/useWeddingMusic";
 import { useLocale } from "@/shared/i18n/LocaleContext";
 import type { ControlSurface } from "@/shared/config/lang-switcher-surfaces";
 
 interface WeddingMusicButtonProps {
   accent?: string;
+  autoPlay?: boolean;
   className?: string;
   variant?: "fixed" | "inline";
   surface?: ControlSurface;
@@ -43,12 +45,27 @@ function EqualizerBars({ color }: { color: string }) {
 
 export default function WeddingMusicButton({
   accent = "#c9a84c",
+  autoPlay = false,
   className = "",
   variant = "fixed",
   surface = "dark",
 }: WeddingMusicButtonProps) {
   const { t } = useLocale();
-  const { playing, available, loading, play, stop } = useWeddingMusic();
+  const { playing, available, loading, play, stop } = useWeddingMusic({ autoPlay });
+  const prevPlayingRef = useRef(false);
+  const [startCue, setStartCue] = useState(false);
+
+  useEffect(() => {
+    if (playing && !prevPlayingRef.current) {
+      const prefersReduced =
+        typeof window !== "undefined" &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!prefersReduced) {
+        setStartCue(true);
+      }
+    }
+    prevPlayingRef.current = playing;
+  }, [playing]);
 
   if (!available) return null;
 
@@ -57,10 +74,15 @@ export default function WeddingMusicButton({
     else void play();
   };
 
+  const handleStartCueEnd = (event: React.AnimationEvent<HTMLButtonElement>) => {
+    if (event.animationName !== "wedding-music-start-cue") return;
+    setStartCue(false);
+  };
+
   const wrapClass =
     variant === "fixed"
-      ? `wedding-music-wrap fixed right-3 top-3 z-[100] sm:right-4 sm:top-4 ${className}`
-      : `wedding-music-wrap ${className}`;
+      ? `wedding-music-wrap fixed right-3 top-3 z-[100] sm:right-4 sm:top-4 ${startCue ? "wedding-music-wrap--start-cue " : ""}${className}`
+      : `wedding-music-wrap ${startCue ? "wedding-music-wrap--start-cue " : ""}${className}`;
 
   return (
     <div
@@ -76,7 +98,8 @@ export default function WeddingMusicButton({
         type="button"
         onClick={handleClick}
         disabled={loading}
-        className={`wedding-music-btn wedding-music-btn--${surface} mobile-touch ${playing ? "wedding-music-btn--live" : ""}`}
+        onAnimationEnd={handleStartCueEnd}
+        className={`wedding-music-btn wedding-music-btn--${surface} mobile-touch ${playing ? "wedding-music-btn--live" : ""} ${startCue ? "wedding-music-btn--start-cue" : ""}`}
         aria-label={playing ? t("music.unmute") : t("music.mute")}
         title={playing ? t("music.stop") : t("music.play")}
       >

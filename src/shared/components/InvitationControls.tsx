@@ -23,7 +23,12 @@ export default function InvitationControls({
       data-variant={variantId}
       data-surface={surface}
     >
-      <WeddingMusicButton accent={accent} surface={surface} variant="fixed" />
+      <WeddingMusicButton
+        accent={accent}
+        autoPlay={variantId !== "dashboard"}
+        surface={surface}
+        variant="fixed"
+      />
       <LanguageSwitcher accent={accent} surface={surface} />
     </div>
   );
