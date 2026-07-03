@@ -7,6 +7,36 @@ interface WeddingMusicButtonProps {
   className?: string;
 }
 
+function NoteIcon({ color }: { color: string }) {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="M9 18V5l12-2v13"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="6" cy="18" r="3" stroke={color} strokeWidth="1.5" />
+      <circle cx="18" cy="16" r="3" stroke={color} strokeWidth="1.5" />
+    </svg>
+  );
+}
+
+function EqualizerBars({ color }: { color: string }) {
+  return (
+    <div className="wedding-music-eq" aria-hidden>
+      {[0, 1, 2].map((i) => (
+        <span
+          key={i}
+          className="wedding-music-eq-bar"
+          style={{ backgroundColor: color, animationDelay: `${i * 0.15}s` }}
+        />
+      ))}
+    </div>
+  );
+}
+
 export default function WeddingMusicButton({
   accent = "#c9a84c",
   className = "",
@@ -15,47 +45,51 @@ export default function WeddingMusicButton({
 
   if (!available) return null;
 
-  const shell =
-    "mobile-touch flex items-center gap-1.5 rounded-full border px-3 py-2 text-xs font-medium shadow-lg backdrop-blur-md transition active:scale-95 sm:text-sm";
+  const handleClick = () => {
+    if (playing) stop();
+    else void play();
+  };
 
-  if (playing) {
-    return (
-      <div
-        className={`fixed right-3 top-3 z-[100] flex items-center gap-2 sm:right-4 sm:top-4 ${className}`}
+  return (
+    <div
+      className={`wedding-music-wrap fixed right-3 top-3 z-[100] sm:right-4 sm:top-4 ${className}`}
+      style={
+        {
+          "--wm-accent": accent,
+          "--wm-accent-soft": `color-mix(in srgb, ${accent} 45%, white)`,
+        } as React.CSSProperties
+      }
+    >
+      <button
+        type="button"
+        onClick={handleClick}
+        disabled={loading}
+        className={`wedding-music-btn mobile-touch ${playing ? "wedding-music-btn--live" : ""}`}
+        aria-label={playing ? "Musiqani o'chirish" : "Musiqani yoqish"}
+        title={playing ? "O'chirish" : "Fon musiqasi"}
       >
-        <span
-          className={`${shell} border-white/10 bg-black/45 text-white/80`}
-          style={{ borderColor: `${accent}44` }}
-          aria-live="polite"
-        >
-          <span className="inline-block animate-pulse" aria-hidden>
-            ♪
-          </span>
-          <span className="hidden sm:inline">Fon musiqasi</span>
+        <span className="wedding-music-btn-glow" aria-hidden />
+        <span className="wedding-music-btn-ring" aria-hidden />
+        <span className="wedding-music-btn-core">
+          {loading ? (
+            <span className="wedding-music-spinner" aria-hidden />
+          ) : playing ? (
+            <EqualizerBars color={accent} />
+          ) : (
+            <NoteIcon color={accent} />
+          )}
         </span>
+      </button>
+      {playing && (
         <button
           type="button"
           onClick={stop}
-          className={`${shell} border-red-400/35 bg-red-950/75 text-red-100 hover:bg-red-900/80`}
+          className="wedding-music-stop mobile-touch"
           aria-label="Musiqani o'chirish"
         >
-          O&apos;chirish
+          ×
         </button>
-      </div>
-    );
-  }
-
-  return (
-    <button
-      type="button"
-      onClick={() => void play()}
-      disabled={loading}
-      className={`fixed right-3 top-3 z-[100] ${shell} border-white/15 bg-black/40 text-white/90 hover:bg-black/55 disabled:opacity-60 sm:right-4 sm:top-4 ${className}`}
-      style={{ borderColor: `${accent}55` }}
-      aria-label="Musiqani yoqish"
-    >
-      <span aria-hidden>♪</span>
-      {loading ? "Yuklanmoqda..." : "Musiqa"}
-    </button>
+      )}
+    </div>
   );
 }

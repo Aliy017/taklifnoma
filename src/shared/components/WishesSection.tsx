@@ -81,20 +81,20 @@ const themes: Record<
   },
   "variant-3": {
     section: "px-4 py-14 sm:py-20",
-    label: "text-xs uppercase tracking-[0.3em] text-[#b8876a]",
-    subtitle: "text-[#7a9468]",
-    card: "v3-card rounded-3xl p-5 sm:p-7",
+    label: "text-xs uppercase tracking-[0.3em] text-[#d4af37]/70",
+    subtitle: "text-white/45",
+    card: "v3-card rounded-sm p-5 sm:p-7",
     input:
-      "w-full rounded-xl border border-[#c9a087]/30 bg-white/80 px-4 py-3 text-[#3d4a38] outline-none focus:border-[#9caf88]",
-    button: "border border-[#c9a087]/30 text-[#7a9468] hover:border-[#9caf88]",
-    buttonActive: "bg-[#9caf88] text-white border-[#9caf88]",
-    sideTag: "rounded-full bg-[#9caf88]/15 px-2.5 py-0.5 text-xs text-[#7a9468]",
-    wishCard: "wish-card-luxury rounded-2xl border border-[#c9a087]/25 bg-white/65 p-4",
-    wishCardTop: "wish-card-luxury rounded-2xl border border-[#c9a087]/45 bg-gradient-to-br from-white/80 to-[#c9a087]/15 p-4 shadow-md",
-    name: "font-semibold text-[#3d4a38]",
-    message: "text-sm leading-relaxed text-[#7a9468]",
-    meta: "text-xs text-[#b8876a]/70",
-    success: "text-[#3d4a38]",
+      "w-full rounded-sm border border-[#d4af37]/25 bg-white/5 px-4 py-3 text-white/85 outline-none placeholder:text-white/30 focus:border-[#d4af37]/60",
+    button: "border border-[#d4af37]/30 text-[#d4af37]/80 hover:border-[#d4af37]/60",
+    buttonActive: "bg-[#d4af37] text-black border-[#d4af37]",
+    sideTag: "rounded-full bg-[#d4af37]/10 px-2.5 py-0.5 text-xs text-[#d4af37]/80",
+    wishCard: "wish-card-luxury rounded-sm border border-[#d4af37]/20 bg-white/5 p-4",
+    wishCardTop: "wish-card-luxury rounded-sm border border-[#d4af37]/35 bg-gradient-to-br from-[#d4af37]/10 to-transparent p-4 shadow-lg",
+    name: "font-semibold text-white/90",
+    message: "text-sm leading-relaxed text-white/55",
+    meta: "text-xs text-[#d4af37]/60",
+    success: "text-[#d4af37]",
     accent: sparkleThemes["variant-3"].accent,
   },
   "variant-7": {
@@ -429,7 +429,7 @@ export default function WishesSection({ theme }: { theme: WishesTheme }) {
             Tabriklaringizni qoldiring
           </SparkleHeading>
           <p className={`mt-2 text-sm ${t.subtitle}`}>
-            Eng ko&apos;p yoqtirilganlari yuqorida — oxirgi 10 ta tabrik ko&apos;rsatiladi
+            Qalbingizdagi eng iliq so&apos;zlarni shu yerga yozing — tabriklaringiz biz uchun juda qadrli
           </p>
         </div>
 
@@ -527,7 +527,7 @@ export default function WishesSection({ theme }: { theme: WishesTheme }) {
               So&apos;nggi tabriklar
             </SparkleHeading>
             <p className={`mb-4 text-center text-xs ${t.meta}`}>
-              Yoqtirishlar bo&apos;yicha saralangan · maks. 10 ta
+              Mehmonlar tabriklari — eng ko&apos;p yoqtirilganlari birinchi
             </p>
 
             {deleteError && (

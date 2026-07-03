@@ -2,8 +2,8 @@ import { weddingConfig } from "@/shared/config/wedding";
 
 export const variant3Config = {
   id: "variant-3",
-  title: "Tabiat bog'i",
-  subtitle: "Sage yashil, rose gold, gul barglari va parallax",
+  title: "Luxury oltin",
+  subtitle: "Qora fon, metallik oltin geometriya — premium taklifnoma",
   ...weddingConfig,
   story: [
     {
@@ -23,8 +23,8 @@ export const variant3Config = {
     },
     {
       year: "2026",
-      title: "Oq to'y kuni",
-      desc: "Ertalabdan boshlanadigan muqaddas marosim — yangi hayotning boshlanishi.",
+      title: "To'y kuni",
+      desc: "Muqaddas marosim — yangi hayotning eng go'zal boshlanishi.",
     },
   ],
   quotes: [

@@ -10,9 +10,9 @@ export const weddingConfig = {
   displayDate: "19 Iyul, 2026",
   displayTime: "09:00",
   displayTimeLabel: "Ertalab, soat 09:00",
-  weddingType: "Oq to'y",
+  weddingType: "To'y marosimi",
   weddingTypeDescription:
-    "Oq to'y — kelinning poklik va yangi oilaviy hayotga qadam qo'yish ramzi bo'lgan an'anaviy marosim. Odatda ertalabdan boshlanadi.",
+    "An'anaviy to'y marosimi — duo, baxt va yangi oilaviy hayotning boshlanishi.",
   venue: {
     name: "Bo'ston to'yxonasi",
     address: "Vodil, Farg'ona viloyati",
@@ -23,7 +23,7 @@ export const weddingConfig = {
   },
   morningSchedule: [
     { time: "07:30", title: "Mehmonlarni kutib olish", desc: "Issiq qarshi olish" },
-    { time: "09:00", title: "Oq to'y boshlanishi", desc: "Nikoh marosimi va duo" },
+    { time: "09:00", title: "To'y boshlanishi", desc: "Nikoh marosimi va duo" },
     { time: "11:00", title: "Osh dasturxoni", desc: "An'anaviy dasturxon" },
     { time: "13:00", title: "Kelin salom", desc: "Kelinning yangi oilaga salomi" },
   ],

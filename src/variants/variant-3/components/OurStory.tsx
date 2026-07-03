@@ -13,27 +13,37 @@ export default function OurStory() {
     <section className="mobile-section relative px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-3xl">
         <div className="mb-8 text-center sm:mb-12">
-          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#b8876a]">Bizning hikoyamiz</p>
-          <SparkleHeading theme="variant-3" as="h2" intensity="high" className="text-2xl font-bold sm:text-4xl">
-            Bizning hikoyamiz
+          <p className="mb-2 text-[10px] uppercase tracking-[0.45em] text-[#d4af37]/70">Bizning hikoyamiz</p>
+          <SparkleHeading
+            theme="variant-3"
+            as="h2"
+            intensity="high"
+            className="v3-gold-text text-2xl font-light tracking-wide sm:text-4xl"
+          >
+            Muhabbat yo&apos;li
           </SparkleHeading>
-          <p className="mt-2 text-sm text-[#7a9468]">Muhabbat va umid yo&apos;li</p>
+          <p className="mt-3 text-sm font-light text-white/45">Har bir qadam — baxtga yaqinlashish</p>
         </div>
 
-        <div className="space-y-4 sm:space-y-6">
+        <div className="space-y-4 sm:space-y-5">
           {story.map((item, i) => {
             const card = (
-              <div className="v3-card rounded-2xl p-5 sm:p-8">
+              <div className="v3-card rounded-sm p-5 sm:p-7">
                 <div className="flex items-start gap-4 sm:gap-5">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#9caf88]/20 font-serif text-base font-bold text-[#7a9468] sm:h-14 sm:w-14 sm:text-lg">
+                  <div className="v3-year-badge flex h-11 w-11 shrink-0 items-center justify-center font-serif text-sm font-medium sm:h-12 sm:w-12">
                     {item.year.slice(2)}
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-widest text-[#b8876a]">{item.year}</p>
-                    <SparkleHeading theme="variant-3" as="h3" sparkles={false} className="mt-1 text-lg font-semibold sm:text-xl">
+                    <p className="text-[10px] uppercase tracking-[0.35em] text-[#d4af37]/60">{item.year}</p>
+                    <SparkleHeading
+                      theme="variant-3"
+                      as="h3"
+                      sparkles={false}
+                      className="mt-1 text-base font-medium tracking-wide text-white/90 sm:text-lg"
+                    >
                       {item.title}
                     </SparkleHeading>
-                    <p className="mt-2 text-sm leading-relaxed text-[#7a9468]">{item.desc}</p>
+                    <p className="mt-2 text-sm font-light leading-relaxed text-white/50">{item.desc}</p>
                   </div>
                 </div>
               </div>
@@ -46,10 +56,10 @@ export default function OurStory() {
             return (
               <motion.div
                 key={item.year}
-                initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
+                transition={{ duration: 0.55, delay: i * 0.08 }}
               >
                 {card}
               </motion.div>

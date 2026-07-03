@@ -17,10 +17,10 @@ export const variant4Config = {
     },
     {
       id: "asosiy",
-      title: "Asosiy to'y (Oq to'y)",
+      title: "Asosiy to'y",
       time: "09:00",
       timeLabel: "Ertalab, soat 09:00",
-      description: "Nikoh marosimi, duo va an'anaviy oq to'y dasturxoni",
+      description: "Nikoh marosimi, duo va an'anaviy dasturxon",
       venue: weddingConfig.venue.name,
       address: weddingConfig.venue.address,
     },

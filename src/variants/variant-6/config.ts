@@ -10,7 +10,7 @@ export const variant6Config = {
     title: "Biz haqimizda",
     paragraphs: [
       "Firdavs va Marjona — ikki yurak, bitta yo'l. Alloh taolo ularning qadamlarini birlashtirdi.",
-      "Oq to'y — yangi hayotning pok va muqaddas boshlanishi. Bu baxtli kunda sizni sharafli mehmon sifatida kutamiz.",
+      "To'y — yangi hayotning pok va muqaddas boshlanishi. Bu baxtli kunda sizni sharafli mehmon sifatida kutamiz.",
     ],
   },
 } as const;

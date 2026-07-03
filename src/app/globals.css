@@ -400,5 +400,209 @@ main,
   }
 }
 
+/* ── Wedding music — luxury compact control ── */
+.wedding-music-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 
+.wedding-music-btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.125rem;
+  height: 2.125rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.wedding-music-btn:hover:not(:disabled) {
+  transform: scale(1.06);
+}
+
+.wedding-music-btn:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.wedding-music-btn:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.wedding-music-btn-glow {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--wm-accent) 28%, transparent) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.wedding-music-btn--live .wedding-music-btn-glow {
+  opacity: 1;
+  animation: wedding-music-glow 2.4s ease-in-out infinite;
+}
+
+.wedding-music-btn-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--wm-accent) 90%, white),
+    color-mix(in srgb, var(--wm-accent) 25%, transparent),
+    color-mix(in srgb, var(--wm-accent-soft) 80%, white)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.wedding-music-btn--live .wedding-music-btn-ring {
+  animation: wedding-music-spin 8s linear infinite;
+}
+
+.wedding-music-btn-core {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--wm-accent) 6%, rgba(255, 255, 255, 0.92));
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+}
+
+.variant-2 .wedding-music-btn-core,
+.variant-4 .wedding-music-btn-core,
+.variant-6 .wedding-music-btn-core,
+.variant-8 .wedding-music-btn-core,
+.variant-10 .wedding-music-btn-core,
+.dashboard-gallery .wedding-music-btn-core {
+  background: color-mix(in srgb, var(--wm-accent) 12%, rgba(8, 10, 18, 0.88));
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.wedding-music-eq {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2px;
+  height: 11px;
+}
+
+.wedding-music-eq-bar {
+  width: 2px;
+  height: 100%;
+  border-radius: 1px;
+  transform-origin: bottom;
+  animation: wedding-music-eq 0.9s ease-in-out infinite alternate;
+}
+
+.wedding-music-spinner {
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid color-mix(in srgb, var(--wm-accent) 25%, transparent);
+  border-top-color: var(--wm-accent);
+  border-radius: 50%;
+  animation: wedding-music-spin 0.7s linear infinite;
+}
+
+.wedding-music-stop {
+  display: grid;
+  place-items: center;
+  width: 1.125rem;
+  height: 1.125rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  line-height: 1;
+  color: color-mix(in srgb, var(--wm-accent) 70%, #666);
+  background: color-mix(in srgb, var(--wm-accent) 8%, rgba(255, 255, 255, 0.9));
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateX(4px) scale(0.85);
+  animation: wedding-music-stop-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transition:
+    color 0.2s,
+    background 0.2s,
+    transform 0.2s;
+}
+
+.wedding-music-stop:hover {
+  color: #b45309;
+  background: color-mix(in srgb, #ef4444 12%, rgba(255, 255, 255, 0.95));
+  transform: scale(1.08);
+}
+
+@keyframes wedding-music-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes wedding-music-glow {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes wedding-music-eq {
+  0% {
+    transform: scaleY(0.35);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes wedding-music-stop-in {
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wedding-music-btn--live .wedding-music-btn-ring,
+  .wedding-music-btn--live .wedding-music-btn-glow,
+  .wedding-music-eq-bar,
+  .wedding-music-spinner {
+    animation: none !important;
+  }
+
+  .wedding-music-stop {
+    opacity: 1;
+    transform: none;
+  }
+}
 

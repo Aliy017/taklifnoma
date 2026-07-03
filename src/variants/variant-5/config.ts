@@ -24,7 +24,7 @@ export const variant5Config = {
       subtitle: "Asosiy to'y",
       time: "09:00",
       timeLabel: "Ertalab, soat 09:00",
-      description: "Oq to'y marosimi, duo va oilaviy bayram dasturxoni",
+      description: "To'y marosimi, duo va oilaviy bayram dasturxoni",
       venue: weddingConfig.venue.name,
       address: weddingConfig.venue.address,
       mapUrl: weddingConfig.venue.mapUrl,

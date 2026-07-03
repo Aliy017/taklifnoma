@@ -12,7 +12,6 @@ const themes: Record<
   {
     glow: string;
     shadow: string;
-    heart: string;
     maxW: string;
     aspect: string;
   }
@@ -21,7 +20,6 @@ const themes: Record<
     glow: "radial-gradient(ellipse at center, rgba(201,168,76,0.2), transparent 68%)",
     shadow:
       "drop-shadow(0 10px 28px rgba(4,120,87,0.14)) drop-shadow(0 4px 12px rgba(201,168,76,0.18))",
-    heart: "text-gold",
     maxW: "w-[min(92vw,300px)] sm:w-[340px] md:w-[380px]",
     aspect: "aspect-[3/4]",
   },
@@ -29,15 +27,13 @@ const themes: Record<
     glow: "radial-gradient(ellipse at center, rgba(255,255,255,0.1), transparent 65%)",
     shadow:
       "drop-shadow(0 16px 40px rgba(0,0,0,0.5)) drop-shadow(0 4px 16px rgba(192,200,212,0.15))",
-    heart: "text-[#c0c8d4]",
     maxW: "w-[min(90vw,280px)] sm:w-[320px] md:w-[360px]",
     aspect: "aspect-[3/4]",
   },
   "variant-3": {
-    glow: "radial-gradient(ellipse at center, rgba(201,160,135,0.16), transparent 68%)",
+    glow: "radial-gradient(ellipse at center, rgba(212,175,55,0.12), transparent 68%)",
     shadow:
-      "drop-shadow(0 10px 26px rgba(122,148,104,0.12)) drop-shadow(0 4px 14px rgba(201,160,135,0.16))",
-    heart: "text-[#c9a087]",
+      "drop-shadow(0 16px 40px rgba(0,0,0,0.6)) drop-shadow(0 4px 16px rgba(212,175,55,0.15))",
     maxW: "w-[min(92vw,300px)] sm:w-[340px] md:w-[380px]",
     aspect: "aspect-[3/4]",
   },
@@ -80,7 +76,6 @@ export default function CouplePortrait({
           style={{ background: t.glow }}
         />
         {imageBox}
-        <span className={`absolute right-[4%] top-[22%] text-xl ${t.heart}`}>&#10084;</span>
       </div>
     );
   }
@@ -105,14 +100,6 @@ export default function CouplePortrait({
         >
           {imageBox}
         </motion.div>
-
-        <motion.span
-          className={`absolute right-[4%] top-[22%] text-2xl ${t.heart}`}
-          animate={{ opacity: [0.6, 1, 0.6] }}
-          transition={{ duration: 3, repeat: Infinity }}
-        >
-          &#10084;
-        </motion.span>
       </motion.div>
     </div>
   );

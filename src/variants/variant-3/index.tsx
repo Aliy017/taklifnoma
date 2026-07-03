@@ -1,7 +1,6 @@
 "use client";
 
-import RosePetals from "./components/RosePetals";
-import ParallaxBackground from "./components/ParallaxBackground";
+import LuxuryBackground from "./components/LuxuryBackground";
 import Hero from "./components/Hero";
 import OurStory from "./components/OurStory";
 import QuoteSection from "./components/QuoteSection";
@@ -15,8 +14,7 @@ export default function Variant3Page() {
 
   return (
     <main className="variant-3 relative">
-      <RosePetals />
-      <ParallaxBackground />
+      <LuxuryBackground />
 
       <div className="relative z-10">
         <Hero />
@@ -24,22 +22,24 @@ export default function Variant3Page() {
         <QuoteSection />
 
         <section className="px-4 py-16">
-          <div className="v3-card mx-auto max-w-lg rounded-3xl p-8">
+          <div className="v3-card mx-auto max-w-lg rounded-sm p-8 sm:p-10">
             <VenueSection theme="variant-3" compact />
           </div>
         </section>
 
         <WishesSection theme="variant-3" />
 
-        <footer className="border-t border-[#9caf88]/20 px-4 py-10 text-center">
-          <p className="font-serif text-xl text-[#3d4a38]">
+        <footer className="border-t border-[#d4af37]/15 px-4 py-10 text-center">
+          <p className="v3-gold-text font-serif text-xl tracking-wide">
             {groom} &amp; {bride}
           </p>
-          <p className="mt-1 text-sm text-[#7a9468]">{displayDate}</p>
-          <div className="v3-divider mx-auto my-4 max-w-[60px]" />
-          <p className="text-xs text-[#9caf88]">Tinchlik va baraka uyingizga doim bo&apos;lsin</p>
+          <p className="mt-2 text-xs uppercase tracking-[0.25em] text-white/40">{displayDate}</p>
+          <div className="v3-divider mx-auto my-4 max-w-[80px]" />
+          <p className="text-[11px] tracking-wide text-white/30">
+            Alloh ularning baxtini abadiy qilsin
+          </p>
         </footer>
-        <VariantBottomBar variantId="variant-3" accent="#9caf88" />
+        <VariantBottomBar variantId="variant-3" accent="#d4af37" />
       </div>
     </main>
   );
