@@ -72,39 +72,184 @@
   animation: v2-shimmer 3s infinite;
 }
 
-/* ── v2 Entry — cinematic typography intro ── */
+/* ── v2 Hero — responsive centered layout ── */
+.variant-2 .v2-hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 4rem 1rem 6rem;
+}
+
+@media (min-width: 640px) {
+  .variant-2 .v2-hero {
+    padding-top: 5rem;
+    padding-bottom: 7rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .variant-2 .v2-hero {
+    padding-top: 6rem;
+    padding-bottom: 8rem;
+  }
+}
+
+.variant-2 .v2-hero-glow {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+}
+
+.variant-2 .v2-hero-glow::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  height: 31.25rem;
+  width: 31.25rem;
+  transform: translateX(-50%);
+  border-radius: 9999px;
+  background: rgba(139, 157, 195, 0.1);
+  filter: blur(100px);
+}
+
+.variant-2 .v2-hero-glow::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 20rem;
+  width: 20rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  filter: blur(80px);
+}
+
+.variant-2 .v2-hero-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  align-items: center;
+  justify-items: center;
+  gap: 2.5rem;
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .variant-2 .v2-hero-inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 4rem;
+    text-align: left;
+  }
+
+  .variant-2 .v2-hero-copy {
+    order: 1;
+    justify-self: start;
+  }
+
+  .variant-2 .v2-hero-portrait {
+    order: 2;
+    justify-self: end;
+  }
+
+  .variant-2 .v2-hero-copy .v2-divider {
+    margin-left: 0;
+  }
+
+  .variant-2 .v2-hero-copy p {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.variant-2 .v2-hero-portrait,
+.variant-2 .v2-hero-copy {
+  width: 100%;
+  max-width: 28rem;
+}
+
+@media (min-width: 1024px) {
+  .variant-2 .v2-hero-portrait,
+  .variant-2 .v2-hero-copy {
+    max-width: none;
+  }
+}
+
+.variant-2 .v2-hero-kicker {
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: #8b9dc3;
+}
+
+.variant-2 .v2-hero-date {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+@media (min-width: 640px) {
+  .variant-2 .v2-hero-kicker {
+    font-size: 0.8125rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .variant-2 .v2-hero-date {
+    justify-content: flex-start;
+  }
+}
+
+/* ── v2 Entry — full-screen centered intro ── */
 .v2-entry {
   position: fixed;
-  inset: 0;
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  max-width: 100vw;
-  height: 100dvh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
   background: #030810;
-  padding: 1.5rem;
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
 }
 
 .v2-entry-bg {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   background:
     radial-gradient(ellipse 90% 60% at 50% -10%, rgba(139, 157, 195, 0.22), transparent 55%),
     radial-gradient(circle at 15% 85%, rgba(201, 168, 76, 0.08), transparent 40%),
     radial-gradient(circle at 85% 70%, rgba(139, 157, 195, 0.1), transparent 35%),
     linear-gradient(180deg, #0a1628 0%, #030810 100%);
-  animation: v2-entry-bg 16s ease-in-out infinite alternate;
 }
 
 .v2-entry-rays {
   position: absolute;
-  inset: -50%;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.v2-entry-rays::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 160vmax;
+  height: 160vmax;
+  transform: translate(-50%, -50%);
   background: conic-gradient(
-    from 0deg at 50% 50%,
+    from 0deg,
     transparent 0deg,
     rgba(201, 168, 76, 0.03) 30deg,
     transparent 60deg,
@@ -113,25 +258,29 @@
     rgba(201, 168, 76, 0.03) 240deg,
     transparent 300deg
   );
-  animation: v2-entry-rays 40s linear infinite;
-  pointer-events: none;
+  animation: v2-entry-rays 48s linear infinite;
 }
 
-.v2-entry-shell {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  width: min(calc(100vw - 3rem), 26rem);
+.v2-entry-panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  width: min(92vw, 26rem);
   max-width: 26rem;
-  min-height: min(72vh, 24rem);
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+}
+
+.v2-entry-content {
+  display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 0 1rem;
   text-align: center;
-  gap: 0;
-  margin: 0 auto;
 }
-
 .v2-entry-names {
   display: flex;
   flex-direction: column;
@@ -262,13 +411,10 @@
   filter: blur(2px);
 }
 
-@keyframes v2-entry-bg {
-  0% { filter: hue-rotate(0deg) brightness(1); }
-  100% { filter: hue-rotate(8deg) brightness(1.05); }
-}
-
 @keyframes v2-entry-rays {
-  to { transform: rotate(360deg); }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 @keyframes v2-entry-shine {
@@ -277,16 +423,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .v2-entry-bg,
-  .v2-entry-rays,
+  .v2-entry-rays::before,
   .v2-entry-cta-shine {
     animation: none !important;
-  }
-}
-
-@media (min-width: 640px) {
-  .v2-entry-shell {
-    max-width: 26rem;
-    min-height: min(68vh, 24rem);
   }
 }

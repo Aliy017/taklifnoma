@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
@@ -25,39 +25,43 @@ export default function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, []);
+
   const open = useCallback(() => {
     if (opening) return;
     setOpening(true);
-    setTimeout(onOpen, lite ? 750 : 1300);
+    window.setTimeout(onOpen, lite ? 700 : 1200);
   }, [lite, onOpen, opening]);
 
-  const overlay = (
-    <motion.div
-      className="v2-entry"
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      {!lite && (
-        <>
-          <div className="v2-entry-bg" aria-hidden />
-          <div className="v2-entry-rays" aria-hidden />
-        </>
-      )}
+  if (!mounted) return null;
 
-      <motion.div
-        className="v2-entry-shell"
-        animate={
-          opening
-            ? { opacity: 0, scale: 1.02, filter: "blur(6px)" }
-            : { opacity: 1, scale: 1, filter: "blur(0px)" }
-        }
-        transition={{ duration: lite ? 0.5 : 0.75, ease }}
-      >
+  return createPortal(
+    <div className="v2-entry" role="dialog" aria-modal="true" aria-label={t("hero.inviteLabel")}>
+      <div className="v2-entry-bg" aria-hidden />
+      {!lite && <div className="v2-entry-rays" aria-hidden />}
+
+      <div className="v2-entry-panel">
+        <motion.div
+          className="v2-entry-content"
+          initial={{ opacity: 0, y: 16 }}
+          animate={
+            opening
+              ? { opacity: 0, scale: 1.03, y: 0 }
+              : { opacity: 1, scale: 1, y: 0 }
+          }
+          transition={{ duration: opening ? (lite ? 0.45 : 0.65) : 0.7, ease }}
+        >
         <motion.div
           className="v2-entry-names"
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.08, duration: 0.65, ease }}
+          transition={{ delay: 0.06, duration: 0.6, ease }}
         >
           <span className="v2-entry-name">{groom}</span>
           <span className="v2-entry-amp">&amp;</span>
@@ -68,7 +72,7 @@ export default function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
           className="v2-entry-line"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ delay: 0.22, duration: 0.75, ease }}
+          transition={{ delay: 0.18, duration: 0.7, ease }}
           aria-hidden
         />
 
@@ -79,10 +83,9 @@ export default function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
           className="v2-entry-cta"
           onClick={open}
           disabled={opening}
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.38, duration: 0.55, ease }}
-          whileHover={opening ? undefined : { scale: 1.03 }}
+          transition={{ delay: 0.28, duration: 0.5, ease }}
           whileTap={opening ? undefined : { scale: 0.97 }}
         >
           <span className="v2-entry-cta-shine" aria-hidden />
@@ -97,30 +100,30 @@ export default function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
             />
           </svg>
         </motion.button>
-      </motion.div>
+        </motion.div>
+      </div>
 
-      {opening && (
-        <>
-          <motion.div
-            className="v2-entry-wipe"
-            initial={{ scale: 0.15, opacity: 0.85 }}
-            animate={{ scale: 2.8, opacity: 0 }}
-            transition={{ duration: lite ? 0.85 : 1.15, ease }}
-            aria-hidden
-          />
-          <motion.div
-            className="v2-entry-wipe-core"
-            initial={{ scale: 0.1, opacity: 0.7 }}
-            animate={{ scale: 1.6, opacity: 0 }}
-            transition={{ duration: lite ? 0.7 : 1, ease: [0.22, 1, 0.36, 1] }}
-            aria-hidden
-          />
-        </>
-      )}
-    </motion.div>
+      <AnimatePresence>
+        {opening && (
+          <>
+            <motion.div
+              className="v2-entry-wipe"
+              initial={{ scale: 0.12, opacity: 0.8 }}
+              animate={{ scale: 2.6, opacity: 0 }}
+              transition={{ duration: lite ? 0.8 : 1.05, ease }}
+              aria-hidden
+            />
+            <motion.div
+              className="v2-entry-wipe-core"
+              initial={{ scale: 0.08, opacity: 0.65 }}
+              animate={{ scale: 1.5, opacity: 0 }}
+              transition={{ duration: lite ? 0.65 : 0.9, ease }}
+              aria-hidden
+            />
+          </>
+        )}
+      </AnimatePresence>
+    </div>,
+    document.body
   );
-
-  if (!mounted) return null;
-
-  return createPortal(overlay, document.body);
 }

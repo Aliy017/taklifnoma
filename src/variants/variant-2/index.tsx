@@ -19,7 +19,7 @@ export default function Variant2Page() {
   const { groom, bride, displayDate } = variant2Config;
 
   return (
-    <main className="variant-2 relative isolate w-full min-h-dvh">
+    <main className="variant-2 w-full min-h-dvh bg-[#0a1628]">
       <AnimatePresence>
         {!opened && <EnvelopeIntro key="envelope" onOpen={() => setOpened(true)} />}
       </AnimatePresence>
