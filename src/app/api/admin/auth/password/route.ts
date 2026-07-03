@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { ADMIN_COOKIE_NAME, verifyAdminRequest } from "@/shared/lib/admin-auth";
-import { getAdminSettings, updateAdminPassword } from "@/shared/lib/admin-settings";
+import { getAdminSettings, updateAdminCredentials } from "@/shared/lib/admin-settings";
 import { handleApiError } from "@/shared/lib/api-error";
 
 const MAX_AGE = 60 * 60 * 24 * 7;
 
 export const dynamic = "force-dynamic";
 
+/** @deprecated Use /api/admin/auth/credentials */
 export async function PATCH(request: NextRequest) {
   try {
     if (!(await verifyAdminRequest(request))) {
@@ -27,7 +28,7 @@ export async function PATCH(request: NextRequest) {
       return NextResponse.json({ error: "Yangi parollar mos kelmadi" }, { status: 400 });
     }
 
-    const result = await updateAdminPassword(currentPassword, newPassword);
+    const result = await updateAdminCredentials({ currentPassword, newPassword });
     if (!result.ok) {
       return NextResponse.json({ error: result.error }, { status: 400 });
     }

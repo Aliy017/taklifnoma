@@ -5,6 +5,10 @@ export interface AdminSettings {
   password: string;
 }
 
+function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
 function defaultSettings(): AdminSettings {
   return {
     email: (process.env.ADMIN_EMAIL ?? "admin@taklifnoma.uz").trim().toLowerCase(),
@@ -27,24 +31,50 @@ export async function updateAdminPassword(
   currentPassword: string,
   newPassword: string
 ): Promise<{ ok: true } | { ok: false; error: string }> {
+  return updateAdminCredentials({ currentPassword, newPassword });
+}
+
+export async function updateAdminCredentials(input: {
+  currentPassword: string;
+  newEmail?: string;
+  newPassword?: string;
+}): Promise<{ ok: true; email: string } | { ok: false; error: string }> {
   const settings = await getAdminSettings();
 
-  if (currentPassword !== settings.password) {
+  if (!settings.password) {
+    return { ok: false, error: "Admin hisobi sozlanmagan. ADMIN_EMAIL va ADMIN_PASSWORD o'rnating." };
+  }
+
+  if (input.currentPassword !== settings.password) {
     return { ok: false, error: "Joriy parol noto'g'ri" };
   }
 
-  if (newPassword.length < 8) {
-    return { ok: false, error: "Yangi parol kamida 8 belgidan iborat bo'lsin" };
+  let email = settings.email;
+  let password = settings.password;
+
+  if (input.newEmail !== undefined && input.newEmail.trim() !== "") {
+    const nextEmail = input.newEmail.trim().toLowerCase();
+    if (!isValidEmail(nextEmail)) {
+      return { ok: false, error: "Email manzil noto'g'ri" };
+    }
+    email = nextEmail;
   }
 
-  if (newPassword === currentPassword) {
-    return { ok: false, error: "Yangi parol joriy paroldan farq qilishi kerak" };
+  if (input.newPassword !== undefined && input.newPassword !== "") {
+    if (input.newPassword.length < 8) {
+      return { ok: false, error: "Yangi parol kamida 8 belgidan iborat bo'lsin" };
+    }
+    if (input.newPassword === settings.password && email === settings.email) {
+      return { ok: false, error: "Yangi parol joriy paroldan farq qilishi kerak" };
+    }
+    password = input.newPassword;
   }
 
-  await writeStore("admin_settings", {
-    email: settings.email,
-    password: newPassword,
-  });
+  if (email === settings.email && password === settings.password) {
+    return { ok: false, error: "O'zgarishlar kiritilmadi" };
+  }
 
-  return { ok: true };
+  await writeStore("admin_settings", { email, password });
+
+  return { ok: true, email };
 }

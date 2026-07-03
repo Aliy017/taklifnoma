@@ -49,7 +49,7 @@ export default function AdminLoginPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-slate-500">Email</label>
+            <label className="mb-1.5 block text-xs font-medium text-slate-500">Email (login)</label>
             <div className="relative">
               <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
               <input
@@ -57,7 +57,7 @@ export default function AdminLoginPage() {
                 required
                 autoComplete="username"
                 className="admin-input pl-10"
-                placeholder="admin@taklifnoma.uz"
+                placeholder="email@domen.uz"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -94,10 +94,6 @@ export default function AdminLoginPage() {
             {loading ? "Kirish..." : "Kirish"}
           </button>
         </form>
-
-        <p className="mt-6 text-center text-[11px] text-slate-400">
-          Demo: admin@taklifnoma.uz / taklifnoma2026
-        </p>
       </motion.div>
     </div>
   );
