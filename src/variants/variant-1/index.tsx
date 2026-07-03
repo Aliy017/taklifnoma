@@ -1,6 +1,9 @@
+"use client";
+
+import LuxuryBackground from "./components/LuxuryBackground";
 import Hero from "./components/Hero";
-import CoupleIntro from "./components/CoupleIntro";
-import Countdown from "./components/Countdown";
+import OurStory from "./components/OurStory";
+import QuoteSection from "./components/QuoteSection";
 import Location from "./components/Location";
 import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
@@ -10,22 +13,29 @@ export default function Variant1Page() {
   const { groom, bride, displayDate } = variant1Config;
 
   return (
-    <main className="variant-1 relative bg-beige">
-      <Hero />
-      <CoupleIntro />
-      <Countdown />
-      <Location />
-      <WishesSection theme="variant-1" />
+    <main className="variant-1 relative">
+      <LuxuryBackground />
 
-      <footer className="border-t border-gold/10 bg-beige-dark/50 px-4 py-8 text-center">
-        <p className="font-serif text-lg text-emerald">
-          {groom} &amp; {bride}
-        </p>
-        <p className="mt-1 text-sm text-emerald/50">{displayDate}</p>
-        <div className="mx-auto mt-4 h-px w-16 bg-gradient-to-r from-transparent via-gold to-transparent" />
-        <p className="mt-4 text-xs text-emerald/40">Alloh ularning baxtini abadiy qilsin</p>
-      </footer>
-      <VariantBottomBar variantId="variant-1" accent="#047857" />
+      <div className="relative z-10">
+        <Hero />
+        <OurStory />
+        <QuoteSection />
+        <Location />
+
+        <WishesSection theme="variant-1" />
+
+        <footer className="border-t border-[#d4af37]/15 px-4 py-10 text-center">
+          <p className="v1-gold-text font-serif text-xl tracking-wide">
+            {groom} &amp; {bride}
+          </p>
+          <p className="mt-2 text-xs uppercase tracking-[0.25em] text-white/40">{displayDate}</p>
+          <div className="v1-divider mx-auto my-4 max-w-[80px]" />
+          <p className="text-[11px] tracking-wide text-white/30">
+            Alloh ularning baxtini abadiy qilsin
+          </p>
+        </footer>
+        <VariantBottomBar variantId="variant-1" accent="#d4af37" />
+      </div>
     </main>
   );
 }

@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { variants } from "@/variants/registry";
 import VariantLikeButton from "@/shared/components/VariantLikeButton";
 import CreatorFooter from "@/shared/components/CreatorFooter";
@@ -12,6 +12,151 @@ import { useLiteMode } from "@/shared/hooks/useLiteMode";
 
 type LikeCounts = Record<string, number>;
 type SortMode = "number" | "likes";
+
+const dashboardSparkles = Array.from({ length: 18 }, (_, i) => ({
+  id: i,
+  x: ((i * 73 + 17) % 100),
+  y: ((i * 41 + 29) % 100),
+  size: (i % 3) + 2,
+  delay: (i % 6) * 0.7,
+  color: i % 2 === 0 ? "rgba(201,168,76,0.55)" : "rgba(255,255,255,0.35)",
+}));
+
+function VariantCard({
+  variant,
+  likeCount,
+  isTop,
+  index,
+  lite,
+  onLikeChange,
+}: {
+  variant: (typeof variants)[number];
+  likeCount: number;
+  isTop: boolean;
+  index: number;
+  lite: boolean;
+  onLikeChange: (count: number) => void;
+}) {
+  const ref = useRef<HTMLElement>(null);
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const rotateX = useSpring(useTransform(my, [-0.5, 0.5], [6, -6]), { stiffness: 260, damping: 22 });
+  const rotateY = useSpring(useTransform(mx, [-0.5, 0.5], [-6, 6]), { stiffness: 260, damping: 22 });
+
+  function onMove(e: MouseEvent<HTMLElement>) {
+    if (lite || !ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    mx.set((e.clientX - rect.left) / rect.width - 0.5);
+    my.set((e.clientY - rect.top) / rect.height - 0.5);
+  }
+
+  function onLeave() {
+    mx.set(0);
+    my.set(0);
+  }
+
+  return (
+    <motion.article
+      ref={ref}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      initial={lite ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ delay: lite ? 0 : Math.min(index * 0.05, 0.4), duration: lite ? 0.25 : 0.45 }}
+      style={lite ? undefined : { rotateX, rotateY, perspective: 900 }}
+      className="dashboard-card-lift group relative"
+    >
+      <div className="dashboard-card-border h-full overflow-hidden">
+        <div className="dashboard-card-inner wow-card-interactive relative h-full overflow-hidden border border-white/5">
+          <div className="dashboard-card-shine pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+          <div
+            className={`pointer-events-none absolute inset-0 bg-gradient-to-br opacity-45 transition-opacity duration-300 group-hover:opacity-75 ${variant.gradient}`}
+          />
+          <motion.div
+            className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full blur-2xl sm:h-28 sm:w-28"
+            style={{ backgroundColor: variant.accent }}
+            animate={lite ? undefined : { scale: [1, 1.15, 1], opacity: [0.12, 0.28, 0.12] }}
+            transition={{ duration: 4 + (index % 3), repeat: Infinity, ease: "easeInOut" }}
+          />
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0 h-px opacity-0 transition-opacity group-hover:opacity-100"
+            style={{
+              background: `linear-gradient(90deg, transparent, ${variant.accent}88, transparent)`,
+            }}
+          />
+
+          <div className="relative z-10 p-3 sm:p-4">
+            <div className="mb-2 flex items-center justify-between gap-2">
+              <div className="flex min-w-0 items-center gap-1.5">
+                <motion.span
+                  whileHover={lite ? undefined : { scale: 1.08, rotate: -3 }}
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg font-serif text-sm font-bold sm:h-8 sm:w-8 sm:rounded-xl sm:text-base"
+                  style={{
+                    backgroundColor: `${variant.accent}22`,
+                    color: variant.accent,
+                    border: `1px solid ${variant.accent}55`,
+                    boxShadow: `0 0 20px ${variant.accent}22`,
+                  }}
+                >
+                  {variant.number}
+                </motion.span>
+                {isTop && (
+                  <span className="rounded-full bg-[#c9a84c]/20 px-1.5 py-0.5 text-[9px] uppercase tracking-wider text-[#c9a84c]">
+                    Mashhur
+                  </span>
+                )}
+                <span className="truncate text-[10px] text-white/30 sm:hidden">{variant.date}</span>
+              </div>
+              <VariantLikeButton
+                variantId={variant.id}
+                initialCount={likeCount}
+                accent={variant.accent}
+                size="sm"
+                onCountChange={onLikeChange}
+              />
+            </div>
+
+            <h2 className="font-serif text-base font-semibold leading-snug transition-colors group-hover:text-white sm:text-lg">
+              {variant.title}
+            </h2>
+            <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-white/50 transition-colors group-hover:text-white/65 sm:text-sm">
+              {variant.subtitle}
+            </p>
+
+            <div className="mt-3 flex items-center justify-between gap-2 border-t border-white/8 pt-2.5">
+              <p className="hidden text-[10px] text-white/30 sm:block">
+                {variant.couple}
+                <span className="mx-1 text-white/15">·</span>
+                {variant.date}
+              </p>
+              <p className="text-[10px] text-white/30 sm:hidden">{variant.couple}</p>
+
+              {variant.status === "ready" ? (
+                <Link
+                  href={variant.route}
+                  className="inline-flex shrink-0 items-center gap-1 rounded-full px-3.5 py-1.5 text-xs font-medium text-black transition hover:brightness-110 hover:shadow-lg sm:px-4 sm:py-2 sm:text-sm"
+                  style={{
+                    backgroundColor: variant.accent,
+                    boxShadow: `0 4px 20px ${variant.accent}44`,
+                  }}
+                >
+                  Ko&apos;rish
+                  <motion.span aria-hidden animate={lite ? undefined : { x: [0, 3, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>
+                    →
+                  </motion.span>
+                </Link>
+              ) : (
+                <span className="shrink-0 rounded-full border border-white/15 px-3 py-1.5 text-xs text-white/35">
+                  Tez orada
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
 
 export default function VariantGallery() {
   const lite = useLiteMode();
@@ -56,7 +201,23 @@ export default function VariantGallery() {
       <WeddingMusicButton accent="#c9a84c" />
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="dashboard-orb absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-[#c9a84c]/10 blur-3xl sm:h-80 sm:w-80" />
-        <div className="dashboard-orb dashboard-orb-delay absolute right-[-2rem] top-1/4 h-40 w-40 rounded-full bg-emerald-900/15 blur-2xl sm:h-56 sm:w-56" />
+        <div className="dashboard-orb dashboard-orb-delay absolute right-[-2rem] top-1/4 h-40 w-40 rounded-full bg-red-900/20 blur-2xl sm:h-56 sm:w-56" />
+        <div className="dashboard-orb absolute bottom-1/4 left-[-3rem] h-48 w-48 rounded-full bg-emerald-900/12 blur-3xl" style={{ animationDelay: "-6s" }} />
+        {!lite &&
+          dashboardSparkles.map((s) => (
+            <span
+              key={s.id}
+              className="dashboard-sparkle absolute rounded-full"
+              style={{
+                left: `${s.x}%`,
+                top: `${s.y}%`,
+                width: s.size,
+                height: s.size,
+                background: s.color,
+                animationDelay: `${s.delay}s`,
+              }}
+            />
+          ))}
         <div
           className="absolute inset-0 opacity-[0.035]"
           style={{
@@ -101,13 +262,14 @@ export default function VariantGallery() {
               label: "Mashhur",
             },
           ].map((stat) => (
-            <div
+            <motion.div
               key={stat.label}
+              whileHover={lite ? undefined : { y: -3, scale: 1.02 }}
               className="flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-xl border border-white/8 bg-white/[0.03] px-2 py-2 sm:gap-2 sm:rounded-2xl sm:px-4 sm:py-2.5"
             >
               <span className="font-serif text-base font-bold text-[#c9a84c] sm:text-lg">{stat.value}</span>
               <span className="text-[9px] uppercase tracking-wider text-white/35 sm:text-[10px]">{stat.label}</span>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
 
@@ -135,93 +297,18 @@ export default function VariantGallery() {
           </div>
         </div>
 
-        <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-3">
-          {sorted.map((variant, i) => {
-            const likeCount = likes[variant.id] ?? 0;
-            const isTop = topVariant?.id === variant.id && likeCount > 0 && sort !== "number";
-
-            return (
-              <motion.article
-                key={variant.id}
-                initial={lite ? { opacity: 0 } : { opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: lite ? 0 : Math.min(i * 0.04, 0.35), duration: lite ? 0.25 : 0.4 }}
-                className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/[0.025] sm:rounded-2xl"
-              >
-                <div className="dashboard-card-shine pointer-events-none absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100" />
-                <div
-                  className={`pointer-events-none absolute inset-0 bg-gradient-to-br opacity-50 transition-opacity group-hover:opacity-70 ${variant.gradient}`}
-                />
-                <div
-                  className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full opacity-15 blur-xl sm:h-24 sm:w-24"
-                  style={{ backgroundColor: variant.accent }}
-                />
-
-                <div className="relative p-3 sm:p-4">
-                  <div className="mb-2 flex items-center justify-between gap-2">
-                    <div className="flex min-w-0 items-center gap-1.5">
-                      <span
-                        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg font-serif text-sm font-bold sm:h-8 sm:w-8 sm:rounded-xl sm:text-base"
-                        style={{
-                          backgroundColor: `${variant.accent}22`,
-                          color: variant.accent,
-                          border: `1px solid ${variant.accent}44`,
-                        }}
-                      >
-                        {variant.number}
-                      </span>
-                      {isTop && (
-                        <span className="rounded-full bg-[#c9a84c]/20 px-1.5 py-0.5 text-[9px] uppercase tracking-wider text-[#c9a84c]">
-                          Mashhur
-                        </span>
-                      )}
-                      <span className="truncate text-[10px] text-white/30 sm:hidden">
-                        {variant.date}
-                      </span>
-                    </div>
-                    <VariantLikeButton
-                      variantId={variant.id}
-                      initialCount={likeCount}
-                      accent={variant.accent}
-                      size="sm"
-                      onCountChange={(count) =>
-                        setLikes((prev) => ({ ...prev, [variant.id]: count }))
-                      }
-                    />
-                  </div>
-
-                  <h2 className="font-serif text-base font-semibold leading-snug sm:text-lg">{variant.title}</h2>
-                  <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-white/50 sm:text-sm">
-                    {variant.subtitle}
-                  </p>
-
-                  <div className="mt-3 flex items-center justify-between gap-2 border-t border-white/8 pt-2.5">
-                    <p className="hidden text-[10px] text-white/30 sm:block">
-                      {variant.couple}
-                      <span className="mx-1 text-white/15">·</span>
-                      {variant.date}
-                    </p>
-                    <p className="text-[10px] text-white/30 sm:hidden">{variant.couple}</p>
-
-                    {variant.status === "ready" ? (
-                      <Link
-                        href={variant.route}
-                        className="inline-flex shrink-0 items-center gap-1 rounded-full px-3.5 py-1.5 text-xs font-medium text-black transition hover:brightness-110 sm:px-4 sm:py-2 sm:text-sm"
-                        style={{ backgroundColor: variant.accent }}
-                      >
-                        Ko&apos;rish
-                        <span aria-hidden>→</span>
-                      </Link>
-                    ) : (
-                      <span className="shrink-0 rounded-full border border-white/15 px-3 py-1.5 text-xs text-white/35">
-                        Tez orada
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </motion.article>
-            );
-          })}
+        <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+          {sorted.map((variant, i) => (
+            <VariantCard
+              key={variant.id}
+              variant={variant}
+              likeCount={likes[variant.id] ?? 0}
+              isTop={topVariant?.id === variant.id && (likes[variant.id] ?? 0) > 0 && sort !== "number"}
+              index={i}
+              lite={lite}
+              onLikeChange={(count) => setLikes((prev) => ({ ...prev, [variant.id]: count }))}
+            />
+          ))}
         </div>
       </div>
 

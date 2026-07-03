@@ -1,55 +1,83 @@
 .variant-6 {
+  --v6-cream: #fff8f5;
   --v6-white: #ffffff;
-  --v6-silver: #c0c8d4;
-  --v6-silver-dark: #8b9dc3;
-  --v6-azure: #1e88c9;
-  --v6-azure-light: #4db8e8;
-  --v6-azure-glow: rgba(30, 136, 201, 0.35);
+  --v6-silver: #d4c4c0;
+  --v6-silver-dark: #8b6360;
+  --v6-red: #b71c1c;
+  --v6-red-mid: #c62828;
+  --v6-red-light: #ef5350;
+  --v6-red-deep: #7f0000;
+  --v6-red-glow: rgba(198, 40, 40, 0.38);
+  --v6-gold: #d4af37;
+  --v6-gold-light: #f5e6a8;
 
-  background: var(--v6-white);
-  color: #1a2a3a;
+  background: var(--v6-cream);
+  color: #2a1515;
   min-height: 100vh;
 }
 
 .variant-6 .v6-samarkand-bg {
-  background-color: #fafbfc;
+  background-color: #fff5f2;
   background-image:
-    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(30, 136, 201, 0.06), transparent),
-    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%231E88C9' stroke-opacity='0.07' stroke-width='0.5'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z'/%3E%3Ccircle cx='30' cy='30' r='12'/%3E%3Cpath d='M30 6 L54 30 L30 54 L6 30 Z'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: auto, 60px 60px;
+    radial-gradient(ellipse 80% 55% at 50% -10%, rgba(198, 40, 40, 0.14), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 90% 80%, rgba(212, 175, 55, 0.08), transparent 50%),
+    radial-gradient(ellipse 40% 35% at 5% 60%, rgba(183, 28, 28, 0.06), transparent 45%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23B71C1C' stroke-opacity='0.08' stroke-width='0.5'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z'/%3E%3Ccircle cx='30' cy='30' r='12'/%3E%3Cpath d='M30 6 L54 30 L30 54 L6 30 Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: auto, auto, auto, 60px 60px;
 }
 
 .variant-6 .v6-glass {
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 252, 250, 0.62);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(192, 200, 212, 0.45);
+  border: 1px solid rgba(198, 40, 40, 0.18);
   box-shadow:
-    0 8px 32px rgba(30, 136, 201, 0.08),
-    0 0 0 1px rgba(255, 255, 255, 0.6) inset,
-    0 0 24px rgba(30, 136, 201, 0.06);
+    0 8px 32px rgba(183, 28, 28, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.65) inset,
+    0 0 28px rgba(198, 40, 40, 0.06);
 }
 
 @media (max-width: 768px) {
   .variant-6 .v6-glass {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    background: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 252, 250, 0.94);
   }
 }
 
 .variant-6 .v6-glass-glow {
   box-shadow:
-    0 8px 40px rgba(30, 136, 201, 0.12),
-    0 0 20px var(--v6-azure-glow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    0 8px 40px rgba(183, 28, 28, 0.16),
+    0 0 24px var(--v6-red-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
-.variant-6 .v6-azure-text {
-  background: linear-gradient(135deg, #4db8e8, #1e88c9, #1565a8);
+.variant-6 .v6-glass-glow:hover {
+  box-shadow:
+    0 12px 48px rgba(183, 28, 28, 0.22),
+    0 0 32px var(--v6-red-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.variant-6 .v6-azure-text,
+.variant-6 .v6-red-text,
+.variant-6 .v6-accent-text {
+  background: linear-gradient(135deg, var(--v6-red-light), var(--v6-red-mid), var(--v6-red-deep), var(--v6-gold));
+  background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  animation: v6-red-flow 7s ease infinite;
+}
+
+@keyframes v6-red-flow {
+  0%,
+  100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
 }
 
 .variant-6 .v6-silver-text {
@@ -58,50 +86,257 @@
 
 .variant-6 .v6-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--v6-silver), var(--v6-azure-light), var(--v6-silver), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--v6-silver),
+    var(--v6-gold-light),
+    var(--v6-red-light),
+    var(--v6-silver),
+    transparent
+  );
 }
 
 .variant-6 .v6-map-3d {
   transform: perspective(900px) rotateX(8deg);
   transform-style: preserve-3d;
-  box-shadow: 0 24px 60px rgba(30, 136, 201, 0.15);
+  box-shadow: 0 24px 60px rgba(183, 28, 28, 0.18);
 }
 
 .variant-6 .v6-input {
   width: 100%;
   border-radius: 0.875rem;
-  border: 1px solid rgba(192, 200, 212, 0.5);
-  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(198, 40, 40, 0.22);
+  background: rgba(255, 255, 255, 0.75);
   padding: 0.75rem 1rem;
-  color: #1a2a3a;
+  color: #2a1515;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .variant-6 .v6-input:focus {
-  border-color: rgba(30, 136, 201, 0.5);
-  box-shadow: 0 0 0 3px rgba(30, 136, 201, 0.12);
+  border-color: rgba(198, 40, 40, 0.55);
+  box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.14);
 }
 
 .variant-6 .v6-dock {
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 252, 250, 0.82);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(192, 200, 212, 0.5);
+  border: 1px solid rgba(198, 40, 40, 0.2);
   box-shadow:
-    0 -4px 24px rgba(30, 136, 201, 0.1),
-    0 0 20px rgba(30, 136, 201, 0.05);
+    0 -4px 24px rgba(183, 28, 28, 0.12),
+    0 0 24px rgba(198, 40, 40, 0.08);
 }
 
 @media (max-width: 768px) {
   .variant-6 .v6-dock {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 252, 250, 0.96);
   }
 }
 
 .variant-6 .v6-canvas-wrap {
-  background: radial-gradient(ellipse at center, rgba(30, 136, 201, 0.06) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(198, 40, 40, 0.1) 0%, transparent 70%);
   border-radius: 1.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .variant-6 .v6-azure-text,
+  .variant-6 .v6-accent-text {
+    animation: none;
+  }
+
+  .variant-6 .v6-portrait-float {
+    animation: none;
+  }
+}
+
+/* —— Mobil juft rasm: Samarqand arkasi —— */
+.variant-6 .v6-portrait-shell {
+  position: relative;
+  width: min(88vw, 300px);
+  padding-bottom: 0.5rem;
+}
+
+.variant-6 .v6-portrait-arch {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10rem 10rem 1.35rem 1.35rem;
+  border: 2px solid rgba(198, 40, 40, 0.22);
+  background: linear-gradient(180deg, #ffffff 0%, #fff5f2 100%);
+  box-shadow:
+    0 16px 40px rgba(183, 28, 28, 0.14),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.85);
+  aspect-ratio: 3 / 4.05;
+}
+
+.variant-6 .v6-portrait-canvas {
+  position: absolute;
+  inset: 0.35rem 0.5rem 0.25rem;
+}
+
+.variant-6 .v6-portrait-img {
+  transform: scale(1.03) translateY(2%);
+}
+
+.variant-6 .v6-portrait-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 10.25rem 10.25rem 1.45rem 1.45rem;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 0 24px rgba(212, 175, 55, 0.12);
+}
+
+.variant-6 .v6-portrait-base {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 4px;
+  width: 42%;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.55), transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .variant-6 .v6-portrait-float {
+    animation: v6-portrait-float 6s ease-in-out infinite;
+  }
+}
+
+@keyframes v6-portrait-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* —— Bo'lim kartalari —— */
+.variant-6 .v6-section-shell {
+  position: relative;
+  padding-top: 1.75rem;
+}
+
+.variant-6 .v6-section-badge {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  height: 3.25rem;
+  width: 3.25rem;
+  transform: translateX(-50%);
+  align-items: center;
+  justify-content: center;
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+  background: linear-gradient(145deg, #fff8f5, #ffe8e8);
+  border: 1px solid rgba(198, 40, 40, 0.28);
+  box-shadow:
+    0 8px 20px rgba(183, 28, 28, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.variant-6 .v6-section-panel {
+  border-radius: 1.75rem !important;
+}
+
+.variant-6 .v6-story-chip {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  border-radius: 1rem;
+  border: 1px solid rgba(198, 40, 40, 0.1);
+  background: rgba(255, 255, 255, 0.55);
+  padding: 0.85rem 1rem;
+}
+
+.variant-6 .v6-story-num {
+  flex-shrink: 0;
+  display: flex;
+  height: 1.75rem;
+  width: 1.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, #c62828, #b71c1c);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fff8f5;
+}
+
+.variant-6 .v6-venue-card {
+  border-radius: 1rem;
+  border: 1px dashed rgba(198, 40, 40, 0.2);
+  background: rgba(255, 255, 255, 0.45);
+  padding: 1rem;
+}
+
+.variant-6 .v6-map-frame {
+  overflow: hidden;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(198, 40, 40, 0.18);
+  background: #fff5f2;
+}
+
+/* —— Pastki dock —— */
+.variant-6 .v6-dock-modern {
+  box-shadow:
+    0 8px 32px rgba(183, 28, 28, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.65) inset;
+}
+
+.variant-6 .v6-dock-item {
+  color: #8b6360;
+  transition: color 0.2s, background 0.2s;
+}
+
+.variant-6 .v6-dock-item-active {
+  color: #2a1515;
+}
+
+.variant-6 .v6-dock-icon {
+  background: rgba(198, 40, 40, 0.08);
+  color: #c62828;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.variant-6 .v6-dock-icon-active {
+  background: linear-gradient(145deg, #c62828, #b71c1c);
+  color: #fff8f5;
+  box-shadow: 0 4px 14px rgba(183, 28, 28, 0.35);
+}
+
+/* —— Tabriklar ichki —— */
+.variant-6 .v6-wishes-form {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.variant-6 .v6-wish-chip {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .variant-6 .v6-wish-chip:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(183, 28, 28, 0.08);
+  }
+}
+
+.variant-6 .v6-wish-featured {
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15);
+}
+
+/* —— Mobil countdown oktagon —— */
+@media (max-width: 768px) {
+  .variant-6 .v6-glass.flex.h-16 {
+    height: 3.75rem;
+    width: 3.15rem;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+    border-radius: 0;
+  }
 }

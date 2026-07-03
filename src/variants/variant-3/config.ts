@@ -2,8 +2,8 @@ import { weddingConfig } from "@/shared/config/wedding";
 
 export const variant3Config = {
   id: "variant-3",
-  title: "Luxury oltin",
-  subtitle: "Qora fon, metallik oltin geometriya — premium taklifnoma",
+  title: "Tabiat bog'i",
+  subtitle: "Sage yashil, rose gold, gul barglari va parallax",
   ...weddingConfig,
   story: [
     {

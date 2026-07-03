@@ -1,38 +1,30 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { variant6Config } from "../config";
-import GlassPanel from "./GlassPanel";
-import SparkleHeading from "@/shared/components/SparkleHeading";
-
-const spring = { type: "spring" as const, stiffness: 260, damping: 22 };
+import SectionCard from "./SectionCard";
 
 export default function About() {
   const { about, groom, bride } = variant6Config;
 
   return (
-    <section id="about" className="mobile-section relative z-10 px-4 py-16">
-      <motion.div
-        className="mx-auto max-w-2xl"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={spring}
-      >
-        <GlassPanel glow className="p-8 sm:p-10">
-          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#1E88C9]">{about.title}</p>
-          <SparkleHeading theme="variant-6" as="h2" intensity="high" className="mb-6 text-2xl font-bold sm:text-3xl">
-            {groom}
-            <span className="mx-2">&amp;</span>
-            {bride}
-          </SparkleHeading>
-          {about.paragraphs.map((p, i) => (
-            <p key={i} className="mb-4 text-sm leading-relaxed v6-silver-text sm:text-base">
-              {p}
-            </p>
-          ))}
-        </GlassPanel>
-      </motion.div>
-    </section>
+    <SectionCard
+      id="about"
+      label={about.title}
+      title={`${groom} & ${bride}`}
+      icon={
+        <svg viewBox="0 0 24 24" className="h-5 w-5 text-[#C62828]" fill="currentColor">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+      }
+    >
+      <div className="space-y-3 sm:space-y-4">
+        {about.paragraphs.map((p, i) => (
+          <div key={i} className="v6-story-chip">
+            <span className="v6-story-num">{i + 1}</span>
+            <p className="text-sm leading-relaxed v6-silver-text sm:text-base">{p}</p>
+          </div>
+        ))}
+      </div>
+    </SectionCard>
   );
 }

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "../shared/styles/wow-effects.css";
 
 :root {
   --background: #ffffff;
@@ -214,6 +215,98 @@ main,
 @media (prefers-reduced-motion: reduce) {
   .dashboard-orb,
   .dashboard-card-shine {
+    animation: none !important;
+  }
+}
+
+@keyframes dashboard-border-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dashboard-sparkle-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translate3d(0, -12px, 0) scale(1.2);
+    opacity: 0.9;
+  }
+}
+
+.dashboard-card-border {
+  position: relative;
+  border-radius: 0.75rem;
+  padding: 1px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.dashboard-card-border::before {
+  content: "";
+  position: absolute;
+  inset: -120%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(201, 168, 76, 0.65),
+    rgba(255, 255, 255, 0.04),
+    rgba(201, 168, 76, 0.2),
+    rgba(255, 255, 255, 0.04),
+    rgba(201, 168, 76, 0.65)
+  );
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dashboard-card-border::before {
+    animation: dashboard-border-spin 7s linear infinite;
+  }
+}
+
+.dashboard-card-inner {
+  position: relative;
+  z-index: 1;
+  border-radius: calc(0.75rem - 1px);
+  background: rgba(10, 9, 8, 0.94);
+}
+
+.dashboard-sparkle {
+  animation: dashboard-sparkle-float 5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.dashboard-card-lift {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+  transform-style: preserve-3d;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dashboard-card-lift:hover {
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.45),
+      0 0 40px rgba(201, 168, 76, 0.12);
+  }
+}
+
+@media (min-width: 640px) {
+  .dashboard-card-lift {
+    border-radius: 1rem;
+  }
+
+  .dashboard-card-border {
+    border-radius: 1rem;
+  }
+
+  .dashboard-card-inner {
+    border-radius: calc(1rem - 1px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-card-border,
+  .dashboard-sparkle {
     animation: none !important;
   }
 }

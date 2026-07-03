@@ -3,7 +3,7 @@ import { weddingConfig } from "@/shared/config/wedding";
 export const variant6Config = {
   id: "variant-6",
   title: "Samarqand kelajagi",
-  subtitle: "Oq kumush, azure ko'k — futuristik 3D milliy estetika",
+  subtitle: "Qizil atlas, oltin naqsh — futuristik Samarqand estetikasi",
   modelPath: "/models/couple.gltf",
   ...weddingConfig,
   about: {

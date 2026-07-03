@@ -14,12 +14,13 @@ const themes: Record<
     shadow: string;
     maxW: string;
     aspect: string;
+    canvas?: string;
   }
 > = {
   "variant-1": {
-    glow: "radial-gradient(ellipse at center, rgba(201,168,76,0.2), transparent 68%)",
+    glow: "radial-gradient(ellipse at center, rgba(212,175,55,0.12), transparent 68%)",
     shadow:
-      "drop-shadow(0 10px 28px rgba(4,120,87,0.14)) drop-shadow(0 4px 12px rgba(201,168,76,0.18))",
+      "drop-shadow(0 16px 40px rgba(0,0,0,0.6)) drop-shadow(0 4px 16px rgba(212,175,55,0.15))",
     maxW: "w-[min(92vw,300px)] sm:w-[340px] md:w-[380px]",
     aspect: "aspect-[3/4]",
   },
@@ -31,11 +32,12 @@ const themes: Record<
     aspect: "aspect-[3/4]",
   },
   "variant-3": {
-    glow: "radial-gradient(ellipse at center, rgba(212,175,55,0.12), transparent 68%)",
+    glow: "radial-gradient(ellipse at center, rgba(201,160,135,0.16), transparent 68%)",
     shadow:
-      "drop-shadow(0 16px 40px rgba(0,0,0,0.6)) drop-shadow(0 4px 16px rgba(212,175,55,0.15))",
+      "drop-shadow(0 10px 26px rgba(122,148,104,0.12)) drop-shadow(0 4px 14px rgba(201,160,135,0.16))",
     maxW: "w-[min(92vw,300px)] sm:w-[340px] md:w-[380px]",
     aspect: "aspect-[3/4]",
+    canvas: "bg-gradient-to-b from-white to-stone-50",
   },
 };
 
@@ -55,7 +57,10 @@ export default function CouplePortrait({
   const alt = `${weddingConfig.groom} va ${weddingConfig.bride}`;
 
   const imageBox = (
-    <div className={`relative mx-auto ${t.maxW} ${t.aspect}`} style={{ filter: t.shadow }}>
+    <div
+      className={`relative mx-auto overflow-hidden ${t.maxW} ${t.aspect} ${t.canvas ?? ""}`}
+      style={{ filter: t.shadow }}
+    >
       <Image
         src="/couple/firdavs-marjona.png"
         alt={alt}

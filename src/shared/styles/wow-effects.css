@@ -1,0 +1,204 @@
+/* Universal wow effects — cards, panels, gallery */
+
+@keyframes wow-shimmer-sweep {
+  0% {
+    transform: translateX(-120%) skewX(-12deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(220%) skewX(-12deg);
+    opacity: 0;
+  }
+}
+
+@keyframes wow-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes wow-float-particle {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translate3d(6px, -14px, 0);
+    opacity: 0.9;
+  }
+}
+
+@keyframes wow-border-spin {
+  0% {
+    --wow-angle: 0deg;
+  }
+  100% {
+    --wow-angle: 360deg;
+  }
+}
+
+.wow-card-interactive {
+  position: relative;
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease;
+}
+
+.wow-card-interactive::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.14) 48%,
+    rgba(255, 255, 255, 0.22) 50%,
+    rgba(255, 255, 255, 0.14) 52%,
+    transparent 62%
+  );
+  transform: translateX(-120%) skewX(-12deg);
+  transition: opacity 0.3s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .wow-card-interactive:hover {
+    transform: translateY(-5px);
+  }
+
+  .wow-card-interactive:hover::after {
+    opacity: 1;
+    animation: wow-shimmer-sweep 1.1s ease forwards;
+  }
+}
+
+.wow-gradient-border {
+  position: relative;
+  isolation: isolate;
+}
+
+.wow-gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--wow-angle, 0deg),
+    transparent 0%,
+    var(--wow-accent, rgba(201, 168, 76, 0.55)) 25%,
+    transparent 50%,
+    var(--wow-accent, rgba(201, 168, 76, 0.35)) 75%,
+    transparent 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .wow-gradient-border:hover::before {
+    opacity: 1;
+    animation: wow-border-spin 4s linear infinite;
+  }
+}
+
+.wow-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: wow-float-particle var(--wow-dur, 5s) ease-in-out infinite;
+  animation-delay: var(--wow-delay, 0s);
+}
+
+.wow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  pointer-events: none;
+  animation: wow-glow-pulse var(--wow-orb-dur, 8s) ease-in-out infinite;
+  animation-delay: var(--wow-orb-delay, 0s);
+}
+
+/* Variant card hover lift — all invitation themes */
+@media (prefers-reduced-motion: no-preference) {
+  .variant-1 .v1-card,
+  .variant-2 .v2-card,
+  .variant-3 .v3-card,
+  .variant-4 .v4-flip-card,
+  .variant-5 .v5-card,
+  .variant-6 .v6-glass,
+  .variant-7 .v7-glass,
+  .variant-8 .v8-card,
+  .variant-9 .v9-card,
+  .variant-10 .v10-card,
+  .wish-card-luxury {
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.35s ease;
+  }
+
+  .variant-1 .v1-card:hover,
+  .variant-2 .v2-card:hover,
+  .variant-3 .v3-card:hover,
+  .variant-5 .v5-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .variant-6 .v6-glass:hover,
+  .variant-7 .v7-glass:hover,
+  .variant-8 .v8-card:hover,
+  .variant-9 .v9-card:hover,
+  .variant-10 .v10-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .wish-card-luxury:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wow-card-interactive:hover,
+  .variant-1 .v1-card:hover,
+  .variant-2 .v2-card:hover,
+  .variant-3 .v3-card:hover,
+  .variant-5 .v5-card:hover,
+  .variant-6 .v6-glass:hover,
+  .variant-7 .v7-glass:hover,
+  .variant-8 .v8-card:hover,
+  .variant-9 .v9-card:hover,
+  .variant-10 .v10-card:hover,
+  .wish-card-luxury:hover {
+    transform: none;
+  }
+
+  .wow-gradient-border:hover::before,
+  .wow-card-interactive:hover::after {
+    animation: none;
+    opacity: 0;
+  }
+}

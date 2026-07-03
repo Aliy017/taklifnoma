@@ -40,7 +40,7 @@ function Digit({ value, label }: { value: number; label: string }) {
     >
       <div className="v6-glass flex h-16 w-14 items-center justify-center rounded-2xl sm:h-20 sm:w-16">
         {lite ? (
-          <span className="font-serif text-2xl font-bold v6-azure-text sm:text-3xl">{display}</span>
+          <span className="font-serif text-2xl font-bold v6-red-text sm:text-3xl">{display}</span>
         ) : (
           <AnimatePresence mode="popLayout">
             <motion.span
@@ -49,7 +49,7 @@ function Digit({ value, label }: { value: number; label: string }) {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -12, opacity: 0 }}
               transition={spring}
-              className="font-serif text-2xl font-bold v6-azure-text sm:text-3xl"
+              className="font-serif text-2xl font-bold v6-red-text sm:text-3xl"
             >
               {display}
             </motion.span>
@@ -89,7 +89,7 @@ export default function Countdown() {
         transition={spring}
       >
         <GlassPanel glow className="p-8 text-center sm:p-10">
-          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#1E88C9]">Kutilmoqda</p>
+          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#EF4444]">Kutilmoqda</p>
           <SparkleHeading theme="variant-6" as="h2" intensity="high" className="mb-8 text-2xl font-bold sm:text-3xl">
             {isPast ? "To'y boshlandi!" : "To'ygacha qolgan vaqt"}
           </SparkleHeading>
@@ -97,11 +97,11 @@ export default function Countdown() {
           {mounted ? (
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6">
               <Digit value={timeLeft.days} label="Kun" />
-              <span className="mb-6 hidden text-[#1E88C9]/40 sm:inline">:</span>
+              <span className="mb-6 hidden text-[#EF4444]/40 sm:inline">:</span>
               <Digit value={timeLeft.hours} label="Soat" />
-              <span className="mb-6 hidden text-[#1E88C9]/40 sm:inline">:</span>
+              <span className="mb-6 hidden text-[#EF4444]/40 sm:inline">:</span>
               <Digit value={timeLeft.minutes} label="Daqiqa" />
-              <span className="mb-6 hidden text-[#1E88C9]/40 sm:inline">:</span>
+              <span className="mb-6 hidden text-[#EF4444]/40 sm:inline">:</span>
               <Digit value={timeLeft.seconds} label="Soniya" />
             </div>
           ) : (

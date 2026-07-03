@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion";
 import { variant6Config } from "../config";
-import GlassPanel from "./GlassPanel";
-import SparkleHeading from "@/shared/components/SparkleHeading";
+import SectionCard from "./SectionCard";
 import MapEmbed from "@/shared/components/MapEmbed";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 
@@ -14,47 +13,41 @@ export default function MapSection() {
   const { venue, displayTimeLabel } = variant6Config;
 
   return (
-    <section id="location" className="mobile-section relative z-10 px-4 py-16">
+    <SectionCard
+      id="location"
+      label="Manzil"
+      title="To'y joyi"
+      wide
+      icon={
+        <svg viewBox="0 0 24 24" className="h-5 w-5 text-[#C62828]" fill="none" stroke="currentColor" strokeWidth="1.75">
+          <path d="M12 21s6-5.2 6-10a6 6 0 1 0-12 0c0 4.8 6 10 6 10z" />
+          <circle cx="12" cy="11" r="2.25" />
+        </svg>
+      }
+    >
+      <div className="v6-venue-card mb-5 text-center sm:mb-6">
+        <h3 className="font-serif text-lg font-semibold text-[#2a1515] sm:text-xl">{venue.name}</h3>
+        <p className="mt-1 text-sm v6-silver-text">{venue.address}</p>
+        <p className="mt-2 inline-flex rounded-full bg-[#C62828]/10 px-3 py-1 text-xs font-medium text-[#C62828] sm:text-sm">
+          {displayTimeLabel}
+        </p>
+      </div>
+
       <motion.div
-        className="mx-auto max-w-3xl"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        className={lite ? "v6-map-frame" : "v6-map-frame v6-map-3d"}
+        whileHover={lite ? undefined : { rotateX: 3, scale: 1.008 }}
         transition={spring}
+        style={{ transformStyle: "preserve-3d" }}
       >
-        <div className="mb-8 text-center">
-          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#1E88C9]">Manzil</p>
-          <SparkleHeading theme="variant-6" as="h2" intensity="high" className="text-2xl font-bold sm:text-3xl">
-            To&apos;y joyi
-          </SparkleHeading>
-        </div>
-
-        <GlassPanel glow className="overflow-hidden p-6 sm:p-8">
-          <div className="mb-6">
-            <SparkleHeading theme="variant-6" as="h3" sparkles={false} className="text-xl font-semibold">
-              {venue.name}
-            </SparkleHeading>
-            <p className="mt-1 text-sm v6-silver-text">{venue.address}</p>
-            <p className="mt-2 text-sm text-[#1E88C9]">{displayTimeLabel}</p>
-          </div>
-
-          <motion.div
-            className={lite ? "overflow-hidden rounded-2xl" : "overflow-hidden rounded-2xl border border-[#C0C8D4]/40 v6-map-3d"}
-            whileHover={lite ? undefined : { rotateX: 4, scale: 1.01 }}
-            transition={spring}
-            style={{ transformStyle: "preserve-3d" }}
-          >
-            <MapEmbed
-              mapUrl={venue.mapUrl}
-              mapsLink={venue.mapsLink}
-              placeholderClassName="bg-white/40"
-              buttonClassName="rounded-full bg-[#1E88C9]/10 px-6 py-2.5 text-sm font-medium text-[#1E88C9] transition hover:bg-[#1E88C9]/20"
-              linkClassName="text-xs text-[#1E88C9]/70 underline underline-offset-2"
-              iframeClassName="h-56 w-full border-0 sm:h-72"
-            />
-          </motion.div>
-        </GlassPanel>
+        <MapEmbed
+          mapUrl={venue.mapUrl}
+          mapsLink={venue.mapsLink}
+          placeholderClassName="bg-[#fff5f2]"
+          buttonClassName="rounded-full bg-[#C62828]/12 px-6 py-2.5 text-sm font-medium text-[#C62828] transition hover:bg-[#C62828]/20"
+          linkClassName="text-xs text-[#8b6360] underline underline-offset-2"
+          iframeClassName="h-52 w-full border-0 sm:h-64"
+        />
       </motion.div>
-    </section>
+    </SectionCard>
   );
 }

@@ -15,7 +15,7 @@ export default function Hero() {
       <div className="v4-arch-inner">
         <div className="v4-arch-frame relative overflow-hidden p-3 sm:p-4">
           <div className="absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-[#D4AF37]/20 to-transparent" />
-          <div className="relative mx-auto aspect-[3/4] w-full max-w-[280px] sm:max-w-[300px]">
+          <div className="relative mx-auto aspect-[3/4] w-full max-w-[280px] overflow-hidden rounded-2xl bg-black/25 sm:max-w-[300px]">
             <Image
               src="/couple/firdavs-marjona.png"
               alt={`${groom} va ${bride}`}

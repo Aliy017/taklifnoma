@@ -46,7 +46,7 @@ export default function Rsvp() {
         transition={spring}
       >
         <div className="mb-8 text-center">
-          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#1E88C9]">Tasdiqlash</p>
+          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#C41E3A]">Tasdiqlash</p>
           <SparkleHeading theme="variant-6" as="h2" intensity="high" className="text-2xl font-bold sm:text-3xl">
             Ishtirok etasizmi?
           </SparkleHeading>
@@ -66,7 +66,7 @@ export default function Rsvp() {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ ...spring, delay: 0.1 }}
-                  className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#1E88C9]/10 text-2xl text-[#1E88C9]"
+                  className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#C41E3A]/10 text-2xl text-[#C41E3A]"
                 >
                   ✓
                 </motion.div>
@@ -120,7 +120,7 @@ export default function Rsvp() {
                         transition={spring}
                         className={`flex-1 rounded-full px-3 py-2.5 text-xs font-medium sm:text-sm ${
                           form.attending === val
-                            ? "bg-[#1E88C9] text-white"
+                            ? "bg-[#C41E3A] text-white"
                             : "border border-[#C0C8D4]/50 v6-silver-text"
                         }`}
                       >
@@ -153,7 +153,7 @@ export default function Rsvp() {
                   whileHover={lite ? undefined : { scale: 1.02 }}
                   whileTap={lite ? undefined : { scale: 0.98 }}
                   transition={spring}
-                  className="w-full rounded-full bg-gradient-to-r from-[#4db8e8] to-[#1E88C9] py-3.5 font-medium text-white disabled:opacity-60"
+                  className="w-full rounded-full bg-gradient-to-r from-[#EF4444] to-[#C41E3A] py-3.5 font-medium text-white disabled:opacity-60"
                 >
                   {submitting ? "Yuborilmoqda..." : "Yuborish"}
                 </motion.button>

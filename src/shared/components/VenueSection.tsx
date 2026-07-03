@@ -24,18 +24,18 @@ const themes: Record<
 > = {
   "variant-1": {
     wrapper: "",
-    label: "font-serif text-sm uppercase tracking-[0.25em] text-gold",
-    title: "font-serif text-3xl font-bold text-emerald sm:text-4xl",
-    text: "text-emerald-dark/80",
-    heading: "font-semibold text-emerald",
-    sub: "text-sm text-emerald-dark/70",
-    badge: "rounded-full bg-emerald/10 px-3 py-1 text-xs text-emerald",
-    link: "inline-flex items-center gap-2 rounded-full bg-emerald px-6 py-3 text-sm font-medium text-white shadow-lg transition hover:bg-emerald-dark",
-    mapWrap: "overflow-hidden rounded-2xl shadow-lg",
+    label: "text-xs uppercase tracking-[0.3em] text-[#d4af37]/70",
+    title: "v1-gold-text text-2xl font-light tracking-wide sm:text-3xl",
+    text: "text-white/50",
+    heading: "font-medium text-white/85",
+    sub: "text-sm text-white/45",
+    badge: "v1-chip rounded-full px-3 py-1 text-xs",
+    link: "inline-block text-sm text-[#d4af37]/80 underline-offset-2 hover:underline",
+    mapWrap: "overflow-hidden rounded-sm border border-[#d4af37]/20 shadow-lg",
     mapButton:
-      "rounded-full bg-emerald px-6 py-2.5 text-sm font-medium text-white shadow-lg transition hover:bg-emerald-dark",
-    mapPlaceholder: "rounded-2xl border border-dashed border-emerald/20 bg-emerald/5",
-    mapLink: "text-xs text-emerald/70 underline underline-offset-2",
+      "rounded-full border border-[#d4af37]/40 px-6 py-2.5 text-sm text-[#d4af37] transition hover:border-[#d4af37]/70 hover:bg-[#d4af37]/10",
+    mapPlaceholder: "rounded-sm border border-dashed border-[#d4af37]/25 bg-white/5",
+    mapLink: "text-xs text-[#d4af37]/60 underline underline-offset-2",
   },
   "variant-2": {
     wrapper: "",
@@ -54,18 +54,18 @@ const themes: Record<
   },
   "variant-3": {
     wrapper: "",
-    label: "text-xs uppercase tracking-[0.3em] text-[#d4af37]/70",
-    title: "v3-gold-text text-2xl font-light tracking-wide sm:text-3xl",
-    text: "text-white/50",
-    heading: "font-medium text-white/85",
-    sub: "text-sm text-white/45",
-    badge: "v3-chip rounded-full px-3 py-1 text-xs",
-    link: "inline-block text-sm text-[#d4af37]/80 underline-offset-2 hover:underline",
-    mapWrap: "overflow-hidden rounded-sm border border-[#d4af37]/20 shadow-lg",
+    label: "text-xs uppercase tracking-[0.3em] text-[#b8876a]",
+    title: "font-serif text-3xl font-bold text-[#3d4a38] sm:text-4xl",
+    text: "text-[#7a9468]",
+    heading: "font-semibold text-[#3d4a38]",
+    sub: "text-sm text-[#7a9468]",
+    badge: "rounded-full bg-[#9caf88]/15 px-3 py-1 text-xs text-[#7a9468]",
+    link: "inline-block text-sm text-[#b8876a] underline-offset-2 hover:underline",
+    mapWrap: "overflow-hidden rounded-2xl shadow-md",
     mapButton:
-      "rounded-full border border-[#d4af37]/40 px-6 py-2.5 text-sm text-[#d4af37] transition hover:border-[#d4af37]/70 hover:bg-[#d4af37]/10",
-    mapPlaceholder: "rounded-sm border border-dashed border-[#d4af37]/25 bg-white/5",
-    mapLink: "text-xs text-[#d4af37]/60 underline underline-offset-2",
+      "rounded-full border border-[#c9a087]/40 bg-white/80 px-6 py-2.5 text-sm text-[#3d4a38] transition hover:border-[#9caf88]",
+    mapPlaceholder: "rounded-2xl border border-dashed border-[#c9a087]/30 bg-white/50",
+    mapLink: "text-xs text-[#b8876a] underline underline-offset-2",
   },
 };
 
@@ -77,24 +77,39 @@ interface VenueSectionProps {
 export default function VenueSection({ theme, compact = false }: VenueSectionProps) {
   const t = themes[theme];
   const sparkleTheme = theme as SparkleThemeId;
-  const { venue, displayDate, displayTimeLabel, weddingType, weddingTypeDescription } =
-    weddingConfig;
+  const { venue, displayDate, displayTimeLabel, weddingTypeDescription } = weddingConfig;
 
   if (compact) {
     return (
       <div className="text-center">
         <p className={t.label}>Tadbir joyi</p>
-        <SparkleHeading theme={sparkleTheme} as="h3" intensity="high" className="mt-2 text-xl font-semibold">
+        <SparkleHeading
+          theme={sparkleTheme}
+          as="h3"
+          sparkles={false}
+          intensity="high"
+          className={`mt-2 ${t.title}`}
+        >
           {venue.name}
         </SparkleHeading>
         <p className={`mt-1 ${t.sub}`}>{venue.address}</p>
         <p className={`mt-1 ${t.sub}`}>
           {displayDate} · {displayTimeLabel}
         </p>
-        <span className={`mt-2 inline-block ${t.badge}`}>{weddingType}</span>
         <a href={venue.mapsLink} target="_blank" rel="noopener noreferrer" className={`mt-4 ${t.link}`}>
           Xaritada ochish
         </a>
+        <div className={`mt-6 ${t.mapWrap}`}>
+          <MapEmbed
+            mapUrl={venue.mapUrl}
+            mapsLink={venue.mapsLink}
+            iframeClassName="h-48 w-full border-0 sm:h-56"
+            placeholderClassName={t.mapPlaceholder}
+            buttonClassName={t.mapButton}
+            linkClassName={t.mapLink}
+            minHeightClass="min-h-[12rem]"
+          />
+        </div>
       </div>
     );
   }
@@ -103,27 +118,31 @@ export default function VenueSection({ theme, compact = false }: VenueSectionPro
     <div className="grid gap-6 md:grid-cols-2">
       <div className="flex flex-col justify-center">
         <p className={`mb-2 ${t.label}`}>Tadbir joyi</p>
-        <SparkleHeading theme={sparkleTheme} as="h2" intensity="high" className="mb-4 text-3xl font-bold sm:text-4xl">
+        <SparkleHeading
+          theme={sparkleTheme}
+          as="h2"
+          intensity="high"
+          className={`mb-4 ${t.title}`}
+        >
           Bizni qayerda topasiz
         </SparkleHeading>
         <p className={`mb-4 ${t.text}`}>{weddingTypeDescription}</p>
 
         <div className="space-y-4">
           <div>
-            <SparkleHeading theme={sparkleTheme} as="h3" className="text-lg font-semibold">
+            <SparkleHeading theme={sparkleTheme} as="h3" sparkles={false} className={`text-lg ${t.heading}`}>
               {venue.name}
             </SparkleHeading>
             <p className={t.sub}>{venue.address}</p>
             <p className={`mt-1 ${t.sub}`}>{venue.coordinatesDMS}</p>
           </div>
           <div>
-            <SparkleHeading theme={sparkleTheme} as="h3" sparkles={false} className="text-lg font-semibold">
+            <SparkleHeading theme={sparkleTheme} as="h3" sparkles={false} className={`text-lg ${t.heading}`}>
               Vaqt
             </SparkleHeading>
             <p className={t.sub}>
               {displayDate} — {displayTimeLabel}
             </p>
-            <span className={`mt-2 inline-block ${t.badge}`}>{weddingType}</span>
           </div>
         </div>
 

@@ -6,7 +6,7 @@ import Hero from "./components/Hero";
 import Countdown from "./components/Countdown";
 import About from "./components/About";
 import MapSection from "./components/MapSection";
-import WishesSection from "@/shared/components/WishesSection";
+import Wishes from "./components/Wishes";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
 import { variant6Config } from "./config";
 
@@ -23,19 +23,19 @@ export default function Variant6Page() {
         <Countdown />
         <About />
         <MapSection />
-        <WishesSection theme="variant-6" />
+        <Wishes />
 
-        <footer className="border-t border-[#C0C8D4]/30 px-4 py-12 pb-28 text-center">
+        <footer className="border-t border-[#C41E3A]/30 px-4 py-12 pb-28 text-center">
           <p className="font-serif text-xl sm:text-2xl">
-            <span className="v6-azure-text">{groom}</span>
+            <span className="v6-red-text">{groom}</span>
             <span className="mx-2 v6-silver-text">&amp;</span>
-            <span className="v6-azure-text">{bride}</span>
+            <span className="v6-red-text">{bride}</span>
           </p>
           <p className="mt-2 text-sm v6-silver-text">{displayDate}</p>
           <div className="v6-divider mx-auto my-6 max-w-[80px]" />
-          <p className="text-xs text-[#8b9dc3]/60">Alloh ularning baxtini abadiy qilsin</p>
+          <p className="text-xs text-[#b88888]/70">Alloh ularning baxtini abadiy qilsin</p>
         </footer>
-        <VariantBottomBar variantId="variant-6" accent="#2B9FD9" />
+        <VariantBottomBar variantId="variant-6" accent="#C41E3A" />
       </div>
     </main>
   );

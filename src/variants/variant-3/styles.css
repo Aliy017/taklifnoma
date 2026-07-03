@@ -1,105 +1,122 @@
 .variant-3 {
-  --v3-black: #050505;
-  --v3-charcoal: #0c0c0c;
-  --v3-gold: #d4af37;
-  --v3-gold-light: #f0d78c;
-  --v3-gold-dark: #8b7340;
-  --v3-gold-muted: #c9a84c;
+  --v3-sage: #9caf88;
+  --v3-sage-dark: #7a9468;
+  --v3-sage-light: #c5d4b8;
+  --v3-white: #fafaf8;
+  --v3-rose: #c9a087;
+  --v3-rose-gold: #b8876a;
+  --v3-rose-light: #e8cfc0;
 
-  background: var(--v3-black);
-  color: #e8e4dc;
+  background: var(--v3-white);
+  color: #3d4a38;
   min-height: 100vh;
 }
 
-.variant-3 .v3-luxury-vignette {
-  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(212, 175, 55, 0.07), transparent 65%),
-    radial-gradient(ellipse at center, #111 0%, #050505 70%);
-}
-
-.variant-3 .v3-luxury-grid {
-  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-opacity='0.06' stroke-width='0.5'%3E%3Cpath d='M40 4 L76 22 L76 58 L40 76 L4 58 L4 22 Z'/%3E%3Cpath d='M40 16 L64 28 L64 52 L40 64 L16 52 L16 28 Z'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 80px 80px;
-}
-
-.variant-3 .v3-luxury-shimmer {
-  background: linear-gradient(
-    105deg,
-    transparent 40%,
-    rgba(212, 175, 55, 0.04) 48%,
-    rgba(240, 215, 140, 0.08) 50%,
-    rgba(212, 175, 55, 0.04) 52%,
-    transparent 60%
-  );
-  animation: v3-shimmer 9s ease-in-out infinite;
-}
-
-.variant-3 .v3-luxury-shimmer-delay {
-  animation-delay: -4.5s;
-}
-
-@keyframes v3-shimmer {
-  0%,
-  100% {
-    opacity: 0.3;
-    transform: translateX(-8%) rotate(12deg);
-  }
-  50% {
-    opacity: 0.7;
-    transform: translateX(8%) rotate(12deg);
-  }
+.variant-3 .v3-geometric-bg {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239caf88' fill-opacity='0.08'%3E%3Cpath d='M30 0l15 15-15 15-15-15zM0 30l15 15-15 15-15-15zM60 30l-15 15 15 15 15-15zM30 60l-15-15 15-15 15 15z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
 .variant-3 .v3-card {
-  background: linear-gradient(145deg, rgba(18, 18, 18, 0.92), rgba(8, 8, 8, 0.96));
-  border: 1px solid rgba(212, 175, 55, 0.22);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(201, 160, 135, 0.25);
   box-shadow:
-    0 0 0 1px rgba(212, 175, 55, 0.06) inset,
-    0 20px 50px rgba(0, 0, 0, 0.55),
-    0 0 40px rgba(212, 175, 55, 0.04);
+    0 10px 40px rgba(156, 175, 136, 0.12),
+    0 2px 8px rgba(184, 135, 106, 0.08);
 }
 
-.variant-3 .v3-gold-text {
-  background: linear-gradient(135deg, #f5e6b8, #d4af37, #a68b3c, #f0d78c);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: v3-gold-flow 6s ease infinite;
+.variant-3 .v3-glow {
+  box-shadow:
+    0 0 40px rgba(201, 160, 135, 0.35),
+    0 0 80px rgba(156, 175, 136, 0.2);
 }
 
-@keyframes v3-gold-flow {
-  0%,
-  100% {
-    background-position: 0% center;
-  }
-  50% {
-    background-position: 100% center;
-  }
+.variant-3 .v3-text-rose {
+  color: var(--v3-rose-gold);
 }
 
 .variant-3 .v3-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.65), transparent);
+  background: linear-gradient(90deg, transparent, var(--v3-rose-gold), transparent);
 }
 
-.variant-3 .v3-chip {
-  border: 1px solid rgba(212, 175, 55, 0.28);
-  background: rgba(212, 175, 55, 0.06);
-  color: rgba(240, 215, 140, 0.9);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-size: 0.65rem;
-}
-
-.variant-3 .v3-year-badge {
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  background: rgba(212, 175, 55, 0.08);
-  color: var(--v3-gold-light);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .variant-3 .v3-luxury-shimmer,
-  .variant-3 .v3-gold-text {
-    animation: none !important;
+@keyframes v3-fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg) translateX(0);
+    opacity: 0;
   }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg) translateX(30px);
+    opacity: 0;
+  }
+}
+
+.variant-3 .v3-petal {
+  animation: v3-fall linear infinite;
+  pointer-events: none;
+}
+
+@media (min-width: 769px) {
+  .variant-3 .v3-petal {
+    will-change: transform, opacity;
+  }
+}
+
+/* Mobil: kamroq barg, yengil animatsiya */
+@keyframes v3-fall-lite {
+  0% {
+    transform: translateY(-6vh) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.5;
+  }
+  85% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(105vh) rotate(120deg);
+    opacity: 0;
+  }
+}
+
+.variant-3 .v3-petal-lite {
+  animation-name: v3-fall-lite;
+  opacity: 0.55;
+}
+
+@keyframes v3-glow-pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.08);
+  }
+}
+
+.variant-3 .v3-avatar-glow {
+  animation: v3-glow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes v3-float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.variant-3 .v3-float {
+  animation: v3-float-soft 6s ease-in-out infinite;
+}
+
+.variant-3 .v3-modal-overlay {
+  background: rgba(61, 74, 56, 0.4);
+  backdrop-filter: blur(6px);
 }

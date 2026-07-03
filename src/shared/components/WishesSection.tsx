@@ -45,20 +45,20 @@ const themes: Record<
 > = {
   "variant-1": {
     section: "px-4 py-14 sm:py-20",
-    label: "text-xs uppercase tracking-[0.3em] text-gold",
-    subtitle: "text-emerald-dark/70",
-    card: "glass-card rounded-3xl p-5 sm:p-7",
+    label: "text-xs uppercase tracking-[0.3em] text-[#d4af37]/70",
+    subtitle: "text-white/45",
+    card: "v1-card rounded-sm p-5 sm:p-7",
     input:
-      "w-full rounded-xl border border-gold/25 bg-white/40 px-4 py-3 text-emerald-dark outline-none focus:border-gold/50 focus:ring-2 focus:ring-gold/20",
-    button: "border border-gold/25 bg-white/30 text-emerald-dark hover:border-gold/40",
-    buttonActive: "bg-emerald text-white border-emerald shadow-md",
-    sideTag: "rounded-full bg-emerald/10 px-2.5 py-0.5 text-xs text-emerald",
-    wishCard: "wish-card-luxury rounded-2xl border border-gold/20 bg-white/35 p-4 shadow-sm",
-    wishCardTop: "wish-card-luxury rounded-2xl border border-gold/40 bg-gradient-to-br from-white/50 to-gold/10 p-4 shadow-md",
-    name: "font-semibold text-emerald",
-    message: "text-sm leading-relaxed text-emerald-dark/85",
-    meta: "text-xs text-emerald/50",
-    success: "text-emerald",
+      "w-full rounded-sm border border-[#d4af37]/25 bg-white/5 px-4 py-3 text-white/85 outline-none placeholder:text-white/30 focus:border-[#d4af37]/60",
+    button: "border border-[#d4af37]/30 text-[#d4af37]/80 hover:border-[#d4af37]/60",
+    buttonActive: "bg-[#d4af37] text-black border-[#d4af37]",
+    sideTag: "rounded-full bg-[#d4af37]/10 px-2.5 py-0.5 text-xs text-[#d4af37]/80",
+    wishCard: "wish-card-luxury rounded-sm border border-[#d4af37]/20 bg-white/5 p-4",
+    wishCardTop: "wish-card-luxury rounded-sm border border-[#d4af37]/35 bg-gradient-to-br from-[#d4af37]/10 to-transparent p-4 shadow-lg",
+    name: "font-semibold text-white/90",
+    message: "text-sm leading-relaxed text-white/55",
+    meta: "text-xs text-[#d4af37]/60",
+    success: "text-[#d4af37]",
     accent: sparkleThemes["variant-1"].accent,
   },
   "variant-2": {
@@ -81,20 +81,20 @@ const themes: Record<
   },
   "variant-3": {
     section: "px-4 py-14 sm:py-20",
-    label: "text-xs uppercase tracking-[0.3em] text-[#d4af37]/70",
-    subtitle: "text-white/45",
-    card: "v3-card rounded-sm p-5 sm:p-7",
+    label: "text-xs uppercase tracking-[0.3em] text-[#b8876a]",
+    subtitle: "text-[#7a9468]",
+    card: "v3-card rounded-3xl p-5 sm:p-7",
     input:
-      "w-full rounded-sm border border-[#d4af37]/25 bg-white/5 px-4 py-3 text-white/85 outline-none placeholder:text-white/30 focus:border-[#d4af37]/60",
-    button: "border border-[#d4af37]/30 text-[#d4af37]/80 hover:border-[#d4af37]/60",
-    buttonActive: "bg-[#d4af37] text-black border-[#d4af37]",
-    sideTag: "rounded-full bg-[#d4af37]/10 px-2.5 py-0.5 text-xs text-[#d4af37]/80",
-    wishCard: "wish-card-luxury rounded-sm border border-[#d4af37]/20 bg-white/5 p-4",
-    wishCardTop: "wish-card-luxury rounded-sm border border-[#d4af37]/35 bg-gradient-to-br from-[#d4af37]/10 to-transparent p-4 shadow-lg",
-    name: "font-semibold text-white/90",
-    message: "text-sm leading-relaxed text-white/55",
-    meta: "text-xs text-[#d4af37]/60",
-    success: "text-[#d4af37]",
+      "w-full rounded-xl border border-[#c9a087]/30 bg-white/80 px-4 py-3 text-[#3d4a38] outline-none focus:border-[#9caf88]",
+    button: "border border-[#c9a087]/30 text-[#7a9468] hover:border-[#9caf88]",
+    buttonActive: "bg-[#9caf88] text-white border-[#9caf88]",
+    sideTag: "rounded-full bg-[#9caf88]/15 px-2.5 py-0.5 text-xs text-[#7a9468]",
+    wishCard: "wish-card-luxury rounded-2xl border border-[#c9a087]/25 bg-white/65 p-4",
+    wishCardTop: "wish-card-luxury rounded-2xl border border-[#c9a087]/45 bg-gradient-to-br from-white/80 to-[#c9a087]/15 p-4 shadow-md",
+    name: "font-semibold text-[#3d4a38]",
+    message: "text-sm leading-relaxed text-[#7a9468]",
+    meta: "text-xs text-[#b8876a]/70",
+    success: "text-[#3d4a38]",
     accent: sparkleThemes["variant-3"].accent,
   },
   "variant-7": {
@@ -169,20 +169,20 @@ const themes: Record<
   },
   "variant-6": {
     section: "px-4 py-14 pb-28 sm:py-20 sm:pb-32",
-    label: "text-xs uppercase tracking-[0.3em] text-[#1E88C9]",
-    subtitle: "text-[#8b9dc3]",
-    card: "v6-glass rounded-2xl p-5 sm:p-7",
+    label: "text-xs uppercase tracking-[0.3em] text-[#C62828]",
+    subtitle: "text-[#8b6360]",
+    card: "v6-wishes-form rounded-2xl border border-[#C62828]/15 bg-white/70 p-5 sm:p-7",
     input:
-      "w-full rounded-xl border border-[#C0C8D4]/40 bg-white/60 px-4 py-3 text-[#1a2a3a] outline-none focus:border-[#1E88C9]",
-    button: "border border-[#C0C8D4]/40 text-[#8b9dc3] hover:border-[#1E88C9]",
-    buttonActive: "bg-[#1E88C9] text-white border-[#1E88C9]",
-    sideTag: "rounded-full bg-[#1E88C9]/10 px-2.5 py-0.5 text-xs text-[#1E88C9]",
-    wishCard: "wish-card-luxury rounded-xl border border-[#C0C8D4]/35 bg-white/55 p-4",
-    wishCardTop: "wish-card-luxury rounded-xl border border-[#1E88C9]/40 bg-gradient-to-br from-white/75 to-[#1E88C9]/10 p-4 shadow-md",
-    name: "font-semibold text-[#1a2a3a]",
-    message: "text-sm leading-relaxed text-[#8b9dc3]",
-    meta: "text-xs text-[#8b9dc3]/70",
-    success: "text-[#1E88C9]",
+      "w-full rounded-xl border border-[#C62828]/20 bg-white/90 px-4 py-3 text-[#2a1515] outline-none placeholder:text-[#8b6360]/50 focus:border-[#C62828]",
+    button: "border border-[#C62828]/25 text-[#8b6360] hover:border-[#C62828]/50",
+    buttonActive: "bg-[#C62828] text-white border-[#C62828]",
+    sideTag: "rounded-full bg-[#C62828]/10 px-2.5 py-0.5 text-xs text-[#C62828]",
+    wishCard: "v6-wish-chip rounded-2xl border border-[#C62828]/12 bg-white/75 p-4",
+    wishCardTop: "v6-wish-chip v6-wish-featured rounded-2xl border border-[#D4AF37]/35 bg-gradient-to-br from-white to-[#fff0f0] p-4 shadow-md",
+    name: "font-semibold text-[#2a1515]",
+    message: "text-sm leading-relaxed text-[#8b6360]",
+    meta: "text-xs text-[#8b6360]/80",
+    success: "text-[#C62828]",
     accent: sparkleThemes["variant-6"].mid,
   },
   "variant-9": {
@@ -324,7 +324,13 @@ function WishCard({
   );
 }
 
-export default function WishesSection({ theme }: { theme: WishesTheme }) {
+export default function WishesSection({
+  theme,
+  embedded = false,
+}: {
+  theme: WishesTheme;
+  embedded?: boolean;
+}) {
   const lite = useLiteMode();
   const t = themes[theme];
   const [wishes, setWishes] = useState<Wish[]>([]);
@@ -416,8 +422,12 @@ export default function WishesSection({ theme }: { theme: WishesTheme }) {
   }
 
   return (
-    <section id="tabriklar" className={`mobile-section ${t.section}`}>
-      <div className="mx-auto max-w-2xl">
+    <section
+      id={embedded ? undefined : "tabriklar"}
+      className={embedded ? undefined : `mobile-section scroll-mt-20 ${t.section}`}
+    >
+      <div className={embedded ? "" : "mx-auto max-w-2xl"}>
+        {!embedded && (
         <div className="mb-8 text-center sm:mb-10">
           <p className={t.label}>Tabriklar</p>
           <SparkleHeading
@@ -432,6 +442,13 @@ export default function WishesSection({ theme }: { theme: WishesTheme }) {
             Qalbingizdagi eng iliq so&apos;zlarni shu yerga yozing — tabriklaringiz biz uchun juda qadrli
           </p>
         </div>
+        )}
+
+        {embedded && (
+          <p className={`mb-6 text-center text-sm ${t.subtitle}`}>
+            Qalbingizdagi eng iliq so&apos;zlarni shu yerga yozing — tabriklaringiz biz uchun juda qadrli
+          </p>
+        )}
 
         <div className={`mb-8 sm:mb-10 ${t.card}`}>
           <form onSubmit={handleSubmit} className="space-y-4">

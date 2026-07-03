@@ -8,7 +8,7 @@ function SceneLoader() {
   return (
     <mesh>
       <boxGeometry args={[0.5, 0.5, 0.5]} />
-      <meshStandardMaterial color="#c0c8d4" wireframe />
+      <meshStandardMaterial color="#C41E3A" wireframe />
     </mesh>
   );
 }
@@ -24,8 +24,8 @@ export default function Scene3D() {
       >
         <ambientLight intensity={0.5} />
         <directionalLight position={[4, 6, 4]} intensity={1.2} />
-        <directionalLight position={[-3, 2, -2]} intensity={0.4} color="#4db8e8" />
-        <pointLight position={[0, 2, 2]} intensity={0.6} color="#1e88c9" />
+        <directionalLight position={[-3, 2, -2]} intensity={0.5} color="#D4AF37" />
+        <pointLight position={[0, 2, 2]} intensity={0.7} color="#EF4444" />
         <Suspense fallback={<SceneLoader />}>
           <CouplePlaceholder />
         </Suspense>

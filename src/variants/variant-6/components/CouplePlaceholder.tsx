@@ -39,7 +39,7 @@ export default function CouplePlaceholder() {
           </mesh>
           <mesh position={[0, 1.18, 0]}>
             <sphereGeometry args={[0.14, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
-            <meshStandardMaterial color="#1e88c9" metalness={0.6} roughness={0.3} />
+            <meshStandardMaterial color="#C41E3A" metalness={0.6} roughness={0.3} />
           </mesh>
         </group>
 
@@ -60,7 +60,7 @@ export default function CouplePlaceholder() {
 
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.52, 0]}>
           <torusGeometry args={[1.1, 0.03, 8, 48]} />
-          <meshStandardMaterial color="#1e88c9" metalness={0.8} roughness={0.15} emissive="#1e88c9" emissiveIntensity={0.2} />
+          <meshStandardMaterial color="#C41E3A" metalness={0.8} roughness={0.15} emissive="#C41E3A" emissiveIntensity={0.2} />
         </mesh>
       </group>
     </Float>
