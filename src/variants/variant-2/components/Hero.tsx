@@ -12,13 +12,13 @@ export default function Hero() {
   const { inviteJourney } = useInviteCopy();
 
   return (
-    <section className="relative overflow-hidden px-4 pb-24 pt-16 sm:pt-20">
-      <div className="absolute inset-0">
+    <section className="relative w-full overflow-hidden px-4 pb-24 pt-16 sm:pt-20">
+      <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-[#8b9dc3]/10 blur-[100px]" />
         <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-white/5 blur-[80px]" />
       </div>
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
+      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-2">
         <div className="order-2 text-center lg:order-1 lg:text-left">
           <p className="mb-4 text-xs uppercase tracking-[0.4em] text-[#8b9dc3]">
             Bismillahir Rahmonir Rahim

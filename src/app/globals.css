@@ -35,26 +35,88 @@ h4,
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  overflow-x: clip;
+  overflow-x: hidden;
   overscroll-behavior-x: none;
+  width: 100%;
+  max-width: none;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-montserrat), system-ui, sans-serif;
-  overflow-x: clip;
-  max-width: 100vw;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: none;
+  min-height: 100%;
   padding-top: var(--safe-top);
   padding-bottom: var(--safe-bottom);
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior-x: none;
 }
 
-main,
-[class*="variant-"] {
-  overflow-x: clip;
-  max-width: 100%;
+body > main {
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: none;
+}
+
+main[class*="variant-"] {
+  width: 100%;
+  max-width: none;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* Taklifnoma sahifalarida oq fon ko'rinmasin */
+html:has(.variant-1),
+html:has(.variant-1) body {
+  background: #080808;
+}
+
+html:has(.variant-2),
+html:has(.variant-2) body {
+  background: #0a1628;
+}
+
+html:has(.variant-3),
+html:has(.variant-3) body {
+  background: #f5f0e8;
+}
+
+html:has(.variant-4),
+html:has(.variant-4) body {
+  background: #0a1628;
+}
+
+html:has(.variant-5),
+html:has(.variant-5) body {
+  background: #f5f0e8;
+}
+
+html:has(.variant-6),
+html:has(.variant-6) body {
+  background: #fff8f5;
+}
+
+html:has(.variant-7),
+html:has(.variant-7) body {
+  background: #fdf8f5;
+}
+
+html:has(.variant-8),
+html:has(.variant-8) body {
+  background: #0c1829;
+}
+
+html:has(.variant-9),
+html:has(.variant-9) body {
+  background: #f5faf6;
+}
+
+html:has(.variant-10),
+html:has(.variant-10) body {
+  background: #fff8f0;
 }
 
 /* Qirqilgan burchaklar — chamfered decorative shapes */

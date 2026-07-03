@@ -7,9 +7,12 @@
   --v2-glow: #ffffff;
   --v2-accent: #8b9dc3;
 
+  width: 100%;
+  max-width: none;
   background: var(--v2-navy);
   color: var(--v2-silver-light);
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .variant-2 .v2-glow-text {
