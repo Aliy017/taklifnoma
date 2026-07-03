@@ -120,13 +120,13 @@
 }
 
 .variant-6 .v6-dock {
-  background: rgba(255, 255, 255, 0.52);
-  backdrop-filter: blur(40px) saturate(180%);
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
-  border: 0.5px solid rgba(255, 255, 255, 0.72);
+  background: rgba(12, 8, 10, 0.42);
+  backdrop-filter: blur(40px) saturate(160%);
+  -webkit-backdrop-filter: blur(40px) saturate(160%);
+  border: 0.5px solid rgba(255, 255, 255, 0.28);
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.1),
-    0 1px 0 rgba(255, 255, 255, 0.85) inset;
+    0 8px 32px rgba(0, 0, 0, 0.28),
+    0 1px 0 rgba(255, 255, 255, 0.12) inset;
 }
 
 .variant-6 .v6-dock-glass {
@@ -135,9 +135,9 @@
 
 @media (max-width: 768px) {
   .variant-6 .v6-dock {
-    background: rgba(255, 255, 255, 0.62);
-    backdrop-filter: blur(36px) saturate(170%);
-    -webkit-backdrop-filter: blur(36px) saturate(170%);
+    background: rgba(12, 8, 10, 0.48);
+    backdrop-filter: blur(36px) saturate(150%);
+    -webkit-backdrop-filter: blur(36px) saturate(150%);
   }
 }
 
@@ -290,12 +290,12 @@
 /* —— Pastki dock: iPhone glass —— */
 .variant-6 .v6-dock-btn {
   min-height: 3.25rem;
-  color: rgba(72, 48, 48, 0.52);
+  color: rgba(255, 255, 255, 0.62);
   transition: color 0.2s ease;
 }
 
 .variant-6 .v6-dock-btn-active {
-  color: #8b1c1c;
+  color: #fff;
 }
 
 .variant-6 .v6-dock-icon {
@@ -306,8 +306,8 @@
   width: 2rem;
   height: 2rem;
   border-radius: 9999px;
-  background: rgba(72, 48, 48, 0.07);
-  box-shadow: inset 0 0 0 0.5px rgba(72, 48, 48, 0.1);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.16);
   color: inherit;
   transition:
     background 0.2s ease,
@@ -316,9 +316,11 @@
 }
 
 .variant-6 .v6-dock-icon-active {
-  background: rgba(198, 40, 40, 0.12);
-  color: #c62828;
-  box-shadow: inset 0 0 0 0.5px rgba(198, 40, 40, 0.22);
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.35),
+    0 0 12px rgba(255, 255, 255, 0.12);
 }
 
 .variant-6 .v6-dock-svg {

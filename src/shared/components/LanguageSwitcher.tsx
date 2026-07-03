@@ -22,10 +22,11 @@ export default function LanguageSwitcher() {
     <button
       type="button"
       onClick={cycleLocale}
-      className="language-switcher-btn mobile-touch rounded-full border border-white/15 bg-black/30 px-2.5 py-1 text-[10px] font-semibold tracking-wide text-white/90 backdrop-blur-md transition hover:bg-white/15 hover:text-white sm:text-[11px]"
+      className="language-switcher-btn mobile-touch"
       aria-label={`Til: ${LOCALE_LABELS[locale]}. Boshqa tilga o'tish`}
     >
-      {LOCALE_LABELS[locale]}
+      <span className="language-switcher-btn-pulse" aria-hidden />
+      <span className="language-switcher-btn-label">{LOCALE_LABELS[locale]}</span>
     </button>
   );
 }

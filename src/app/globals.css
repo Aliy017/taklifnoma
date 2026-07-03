@@ -605,6 +605,70 @@ main,
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
+.language-switcher-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.75rem;
+  padding: 0.15rem 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.language-switcher-btn:hover {
+  border-color: rgba(255, 255, 255, 0.75);
+  transform: scale(1.04);
+}
+
+.language-switcher-btn-label {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+}
+
+.language-switcher-btn-pulse {
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.38) 0%,
+    rgba(255, 255, 255, 0.08) 55%,
+    transparent 72%
+  );
+  animation: language-switcher-pulse 2.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes language-switcher-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .language-switcher-btn-pulse {
+    animation: none;
+    opacity: 0.5;
+  }
+}
+
 .wedding-music-eq {
   display: flex;
   align-items: flex-end;

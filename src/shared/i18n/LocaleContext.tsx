@@ -55,13 +55,13 @@ export function LocaleProvider({
   defaultLocale?: LocaleId;
   children: ReactNode;
 }) {
-  const [locale, setLocaleState] = useState<LocaleId>(() => {
-    return readStoredLocale() ?? defaultLocale;
-  });
+  // SSR va birinchi client render bir xil bo'lishi uchun faqat defaultLocale
+  const [locale, setLocaleState] = useState<LocaleId>(defaultLocale);
 
   useEffect(() => {
-    setLocaleState((prev) => readStoredLocale() ?? defaultLocale ?? prev);
-  }, [defaultLocale]);
+    const stored = readStoredLocale();
+    if (stored) setLocaleState(stored);
+  }, []);
 
   const setLocale = useCallback((next: LocaleId) => {
     setLocaleState(next);
