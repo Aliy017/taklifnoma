@@ -7,6 +7,7 @@ import type { DynamicWeddingConfig } from "@/shared/lib/client-wedding";
 import { formatDisplayDate, formatTimeLabel } from "@/shared/lib/locale-format";
 import { latinToCyrillic } from "@/shared/i18n/transliterate";
 import { localizeVenueField } from "@/shared/lib/localize-venue";
+import { localizeScheduleArray, localizeStoryArray } from "@/shared/lib/localize-content";
 
 /**
  * Merges static variant config with per-client wedding data from context.
@@ -71,6 +72,16 @@ export function useVariantConfig<T extends Record<string, unknown>>(base: T): T 
         : {}),
     }));
 
+    const story = config.story as
+      | Array<{ year: string; title: string; desc: string }>
+      | undefined;
+    const morningSchedule = config.morningSchedule as
+      | Array<{ time: string; title: string; desc: string }>
+      | undefined;
+
+    const localizedStory = localizeStoryArray(story, t, locale);
+    const localizedSchedule = localizeScheduleArray(morningSchedule, t, locale);
+
     return {
       ...config,
       groom: locale === "uz-cyrillic" ? latinToCyrillic(groom) : localizeName(groom),
@@ -82,6 +93,8 @@ export function useVariantConfig<T extends Record<string, unknown>>(base: T): T 
       displayTimeLabel: formatTimeLabel(displayTime, locale),
       venue: localizedVenue,
       ...(localizedLocations ? { locations: localizedLocations } : {}),
+      ...(localizedStory ? { story: localizedStory } : {}),
+      ...(localizedSchedule ? { morningSchedule: localizedSchedule } : {}),
       inviteText: t("invite.wedding"),
       heroBlessing: t("hero.blessingWish"),
       weddingTypeDescription: t("invite.wedding"),

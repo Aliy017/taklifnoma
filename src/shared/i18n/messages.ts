@@ -86,6 +86,25 @@ export type MessageKey =
   | "section.ourStory"
   | "section.aboutEvent"
   | "lang.switchAria"
+  | "hero.bismillah"
+  | "story.lovePathTitle"
+  | "story.lovePathSubtitle"
+  | "story.y2022.title"
+  | "story.y2022.desc"
+  | "story.y2023.title"
+  | "story.y2023.desc"
+  | "story.y2024.title"
+  | "story.y2024.desc"
+  | "story.y2026.title"
+  | "story.y2026.desc"
+  | "schedule.welcome.title"
+  | "schedule.welcome.desc"
+  | "schedule.ceremony.title"
+  | "schedule.ceremony.desc"
+  | "schedule.feast.title"
+  | "schedule.feast.desc"
+  | "schedule.brideGreeting.title"
+  | "schedule.brideGreeting.desc"
   | "gallery.dashboardEyebrow"
   | "gallery.dashboardSubtitle";
 
@@ -176,7 +195,26 @@ const uzLatin: Messages = {
   "time.evening": "Kechqurun, soat {time}",
   "hero.coupleAlt": "{groom} va {bride}",
   "hero.inviteLabel": "Taklifnoma",
+  "hero.bismillah": "Bismillahir Rahmonir Rahim",
   "hero.blessingWish": "Baxt tilaklari bilan",
+  "story.lovePathTitle": "Muhabbat yo'li",
+  "story.lovePathSubtitle": "Har bir qadam — baxtga yaqinlashish",
+  "story.y2022.title": "Birinchi uchrashuv",
+  "story.y2022.desc": "Taqdir ularning yo'llarini birlashtirdi. Bir ko'rish — abadiy esda qolarli kun.",
+  "story.y2023.title": "Sevgi o'sdi",
+  "story.y2023.desc": "Har bir suhbat, har bir duo — ularni yaqinlashtirdi va qalblarini bir qildi.",
+  "story.y2024.title": "Unashtiruv",
+  "story.y2024.desc": "Oila a'zolari duosi bilan ikki yurak rasmiy ravishda birlashtirildi.",
+  "story.y2026.title": "To'y kuni",
+  "story.y2026.desc": "Muqaddas marosim — yangi hayotning eng go'zal boshlanishi.",
+  "schedule.welcome.title": "Mehmonlarni kutib olish",
+  "schedule.welcome.desc": "Issiq qarshi olish",
+  "schedule.ceremony.title": "To'y boshlanishi",
+  "schedule.ceremony.desc": "Nikoh marosimi va duo",
+  "schedule.feast.title": "Osh dasturxoni",
+  "schedule.feast.desc": "An'anaviy dasturxon",
+  "schedule.brideGreeting.title": "Kelin salom",
+  "schedule.brideGreeting.desc": "Kelinning yangi oilaga salomi",
   "section.ourStory": "Bizning hikoyamiz",
   "section.aboutEvent": "Tadbir haqida",
   "lang.switchAria": "Til: {label}. Boshqa tilga o'tish",
@@ -269,8 +307,31 @@ const uzCyrillic: Messages = {
   "time.afternoon": "Кундузи, соат {time}",
   "time.evening": "Кечқурун, соат {time}",
   "hero.coupleAlt": "{groom} ва {bride}",
-  "hero.inviteLabel": "Taklifnoma",
+  "hero.inviteLabel": "Таклифнома",
+  "hero.bismillah": "Бисмиллаҳир Раҳмонир Раҳим",
   "hero.blessingWish": "Бахт тилаклари билан",
+  "story.lovePathTitle": "Муҳаббат йўли",
+  "story.lovePathSubtitle": "Ҳар бир қадам — бахтга яқинлашиш",
+  "story.y2022.title": "Биринчи учрашув",
+  "story.y2022.desc":
+    "Тақдир уларнинг йўлларини бирлаштирди. Бир кўриш — абадий есда қоларли кун.",
+  "story.y2023.title": "Севги ўсди",
+  "story.y2023.desc":
+    "Ҳар бир суҳбат, ҳар бир дуо — уларни яқинлаштирди ва қалбларини бир қилди.",
+  "story.y2024.title": "Унаштирув",
+  "story.y2024.desc":
+    "Оила аъзолари дуоси билан икки юрак расмий равишда бирлаштирилди.",
+  "story.y2026.title": "Тўй куни",
+  "story.y2026.desc":
+    "Муқаддас маросим — янги ҳаётнинг энг гўзал бошланиши.",
+  "schedule.welcome.title": "Меҳмонларни кутиб олиш",
+  "schedule.welcome.desc": "Иссиқ қарши олиш",
+  "schedule.ceremony.title": "Тўй бошланиши",
+  "schedule.ceremony.desc": "Никоҳ маросими ва дуо",
+  "schedule.feast.title": "Ош дастурхони",
+  "schedule.feast.desc": "Анъanaviy dasturxon",
+  "schedule.brideGreeting.title": "Келин салом",
+  "schedule.brideGreeting.desc": "Келиннинг янги оилага саломи",
   "section.ourStory": "Бизning hikoyamiz",
   "section.aboutEvent": "Тadbir haqida",
   "lang.switchAria": "Тил: {label}. Бoshqa tilga o'tish",
@@ -363,7 +424,26 @@ const ru: Messages = {
   "time.evening": "Вечером, в {time}",
   "hero.coupleAlt": "{groom} и {bride}",
   "hero.inviteLabel": "Приглашение",
+  "hero.bismillah": "Bismillahir Rahmonir Rahim",
   "hero.blessingWish": "С наилучшими пожеланиями",
+  "story.lovePathTitle": "Путь любви",
+  "story.lovePathSubtitle": "Каждый шаг — к счастью",
+  "story.y2022.title": "Первая встреча",
+  "story.y2022.desc": "Судьба соединила их пути. Одна встреча — день, который запомнится навсегда.",
+  "story.y2023.title": "Любовь росла",
+  "story.y2023.desc": "Каждый разговор и каждая молитва сближали их и сделали сердца единым.",
+  "story.y2024.title": "Помолвка",
+  "story.y2024.desc": "С благословением семьи два сердца официально соединились.",
+  "story.y2026.title": "День свадьбы",
+  "story.y2026.desc": "Священная церемония — прекрасное начало новой жизни.",
+  "schedule.welcome.title": "Встреча гостей",
+  "schedule.welcome.desc": "Тёплый приём",
+  "schedule.ceremony.title": "Начало свадьбы",
+  "schedule.ceremony.desc": "Никах и молитва",
+  "schedule.feast.title": "Праздничный стол",
+  "schedule.feast.desc": "Традиционное застолье",
+  "schedule.brideGreeting.title": "Приветствие невесты",
+  "schedule.brideGreeting.desc": "Salom kelin — приветствие новой семьи",
   "section.ourStory": "Наша история",
   "section.aboutEvent": "О мероприятии",
   "lang.switchAria": "Язык: {label}. Переключить язык",

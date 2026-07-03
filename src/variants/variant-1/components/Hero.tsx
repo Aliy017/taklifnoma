@@ -14,7 +14,7 @@ export default function Hero() {
   return (
     <section className="relative flex min-h-[100dvh] items-center justify-center px-4 py-20 sm:py-24">
       <div className="v1-hero-stack relative z-10 mx-auto w-full max-w-md text-center">
-        <p className="v1-label mb-3">Bismillahir Rahmonir Rahim</p>
+        <p className="v1-label mb-3">{t("hero.bismillah")}</p>
         <p className="v1-label mb-8 text-white/30">{t("hero.inviteLabel")}</p>
 
         <HeroHex>

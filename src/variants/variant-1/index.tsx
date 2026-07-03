@@ -9,9 +9,11 @@ import WishesSection from "@/shared/components/WishesSection";
 import VariantBottomBar from "@/shared/components/VariantBottomBar";
 import FloatingAmbience from "@/shared/components/FloatingAmbience";
 import { variant1Config as variant1ConfigBase } from "./config";
+import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
 
 export default function Variant1Page() {
   const variant1Config = useVariantConfig(variant1ConfigBase);
+  const { t } = useLocaleOptional();
   const { groom, bride, displayDate } = variant1Config;
 
   return (
@@ -33,7 +35,7 @@ export default function Variant1Page() {
           <p className="v1-label mt-2 text-white/35">{displayDate}</p>
           <div className="v1-divider mx-auto my-4 max-w-[80px]" />
           <p className="text-[11px] tracking-wide text-white/30">
-            Alloh ularning baxtini abadiy qilsin
+            {t("invite.blessing")}
           </p>
         </footer>
         <VariantBottomBar variantId="variant-1" accent="#d4af37" />

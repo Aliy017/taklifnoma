@@ -24,10 +24,10 @@ export default function OurStory() {
             intensity="high"
             className="v1-heading text-2xl sm:text-4xl"
           >
-            Muhabbat yo&apos;li
+            {t("story.lovePathTitle")}
           </SparkleHeading>
           <p className="mt-3 text-sm font-light tracking-wide text-white/45">
-            Har bir qadam — baxtga yaqinlashish
+            {t("story.lovePathSubtitle")}
           </p>
         </div>
 
