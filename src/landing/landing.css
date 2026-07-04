@@ -166,6 +166,7 @@ html:has(.ln-root) body {
   z-index: 0;
   pointer-events: none;
   opacity: 0.38;
+  transition: opacity 0.7s var(--ln-ease);
   /* Markazdagi matn zonasi — 3D dekor ko‘rinmaydi */
   -webkit-mask-image: radial-gradient(
     ellipse 58% 62% at 50% 46%,
@@ -185,10 +186,15 @@ html:has(.ln-root) body {
 
 @media (min-width: 1024px) {
   .ln-hero-canvas {
-    /* Desktop: dekor asosan o‘ng tomonda */
+    /* Desktop: fixed — hero→choose o‘tishda morph ko‘rinadi, matndan uzoq */
+    position: fixed;
     -webkit-mask-image: linear-gradient(to left, black 42%, transparent 78%);
     mask-image: linear-gradient(to left, black 42%, transparent 78%);
     opacity: 0.48;
+  }
+
+  .ln-hero-canvas.ln-hero-canvas--past {
+    opacity: 0;
   }
 }
 
