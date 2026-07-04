@@ -268,6 +268,30 @@ html.lenis.lenis-scrolling .v2-entry-rays {
   opacity: 0.35;
 }
 
+/* v5 — scroll paytida og'ir effektlarni yengillashtirish */
+html.lenis.lenis-scrolling .variant-5 .v5-atlas-bg,
+html.lenis.lenis-scrolling .variant-5 .v5-section-stage__orb,
+html.lenis.lenis-scrolling .variant-5 .v5-section-stage__particle,
+html.lenis.lenis-scrolling .variant-5 .v5-showcase-card::before,
+html.lenis.lenis-scrolling .variant-5 .v5-showcase-card::after,
+html.lenis.lenis-scrolling .variant-5 .v5-story-card::before,
+html.lenis.lenis-scrolling .variant-5 .v5-countdown-cluster,
+html.lenis.lenis-scrolling .variant-5 .sparkle-letter-twinkle {
+  animation-play-state: paused !important;
+}
+
+html.lenis.lenis-scrolling .variant-5 .v5-card,
+html.lenis.lenis-scrolling .variant-5 .wishes-luxury-inner,
+html.lenis.lenis-scrolling .variant-5 .v5-atlas-bg .blur-3xl {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html.lenis.lenis-scrolling .variant-5 .v5-atlas-bg > div[class*="blur"] {
+  filter: blur(24px) !important;
+  opacity: 0.45;
+}
+
 /* Faqat desktopda will-change */
 @media (min-width: 769px) and (prefers-reduced-motion: no-preference) {
   .v3-petal {

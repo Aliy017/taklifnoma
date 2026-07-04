@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { useLenis } from "lenis/react";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 
 const FLORALS = [
@@ -10,37 +11,9 @@ const FLORALS = [
   { id: 3, emoji: "☁", x: "78%", y: "48%", size: 24, speed: 0.12 },
   { id: 4, emoji: "✿", x: "90%", y: "72%", size: 18, speed: 0.2 },
   { id: 5, emoji: "❀", x: "5%", y: "80%", size: 26, speed: 0.25 },
-];
+] as const;
 
 const MOBILE_FLORALS = FLORALS.slice(0, 3);
-
-function Floral({
-  emoji,
-  x,
-  y,
-  size,
-  speed,
-  scrollY,
-}: {
-  emoji: string;
-  x: string;
-  y: string;
-  size: number;
-  speed: number;
-  scrollY: ReturnType<typeof useScroll>["scrollY"];
-}) {
-  const translateY = useTransform(scrollY, [0, 1200], [0, -200 * speed]);
-  const rotate = useTransform(scrollY, [0, 1200], [0, 30 * speed]);
-
-  return (
-    <motion.span
-      className="absolute select-none text-[#8A9A5B]/25"
-      style={{ left: x, top: y, fontSize: size, y: translateY, rotate }}
-    >
-      {emoji}
-    </motion.span>
-  );
-}
 
 function ParallaxFloralsMobile() {
   return (
@@ -65,12 +38,33 @@ function ParallaxFloralsMobile() {
 }
 
 function ParallaxFloralsDesktop() {
-  const { scrollY } = useScroll();
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useLenis((lenis) => {
+    const root = rootRef.current;
+    if (!root || !lenis) return;
+
+    const scroll = lenis.scroll;
+    root.querySelectorAll<HTMLElement>("[data-v5-floral]").forEach((node) => {
+      const speed = Number(node.dataset.speed ?? "0.2");
+      const y = scroll * 0.16 * speed;
+      const rotate = scroll * 0.025 * speed;
+      node.style.transform = `translate3d(0, ${-y}px, 0) rotate(${rotate}deg)`;
+    });
+  });
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[1] overflow-hidden" aria-hidden>
+    <div ref={rootRef} className="pointer-events-none fixed inset-0 z-[1] overflow-hidden" aria-hidden>
       {FLORALS.map((f) => (
-        <Floral key={f.id} {...f} scrollY={scrollY} />
+        <span
+          key={f.id}
+          data-v5-floral
+          data-speed={f.speed}
+          className="absolute select-none text-[#8A9A5B]/25 will-change-transform"
+          style={{ left: f.x, top: f.y, fontSize: f.size }}
+        >
+          {f.emoji}
+        </span>
       ))}
     </div>
   );

@@ -13,8 +13,10 @@ import FloatingAmbience from "@/shared/components/FloatingAmbience";
 import { variant5Config as variant5ConfigBase } from "./config";
 import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
 import { V5StageAmbience } from "@/shared/components/V5SectionStage";
+import { useInvitationSmoothScroll } from "@/shared/components/SmoothScrollProvider";
 
 export default function Variant5Page() {
+  useInvitationSmoothScroll();
   const variant5Config = useVariantConfig(variant5ConfigBase);
   const { t } = useLocaleOptional();
   const { groom, bride, displayDate } = variant5Config;

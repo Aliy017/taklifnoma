@@ -1,10 +1,40 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
 import { ReactLenis } from "lenis/react";
 
-/** Desktop fine-pointer only — touch/mobil native scroll (tezroq, FPS barqaror). */
-function useLenisEnabled() {
+type SmoothScrollMode = "default" | "always";
+
+type SmoothScrollPolicyContextValue = {
+  mode: SmoothScrollMode;
+  setMode: (mode: SmoothScrollMode) => void;
+};
+
+const SmoothScrollPolicyContext = createContext<SmoothScrollPolicyContextValue>({
+  mode: "default",
+  setMode: () => {},
+});
+
+/** v5 kabi og'ir animatsiyali variantlarda mobil + desktop smooth scroll. */
+export function useInvitationSmoothScroll(active = true) {
+  const { setMode } = useContext(SmoothScrollPolicyContext);
+
+  useEffect(() => {
+    if (!active) return;
+    setMode("always");
+    return () => setMode("default");
+  }, [active, setMode]);
+}
+
+function useLenisEnabled(mode: SmoothScrollMode) {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
@@ -13,7 +43,15 @@ function useLenisEnabled() {
     const narrow = window.matchMedia("(max-width: 768px)");
 
     const update = () => {
-      setEnabled(!reduced.matches && !coarse.matches && !narrow.matches);
+      if (reduced.matches) {
+        setEnabled(false);
+        return;
+      }
+      if (mode === "always") {
+        setEnabled(true);
+        return;
+      }
+      setEnabled(!coarse.matches && !narrow.matches);
     };
 
     update();
@@ -25,12 +63,12 @@ function useLenisEnabled() {
       coarse.removeEventListener("change", update);
       narrow.removeEventListener("change", update);
     };
-  }, []);
+  }, [mode]);
 
   return enabled;
 }
 
-const lenisOptions = {
+const defaultLenisOptions = {
   lerp: 0.18,
   smoothWheel: true,
   syncTouch: false,
@@ -45,16 +83,53 @@ const lenisOptions = {
   },
 } as const;
 
-export default function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
-  const lenisEnabled = useLenisEnabled();
+const invitationLenisOptions = {
+  lerp: 0.11,
+  smoothWheel: true,
+  syncTouch: true,
+  wheelMultiplier: 1.02,
+  touchMultiplier: 0.95,
+  autoRaf: true,
+  autoToggle: true,
+  allowNestedScroll: true,
+  anchors: {
+    duration: 0.9,
+    offset: -72,
+  },
+} as const;
+
+function SmoothScrollEngine({
+  mode,
+  children,
+}: {
+  mode: SmoothScrollMode;
+  children: ReactNode;
+}) {
+  const lenisEnabled = useLenisEnabled(mode);
+  const options = mode === "always" ? invitationLenisOptions : defaultLenisOptions;
 
   if (!lenisEnabled) {
     return <>{children}</>;
   }
 
   return (
-    <ReactLenis root options={lenisOptions}>
+    <ReactLenis root options={options}>
       {children}
     </ReactLenis>
+  );
+}
+
+export default function SmoothScrollProvider({ children }: { children: ReactNode }) {
+  const [mode, setModeState] = useState<SmoothScrollMode>("default");
+  const setMode = useCallback((next: SmoothScrollMode) => {
+    setModeState(next);
+  }, []);
+
+  const policy = useMemo(() => ({ mode, setMode }), [mode, setMode]);
+
+  return (
+    <SmoothScrollPolicyContext.Provider value={policy}>
+      <SmoothScrollEngine mode={mode}>{children}</SmoothScrollEngine>
+    </SmoothScrollPolicyContext.Provider>
   );
 }
