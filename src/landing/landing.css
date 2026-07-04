@@ -165,15 +165,40 @@ html:has(.ln-root) body {
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  opacity: 0.38;
+  /* Markazdagi matn zonasi — 3D dekor ko‘rinmaydi */
+  -webkit-mask-image: radial-gradient(
+    ellipse 58% 62% at 50% 46%,
+    transparent 0%,
+    transparent 46%,
+    rgba(0, 0, 0, 0.25) 56%,
+    black 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 58% 62% at 50% 46%,
+    transparent 0%,
+    transparent 46%,
+    rgba(0, 0, 0, 0.25) 56%,
+    black 100%
+  );
+}
+
+@media (min-width: 1024px) {
+  .ln-hero-canvas {
+    /* Desktop: dekor asosan o‘ng tomonda */
+    -webkit-mask-image: linear-gradient(to left, black 42%, transparent 78%);
+    mask-image: linear-gradient(to left, black 42%, transparent 78%);
+    opacity: 0.48;
+  }
 }
 
 .ln-hero-fallback-glow {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 50% 42%, rgba(212, 175, 55, 0.22), transparent 45%),
-    radial-gradient(circle at 68% 60%, rgba(192, 200, 212, 0.14), transparent 40%);
-  filter: blur(10px);
+    radial-gradient(circle at 78% 44%, rgba(212, 175, 55, 0.18), transparent 42%),
+    radial-gradient(circle at 50% 48%, rgba(7, 10, 18, 0.55), transparent 58%);
+  filter: blur(8px);
 }
 
 .ln-hero-veil {
@@ -181,13 +206,20 @@ html:has(.ln-root) body {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: radial-gradient(120% 90% at 50% 50%, transparent 40%, rgba(7, 10, 18, 0.65) 100%);
+  /* Matn ortida qorong‘u, o‘qilishi aniq */
+  background: radial-gradient(
+    ellipse 72% 68% at 50% 46%,
+    rgba(7, 10, 18, 0.88) 0%,
+    rgba(7, 10, 18, 0.5) 42%,
+    transparent 72%
+  );
 }
 
 .ln-hero-content {
   position: relative;
   z-index: 2;
   max-width: 52rem;
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.45);
 }
 
 .ln-hero-eyebrow {
