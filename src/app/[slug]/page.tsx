@@ -1,9 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getClientBySlug } from "@/shared/lib/clients-store";
-import { buildClientContext } from "@/shared/lib/client-wedding";
 import { RESERVED_SLUGS } from "@/shared/types/client";
-import InvitationHost from "@/shared/components/InvitationHost";
+import InvitationSideHub from "@/shared/components/InvitationSideHub";
 
 export const dynamic = "force-dynamic";
 
@@ -15,11 +14,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!client) return { title: "Taklifnoma topilmadi" };
   return {
     title: `${client.groomName} & ${client.brideName} | To'y taklifnomasi`,
-    description: `${client.groomName} va ${client.brideName} to'y taklifnomasi`,
+    description: `${client.groomName} va ${client.brideName} — kuyov yoki kela tomondan taklifnoma`,
   };
 }
 
-export default async function ClientInvitationPage({ params }: Props) {
+export default async function ClientInvitationHubPage({ params }: Props) {
   const { slug } = await params;
 
   if (RESERVED_SLUGS.has(slug)) notFound();
@@ -27,7 +26,5 @@ export default async function ClientInvitationPage({ params }: Props) {
   const client = await getClientBySlug(slug);
   if (!client || !client.active) notFound();
 
-  const context = buildClientContext(client);
-
-  return <InvitationHost context={context} templateId={client.templateId} />;
+  return <InvitationSideHub client={client} />;
 }

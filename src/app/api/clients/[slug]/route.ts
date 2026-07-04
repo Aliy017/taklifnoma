@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getClientBySlug, incrementClientViews } from "@/shared/lib/clients-store";
 import { buildClientContext } from "@/shared/lib/client-wedding";
 import { RESERVED_SLUGS } from "@/shared/types/client";
+import { isInvitationSide } from "@/shared/lib/client-invitations";
 import { handleApiError } from "@/shared/lib/api-error";
 
 export const dynamic = "force-dynamic";
@@ -29,7 +30,7 @@ export async function GET(
 }
 
 export async function POST(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
@@ -38,7 +39,18 @@ export async function POST(
     if (!client || !client.active) {
       return NextResponse.json({ error: "Topilmadi" }, { status: 404 });
     }
-    await incrementClientViews(slug);
+
+    let side: "kuyov" | "kela" = "kuyov";
+    try {
+      const body = await request.json();
+      if (body?.side && isInvitationSide(String(body.side))) {
+        side = body.side;
+      }
+    } catch {
+      /* empty body — legacy */
+    }
+
+    await incrementClientViews(slug, side);
     return NextResponse.json({ ok: true });
   } catch (error) {
     return handleApiError(error);

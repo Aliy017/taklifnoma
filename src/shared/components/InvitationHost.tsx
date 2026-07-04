@@ -3,6 +3,7 @@
 import { useEffect, type ComponentType } from "react";
 import type { ClientWeddingContextValue } from "@/shared/lib/client-wedding";
 import type { TemplateId } from "@/admin/types";
+import type { InvitationSide } from "@/shared/lib/client-invitations";
 import { WeddingProvider } from "@/shared/context/WeddingContext";
 import LocaleShell from "@/shared/components/LocaleShell";
 
@@ -44,14 +45,24 @@ const VARIANT_PAGES: Record<TemplateId, ComponentType> = {
 interface InvitationHostProps {
   context: ClientWeddingContextValue;
   templateId: TemplateId;
+  invitationSide?: InvitationSide;
 }
 
-export default function InvitationHost({ context, templateId }: InvitationHostProps) {
+export default function InvitationHost({
+  context,
+  templateId,
+  invitationSide,
+}: InvitationHostProps) {
   const Page = VARIANT_PAGES[templateId] ?? Variant6Page;
 
   useEffect(() => {
-    fetch(`/api/clients/${context.clientSlug}`, { method: "POST" }).catch(() => {});
-  }, [context.clientSlug]);
+    if (!invitationSide) return;
+    fetch(`/api/clients/${context.clientSlug}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ side: invitationSide }),
+    }).catch(() => {});
+  }, [context.clientSlug, invitationSide]);
 
   return (
     <LocaleShell defaultLocale={context.defaultLocale}>

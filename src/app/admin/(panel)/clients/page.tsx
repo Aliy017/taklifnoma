@@ -10,6 +10,7 @@ import ClientModal from "@/admin/components/ClientModal";
 import { useAdmin } from "@/admin/context/AdminContext";
 import { filterClientsByQuery } from "@/admin/lib/client-search";
 import type { AdminClient } from "@/admin/types";
+import { buildInvitationUrl, type InvitationSide } from "@/shared/lib/client-invitations";
 
 export default function ClientsPage() {
   const { clients, loading, addClient, updateClient, deleteClient } = useAdmin();
@@ -38,13 +39,12 @@ export default function ClientsPage() {
     setModalOpen(true);
   }
 
-  function copyLink(slug: string, defaultLocale?: string) {
-    const origin = typeof window !== "undefined" ? window.location.origin : "https://taklifnoma.uz";
-    let url = `${origin}/${slug}`;
-    if (defaultLocale && defaultLocale !== "uz-latin") {
-      url += `?lang=${defaultLocale}`;
-    }
-    navigator.clipboard.writeText(url).then(() => showToast("Link nusxalandi!"));
+  function copyLink(slug: string, side: InvitationSide, defaultLocale?: string) {
+    const origin = typeof window !== "undefined" ? window.location.origin : "https://taklifnoma-opal.vercel.app";
+    const url = buildInvitationUrl(origin, slug, side, defaultLocale);
+    navigator.clipboard.writeText(url).then(() =>
+      showToast(side === "kuyov" ? "Kuyov linki nusxalandi!" : "Kela linki nusxalandi!")
+    );
   }
 
   async function handleSave(data: Parameters<typeof addClient>[0]) {

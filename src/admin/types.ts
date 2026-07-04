@@ -26,6 +26,10 @@ export interface AdminClient {
   locationPlace?: string;
   audioUrl: string;
   templateId: TemplateId;
+  groomTemplateId?: TemplateId;
+  brideTemplateId?: TemplateId;
+  groomPageViews?: number;
+  bridePageViews?: number;
   defaultLocale?: LocaleId;
   slugScript?: SlugScript;
   pageViews: number;
@@ -51,7 +55,8 @@ export interface ClientFormData {
   locationRegion: string;
   locationPlace: string;
   audioUrl: string;
-  templateId: TemplateId;
+  groomTemplateId: TemplateId;
+  brideTemplateId: TemplateId;
   defaultLocale: LocaleId;
   slugScript: SlugScript;
 }

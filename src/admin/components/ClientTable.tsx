@@ -1,26 +1,33 @@
 "use client";
 
-import { Copy, Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import type { AdminClient } from "../types";
 import { TEMPLATE_OPTIONS } from "../types";
 import { latinToCyrillic } from "@/shared/i18n/transliterate";
+import type { InvitationSide } from "@/shared/lib/client-invitations";
 
 interface ClientTableProps {
   clients: AdminClient[];
   onEdit: (client: AdminClient) => void;
   onDelete: (id: string) => void;
-  onCopyLink: (slug: string, defaultLocale?: string) => void;
+  onCopyLink: (slug: string, side: InvitationSide, defaultLocale?: string) => void;
+}
+
+function templateShort(id: string | undefined): string {
+  const opt = TEMPLATE_OPTIONS.find((t) => t.id === id);
+  if (!opt) return "—";
+  return opt.label.replace(/^Template v\d+ — /, "");
 }
 
 export default function ClientTable({ clients, onEdit, onDelete, onCopyLink }: ClientTableProps) {
   return (
     <div className="admin-table-wrap hidden overflow-x-auto md:block" data-lenis-prevent-touch>
-      <table className="w-full min-w-[720px] text-left text-sm">
+      <table className="w-full min-w-[860px] text-left text-sm">
         <thead>
           <tr className="border-b border-slate-100 bg-slate-50/80 text-xs uppercase tracking-wider text-slate-500">
             <th className="px-5 py-3.5 font-medium">Juftlik</th>
             <th className="px-5 py-3.5 font-medium">Sana</th>
-            <th className="px-5 py-3.5 font-medium">Shablon</th>
+            <th className="px-5 py-3.5 font-medium">Shablonlar</th>
             <th className="px-5 py-3.5 font-medium">Ko&apos;rishlar</th>
             <th className="px-5 py-3.5 font-medium">Holat</th>
             <th className="px-5 py-3.5 text-right font-medium">Amallar</th>
@@ -28,7 +35,11 @@ export default function ClientTable({ clients, onEdit, onDelete, onCopyLink }: C
         </thead>
         <tbody>
           {clients.map((client) => {
-            const template = TEMPLATE_OPTIONS.find((t) => t.id === client.templateId);
+            const groomTemplate = client.groomTemplateId ?? client.templateId;
+            const brideTemplate = client.brideTemplateId ?? client.templateId;
+            const groomViews = client.groomPageViews ?? 0;
+            const brideViews = client.bridePageViews ?? 0;
+
             return (
               <tr key={client.id} className="border-b border-slate-50 transition hover:bg-slate-50/50">
                 <td className="px-5 py-4">
@@ -45,8 +56,21 @@ export default function ClientTable({ clients, onEdit, onDelete, onCopyLink }: C
                   <br />
                   <span className="text-xs text-slate-400">{client.weddingTime}</span>
                 </td>
-                <td className="px-5 py-4 text-slate-600">{template?.label.replace("Template ", "")}</td>
-                <td className="px-5 py-4 text-slate-600">{client.pageViews.toLocaleString("uz-UZ")}</td>
+                <td className="px-5 py-4 text-slate-600">
+                  <p className="text-xs">
+                    <span className="font-medium text-slate-700">Kuyov:</span> {templateShort(groomTemplate)}
+                  </p>
+                  <p className="mt-1 text-xs">
+                    <span className="font-medium text-slate-700">Kela:</span> {templateShort(brideTemplate)}
+                  </p>
+                </td>
+                <td className="px-5 py-4 text-slate-600">
+                  <p className="text-xs">Kuyov: {groomViews.toLocaleString("uz-UZ")}</p>
+                  <p className="mt-0.5 text-xs">Kela: {brideViews.toLocaleString("uz-UZ")}</p>
+                  <p className="mt-1 text-[10px] text-slate-400">
+                    Jami: {client.pageViews.toLocaleString("uz-UZ")}
+                  </p>
+                </td>
                 <td className="px-5 py-4">
                   <span
                     className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
@@ -68,11 +92,19 @@ export default function ClientTable({ clients, onEdit, onDelete, onCopyLink }: C
                     </button>
                     <button
                       type="button"
-                      onClick={() => onCopyLink(client.slug, client.defaultLocale)}
-                      className="rounded-lg p-2 text-[#c9a84c] hover:bg-[#c9a84c]/10"
-                      title="Link nusxalash"
+                      onClick={() => onCopyLink(client.slug, "kuyov", client.defaultLocale)}
+                      className="rounded-lg px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-[#a68b3c] hover:bg-[#c9a84c]/10"
+                      title="Kuyov linki"
                     >
-                      <Copy className="h-4 w-4" />
+                      Kuyov
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => onCopyLink(client.slug, "kela", client.defaultLocale)}
+                      className="rounded-lg px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-[#a68b3c] hover:bg-[#c9a84c]/10"
+                      title="Kela linki"
+                    >
+                      Kela
                     </button>
                     <button
                       type="button"

@@ -2,6 +2,10 @@ import { readStore, writeStore } from "@/shared/lib/data-store";
 import type { InvitationClient, InvitationWish } from "@/shared/types/client";
 import { weddingConfig } from "@/shared/config/wedding";
 import { slugify } from "@/shared/lib/slugify";
+import {
+  normalizeInvitationClient,
+  type InvitationSide,
+} from "@/shared/lib/client-invitations";
 
 export const DEFAULT_CLIENTS: InvitationClient[] = [
   {
@@ -16,6 +20,10 @@ export const DEFAULT_CLIENTS: InvitationClient[] = [
     locationPlace: weddingConfig.venue.place,
     audioUrl: weddingConfig.musicSrc,
     templateId: "variant-6",
+    groomTemplateId: "variant-6",
+    brideTemplateId: "variant-5",
+    groomPageViews: 0,
+    bridePageViews: 0,
     defaultLocale: "uz-latin",
     slugScript: "latin",
     pageViews: 0,
@@ -34,6 +42,10 @@ export const DEFAULT_CLIENTS: InvitationClient[] = [
     locationPlace: "Vodil",
     audioUrl: weddingConfig.musicSrc,
     templateId: "variant-5",
+    groomTemplateId: "variant-2",
+    brideTemplateId: "variant-5",
+    groomPageViews: 0,
+    bridePageViews: 0,
     defaultLocale: "uz-latin",
     slugScript: "latin",
     pageViews: 0,
@@ -46,9 +58,9 @@ export async function readClients(): Promise<InvitationClient[]> {
   const clients = await readStore<InvitationClient[]>("clients", []);
   if (clients.length === 0) {
     await writeStore("clients", DEFAULT_CLIENTS);
-    return DEFAULT_CLIENTS;
+    return DEFAULT_CLIENTS.map(normalizeInvitationClient);
   }
-  return clients;
+  return clients.map(normalizeInvitationClient);
 }
 
 export async function writeClients(clients: InvitationClient[]) {
@@ -65,11 +77,19 @@ export async function getClientById(id: string): Promise<InvitationClient | null
   return clients.find((c) => c.id === id) ?? null;
 }
 
-export async function incrementClientViews(slug: string): Promise<void> {
+export async function incrementClientViews(slug: string, side: InvitationSide): Promise<void> {
   const clients = await readClients();
-  const next = clients.map((c) =>
-    c.slug === slug ? { ...c, pageViews: c.pageViews + 1 } : c
-  );
+  const next = clients.map((c) => {
+    if (c.slug !== slug) return c;
+    const groomPageViews = side === "kuyov" ? c.groomPageViews! + 1 : c.groomPageViews!;
+    const bridePageViews = side === "kela" ? c.bridePageViews! + 1 : c.bridePageViews!;
+    return {
+      ...c,
+      groomPageViews,
+      bridePageViews,
+      pageViews: groomPageViews + bridePageViews,
+    };
+  });
   await writeClients(next);
 }
 
@@ -84,7 +104,10 @@ export interface ClientInput {
   locationName?: string;
   locationAddress?: string;
   audioUrl: string;
-  templateId: InvitationClient["templateId"];
+  groomTemplateId: InvitationClient["templateId"];
+  brideTemplateId: InvitationClient["templateId"];
+  /** @deprecated Saqlashda groomTemplateId dan olinadi */
+  templateId?: InvitationClient["templateId"];
   defaultLocale?: InvitationClient["defaultLocale"];
   slugScript?: InvitationClient["slugScript"];
   active?: boolean;
@@ -97,7 +120,7 @@ export async function createClient(input: ClientInput): Promise<InvitationClient
   if (clients.some((c) => c.slug === slug)) {
     throw new Error("Bu slug allaqachon mavjud");
   }
-  const client: InvitationClient = {
+  const client: InvitationClient = normalizeInvitationClient({
     id: `cli_${Date.now()}`,
     slug,
     groomName: input.groomName,
@@ -110,13 +133,17 @@ export async function createClient(input: ClientInput): Promise<InvitationClient
     locationName: input.locationName,
     locationAddress: input.locationAddress,
     audioUrl: input.audioUrl,
-    templateId: input.templateId,
+    templateId: input.groomTemplateId,
+    groomTemplateId: input.groomTemplateId,
+    brideTemplateId: input.brideTemplateId,
+    groomPageViews: 0,
+    bridePageViews: 0,
     defaultLocale: input.defaultLocale ?? "uz-latin",
     slugScript: script,
     pageViews: 0,
     active: input.active ?? true,
     createdAt: new Date().toISOString(),
-  };
+  });
   await writeClients([client, ...clients]);
   return client;
 }
@@ -130,13 +157,16 @@ export async function updateClient(id: string, input: ClientInput): Promise<Invi
   if (clients.some((c) => c.slug === slug && c.id !== id)) {
     throw new Error("Bu slug allaqachon mavjud");
   }
-  const updated: InvitationClient = {
+  const updated: InvitationClient = normalizeInvitationClient({
     ...clients[idx],
     ...input,
+    templateId: input.groomTemplateId,
+    groomTemplateId: input.groomTemplateId,
+    brideTemplateId: input.brideTemplateId,
     slug,
     defaultLocale: input.defaultLocale ?? clients[idx].defaultLocale ?? "uz-latin",
     slugScript: script,
-  };
+  });
   const next = [...clients];
   next[idx] = updated;
   await writeClients(next);

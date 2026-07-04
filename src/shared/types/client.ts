@@ -18,7 +18,14 @@ export interface InvitationClient {
   /** @deprecated Use locationRegion / locationPlace */
   locationAddress?: string;
   audioUrl: string;
+  /** @deprecated Fallback — `groomTemplateId` / `brideTemplateId` ishlating. */
   templateId: TemplateId;
+  /** Kuyov tomondan taklifnoma shabloni */
+  groomTemplateId?: TemplateId;
+  /** Kela (kelin) tomondan taklifnoma shabloni */
+  brideTemplateId?: TemplateId;
+  groomPageViews?: number;
+  bridePageViews?: number;
   defaultLocale?: LocaleId;
   slugScript?: SlugScript;
   pageViews: number;

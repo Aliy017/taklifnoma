@@ -28,6 +28,8 @@ export async function POST(request: NextRequest) {
     if (!body.groomName?.trim() || !body.brideName?.trim()) {
       return NextResponse.json({ error: "Ismlar kiritilishi shart" }, { status: 400 });
     }
+    const groomTemplateId = body.groomTemplateId ?? body.templateId ?? "variant-6";
+    const brideTemplateId = body.brideTemplateId ?? body.templateId ?? groomTemplateId;
     const client = await createClient({
       groomName: String(body.groomName ?? "").trim(),
       brideName: String(body.brideName ?? "").trim(),
@@ -39,7 +41,8 @@ export async function POST(request: NextRequest) {
       locationName: body.locationName ? String(body.locationName) : undefined,
       locationAddress: body.locationAddress ? String(body.locationAddress) : undefined,
       audioUrl: String(body.audioUrl ?? ""),
-      templateId: body.templateId,
+      groomTemplateId,
+      brideTemplateId,
       defaultLocale: body.defaultLocale,
       slugScript: body.slugScript,
       active: body.active !== false,
@@ -58,6 +61,8 @@ export async function PATCH(request: NextRequest) {
     const body = await request.json();
     const id = String(body.id ?? "");
     if (!id) return NextResponse.json({ error: "ID kerak" }, { status: 400 });
+    const groomTemplateId = body.groomTemplateId ?? body.templateId ?? "variant-6";
+    const brideTemplateId = body.brideTemplateId ?? body.templateId ?? groomTemplateId;
     const client = await updateClient(id, {
       groomName: String(body.groomName ?? "").trim(),
       brideName: String(body.brideName ?? "").trim(),
@@ -69,7 +74,8 @@ export async function PATCH(request: NextRequest) {
       locationName: body.locationName ? String(body.locationName) : undefined,
       locationAddress: body.locationAddress ? String(body.locationAddress) : undefined,
       audioUrl: String(body.audioUrl ?? ""),
-      templateId: body.templateId,
+      groomTemplateId,
+      brideTemplateId,
       defaultLocale: body.defaultLocale,
       slugScript: body.slugScript,
       active: body.active !== false,

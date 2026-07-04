@@ -1,21 +1,29 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Copy, Pencil, Trash2, ExternalLink, Eye } from "lucide-react";
+import { Pencil, Trash2, ExternalLink } from "lucide-react";
 import type { AdminClient } from "../types";
 import { TEMPLATE_OPTIONS } from "../types";
 import { latinToCyrillic } from "@/shared/i18n/transliterate";
+import type { InvitationSide } from "@/shared/lib/client-invitations";
 
 interface ClientCardProps {
   client: AdminClient;
   index: number;
   onEdit: (client: AdminClient) => void;
   onDelete: (id: string) => void;
-  onCopyLink: (slug: string, defaultLocale?: string) => void;
+  onCopyLink: (slug: string, side: InvitationSide, defaultLocale?: string) => void;
+}
+
+function templateShort(id: string | undefined): string {
+  const opt = TEMPLATE_OPTIONS.find((t) => t.id === id);
+  if (!opt) return "—";
+  return opt.label.replace(/^Template v\d+ — /, "");
 }
 
 export default function ClientCard({ client, index, onEdit, onDelete, onCopyLink }: ClientCardProps) {
-  const template = TEMPLATE_OPTIONS.find((t) => t.id === client.templateId);
+  const groomTemplate = client.groomTemplateId ?? client.templateId;
+  const brideTemplate = client.brideTemplateId ?? client.templateId;
 
   return (
     <motion.article
@@ -46,17 +54,37 @@ export default function ClientCard({ client, index, onEdit, onDelete, onCopyLink
       </div>
 
       <div className="mb-4 space-y-1.5 text-xs text-slate-500">
-        <p className="truncate">
-          <span className="font-medium text-slate-600">Shablon:</span> {template?.label}
+        <p>
+          <span className="font-medium text-slate-600">Kuyov:</span> {templateShort(groomTemplate)}
         </p>
-        <p className="flex items-center gap-1">
-          <Eye className="h-3 w-3" />
-          {client.pageViews.toLocaleString("uz-UZ")} ko&apos;rish
+        <p>
+          <span className="font-medium text-slate-600">Kela:</span> {templateShort(brideTemplate)}
+        </p>
+        <p>
+          Ko&apos;rishlar — kuyov: {(client.groomPageViews ?? 0).toLocaleString("uz-UZ")}, kela:{" "}
+          {(client.bridePageViews ?? 0).toLocaleString("uz-UZ")}
         </p>
         <p className="truncate font-mono text-[11px] text-[#c9a84c]">/{client.slug}</p>
       </div>
 
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-2 gap-2">
+        <button
+          type="button"
+          onClick={() => onCopyLink(client.slug, "kuyov", client.defaultLocale)}
+          className="flex min-h-[40px] items-center justify-center rounded-xl border border-[#c9a84c]/30 text-xs font-medium text-[#a68b3c] hover:bg-[#c9a84c]/8"
+        >
+          Kuyov link
+        </button>
+        <button
+          type="button"
+          onClick={() => onCopyLink(client.slug, "kela", client.defaultLocale)}
+          className="flex min-h-[40px] items-center justify-center rounded-xl border border-[#c9a84c]/30 text-xs font-medium text-[#a68b3c] hover:bg-[#c9a84c]/8"
+        >
+          Kela link
+        </button>
+      </div>
+
+      <div className="mt-2 grid grid-cols-2 gap-2">
         <button
           type="button"
           onClick={() => onEdit(client)}
@@ -64,14 +92,6 @@ export default function ClientCard({ client, index, onEdit, onDelete, onCopyLink
         >
           <Pencil className="h-3.5 w-3.5" />
           Tahrir
-        </button>
-        <button
-          type="button"
-          onClick={() => onCopyLink(client.slug, client.defaultLocale)}
-          className="flex min-h-[40px] items-center justify-center gap-1 rounded-xl border border-[#c9a84c]/30 text-xs font-medium text-[#a68b3c] hover:bg-[#c9a84c]/8"
-        >
-          <Copy className="h-3.5 w-3.5" />
-          Link
         </button>
         <button
           type="button"
@@ -83,17 +103,15 @@ export default function ClientCard({ client, index, onEdit, onDelete, onCopyLink
         </button>
       </div>
 
-      {template && (
-        <a
-          href={template.route}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-3 flex items-center justify-center gap-1 text-[11px] text-slate-400 hover:text-[#0f2744]"
-        >
-          <ExternalLink className="h-3 w-3" />
-          Shablonni ko&apos;rish
-        </a>
-      )}
+      <a
+        href={`/${client.slug}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-3 flex items-center justify-center gap-1 text-[11px] text-slate-400 hover:text-[#0f2744]"
+      >
+        <ExternalLink className="h-3 w-3" />
+        Tanlash sahifasini ko&apos;rish
+      </a>
     </motion.article>
   );
 }

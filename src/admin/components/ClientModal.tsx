@@ -6,6 +6,7 @@ import type { AdminClient, ClientFormData, TemplateId } from "../types";
 import { LOCALE_OPTIONS, SLUG_SCRIPT_OPTIONS, TEMPLATE_OPTIONS } from "../types";
 import { slugify } from "@/shared/lib/slugify";
 import { latinToCyrillic } from "@/shared/i18n/transliterate";
+import { buildInvitationPath } from "@/shared/lib/client-invitations";
 
 const emptyForm: ClientFormData = {
   groomName: "",
@@ -16,7 +17,8 @@ const emptyForm: ClientFormData = {
   locationRegion: "",
   locationPlace: "",
   audioUrl: "/music/sokinlik.m4a",
-  templateId: "variant-6",
+  groomTemplateId: "variant-6",
+  brideTemplateId: "variant-5",
   defaultLocale: "uz-latin",
   slugScript: "latin",
 };
@@ -32,8 +34,43 @@ function templateShortLabel(label: string): string {
   return label.replace(/^Template v\d+ — /, "");
 }
 
+function TemplatePicker({
+  label,
+  description,
+  value,
+  onChange,
+}: {
+  label: string;
+  description: string;
+  value: TemplateId;
+  onChange: (id: TemplateId) => void;
+}) {
+  return (
+    <div className="space-y-3">
+      <div>
+        <p className="text-sm font-medium text-[#0f2744]">{label}</p>
+        <p className="mt-0.5 text-xs text-slate-400">{description}</p>
+      </div>
+      <div className="admin-picker-grid max-h-52 overflow-y-auto pr-1" data-lenis-prevent>
+        {TEMPLATE_OPTIONS.map((opt) => (
+          <button
+            key={opt.id}
+            type="button"
+            onClick={() => onChange(opt.id as TemplateId)}
+            className={`admin-picker-card ${value === opt.id ? "admin-picker-card--active" : ""}`}
+          >
+            <span className="admin-picker-card-num">{opt.route.replace("/v", "")}</span>
+            <span className="admin-picker-card-label">{templateShortLabel(opt.label)}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function ClientModal({ open, onClose, onSave, editing }: ClientModalProps) {
   const [form, setForm] = useState<ClientFormData>(emptyForm);
+  const [sameTemplate, setSameTemplate] = useState(false);
 
   const slugPreview =
     form.groomName.trim() && form.brideName.trim()
@@ -47,6 +84,8 @@ export default function ClientModal({ open, onClose, onSave, editing }: ClientMo
 
   useEffect(() => {
     if (editing) {
+      const groomTemplateId = editing.groomTemplateId ?? editing.templateId;
+      const brideTemplateId = editing.brideTemplateId ?? editing.templateId;
       setForm({
         groomName: editing.groomName,
         brideName: editing.brideName,
@@ -56,14 +95,40 @@ export default function ClientModal({ open, onClose, onSave, editing }: ClientMo
         locationRegion: editing.locationRegion ?? "",
         locationPlace: editing.locationPlace ?? "",
         audioUrl: editing.audioUrl || "/music/sokinlik.m4a",
-        templateId: editing.templateId,
+        groomTemplateId,
+        brideTemplateId,
         defaultLocale: editing.defaultLocale ?? "uz-latin",
         slugScript: editing.slugScript ?? "latin",
       });
+      setSameTemplate(groomTemplateId === brideTemplateId);
     } else {
       setForm(emptyForm);
+      setSameTemplate(false);
     }
   }, [editing, open]);
+
+  function setGroomTemplate(id: TemplateId) {
+    setForm((prev) => ({
+      ...prev,
+      groomTemplateId: id,
+      brideTemplateId: sameTemplate ? id : prev.brideTemplateId,
+    }));
+  }
+
+  function setBrideTemplate(id: TemplateId) {
+    setForm((prev) => ({
+      ...prev,
+      brideTemplateId: id,
+      groomTemplateId: sameTemplate ? id : prev.groomTemplateId,
+    }));
+  }
+
+  function toggleSameTemplate(checked: boolean) {
+    setSameTemplate(checked);
+    if (checked) {
+      setForm((prev) => ({ ...prev, brideTemplateId: prev.groomTemplateId }));
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -71,6 +136,7 @@ export default function ClientModal({ open, onClose, onSave, editing }: ClientMo
       await onSave({
         ...form,
         audioUrl: form.audioUrl.trim() || "/music/sokinlik.m4a",
+        brideTemplateId: sameTemplate ? form.groomTemplateId : form.brideTemplateId,
       });
       onClose();
     } catch {
@@ -214,30 +280,54 @@ export default function ClientModal({ open, onClose, onSave, editing }: ClientMo
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-200/80 bg-slate-50/80 px-4 py-3">
-            <p className="text-[10px] uppercase tracking-wider text-slate-400">Slug ko&apos;rinishi</p>
-            <p className="mt-1 font-mono text-sm text-[#0f2744]">/{slugPreview}</p>
+          <div className="rounded-xl border border-slate-200/80 bg-slate-50/80 px-4 py-3 space-y-2">
+            <p className="text-[10px] uppercase tracking-wider text-slate-400">Asosiy havola</p>
+            <p className="font-mono text-sm text-[#0f2744]">/{slugPreview}</p>
+            {slugPreview !== "—" && (
+              <>
+                <p className="text-[10px] uppercase tracking-wider text-slate-400 pt-1">Kuyov linki</p>
+                <p className="font-mono text-xs text-[#c9a84c]">{buildInvitationPath(slugPreview, "kuyov")}</p>
+                <p className="text-[10px] uppercase tracking-wider text-slate-400 pt-1">Kela linki</p>
+                <p className="font-mono text-xs text-[#c9a84c]">{buildInvitationPath(slugPreview, "kela")}</p>
+              </>
+            )}
           </div>
         </div>
 
-        <div className="admin-form-section space-y-3">
-          <div>
-            <label className="mb-2 block text-xs font-medium text-slate-500">Shablon</label>
-            <p className="mb-3 text-xs text-slate-400">Taklifnoma dizaynini tanlang — kartani bosing</p>
+        <div className="admin-form-section space-y-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Taklifnoma shablonlari</p>
+              <p className="mt-1 text-xs text-slate-500">
+                Kuyov va kela tomondan alohida dizayn tanlash mumkin
+              </p>
+            </div>
+            <label className="flex cursor-pointer items-center gap-2 text-sm text-slate-600">
+              <input
+                type="checkbox"
+                checked={sameTemplate}
+                onChange={(e) => toggleSameTemplate(e.target.checked)}
+                className="h-4 w-4 rounded border-slate-300"
+              />
+              Ikkala tomonga bir xil
+            </label>
           </div>
-          <div className="admin-picker-grid max-h-64 overflow-y-auto pr-1" data-lenis-prevent>
-            {TEMPLATE_OPTIONS.map((opt) => (
-              <button
-                key={opt.id}
-                type="button"
-                onClick={() => setForm({ ...form, templateId: opt.id as TemplateId })}
-                className={`admin-picker-card ${form.templateId === opt.id ? "admin-picker-card--active" : ""}`}
-              >
-                <span className="admin-picker-card-num">{opt.route.replace("/v", "")}</span>
-                <span className="admin-picker-card-label">{templateShortLabel(opt.label)}</span>
-              </button>
-            ))}
-          </div>
+
+          <TemplatePicker
+            label="Kuyov tomondan"
+            description="Odatda kuyov tarafidagi mehmonlar uchun"
+            value={form.groomTemplateId}
+            onChange={setGroomTemplate}
+          />
+
+          {!sameTemplate && (
+            <TemplatePicker
+              label="Kela tomondan"
+              description="Odatda kela (kelin) tarafidagi mehmonlar uchun"
+              value={form.brideTemplateId}
+              onChange={setBrideTemplate}
+            />
+          )}
         </div>
 
         <div className="flex flex-col-reverse gap-2 pt-1 sm:flex-row sm:justify-end">
