@@ -39,7 +39,6 @@ export default function MapEmbed({
       <div
         className={`flex flex-col items-center justify-center gap-3 px-4 py-8 text-center ${placeholderClassName} ${minHeightClass} ${className}`}
       >
-        <p className="map-embed-hint">{t("map.loadHint")}</p>
         <button type="button" onClick={() => setOpen(true)} className={buttonClassName}>
           {t("map.showButton")}
         </button>

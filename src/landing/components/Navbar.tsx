@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLocale } from "@/shared/i18n/LocaleContext";
 import LanguageSwitcher from "@/shared/components/LanguageSwitcher";
@@ -37,12 +38,12 @@ export default function Navbar() {
         </a>
 
         <nav className="ln-nav-links" aria-label="Asosiy">
-          <a href="/taklifnomalar" className="ln-nav-link">
+          <Link href="/taklifnomalar" className="ln-nav-link">
             {copy.navInvitations}
-          </a>
-          <a href="/tabriknomalar" className="ln-nav-link">
+          </Link>
+          <Link href="/tabriknomalar" className="ln-nav-link">
             {copy.navGreetings}
-          </a>
+          </Link>
         </nav>
 
         <div className="ln-nav-actions">

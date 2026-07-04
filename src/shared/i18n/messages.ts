@@ -62,7 +62,6 @@ export type MessageKey =
   | "map.label"
   | "map.title"
   | "map.iframeTitle"
-  | "map.loadHint"
   | "map.showButton"
   | "map.openExternal"
   | "venue.eventLabel"
@@ -180,8 +179,7 @@ const uzLatin: Messages = {
   "map.label": "Manzil",
   "map.title": "To'y joyi",
   "map.iframeTitle": "To'y joyi xaritasi",
-  "map.loadHint": "Xarita faqat tugma bosilganda yuklanadi",
-  "map.showButton": "Xaritani ko'rish",
+  "map.showButton": "Xaritada ko'rish",
   "map.openExternal": "Tashqi xaritada ochish",
   "venue.eventLabel": "Tadbir joyi",
   "venue.whereTitle": "Bizni qayerda topasiz",
@@ -199,7 +197,7 @@ const uzLatin: Messages = {
   "time.evening": "Kechqurun, soat {time}",
   "hero.coupleAlt": "{groom} va {bride}",
   "hero.inviteLabel": "Taklifnoma",
-  "hero.bismillah": "Bismillahir Rahmonir Rahim",
+  "hero.bismillah": "Bismillahir Rohmanir Rohim",
   "hero.blessingWish": "Baxt tilaklari bilan",
   "hero.scrollDown": "Pastga suring",
   "story.lovePathTitle": "Muhabbat yo'li",
@@ -212,14 +210,18 @@ const uzLatin: Messages = {
   "story.y2024.desc": "Oila a'zolari duosi bilan ikki yurak rasmiy ravishda birlashtirildi.",
   "story.y2026.title": "To'y kuni",
   "story.y2026.desc": "Muqaddas marosim — yangi hayotning eng go'zal boshlanishi.",
-  "schedule.welcome.title": "Mehmonlarni kutib olish",
-  "schedule.welcome.desc": "Issiq qarshi olish",
-  "schedule.ceremony.title": "To'y boshlanishi",
-  "schedule.ceremony.desc": "Nikoh marosimi va duo",
-  "schedule.feast.title": "Osh dasturxoni",
-  "schedule.feast.desc": "An'anaviy dasturxon",
-  "schedule.brideGreeting.title": "Kelin salom",
-  "schedule.brideGreeting.desc": "Kelinning yangi oilaga salomi",
+  "schedule.welcome.title": "Mehmonlar eshigi ochiladi",
+  "schedule.welcome.desc":
+    "Har bir mehmon — bu kunning eng qadrli buyurtmasi. Iliq tabassum, samimiy so'zlar va qalbili qarshi olish bayram ruhini yoqadi.",
+  "schedule.ceremony.title": "Muqaddas uchrashuv",
+  "schedule.ceremony.desc":
+    "Alloh nomi bilan ikki yurak birlasadi. Nikoh marosimi va duo — abadiy va'da beriladigan eng pok lahzalar.",
+  "schedule.feast.title": "Bayram dasturxoni",
+  "schedule.feast.desc":
+    "Mevali dasturxon, boy sovg'alar va hasratli suhbatlar jamlanadi. Milliy mehmondo'stlikning eng yorqin ifodasi sizni kutmoqda.",
+  "schedule.brideGreeting.title": "Kelin salomi",
+  "schedule.brideGreeting.desc":
+    "Yangi oilasining mehmonlarini shirin tabassum va samimiy salom bilan kutib oladi. An'ana va baxt bir lahzada, yurakdan yurakka uchrashadi.",
   "section.ourStory": "Bizning hikoyamiz",
   "section.aboutEvent": "Tadbir haqida",
   "section.scheduleTitle": "To'y dasturi",
@@ -298,8 +300,7 @@ const uzCyrillic: Messages = {
   "map.label": "Манзил",
   "map.title": "Тўй жойи",
   "map.iframeTitle": "Тўй жойи харитаси",
-  "map.loadHint": "Харита фақат тугма босилганда юкланади",
-  "map.showButton": "Харитани кўриш",
+  "map.showButton": "Харитада кўриш",
   "map.openExternal": "Ташқи харитада очиш",
   "venue.eventLabel": "Тадбир жойи",
   "venue.whereTitle": "Бизни қаерда топасиз",
@@ -317,7 +318,7 @@ const uzCyrillic: Messages = {
   "time.evening": "Кечқурун, соат {time}",
   "hero.coupleAlt": "{groom} ва {bride}",
   "hero.inviteLabel": "Таклифнома",
-  "hero.bismillah": "Бисмиллаҳир Раҳмонир Раҳим",
+  "hero.bismillah": "Бисмиллаҳир Роҳманир Роҳим",
   "hero.blessingWish": "Бахт тилаклари билан",
   "hero.scrollDown": "Пастга суринг",
   "story.lovePathTitle": "Муҳаббат йўли",
@@ -334,14 +335,10 @@ const uzCyrillic: Messages = {
   "story.y2026.title": "Тўй куни",
   "story.y2026.desc":
     "Муқаддас маросим — янги ҳаётнинг энг гўзал бошланиши.",
-  "schedule.welcome.title": "Меҳмонларни кутиб олиш",
-  "schedule.welcome.desc": "Иссиқ қарши олиш",
-  "schedule.ceremony.title": "Тўй бошланиши",
-  "schedule.ceremony.desc": "Никоҳ маросими ва дуо",
-  "schedule.feast.title": "Ош дастурхони",
-  "schedule.feast.desc": "Анъанавий дастурхон",
-  "schedule.brideGreeting.title": "Келин салом",
-  "schedule.brideGreeting.desc": "Келиннинг янги оилага саломи",
+  "schedule.welcome.title": "Меҳмонлар эшиги очилади",
+  "schedule.welcome.desc":
+    "Ҳар бир меҳмон — бу куннинг энг қадрли буюртмаси. Илик табассум, самимий сўзлар ва қалбилан қарши олиш байрам рухини ёқади.",
+  "schedule.ceremony.title": "Муқаддас учрашув",
   "section.ourStory": "Бизнинг ҳикоямиз",
   "section.aboutEvent": "Тадбир ҳақида",
   "section.scheduleTitle": "Тўй дастури",
@@ -419,8 +416,7 @@ const ru: Messages = {
   "map.label": "Адрес",
   "map.title": "Место проведения",
   "map.iframeTitle": "Карта места проведения",
-  "map.loadHint": "Карта загружается только после нажатия кнопки",
-  "map.showButton": "Показать карту",
+  "map.showButton": "На карте",
   "map.openExternal": "Открыть во внешней карте",
   "venue.eventLabel": "Место проведения",
   "venue.whereTitle": "Где нас найти",
@@ -438,7 +434,7 @@ const ru: Messages = {
   "time.evening": "Вечером, в {time}",
   "hero.coupleAlt": "{groom} и {bride}",
   "hero.inviteLabel": "Приглашение",
-  "hero.bismillah": "Bismillahir Rahmonir Rahim",
+  "hero.bismillah": "Bismillahir Rohmanir Rohim",
   "hero.blessingWish": "С наилучшими пожеланиями",
   "hero.scrollDown": "Листайте вниз",
   "story.lovePathTitle": "Путь любви",
@@ -451,14 +447,18 @@ const ru: Messages = {
   "story.y2024.desc": "С благословением семьи два сердца официально соединились.",
   "story.y2026.title": "День свадьбы",
   "story.y2026.desc": "Священная церемония — прекрасное начало новой жизни.",
-  "schedule.welcome.title": "Встреча гостей",
-  "schedule.welcome.desc": "Тёплый приём",
-  "schedule.ceremony.title": "Начало свадьбы",
-  "schedule.ceremony.desc": "Никах и молитва",
-  "schedule.feast.title": "Праздничный стол",
-  "schedule.feast.desc": "Традиционное застолье",
-  "schedule.brideGreeting.title": "Приветствие невесты",
-  "schedule.brideGreeting.desc": "Salom kelin — приветствие новой семьи",
+  "schedule.welcome.title": "Открываются двери для гостей",
+  "schedule.welcome.desc":
+    "Каждый гость — самое драгоценное украшение этого дня. Тёплая улыбка, искренние слова и сердечная встреча зажигают праздничное настроение.",
+  "schedule.ceremony.title": "Священная встреча",
+  "schedule.ceremony.desc":
+    "Два сердца соединяются именем Аллаха. Никах и молитва — самые чистые мгновения вечного обещания.",
+  "schedule.feast.title": "Праздничный дастархан",
+  "schedule.feast.desc":
+    "Собираются щедрый стол, дары и душевные беседы. Ярчайшее проявление национального гостеприимства ждёт вас.",
+  "schedule.brideGreeting.title": "Salom kelin",
+  "schedule.brideGreeting.desc":
+    "Невеста встречает гостей новой семьи с нежной улыбкой и искренним приветствием. Традиция и счастье встречаются сердцем к сердцу.",
   "section.ourStory": "Наша история",
   "section.aboutEvent": "О мероприятии",
   "section.scheduleTitle": "Программа свадьбы",

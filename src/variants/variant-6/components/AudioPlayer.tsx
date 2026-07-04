@@ -25,7 +25,7 @@ export default function AudioPlayer() {
       audio.pause();
       audioRef.current = null;
     };
-  }, []);
+  }, [variant6Config.musicSrc]);
 
   function toggle() {
     if (!audioRef.current || !available) return;

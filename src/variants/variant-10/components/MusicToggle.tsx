@@ -20,7 +20,7 @@ export default function MusicToggle() {
       audioRef.current?.pause();
       audioRef.current = null;
     };
-  }, []);
+  }, [variant10Config.musicSrc]);
 
   function toggle() {
     if (!audioRef.current || !available) return;

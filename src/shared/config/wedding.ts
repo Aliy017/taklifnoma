@@ -25,10 +25,10 @@ export const weddingConfig = {
     mapsLink: `https://maps.google.com/?q=${LAT},${LNG}`,
   },
   morningSchedule: [
-    { time: "07:30", title: "Mehmonlarni kutib olish", desc: "Issiq qarshi olish" },
-    { time: "09:00", title: "To'y boshlanishi", desc: "Nikoh marosimi va duo" },
-    { time: "11:00", title: "Osh dasturxoni", desc: "An'anaviy dasturxon" },
-    { time: "13:00", title: "Kelin salom", desc: "Kelinning yangi oilaga salomi" },
+    { time: "07:30", title: "Mehmonlar eshigi ochiladi", desc: "Har bir mehmon — bu kunning eng qadrli buyurtmasi. Iliq tabassum, samimiy so'zlar va qalbili qarshi olish bayram ruhini yoqadi." },
+    { time: "09:00", title: "Muqaddas uchrashuv", desc: "Alloh nomi bilan ikki yurak birlasadi. Nikoh marosimi va duo — abadiy va'da beriladigan eng pok lahzalar." },
+    { time: "11:00", title: "Bayram dasturxoni", desc: "Mevali dasturxon, boy sovg'alar va hasratli suhbatlar jamlanadi. Milliy mehmondo'stlikning eng yorqin ifodasi sizni kutmoqda." },
+    { time: "13:00", title: "Kelin salomi", desc: "Yangi oilasining mehmonlarini shirin tabassum va samimiy salom bilan kutib oladi. An'ana va baxt bir lahzada, yurakdan yurakka uchrashadi." },
   ],
 } as const;
 

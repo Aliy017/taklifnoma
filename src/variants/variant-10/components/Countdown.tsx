@@ -72,7 +72,7 @@ export default function Countdown() {
     setTimeLeft(calculateTimeLeft(variant10Config.weddingDateISO));
     const timer = setInterval(() => setTimeLeft(calculateTimeLeft(variant10Config.weddingDateISO)), 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [variant10Config.weddingDateISO]);
 
   const isPast =
     mounted &&

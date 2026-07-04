@@ -38,9 +38,15 @@ interface SparkleParticle {
   rotate: number;
 }
 
-function collectLetterAnchors(element: HTMLElement, container: DOMRect): Anchor[] {
+function collectLetterAnchors(
+  element: HTMLElement,
+  container: DOMRect,
+  theme: SparkleThemeId
+): Anchor[] {
   const anchors: Anchor[] = [];
   const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+  const lift = theme === "variant-5" ? 2 : 0;
+  const anchorRatio = theme === "variant-5" ? 0.34 : 0.38;
 
   let node: Node | null = walker.nextNode();
   while (node) {
@@ -56,7 +62,7 @@ function collectLetterAnchors(element: HTMLElement, container: DOMRect): Anchor[
 
       anchors.push({
         x: rect.left + rect.width / 2 - container.left,
-        y: rect.top + rect.height * 0.38 - container.top,
+        y: rect.top + rect.height * anchorRatio - container.top - lift,
       });
     }
     node = walker.nextNode();
@@ -70,24 +76,27 @@ function randomSparkle(
   colors: string[],
   intensity: "high" | "normal",
   premium: boolean,
-  slow: boolean
+  slow: boolean,
+  theme: SparkleThemeId
 ): SparkleParticle {
   const angle = -Math.PI / 2 + (Math.random() - 0.5) * 0.65;
+  const distanceBoost = theme === "variant-5" ? 4 : 0;
   const distance = slow
-    ? 12 + Math.random() * 16
+    ? 12 + Math.random() * 16 + distanceBoost
     : premium
-      ? 10 + Math.random() * 14
+      ? 10 + Math.random() * 14 + distanceBoost
       : intensity === "high"
-        ? 14 + Math.random() * 22
-        : 11 + Math.random() * 18;
+        ? 14 + Math.random() * 22 + distanceBoost
+        : 11 + Math.random() * 18 + distanceBoost;
+  const lift = theme === "variant-5" ? 1 : 0;
   const shapes: SparkleParticle["shape"][] = ["star", "diamond", "dot"];
 
   return {
     id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
     x: anchor.x + (Math.random() - 0.5) * 4,
-    y: anchor.y + (Math.random() - 0.5) * 2.5,
+    y: anchor.y - lift + (Math.random() - 0.5) * 2.5,
     dx: Math.cos(angle) * distance,
-    dy: Math.sin(angle) * distance,
+    dy: Math.sin(angle) * distance - (theme === "variant-5" ? 1 : 0),
     size: slow
       ? 3 + Math.random() * 4
       : premium
@@ -185,11 +194,12 @@ export default function SparkleHeading({
     if (!wrap || !heading || !sparkles) return;
 
     const rect = wrap.getBoundingClientRect();
-    const next = collectLetterAnchors(heading, rect);
+    const next = collectLetterAnchors(heading, rect, theme);
     setAnchors(next);
 
     const step = premiumMobile ? 2 : 2;
     const maxTw = premiumMobile ? 12 : 18;
+    const twinkleLift = theme === "variant-5" ? 1 : 0;
 
     const wrapWidth = Math.max(rect.width, 1);
 
@@ -199,8 +209,8 @@ export default function SparkleHeading({
         .slice(0, maxTw)
         .map((a, i) => ({
           id: `tw-${i}-${a.x.toFixed(1)}-${a.y.toFixed(1)}`,
-          x: a.x,
-          y: a.y,
+          x: a.x + (theme === "variant-5" ? (Math.random() - 0.5) * 4 : 0),
+          y: a.y - twinkleLift + (theme === "variant-5" ? Math.random() * 2 : 0),
           delay:
             premiumMobile
               ? (a.x / wrapWidth) * 5.5 + i * 0.06
@@ -209,7 +219,7 @@ export default function SparkleHeading({
                 : (a.x / wrapWidth) * 7.5 + i * 0.05,
         }))
     );
-  }, [pace, premiumMobile, sparkles]);
+  }, [pace, premiumMobile, sparkles, theme]);
 
   useLayoutEffect(() => {
     measure();
@@ -260,7 +270,7 @@ export default function SparkleHeading({
       const batch: SparkleParticle[] = [];
       for (let i = 0; i < count; i += 1) {
         const anchor = anchors[Math.floor(Math.random() * anchors.length)];
-        batch.push(randomSparkle(anchor, palette.sparkles, intensity, false, pace === "slow"));
+        batch.push(randomSparkle(anchor, palette.sparkles, intensity, false, pace === "slow", theme));
       }
 
       setParticles((prev) => [...prev, ...batch].slice(-maxParticles));
@@ -281,7 +291,7 @@ export default function SparkleHeading({
       window.clearInterval(interval);
       window.clearInterval(burstInterval);
     };
-  }, [anchors, intensity, isVisible, pace, palette.sparkles, useJsParticles]);
+  }, [anchors, intensity, isVisible, pace, palette.sparkles, useJsParticles, theme]);
 
   useEffect(() => {
     if (!isVisible) setParticles([]);

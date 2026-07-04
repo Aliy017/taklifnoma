@@ -11,7 +11,7 @@ import { useInviteCopy } from "@/shared/config/invite-copy";
 export default function Hero() {
   const variant4Config = useVariantConfig(variant4ConfigBase);
   const lite = useLiteMode();
-  const { groom, bride, weddingType, displayDate } = variant4Config;
+  const { groom, bride, displayDate } = variant4Config;
   const { inviteJourney } = useInviteCopy();
 
   const archContent = (
@@ -47,7 +47,7 @@ export default function Hero() {
           بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
         </p>
         <p className="mb-6 text-xs uppercase tracking-[0.35em] text-white/50">
-          Bismillahir Rahmonir Rahim
+          Bismillahir Rohmanir Rohim
         </p>
 
         <div className="v4-divider mx-auto mb-8 max-w-xs" />

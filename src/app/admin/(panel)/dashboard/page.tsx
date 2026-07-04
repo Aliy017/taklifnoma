@@ -53,7 +53,7 @@ export default function DashboardPage() {
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         <section className="admin-stat-card p-5">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="font-serif text-lg font-semibold text-[#0f2744]">So'nggi mijozlar</h2>
+            <h2 className="font-serif text-lg font-semibold text-[#0f2744]">So&apos;nggi mijozlar</h2>
             <Link href="/admin/clients" className="flex items-center gap-1 text-xs font-medium text-[#c9a84c] hover:underline">
               Barchasi <ArrowRight className="h-3 w-3" />
             </Link>

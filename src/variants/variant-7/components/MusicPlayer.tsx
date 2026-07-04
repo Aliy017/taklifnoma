@@ -22,7 +22,7 @@ export default function MusicPlayer() {
       audioRef.current?.pause();
       audioRef.current = null;
     };
-  }, []);
+  }, [variant7Config.musicSrc]);
 
   function toggle() {
     if (!audioRef.current || !available) return;

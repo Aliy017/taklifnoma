@@ -5,15 +5,18 @@ import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import type { ReactNode } from "react";
 
 const spring = { type: "spring" as const, stiffness: 260, damping: 22 };
+const premiumSpring = { type: "spring" as const, stiffness: 220, damping: 20 };
 
 export default function ScrollReveal({
   children,
   className = "",
   delay = 0,
+  premium = false,
 }: {
   children: ReactNode;
   className?: string;
   delay?: number;
+  premium?: boolean;
 }) {
   const lite = useLiteMode();
 
@@ -22,10 +25,18 @@ export default function ScrollReveal({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={
+        premium
+          ? { opacity: 0, y: 40, scale: 0.94, filter: "blur(6px)" }
+          : { opacity: 0, y: 32 }
+      }
+      whileInView={
+        premium
+          ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }
+          : { opacity: 1, y: 0 }
+      }
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ ...spring, delay }}
+      transition={{ ...(premium ? premiumSpring : spring), delay }}
     >
       {children}
     </motion.div>

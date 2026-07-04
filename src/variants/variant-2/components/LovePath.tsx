@@ -87,37 +87,36 @@ export default function LovePath() {
 
         <div className="relative">
           <div className="v2-love-rail hidden sm:block" aria-hidden />
-          <div className="v2-love-scroll flex gap-4 overflow-x-auto pb-4 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:pb-0 lg:grid-cols-4" data-lenis-prevent-touch>
+          <div className="v2-love-scroll flex gap-4 overflow-x-auto pb-4 sm:grid sm:grid-cols-2 sm:items-stretch sm:gap-5 sm:overflow-visible sm:pb-0 lg:grid-cols-4" data-lenis-prevent-touch>
             {story.map((item, i) => {
               const isActive = activeStory === i;
               const card = (
                 <button
                   type="button"
                   onClick={() => setActiveStory(i)}
-                  className="v2-hex-trigger group w-[min(78vw,17rem)] shrink-0 sm:w-auto"
+                  className="v2-hex-trigger group h-full w-[min(78vw,17rem)] shrink-0 sm:w-auto"
                 >
                   <HexSurface
-                    variant={isActive ? "active" : "default"}
-                    className="v2-moment-card h-full"
-                    bodyClassName="p-5 text-left"
+                    variant="default"
+                    className={`v2-moment-card h-full ${isActive ? "v2-moment-card--active" : ""}`}
+                    bodyClassName="v2-moment-card-body flex flex-col items-center justify-center p-5 text-center"
                   >
                   <SparkleHeading
                     theme="variant-2"
                     as="h3"
                     sparkles={false}
-                    className="font-serif text-base font-semibold text-white sm:text-lg"
+                    className="mx-auto font-serif text-base font-semibold text-white sm:text-lg"
                   >
                     {item.title}
                   </SparkleHeading>
                   <p className="mt-2 text-sm leading-relaxed text-[#c0c8d4]/75">{item.desc}</p>
-                  <div className="v2-moment-glow" aria-hidden />
                   </HexSurface>
                 </button>
               );
 
               if (lite) {
                 return (
-                  <div key={`${item.title}-${i}`} className="shrink-0 sm:shrink">
+                  <div key={`${item.title}-${i}`} className="h-full shrink-0 sm:shrink">
                     {card}
                   </div>
                 );
@@ -130,7 +129,7 @@ export default function LovePath() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.5, delay: i * 0.08 }}
-                  className="shrink-0 sm:shrink"
+                  className="h-full shrink-0 sm:shrink"
                 >
                   {card}
                 </motion.div>

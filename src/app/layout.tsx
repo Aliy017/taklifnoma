@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Montserrat } from "next/font/google";
+import { Playfair_Display, Montserrat, Nunito } from "next/font/google";
 import "./globals.css";
 import "./sparkle-heading.css";
 import WeddingMusicPrefetch from "@/shared/components/WeddingMusicPrefetch";
@@ -15,6 +15,13 @@ const playfair = Playfair_Display({
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin", "latin-ext", "cyrillic"],
+  display: "swap",
+});
+
+const nunito = Nunito({
+  variable: "--font-nunito",
+  subsets: ["latin", "latin-ext", "cyrillic"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -36,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uz" className={`${playfair.variable} ${montserrat.variable} h-full antialiased`}>
+    <html lang="uz" className={`${playfair.variable} ${montserrat.variable} ${nunito.variable} h-full antialiased`}>
       <head>
         <link
           rel="preload"

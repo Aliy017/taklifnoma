@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
 import { useLenisScrollLock } from "@/shared/hooks/useLenisScrollLock";
@@ -19,7 +18,6 @@ interface EnvelopeIntroProps {
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function EnvelopeIntro({ onOpen, onRevealStart }: EnvelopeIntroProps) {
-  const lite = useLiteMode();
   const { t } = useLocaleOptional();
   const { groom, bride } = useVariantConfig(variant2ConfigBase);
   const [opening, setOpening] = useState(false);

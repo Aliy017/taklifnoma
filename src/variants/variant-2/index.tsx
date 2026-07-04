@@ -40,7 +40,7 @@ export default function Variant2Page() {
         <div className="v2-divider v2-divider--hex mx-auto my-6 max-w-[120px]" />
         <p className="text-xs tracking-wide text-[#c0c8d4]/50">{t("invite.blessing")}</p>
       </footer>
-      <VariantBottomBar variantId="variant-2" accent="#8b9dc3" />
+      <VariantBottomBar variantId="variant-2" accent="#c9a84c" />
     </>
   );
 

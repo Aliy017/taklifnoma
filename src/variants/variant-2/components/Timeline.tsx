@@ -12,6 +12,9 @@ import { variant2Config as variant2ConfigBase } from "../config";
 
 const STEP_ICONS = ["✦", "♡", "✿"] as const;
 
+const scheduleBodyClass =
+  "flex w-full flex-col items-center gap-3 p-5 text-center sm:gap-4 sm:p-6";
+
 export default function Timeline() {
   const variant2Config = useVariantConfig(variant2ConfigBase);
   const lite = useLiteMode();
@@ -29,102 +32,84 @@ export default function Timeline() {
           </SparkleHeading>
         </div>
 
-        <div className="relative">
-          <div className="v2-timeline-line absolute bottom-4 left-[23px] top-4 w-px sm:left-[27px]" />
+        <div className="space-y-3">
+          {schedule.map((item, i) => {
+            const isActive = active === i;
+            const icon = STEP_ICONS[i % STEP_ICONS.length];
 
-          <div className="space-y-3">
-            {schedule.map((item, i) => {
-              const isActive = active === i;
-              const icon = STEP_ICONS[i % STEP_ICONS.length];
-
-              if (lite) {
-                return (
-                  <button
-                    key={`${item.title}-${i}`}
-                    type="button"
-                    onClick={() => setActive(i)}
-                    className="v2-hex-trigger v2-schedule-row relative w-full text-left"
-                  >
-                    <HexSurface
-                      variant={isActive ? "active" : "subtle"}
-                      bodyClassName="flex w-full items-start gap-4 p-4 sm:gap-5"
-                    >
-                    <div className="relative z-10 flex shrink-0 flex-col items-center">
-                      <div
-                        className={`v2-step-badge ${isActive ? "v2-step-badge--active" : ""}`}
-                      >
-                        <span className="text-sm">{icon}</span>
-                      </div>
-                    </div>
-
-                    <div className="flex-1 pt-0.5">
-                      <h3
-                        className={`font-serif text-base font-semibold sm:text-xl ${
-                          isActive ? "text-white v2-glow-text" : "text-[#c0c8d4]"
-                        }`}
-                      >
-                        {item.title}
-                      </h3>
-                      {isActive && (
-                        <p className="mt-2 text-sm leading-relaxed text-[#c0c8d4]/75">{item.desc}</p>
-                      )}
-                    </div>
-                    </HexSurface>
-                  </button>
-                );
-              }
-
+            if (lite) {
               return (
-                <motion.button
+                <button
                   key={`${item.title}-${i}`}
                   type="button"
                   onClick={() => setActive(i)}
-                  className="v2-hex-trigger v2-schedule-row relative w-full text-left transition"
-                  whileHover={{ x: 4 }}
-                  layout
+                  className="v2-hex-trigger v2-schedule-row w-full"
                 >
                   <HexSurface
                     variant={isActive ? "active" : "subtle"}
-                    bodyClassName="flex w-full items-start gap-5 p-4"
+                    bodyClassName={scheduleBodyClass}
                   >
-                  <div className="relative z-10 flex shrink-0 flex-col items-center">
-                    <motion.div
-                      className={`v2-step-badge ${isActive ? "v2-step-badge--active" : ""}`}
-                      animate={{
-                        boxShadow: isActive
-                          ? "0 0 28px rgba(255,255,255,0.18)"
-                          : "0 0 0 rgba(255,255,255,0)",
-                      }}
-                    >
+                    <div className={`v2-step-badge ${isActive ? "v2-step-badge--active" : ""}`}>
                       <span className="text-sm">{icon}</span>
-                    </motion.div>
-                  </div>
-
-                  <div className="flex-1 pt-0.5">
+                    </div>
                     <h3
-                      className={`font-serif text-lg font-semibold sm:text-xl ${
+                      className={`font-serif text-base font-semibold sm:text-xl ${
                         isActive ? "text-white v2-glow-text" : "text-[#c0c8d4]"
                       }`}
                     >
                       {item.title}
                     </h3>
-                    <motion.p
-                      initial={false}
-                      animate={{
-                        height: isActive ? "auto" : 0,
-                        opacity: isActive ? 1 : 0,
-                        marginTop: isActive ? 8 : 0,
-                      }}
-                      className="overflow-hidden text-sm leading-relaxed text-[#c0c8d4]/75"
-                    >
-                      {item.desc}
-                    </motion.p>
-                  </div>
+                    {isActive && (
+                      <p className="max-w-md text-sm leading-relaxed text-[#c0c8d4]/75">{item.desc}</p>
+                    )}
                   </HexSurface>
-                </motion.button>
+                </button>
               );
-            })}
-          </div>
+            }
+
+            return (
+              <motion.button
+                key={`${item.title}-${i}`}
+                type="button"
+                onClick={() => setActive(i)}
+                className="v2-hex-trigger v2-schedule-row w-full transition"
+                layout
+              >
+                <HexSurface
+                  variant={isActive ? "active" : "subtle"}
+                  bodyClassName={scheduleBodyClass}
+                >
+                  <motion.div
+                    className={`v2-step-badge ${isActive ? "v2-step-badge--active" : ""}`}
+                    animate={{
+                      boxShadow: isActive
+                        ? "0 0 28px rgba(255,255,255,0.18)"
+                        : "0 0 0 rgba(255,255,255,0)",
+                    }}
+                  >
+                    <span className="text-sm">{icon}</span>
+                  </motion.div>
+                  <h3
+                    className={`font-serif text-lg font-semibold sm:text-xl ${
+                      isActive ? "text-white v2-glow-text" : "text-[#c0c8d4]"
+                    }`}
+                  >
+                    {item.title}
+                  </h3>
+                  <motion.p
+                    initial={false}
+                    animate={{
+                      height: isActive ? "auto" : 0,
+                      opacity: isActive ? 1 : 0,
+                    }}
+                    className="max-w-md overflow-hidden text-sm leading-relaxed text-[#c0c8d4]/75"
+                  >
+                    {item.desc}
+                  </motion.p>
+                </HexSurface>
+              </motion.button>
+            );
+          })}
         </div>
       </div>
     </section>

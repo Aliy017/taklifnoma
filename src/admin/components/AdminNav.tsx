@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LayoutDashboard, Users, MessageSquareHeart, LogOut, Sparkles, Settings, Moon, Sun } from "lucide-react";
 import { motion } from "framer-motion";
-import { checkAuthApi, logoutApi } from "../lib/auth";
+import { logoutApi } from "../lib/auth";
 import { useRouter } from "next/navigation";
 import { useAdminTheme } from "../hooks/useAdminTheme";
 

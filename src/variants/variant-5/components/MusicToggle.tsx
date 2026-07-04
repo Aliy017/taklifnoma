@@ -24,7 +24,7 @@ export default function MusicToggle() {
       audioRef.current?.pause();
       audioRef.current = null;
     };
-  }, []);
+  }, [variant5Config.musicSrc]);
 
   function toggle() {
     if (!audioRef.current || !available) return;

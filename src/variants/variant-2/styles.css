@@ -105,6 +105,20 @@
   font-size: 0.875rem;
   line-height: 1.6;
   color: rgba(192, 200, 212, 0.65);
+  text-align: center;
+}
+
+.variant-2 .v2-detail-block {
+  text-align: center;
+}
+
+.variant-2 .v2-detail-label {
+  margin-bottom: 0.5rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--v2-accent);
 }
 
 .variant-2 .v2-divider {
@@ -182,12 +196,25 @@
   border-color: rgba(192, 200, 212, 0.12);
 }
 
-.variant-2 .v2-moment-card--active {
-  border-color: rgba(201, 168, 76, 0.35);
+.variant-2 .v2-moment-card-body {
+  min-height: 11.5rem;
+}
+
+.variant-2 .v2-moment-card.v2-moment-card--active {
+  background: linear-gradient(
+    135deg,
+    rgba(201, 168, 76, 0.75),
+    rgba(240, 244, 250, 0.35),
+    rgba(201, 168, 76, 0.55)
+  );
+}
+
+.variant-2 .v2-moment-card.v2-moment-card--active .v2-hex-panel-body {
+  background: rgba(12, 26, 48, 0.88);
   box-shadow:
-    0 12px 36px rgba(0, 0, 0, 0.38),
-    0 0 28px rgba(201, 168, 76, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 14px 40px rgba(0, 0, 0, 0.42),
+    0 0 32px rgba(201, 168, 76, 0.1);
 }
 
 .variant-2 .v2-moment-glow {
@@ -576,6 +603,49 @@
   -webkit-clip-path: var(--v2-hex-clip);
   border-radius: 0;
   background: radial-gradient(circle, rgba(201, 168, 76, 0.18), transparent 70%);
+}
+
+/* ── v2 controls — til tugmasi va musiqa ── */
+.variant-2 .invitation-controls .language-switcher-btn--dark {
+  background: rgba(10, 22, 40, 0.92);
+  border-color: rgba(201, 168, 76, 0.32);
+  color: rgba(232, 236, 242, 0.96);
+}
+
+.variant-2 .invitation-controls .language-switcher-btn--dark:hover,
+.variant-2 .invitation-controls .language-switcher-btn--dark:focus-visible {
+  background: rgba(15, 33, 64, 0.96);
+  border-color: rgba(201, 168, 76, 0.52);
+  color: #fff;
+  box-shadow:
+    0 0 0 1px rgba(201, 168, 76, 0.14),
+    0 4px 18px rgba(201, 168, 76, 0.24);
+}
+
+.variant-2 .invitation-controls .language-switcher-btn--dark::before {
+  background: linear-gradient(
+    135deg,
+    rgba(201, 168, 76, 0.35),
+    rgba(139, 157, 195, 0.2),
+    rgba(201, 168, 76, 0.18)
+  );
+  opacity: 0.75;
+}
+
+.variant-2 .invitation-controls .language-switcher-orbit {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(201, 168, 76, 0.45) 72deg,
+    transparent 144deg,
+    rgba(139, 157, 195, 0.35) 216deg,
+    transparent 288deg,
+    rgba(201, 168, 76, 0.35) 360deg
+  );
+}
+
+.variant-2 .invitation-controls .language-switcher-glow {
+  background: radial-gradient(circle, rgba(201, 168, 76, 0.28), transparent 72%);
 }
 
 /* ── v2 Hero — katta 6 burchak + tashqi yulduz burst ── */

@@ -11,6 +11,7 @@ import { checkModeratorUnlock, MODERATOR_KEY, readModeratorMode, saveModeratorMo
 import { sparkleThemes } from "@/shared/config/sparkle-themes";
 import type { SparkleThemeId } from "@/shared/config/sparkle-themes";
 import { useClientSlug } from "@/shared/context/WeddingContext";
+import { V5StageAmbience } from "@/shared/components/V5SectionStage";
 
 export type WishesTheme =
   | "variant-1"
@@ -157,17 +158,17 @@ const themes: Record<
     accent: sparkleThemes["variant-4"].accent,
   },
   "variant-5": {
-    section: "px-4 py-14 sm:py-20",
+    section: "px-4 py-14 sm:py-20 v5-section-stage v5-section-stage--wishes",
     label: "text-xs uppercase tracking-[0.3em] text-[#C9A087]",
     subtitle: "text-[#8A9A5B]/70",
-    card: "v5-card rounded-3xl p-5 sm:p-7",
+    card: "v5-showcase-card v5-showcase-card--wishes v5-card rounded-3xl p-5 sm:p-7 text-left wow-card-interactive",
     input:
-      "w-full rounded-xl border border-[#C9A087]/30 bg-white/80 px-4 py-3 text-[#3d4a38] outline-none focus:border-[#8A9A5B]",
-    button: "border border-[#C9A087]/30 text-[#8A9A5B] hover:border-[#8A9A5B]",
-    buttonActive: "bg-[#8A9A5B] text-white border-[#8A9A5B]",
+      "v5-wishes-input w-full rounded-xl border border-[#C9A087]/30 bg-white/80 px-4 py-3 text-[#3d4a38] outline-none focus:border-[#8A9A5B]",
+    button: "v5-wishes-side-btn rounded-xl border border-[#C9A087]/30 text-[#8A9A5B] hover:border-[#8A9A5B]",
+    buttonActive: "v5-wishes-side-btn v5-wishes-side-btn--active rounded-xl bg-[#8A9A5B] text-white border-[#8A9A5B]",
     sideTag: "rounded-full bg-[#8A9A5B]/12 px-2.5 py-0.5 text-xs text-[#6b7a45]",
-    wishCard: "wish-card-luxury rounded-2xl border border-[#C9A087]/20 bg-white/65 p-4",
-    wishCardTop: "wish-card-luxury rounded-2xl border border-[#C9A087]/45 bg-gradient-to-br from-white/85 to-[#8A9A5B]/12 p-4 shadow-md",
+    wishCard: "wish-card-luxury rounded-2xl border border-[#C9A087]/20 bg-white/65 p-4 text-left",
+    wishCardTop: "wish-card-luxury rounded-2xl border border-[#C9A087]/45 bg-gradient-to-br from-white/85 to-[#8A9A5B]/12 p-4 shadow-md text-left",
     name: "font-semibold text-[#3d4a38]",
     message: "text-sm leading-relaxed text-[#6b7a45]/85",
     meta: "text-xs text-[#C9A087]/70",
@@ -461,7 +462,8 @@ export default function WishesSection({
       id={embedded ? undefined : "tabriklar"}
       className={embedded ? undefined : `mobile-section scroll-mt-20 ${tTheme.section}`}
     >
-      <div className={embedded ? "" : "mx-auto max-w-2xl"}>
+      {theme === "variant-5" && !embedded && <V5StageAmbience tone="wishes" />}
+      <div className={embedded ? "" : "mx-auto max-w-2xl v5-section-stage__content relative z-[1]"}>
         {!embedded && (
         <div
           className={`mb-8 text-center sm:mb-10${
@@ -540,7 +542,9 @@ export default function WishesSection({
               <button
                 type="submit"
                 disabled={submitting}
-                className={`w-full py-3.5 font-medium transition disabled:opacity-60 ${tTheme.buttonActive}`}
+                className={`w-full py-3.5 font-medium transition disabled:opacity-60 ${tTheme.buttonActive}${
+                  theme === "variant-5" ? " v5-wishes-submit" : ""
+                }`}
               >
                 {submitting ? t("wishes.submitting") : t("wishes.submit")}
               </button>

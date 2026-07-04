@@ -13,7 +13,7 @@ const spring = { type: "spring" as const, stiffness: 200, damping: 22 };
 export default function Hero() {
   const variant8Config = useVariantConfig(variant8ConfigBase);
   const lite = useLiteMode();
-  const { groom, bride, displayDate, weddingType } = variant8Config;
+  const { groom, bride, displayDate } = variant8Config;
   const { inviteHearts } = useInviteCopy();
 
   const avatar = (
@@ -43,7 +43,7 @@ export default function Hero() {
     <section className="relative flex min-h-[100dvh] flex-col items-center justify-center px-4 py-20">
       <div className="relative z-10 mx-auto max-w-3xl text-center">
         <p className="mb-2 text-xs uppercase tracking-[0.4em] text-[#8b9dc3]">
-          Bismillahir Rahmonir Rahim
+          Bismillahir Rohmanir Rohim
         </p>
 
         <motion.div

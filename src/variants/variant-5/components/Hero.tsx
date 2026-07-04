@@ -6,15 +6,16 @@ import { motion } from "framer-motion";
 import { variant5Config as variant5ConfigBase } from "../config";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
-import { useInviteCopy } from "@/shared/config/invite-copy";
+import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
+import V5SectionStage from "@/shared/components/V5SectionStage";
 
 const spring = { type: "spring" as const, stiffness: 200, damping: 18 };
 
 export default function Hero() {
   const variant5Config = useVariantConfig(variant5ConfigBase);
   const lite = useLiteMode();
-  const { groom, bride, displayDate, weddingType } = variant5Config;
-  const { inviteWedding } = useInviteCopy();
+  const { t } = useLocaleOptional();
+  const { groom, bride } = variant5Config;
 
   const frame = (
     <div className="v5-float-3d mx-auto">
@@ -39,17 +40,10 @@ export default function Hero() {
 
   return (
     <section className="relative flex min-h-[100dvh] flex-col items-center justify-center px-4 py-20">
-      <div className="relative z-10 mx-auto max-w-3xl text-center">
-        <p
-          className="mb-2 font-serif text-xl text-[#8A9A5B] sm:text-2xl"
-          dir="rtl"
-          lang="ar"
-        >
-          بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
-        </p>
-        <p className="mb-8 text-xs uppercase tracking-[0.35em] text-[#C9A087]/80">
-          Bismillahir Rahmonir Rahim
-        </p>
+      <V5SectionStage tone="hero" className="mx-auto w-full max-w-3xl">
+      <div className="relative z-10 text-center">
+        <p className="v5-section-label mb-3">{t("hero.bismillah")}</p>
+        <p className="v5-section-label mb-8 text-[#8A9A5B]/65">{t("hero.inviteLabel")}</p>
 
         {lite ? (
           frame
@@ -64,22 +58,34 @@ export default function Hero() {
         )}
 
         <div className="mt-10 flex flex-col items-center gap-5">
-          <div className="flex items-center gap-4 sm:gap-6">
-            <SparkleHeading theme="variant-5" as="h1" intensity="high" className="text-3xl font-bold sm:text-5xl md:text-6xl">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-x-6">
+            <SparkleHeading
+              theme="variant-5"
+              as="h1"
+              intensity="high"
+              className="text-3xl font-bold sm:text-5xl md:text-6xl"
+            >
               {groom}
             </SparkleHeading>
             <span className="font-serif text-2xl text-[#C9A087]/70 sm:text-4xl">&amp;</span>
-            <SparkleHeading theme="variant-5" as="h1" intensity="high" className="text-3xl font-bold sm:text-5xl md:text-6xl">
+            <SparkleHeading
+              theme="variant-5"
+              as="h2"
+              intensity="high"
+              className="text-3xl font-bold sm:text-5xl md:text-6xl"
+            >
               {bride}
             </SparkleHeading>
           </div>
 
           <div className="v5-divider mx-auto max-w-xs" />
 
-          <p className="mx-auto max-w-md text-base leading-relaxed text-[#6b7a45] sm:text-lg">
-            {inviteWedding}
+          <p className="text-base uppercase tracking-[0.28em] text-[#C9A087]/85 sm:text-[0.7rem]">
+            {t("hero.blessingWish")}
           </p>
-          <p className="text-sm text-[#C9A087]">{displayDate}</p>
+          <p className="mx-auto max-w-md text-base leading-relaxed text-[#6b7a45] sm:text-lg">
+            {t("invite.wedding")}
+          </p>
         </div>
 
         <motion.a
@@ -88,12 +94,13 @@ export default function Hero() {
           whileHover={lite ? undefined : { y: 4 }}
           transition={spring}
         >
-          <span className="text-xs uppercase tracking-widest">Pastga</span>
+          <span className="text-xs uppercase tracking-widest">{t("hero.scrollDown")}</span>
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
         </motion.a>
       </div>
+      </V5SectionStage>
     </section>
   );
 }

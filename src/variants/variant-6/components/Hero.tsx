@@ -30,7 +30,7 @@ export default function Hero() {
     <section className="relative flex min-h-[100dvh] flex-col items-center justify-center px-3 pb-24 pt-14 sm:px-4 sm:pb-28 sm:pt-16">
       <div className="relative z-10 mx-auto w-full max-w-2xl text-center">
         <p className="mb-3 text-[10px] uppercase tracking-[0.35em] v6-silver-text sm:text-xs">
-          Bismillahir Rahmonir Rahim
+          Bismillahir Rohmanir Rohim
         </p>
 
         <div className="mb-5 sm:mb-8">

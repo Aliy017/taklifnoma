@@ -5,6 +5,28 @@ export const variant5Config = {
   title: "Atlas bog'i",
   subtitle: "Krem, sage yashil va rose gold — zamonaviy milliy estetika",
   ...weddingConfig,
+  story: [
+    {
+      year: "2022",
+      title: "Birinchi uchrashuv",
+      desc: "Taqdir ularning yo'llarini birlashtirdi. Bir ko'rish — abadiy esda qolarli kun.",
+    },
+    {
+      year: "2023",
+      title: "Baxtli onlar",
+      desc: "Har bir suhbat, har bir duo — ularni yaqinlashtirdi va qalblarini bir qildi.",
+    },
+    {
+      year: "2024",
+      title: "Unashtiruv",
+      desc: "Oila a'zolari duosi bilan ikki yurak rasmiy ravishda birlashtirildi.",
+    },
+    {
+      year: "2026",
+      title: "To'y kuni",
+      desc: "Muqaddas marosim — yangi hayotning eng go'zal boshlanishi.",
+    },
+  ],
   locations: [
     {
       id: "mens-osh",

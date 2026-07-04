@@ -29,20 +29,16 @@ export default function VenueBlock() {
 
         <HexSurface variant="glow" bodyClassName="p-6 sm:p-8">
           <div className="space-y-7">
-            <div>
-              <p className="mb-2 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-[#8b9dc3]">
-                {t("nav.location")}
-              </p>
+            <div className="v2-detail-block">
+              <p className="v2-detail-label">{t("nav.location")}</p>
               <h3 className="font-serif text-xl font-semibold text-white sm:text-2xl">{venue.region}</h3>
               <p className="mt-1 text-sm leading-relaxed text-[#c0c8d4]/75">{venue.place}</p>
             </div>
 
             <div className="v2-divider" aria-hidden />
 
-            <div>
-              <p className="mb-2 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-[#8b9dc3]">
-                {t("venue.timeLabel")}
-              </p>
+            <div className="v2-detail-block">
+              <p className="v2-detail-label">{t("venue.timeLabel")}</p>
               <p className="font-serif text-lg font-medium text-white sm:text-xl">{displayDateTime}</p>
             </div>
 

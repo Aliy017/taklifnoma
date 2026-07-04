@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import LocaleShell from "@/shared/components/LocaleShell";
 import { useLocale } from "@/shared/i18n/LocaleContext";
@@ -29,7 +30,7 @@ function GreetingsInner() {
           </span>
           <h1 className="ln-soon-title">{copy.greetingsSoonTitle}</h1>
           <p className="ln-soon-body">{copy.greetingsSoonBody}</p>
-          <a href="/" className="ln-soon-back">
+          <Link href="/" className="ln-soon-back">
             <svg viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden>
               <path
                 d="M19 12H5M11 18l-6-6 6-6"
@@ -40,7 +41,7 @@ function GreetingsInner() {
               />
             </svg>
             {copy.greetingsSoonBack}
-          </a>
+          </Link>
         </motion.div>
       </section>
     </main>

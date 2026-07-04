@@ -14,7 +14,7 @@ const spring = { type: "spring" as const, stiffness: 200, damping: 20 };
 export default function Hero() {
   const variant7Config = useVariantConfig(variant7ConfigBase);
   const lite = useLiteMode();
-  const { groom, bride, displayDate, weddingType } = variant7Config;
+  const { groom, bride, displayDate } = variant7Config;
   const { inviteJourney } = useInviteCopy();
 
   const arch = (
@@ -48,7 +48,7 @@ export default function Hero() {
     <section className="relative flex min-h-[100dvh] flex-col items-center justify-center px-4 py-20">
       <div className="relative z-10 mx-auto max-w-3xl text-center">
         <p className="mb-2 text-xs uppercase tracking-[0.4em] text-[#C9A087]/80">
-          Bismillahir Rahmonir Rahim
+          Bismillahir Rohmanir Rohim
         </p>
 
         {lite ? (

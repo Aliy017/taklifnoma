@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { variant5Config as variant5ConfigBase } from "../config";
 import { useCountdownLabels } from "@/shared/hooks/useCountdownLabels";
 import ScrollReveal from "./ScrollReveal";
+import V5SectionStage from "@/shared/components/V5SectionStage";
 import SparkleHeading from "@/shared/components/SparkleHeading";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 
@@ -40,9 +41,9 @@ function TimeUnit({ value, label }: { value: number; label: string }) {
       whileHover={lite ? undefined : { scale: 1.05, y: -4 }}
       transition={spring}
     >
-      <div className="v5-card flex h-16 w-14 items-center justify-center rounded-2xl sm:h-20 sm:w-16">
+      <div className="v5-card v5-countdown-digit flex h-16 w-14 items-center justify-center sm:h-20 sm:w-16">
         {lite ? (
-          <span className="font-serif text-2xl font-bold v5-sage-text sm:text-3xl">{display}</span>
+          <span className="text-2xl font-bold v5-sage-text sm:text-3xl">{display}</span>
         ) : (
           <AnimatePresence mode="popLayout">
             <motion.span
@@ -51,7 +52,7 @@ function TimeUnit({ value, label }: { value: number; label: string }) {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -16, opacity: 0 }}
               transition={spring}
-              className="font-serif text-2xl font-bold v5-sage-text sm:text-3xl"
+              className="text-2xl font-bold v5-sage-text sm:text-3xl"
             >
               {display}
             </motion.span>
@@ -73,7 +74,7 @@ export default function Countdown() {
     setTimeLeft(calculateTimeLeft(variant5Config.weddingDateISO));
     const timer = setInterval(() => setTimeLeft(calculateTimeLeft(variant5Config.weddingDateISO)), 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [variant5Config.weddingDateISO]);
 
   const isPast =
     mounted &&
@@ -85,14 +86,16 @@ export default function Countdown() {
   const labels = useCountdownLabels(isPast);
 
   return (
-    <section id="about" className="mobile-section scroll-mt-20 relative z-10 px-4 py-16 sm:py-24">
-      <ScrollReveal className="mx-auto max-w-3xl text-center">
+    <section id="countdown" className="mobile-section scroll-mt-20 relative z-10 px-4 py-16 sm:py-24">
+      <V5SectionStage tone="countdown">
+      <ScrollReveal className="mx-auto max-w-3xl text-center" premium>
         <p className="mb-2 text-xs uppercase tracking-[0.3em] text-[#C9A087]">{labels.eyebrow}</p>
         <SparkleHeading theme="variant-5" as="h2" intensity="high" className="mb-10 text-2xl font-bold sm:text-4xl">
           {labels.heading}
         </SparkleHeading>
 
         {mounted ? (
+          <div className="v5-countdown-cluster">
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6">
             <TimeUnit value={timeLeft.days} label={labels.days} />
             <span className="mb-6 hidden text-xl text-[#C9A087]/50 sm:inline">·</span>
@@ -102,16 +105,20 @@ export default function Countdown() {
             <span className="mb-6 hidden text-xl text-[#C9A087]/50 sm:inline">·</span>
             <TimeUnit value={timeLeft.seconds} label={labels.seconds} />
           </div>
+          </div>
         ) : (
+          <div className="v5-countdown-cluster">
           <div className="flex justify-center gap-3 sm:gap-6">
-            {["Kun", "Soat", "Daqiqa", "Soniya"].map((label) => (
-              <div key={label} className="v5-card flex h-16 w-14 items-center justify-center rounded-2xl">
-                <span className="font-serif text-2xl text-[#8A9A5B]/40">--</span>
+            {[labels.days, labels.hours, labels.minutes, labels.seconds].map((label) => (
+              <div key={label} className="v5-card v5-countdown-digit flex h-16 w-14 items-center justify-center">
+                <span className="text-2xl text-[#8A9A5B]/40">--</span>
               </div>
             ))}
           </div>
+          </div>
         )}
       </ScrollReveal>
+      </V5SectionStage>
     </section>
   );
 }

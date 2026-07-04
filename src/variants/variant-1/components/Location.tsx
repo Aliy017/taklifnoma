@@ -58,13 +58,6 @@ export default function Location() {
         </div>
 
         <div className="v1-card overflow-hidden rounded-sm">
-          <div className="border-b border-[#d4af37]/15 px-6 py-4">
-            <p className="text-sm font-medium text-white/80">{t("venue.mapHeading")}</p>
-            <p className="mt-0.5 text-xs text-white/45">
-              {venue.region}
-              {venue.place ? `, ${venue.place}` : ""}
-            </p>
-          </div>
           <MapEmbed
             mapUrl={venue.mapUrl}
             mapsLink={venue.mapsLink}

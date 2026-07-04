@@ -15,7 +15,7 @@ export default function Hero() {
     <section className="relative flex min-h-[100dvh] items-center justify-center px-4 py-20 sm:py-24">
       <div className="relative z-10 mx-auto max-w-5xl text-center">
         <p className="mb-3 text-xs uppercase tracking-[0.35em] text-[#b8876a]">
-          Bismillahir Rahmonir Rahim
+          Bismillahir Rohmanir Rohim
         </p>
 
         <SparkleHeading theme="variant-3" as="h1" intensity="high" className="text-3xl font-bold sm:text-5xl md:text-6xl">
