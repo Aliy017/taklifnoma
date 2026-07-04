@@ -28,27 +28,29 @@ export default function Hero() {
 
   useGSAP(
     () => {
-      const mm = gsap.matchMedia();
+      if (!root.current) return;
+      const words = root.current.querySelectorAll<HTMLElement>(".ln-hero-word");
+      if (!words.length) return;
 
-      // Harakat yoqilgan: niqob ortidan so'zlarning ko'tarilishi (stagger)
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.fromTo(
-          ".ln-hero-word",
-          { yPercent: 118 },
-          {
-            yPercent: 0,
-            duration: 1.05,
-            ease: "power4.out",
-            stagger: 0.09,
-            delay: 0.25,
-          }
-        );
-      });
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduced) {
+        gsap.set(words, { yPercent: 0, opacity: 1 });
+        return;
+      }
 
-      // Reduced-motion: darhol ko'rsatiladi
-      mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set(".ln-hero-word", { yPercent: 0 });
-      });
+      gsap.fromTo(
+        words,
+        { yPercent: 110, opacity: 0.4 },
+        {
+          yPercent: 0,
+          opacity: 1,
+          duration: 1.05,
+          ease: "power4.out",
+          stagger: 0.09,
+          delay: 0.2,
+          clearProps: "transform,opacity",
+        }
+      );
     },
     { scope: root }
   );

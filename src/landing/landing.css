@@ -20,11 +20,15 @@
 html:has(.ln-root),
 html:has(.ln-root) body {
   background: var(--ln-bg-0);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .ln-root {
   position: relative;
   width: 100%;
+  max-width: 100vw;
   min-height: 100dvh;
   overflow-x: clip;
   color: var(--ln-ink);
@@ -231,10 +235,14 @@ html:has(.ln-root) body {
   vertical-align: top;
 }
 
+.ln-hero-word-wrap + .ln-hero-word-wrap {
+  margin-left: 0.28em;
+}
+
 .ln-hero-word {
   display: inline-block;
-  transform: translateY(118%);
-  padding: 0 0.16em;
+  padding: 0 0.02em;
+  will-change: transform, opacity;
 }
 
 .ln-hero-word--accent {
@@ -630,10 +638,26 @@ html:has(.ln-root) body {
 }
 
 /* ---------- Reduced motion ---------- */
+@media (max-width: 767px) {
+  .ln-hero {
+    padding-inline: 1rem;
+  }
+
+  .ln-choose {
+    padding-inline: 1rem;
+  }
+
+  .ln-card {
+    min-height: 18rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ln-hero-word {
-    transform: translateY(0);
+    opacity: 1;
+    transform: none;
   }
+
   .ln-hero-scroll-line,
   .ln-card-sheen {
     animation: none;
