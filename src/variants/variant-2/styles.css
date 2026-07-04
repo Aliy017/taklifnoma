@@ -932,6 +932,51 @@
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
+@media (max-width: 639px) {
+  .variant-2 .v2-hero {
+    min-height: 100dvh;
+    min-height: 100svh;
+    justify-content: flex-start;
+    padding-top: max(1.5rem, env(safe-area-inset-top));
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .variant-2 .v2-hero-inner--hex {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 0;
+    padding-bottom: 4.25rem;
+  }
+
+  .variant-2 .v2-hex-stage {
+    width: min(86vw, 21rem);
+    margin-inline: auto;
+  }
+
+  .variant-2 .v2-hex-shell {
+    display: grid;
+    place-items: center;
+  }
+
+  .variant-2 .v2-hex-core {
+    width: 50%;
+    margin-inline: auto;
+  }
+
+  .variant-2 .v2-hero-scroll {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(1.15rem + env(safe-area-inset-bottom, 0px));
+    margin: 0 auto;
+    width: max-content;
+    max-width: calc(100% - 2rem);
+  }
+}
+
 @media (hover: hover) and (pointer: fine) {
   .variant-2 .v2-hero-scroll:hover {
     color: rgba(240, 244, 250, 0.98);
@@ -973,10 +1018,13 @@
 }
 
 @media (max-width: 768px), (pointer: coarse) {
-  .variant-2 .v2-hex-shell,
-  .variant-2 .v2-hero-scroll {
+  .variant-2 .v2-hex-shell {
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  .variant-2 .v2-hero-scroll {
+    opacity: 1 !important;
   }
 }
 
