@@ -6,6 +6,8 @@ import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
 import SparkleHeading from "@/shared/components/SparkleHeading";
+import HexOrnament from "./HexOrnament";
+import HexSurface from "./HexSurface";
 import { variant2Config as variant2ConfigBase } from "../config";
 
 export default function LovePath() {
@@ -25,19 +27,19 @@ export default function LovePath() {
   }, [lite, loveQuotes.length]);
 
   return (
-    <section id="story" className="mobile-section scroll-mt-20 px-4 py-16 sm:py-24">
+    <section id="story" className="v2-hex-section mobile-section scroll-mt-20 px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <div className="v2-section-header mb-10 text-center sm:mb-14">
-          <p className="v2-section-kicker">{t("section.ourStory")}</p>
+          <HexOrnament className="mx-auto mb-4" />
           <SparkleHeading theme="variant-2" as="h2" intensity="high" className="v2-section-title">
             {t("story.lovePathTitle")}
           </SparkleHeading>
           <p className="v2-section-subtitle mx-auto mt-3 max-w-md">{t("story.lovePathSubtitle")}</p>
         </div>
 
-        <div className="v2-glass v2-quote-carousel mb-10 rounded-2xl p-6 sm:mb-14 sm:p-8">
+        <HexSurface variant="glow" className="v2-quote-carousel mb-10 sm:mb-14" bodyClassName="p-6 sm:p-8">
           <div className="mb-4 flex items-center justify-center gap-2">
-            <span className="v2-quote-icon" aria-hidden>
+            <span className="v2-hex-icon v2-hex-icon--sm v2-quote-icon" aria-hidden>
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.45l.966 1.8c-3.125 1.87-4.966 4.45-4.966 6.641 0 1.083.38 1.99 1.138 2.741.757.75 1.857 1.153 3.105 1.153 1.616 0 3.096-.812 4.016-2.146l1.106 1.611C9.095 19.919 7.179 21 5.516 21 3.77 21 2.3 20.245 1.203 18.796.402 17.76 0 16.425 0 14.971c0-2.912 1.905-5.852 5.12-7.886l.966 1.8C3.85 9.485 2.352 11.83 2.352 14.03c0 1.5.536 2.676 1.231 3.291z" />
                 <path d="M14.583 17.321C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.45l.966 1.8c-3.125 1.87-4.966 4.45-4.966 6.641 0 1.083.38 1.99 1.138 2.741.757.75 1.857 1.153 3.105 1.153 1.616 0 3.096-.812 4.016-2.146l1.106 1.611C19.095 19.919 17.179 21 15.516 21c-1.746 0-3.216-.755-4.313-2.204-.801-1.036-1.203-2.371-1.203-3.825 0-2.912 1.905-5.852 5.12-7.886l.966 1.8c-2.236 1.6-3.734 3.945-3.734 6.145 0 1.5.536 2.676 1.231 3.291z" />
@@ -73,15 +75,15 @@ export default function LovePath() {
               <button
                 key={i}
                 type="button"
-                aria-label={`Iqtibos ${i + 1}`}
+                aria-label={t("story.quoteNav", { n: String(i + 1) })}
                 onClick={() => setActiveQuote(i)}
-                className={`h-1.5 rounded-full transition-all ${
-                  activeQuote === i ? "w-6 bg-white/70" : "w-1.5 bg-white/25 hover:bg-white/40"
+                className={`v2-hex-dot transition-all ${
+                  activeQuote === i ? "v2-hex-dot--active" : ""
                 }`}
               />
             ))}
           </div>
-        </div>
+        </HexSurface>
 
         <div className="relative">
           <div className="v2-love-rail hidden sm:block" aria-hidden />
@@ -92,16 +94,13 @@ export default function LovePath() {
                 <button
                   type="button"
                   onClick={() => setActiveStory(i)}
-                  className={`v2-glass v2-moment-card group w-[min(78vw,17rem)] shrink-0 rounded-2xl p-5 text-left transition sm:w-auto ${
-                    isActive ? "v2-moment-card--active" : ""
-                  }`}
+                  className="v2-hex-trigger group w-[min(78vw,17rem)] shrink-0 sm:w-auto"
                 >
-                  <div className="mb-4 flex items-center justify-between">
-                    <span className="v2-year-badge">{item.year}</span>
-                    <span className="text-[0.65rem] font-medium uppercase tracking-[0.2em] text-[#8b9dc3]/60">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                  </div>
+                  <HexSurface
+                    variant={isActive ? "active" : "default"}
+                    className="v2-moment-card h-full"
+                    bodyClassName="p-5 text-left"
+                  >
                   <SparkleHeading
                     theme="variant-2"
                     as="h3"
@@ -112,12 +111,13 @@ export default function LovePath() {
                   </SparkleHeading>
                   <p className="mt-2 text-sm leading-relaxed text-[#c0c8d4]/75">{item.desc}</p>
                   <div className="v2-moment-glow" aria-hidden />
+                  </HexSurface>
                 </button>
               );
 
               if (lite) {
                 return (
-                  <div key={item.year} className="shrink-0 sm:shrink">
+                  <div key={`${item.title}-${i}`} className="shrink-0 sm:shrink">
                     {card}
                   </div>
                 );
@@ -125,7 +125,7 @@ export default function LovePath() {
 
               return (
                 <motion.div
-                  key={item.year}
+                  key={`${item.title}-${i}`}
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}

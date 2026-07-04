@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState, FormEvent } from "react";
+import { useCallback, useEffect, useMemo, useState, FormEvent, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import type { Wish, WishSide } from "@/shared/types/wish";
 import { useLocale } from "@/shared/i18n/LocaleContext";
@@ -31,12 +31,15 @@ const themes: Record<
     label: string;
     subtitle: string;
     card: string;
+    cardBody?: string;
     input: string;
     button: string;
     buttonActive: string;
     sideTag: string;
     wishCard: string;
+    wishCardBody?: string;
     wishCardTop: string;
+    wishCardTopBody?: string;
     name: string;
     message: string;
     meta: string;
@@ -63,17 +66,20 @@ const themes: Record<
     accent: sparkleThemes["variant-1"].accent,
   },
   "variant-2": {
-    section: "px-4 py-14 sm:py-20",
+    section: "v2-hex-section px-4 py-14 sm:py-20",
     label: "text-xs uppercase tracking-[0.35em] text-[#8b9dc3]",
     subtitle: "text-[#c0c8d4]/70",
-    card: "v2-card rounded-2xl p-5 sm:p-7",
+    card: "v2-hex-panel v2-hex-panel--glow",
+    cardBody: "v2-hex-panel-body p-5 sm:p-7",
     input:
-      "w-full rounded-xl border border-[#c0c8d4]/25 bg-[#0f2140]/50 px-4 py-3 text-white outline-none focus:border-white/40",
-    button: "border border-[#c0c8d4]/25 text-[#c0c8d4] hover:border-white/30",
-    buttonActive: "bg-white/15 text-white border-white/40",
-    sideTag: "rounded-full bg-white/10 px-2.5 py-0.5 text-xs text-[#c0c8d4]",
-    wishCard: "wish-card-luxury rounded-xl border border-[#c0c8d4]/20 bg-[#0f2140]/45 p-4",
-    wishCardTop: "wish-card-luxury rounded-xl border border-white/25 bg-gradient-to-br from-[#0f2140]/70 to-white/5 p-4 shadow-lg",
+      "w-full v2-hex-input px-4 py-3 text-white outline-none placeholder:text-[#c0c8d4]/40",
+    button: "v2-hex-btn border border-[#c9a84c]/25 text-[#c0c8d4] hover:border-[#c9a84c]/45",
+    buttonActive: "v2-hex-btn v2-hex-btn--active bg-white/12 text-white border-[#c9a84c]/50",
+    sideTag: "v2-hex-badge v2-hex-badge--sm text-xs text-[#c0c8d4]",
+    wishCard: "v2-hex-panel v2-hex-panel--subtle",
+    wishCardBody: "v2-hex-panel-body p-4",
+    wishCardTop: "v2-hex-panel v2-hex-panel--active",
+    wishCardTopBody: "v2-hex-panel-body p-4",
     name: "font-semibold text-white",
     message: "text-sm leading-relaxed text-[#c0c8d4]/85",
     meta: "text-xs text-[#8b9dc3]",
@@ -268,6 +274,30 @@ function WishCard({
   const { t } = useLocale();
   const isFeatured = rank <= 3 && wish.likes > 0;
   const cardClass = isFeatured ? theme.wishCardTop : theme.wishCard;
+  const cardBodyClass = isFeatured ? theme.wishCardTopBody : theme.wishCardBody;
+
+  const wrapCard = (node: ReactNode) => {
+    const inner = cardBodyClass ? (
+      <div className={cardBodyClass}>{node}</div>
+    ) : (
+      node
+    );
+
+    if (lite) {
+      return <div className={cardClass}>{inner}</div>;
+    }
+
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, delay: Math.min(rank * 0.04, 0.25) }}
+        className={cardClass}
+      >
+        {inner}
+      </motion.div>
+    );
+  };
 
   const content = (
     <>
@@ -312,20 +342,7 @@ function WishCard({
     </>
   );
 
-  if (lite) {
-    return <div className={cardClass}>{content}</div>;
-  }
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, delay: Math.min(rank * 0.04, 0.25) }}
-      className={cardClass}
-    >
-      {content}
-    </motion.div>
-  );
+  return wrapCard(content);
 }
 
 export default function WishesSection({
@@ -446,13 +463,21 @@ export default function WishesSection({
     >
       <div className={embedded ? "" : "mx-auto max-w-2xl"}>
         {!embedded && (
-        <div className="mb-8 text-center sm:mb-10">
-          <p className={tTheme.label}>{t("wishes.label")}</p>
+        <div
+          className={`mb-8 text-center sm:mb-10${
+            theme === "variant-2" ? " v2-section-header" : ""
+          }`}
+        >
+          {theme !== "variant-2" && <p className={tTheme.label}>{t("wishes.label")}</p>}
           <SparkleHeading
             theme={theme as SparkleThemeId}
             as="h2"
             intensity={lite ? "normal" : "high"}
-            className="mt-2 text-2xl font-bold sm:text-4xl"
+            className={
+              theme === "variant-2"
+                ? "v2-section-title"
+                : "mt-2 text-2xl font-bold sm:text-4xl"
+            }
           >
             {t("wishes.title")}
           </SparkleHeading>
@@ -468,90 +493,154 @@ export default function WishesSection({
           </p>
         )}
 
-        <div className={`mb-8 sm:mb-10 ${tTheme.card}`}>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className={`mb-1 block text-sm ${tTheme.subtitle}`}>{t("wishes.name")}</label>
-              <input
-                required
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                placeholder={t("wishes.namePlaceholder")}
-                className={tTheme.input}
-              />
-            </div>
-
-            <div>
-              <label className={`mb-2 block text-sm ${tTheme.subtitle}`}>{t("wishes.side")}</label>
-              <div className="flex flex-wrap gap-2">
-                {(["general", "groom", "bride"] as WishSide[]).map((side) => (
-                  <button
-                    key={side}
-                    type="button"
-                    onClick={() => setForm({ ...form, side })}
-                    className={`rounded-full px-4 py-2 text-xs font-medium transition ${
-                      form.side === side ? tTheme.buttonActive : tTheme.button
-                    }`}
-                  >
-                    {sideLabels[side]}
-                  </button>
-                ))}
+        {(() => {
+          const formEl = (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className={`mb-1 block text-sm ${tTheme.subtitle}`}>{t("wishes.name")}</label>
+                <input
+                  required
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  placeholder={t("wishes.namePlaceholder")}
+                  className={tTheme.input}
+                />
               </div>
-            </div>
 
-            <div>
-              <label className={`mb-1 block text-sm ${tTheme.subtitle}`}>{t("wishes.message")}</label>
-              <textarea
-                required
-                rows={3}
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                placeholder={t("wishes.messagePlaceholder")}
-                className={`${tTheme.input} resize-none`}
-              />
-            </div>
+              <div>
+                <label className={`mb-2 block text-sm ${tTheme.subtitle}`}>{t("wishes.side")}</label>
+                <div className="flex flex-wrap gap-2">
+                  {(["general", "groom", "bride"] as WishSide[]).map((side) => (
+                    <button
+                      key={side}
+                      type="button"
+                      onClick={() => setForm({ ...form, side })}
+                      className={`px-4 py-2 text-xs font-medium transition ${
+                        form.side === side ? tTheme.buttonActive : tTheme.button
+                      }`}
+                    >
+                      {sideLabels[side]}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
-            <button
-              type="submit"
-              disabled={submitting}
-              className={`w-full rounded-full py-3.5 font-medium transition disabled:opacity-60 ${tTheme.buttonActive}`}
+              <div>
+                <label className={`mb-1 block text-sm ${tTheme.subtitle}`}>{t("wishes.message")}</label>
+                <textarea
+                  required
+                  rows={3}
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  placeholder={t("wishes.messagePlaceholder")}
+                  className={`${tTheme.input} resize-none`}
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={submitting}
+                className={`w-full py-3.5 font-medium transition disabled:opacity-60 ${tTheme.buttonActive}`}
+              >
+                {submitting ? t("wishes.submitting") : t("wishes.submit")}
+              </button>
+
+              {formError && <p className="text-center text-sm text-red-600">{formError}</p>}
+
+              {modNotice && <p className="text-center text-sm text-emerald-700">{modNotice}</p>}
+
+              {moderator && (
+                <p className="text-center text-xs text-red-600/80">
+                  {t("wishes.moderationActive")}
+                  <button
+                    type="button"
+                    onClick={() => toggleModerator(false)}
+                    className="ml-2 underline underline-offset-2"
+                  >
+                    {t("wishes.moderationClose")}
+                  </button>
+                </p>
+              )}
+
+              {sent &&
+                (lite ? (
+                  <p className={`text-center text-sm ${tTheme.success}`}>{t("wishes.success")}</p>
+                ) : (
+                  <motion.p
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`text-center text-sm ${tTheme.success}`}
+                  >
+                    {t("wishes.success")}
+                  </motion.p>
+                ))}
+            </form>
+          );
+
+          if (tTheme.cardBody) {
+            return (
+              <div className={`mb-8 sm:mb-10 ${tTheme.card}`}>
+                <div className={tTheme.cardBody}>{formEl}</div>
+              </div>
+            );
+          }
+
+          return <div className={`mb-8 sm:mb-10 ${tTheme.card}`}>{formEl}</div>;
+        })()}
+
+        <div className="wishes-luxury-panel">
+          {tTheme.cardBody ? (
+            <div className={`wishes-luxury-inner ${tTheme.card}`}>
+              <div className={`${tTheme.cardBody} !p-4 sm:!p-5`}>
+            <SparkleHeading
+              theme={theme as SparkleThemeId}
+              as="h3"
+              sparkles={false}
+              className="mb-1 text-center text-lg font-semibold sm:text-xl"
             >
-              {submitting ? t("wishes.submitting") : t("wishes.submit")}
-            </button>
+              {t("wishes.recent")}
+            </SparkleHeading>
+            <p className={`mb-4 text-center text-xs ${tTheme.meta}`}>
+              {t("wishes.recentHint")}
+            </p>
 
-            {formError && <p className="text-center text-sm text-red-600">{formError}</p>}
-
-            {modNotice && <p className="text-center text-sm text-emerald-700">{modNotice}</p>}
+            {deleteError && (
+              <p className="mb-3 text-center text-xs text-red-600">{deleteError}</p>
+            )}
 
             {moderator && (
-              <p className="text-center text-xs text-red-600/80">
+              <p className="mb-3 text-center text-[10px] uppercase tracking-wider text-red-500/70">
                 {t("wishes.moderationActive")}
-                <button
-                  type="button"
-                  onClick={() => toggleModerator(false)}
-                  className="ml-2 underline underline-offset-2"
-                >
-                  {t("wishes.moderationClose")}
-                </button>
               </p>
             )}
 
-            {sent &&
-              (lite ? (
-                <p className={`text-center text-sm ${tTheme.success}`}>{t("wishes.success")}</p>
-              ) : (
-                <motion.p
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`text-center text-sm ${tTheme.success}`}
-                >
-                  {t("wishes.success")}
-                </motion.p>
-              ))}
-          </form>
-        </div>
-
-        <div className="wishes-luxury-panel">
+            {loading ? (
+              <p className={`text-center text-sm ${tTheme.meta}`}>{t("wishes.loading")}</p>
+            ) : displayWishes.length === 0 ? (
+              <p className={`text-center text-sm ${tTheme.meta}`}>
+                {t("wishes.empty")}
+              </p>
+            ) : (
+              <div className="max-h-[460px] space-y-3 overflow-y-auto pr-0.5 sm:pr-1" data-lenis-prevent>
+                {displayWishes.map((wish, i) => (
+                  <WishCard
+                    key={wish.id}
+                    wish={wish}
+                    rank={i + 1}
+                    theme={tTheme}
+                    lite={lite}
+                    moderator={moderator}
+                    onLike={handleLikeUpdate}
+                    onDelete={handleDelete}
+                    deleting={deletingId === wish.id}
+                    sideLabel={sideLabels[wish.side]}
+                  />
+                ))}
+              </div>
+            )}
+              </div>
+            </div>
+          ) : (
           <div className={`wishes-luxury-inner ${tTheme.card} !rounded-[calc(1.25rem-1px)] p-4 sm:p-5`}>
             <SparkleHeading
               theme={theme as SparkleThemeId}
@@ -600,6 +689,7 @@ export default function WishesSection({
               </div>
             )}
           </div>
+          )}
         </div>
       </div>
     </section>

@@ -35,33 +35,25 @@ export default function OurStory() {
           {story.map((item, i) => {
             const card = (
               <div className="v1-card rounded-sm p-5 sm:p-7">
-                <div className="flex items-start gap-4 sm:gap-5">
-                  <div className="v1-year-badge v1-hex-badge h-11 w-11 shrink-0 text-sm sm:h-12 sm:w-12">
-                    {item.year.slice(2)}
-                  </div>
-                  <div>
-                    <p className="v1-label text-[0.6rem]">{item.year}</p>
-                    <SparkleHeading
-                      theme="variant-1"
-                      as="h3"
-                      sparkles={false}
-                      className="v1-heading mt-1 text-base text-white/90 sm:text-lg"
-                    >
-                      {item.title}
-                    </SparkleHeading>
-                    <p className="mt-2 text-sm font-light leading-relaxed text-white/50">{item.desc}</p>
-                  </div>
-                </div>
+                <SparkleHeading
+                  theme="variant-1"
+                  as="h3"
+                  sparkles={false}
+                  className="v1-heading text-base text-white/90 sm:text-lg"
+                >
+                  {item.title}
+                </SparkleHeading>
+                <p className="mt-2 text-sm font-light leading-relaxed text-white/50">{item.desc}</p>
               </div>
             );
 
             if (lite) {
-              return <div key={item.year}>{card}</div>;
+              return <div key={`${item.title}-${i}`}>{card}</div>;
             }
 
             return (
               <motion.div
-                key={item.year}
+                key={`${item.title}-${i}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}

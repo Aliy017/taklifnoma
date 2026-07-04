@@ -6,6 +6,8 @@ import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
 import SparkleHeading from "@/shared/components/SparkleHeading";
+import HexOrnament from "./HexOrnament";
+import HexSurface from "./HexSurface";
 import { variant2Config as variant2ConfigBase } from "../config";
 
 const STEP_ICONS = ["✦", "♡", "✿"] as const;
@@ -18,12 +20,12 @@ export default function Timeline() {
   const { schedule } = variant2Config;
 
   return (
-    <section id="schedule" className="mobile-section scroll-mt-20 px-4 py-16 sm:py-24">
+    <section id="schedule" className="v2-hex-section mobile-section scroll-mt-20 px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-2xl">
         <div className="v2-section-header mb-10 text-center sm:mb-14">
-          <p className="v2-section-kicker">{t("venue.scheduleLabel")}</p>
+          <HexOrnament className="mx-auto mb-4" />
           <SparkleHeading theme="variant-2" as="h2" intensity="high" className="v2-section-title">
-            To&apos;y dasturi
+            {t("section.scheduleTitle")}
           </SparkleHeading>
         </div>
 
@@ -41,10 +43,12 @@ export default function Timeline() {
                     key={`${item.title}-${i}`}
                     type="button"
                     onClick={() => setActive(i)}
-                    className={`relative flex w-full items-start gap-4 rounded-2xl p-4 text-left sm:gap-5 ${
-                      isActive ? "v2-glass v2-schedule-item--active" : "v2-schedule-item"
-                    }`}
+                    className="v2-hex-trigger v2-schedule-row relative w-full text-left"
                   >
+                    <HexSurface
+                      variant={isActive ? "active" : "subtle"}
+                      bodyClassName="flex w-full items-start gap-4 p-4 sm:gap-5"
+                    >
                     <div className="relative z-10 flex shrink-0 flex-col items-center">
                       <div
                         className={`v2-step-badge ${isActive ? "v2-step-badge--active" : ""}`}
@@ -65,6 +69,7 @@ export default function Timeline() {
                         <p className="mt-2 text-sm leading-relaxed text-[#c0c8d4]/75">{item.desc}</p>
                       )}
                     </div>
+                    </HexSurface>
                   </button>
                 );
               }
@@ -74,12 +79,14 @@ export default function Timeline() {
                   key={`${item.title}-${i}`}
                   type="button"
                   onClick={() => setActive(i)}
-                  className={`relative flex w-full items-start gap-5 rounded-2xl p-4 text-left transition ${
-                    isActive ? "v2-glass v2-schedule-item--active" : "v2-schedule-item"
-                  }`}
+                  className="v2-hex-trigger v2-schedule-row relative w-full text-left transition"
                   whileHover={{ x: 4 }}
                   layout
                 >
+                  <HexSurface
+                    variant={isActive ? "active" : "subtle"}
+                    bodyClassName="flex w-full items-start gap-5 p-4"
+                  >
                   <div className="relative z-10 flex shrink-0 flex-col items-center">
                     <motion.div
                       className={`v2-step-badge ${isActive ? "v2-step-badge--active" : ""}`}
@@ -113,6 +120,7 @@ export default function Timeline() {
                       {item.desc}
                     </motion.p>
                   </div>
+                  </HexSurface>
                 </motion.button>
               );
             })}

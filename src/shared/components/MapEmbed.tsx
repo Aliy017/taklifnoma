@@ -21,9 +21,9 @@ export default function MapEmbed({
   title,
   className = "",
   iframeClassName = "h-56 w-full border-0 sm:h-72",
-  placeholderClassName = "rounded-2xl border border-dashed border-black/10 bg-black/[0.03]",
-  buttonClassName = "mobile-touch rounded-full bg-emerald px-6 py-2.5 text-sm font-medium text-white transition hover:opacity-90",
-  linkClassName = "text-xs underline underline-offset-2 opacity-60 transition hover:opacity-100",
+  placeholderClassName = "map-embed-placeholder",
+  buttonClassName = "map-embed-btn mobile-touch",
+  linkClassName = "map-embed-link",
   minHeightClass = "min-h-[14rem]",
 }: MapEmbedProps) {
   const { t } = useLocaleOptional();
@@ -39,7 +39,7 @@ export default function MapEmbed({
       <div
         className={`flex flex-col items-center justify-center gap-3 px-4 py-8 text-center ${placeholderClassName} ${minHeightClass} ${className}`}
       >
-        <p className="text-sm opacity-70">{t("map.loadHint")}</p>
+        <p className="map-embed-hint">{t("map.loadHint")}</p>
         <button type="button" onClick={() => setOpen(true)} className={buttonClassName}>
           {t("map.showButton")}
         </button>

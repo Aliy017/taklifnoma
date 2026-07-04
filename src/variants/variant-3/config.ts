@@ -13,7 +13,7 @@ export const variant3Config = {
     },
     {
       year: "2023",
-      title: "Sevgi o'sdi",
+      title: "Baxtli onlar",
       desc: "Har bir suhbat, har bir duo — ularni yaqinlashtirdi va qalblarini bir qildi.",
     },
     {

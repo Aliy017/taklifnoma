@@ -26,28 +26,20 @@ export default function OurStory() {
           {story.map((item, i) => {
             const card = (
               <div className="v3-card rounded-2xl p-5 sm:p-8">
-                <div className="flex items-start gap-4 sm:gap-5">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#9caf88]/20 font-serif text-base font-bold text-[#7a9468] sm:h-14 sm:w-14 sm:text-lg">
-                    {item.year.slice(2)}
-                  </div>
-                  <div>
-                    <p className="text-xs uppercase tracking-widest text-[#b8876a]">{item.year}</p>
-                    <SparkleHeading theme="variant-3" as="h3" sparkles={false} className="mt-1 text-lg font-semibold sm:text-xl">
-                      {item.title}
-                    </SparkleHeading>
-                    <p className="mt-2 text-sm leading-relaxed text-[#7a9468]">{item.desc}</p>
-                  </div>
-                </div>
+                <SparkleHeading theme="variant-3" as="h3" sparkles={false} className="text-lg font-semibold sm:text-xl">
+                  {item.title}
+                </SparkleHeading>
+                <p className="mt-2 text-sm leading-relaxed text-[#7a9468]">{item.desc}</p>
               </div>
             );
 
             if (lite) {
-              return <div key={item.year}>{card}</div>;
+              return <div key={`${item.title}-${i}`}>{card}</div>;
             }
 
             return (
               <motion.div
-                key={item.year}
+                key={`${item.title}-${i}`}
                 initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-50px" }}

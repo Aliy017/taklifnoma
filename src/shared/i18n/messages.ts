@@ -82,8 +82,11 @@ export type MessageKey =
   | "hero.coupleAlt"
   | "hero.inviteLabel"
   | "hero.blessingWish"
+  | "hero.scrollDown"
   | "section.ourStory"
   | "section.aboutEvent"
+  | "section.scheduleTitle"
+  | "story.quoteNav"
   | "lang.switchAria"
   | "hero.bismillah"
   | "story.lovePathTitle"
@@ -125,7 +128,7 @@ const uzLatin: Messages = {
   "invite.hearts": "{groom} va {bride} — ikki yurak, bitta yo'l. Alloh taolo ularning qadamlarini birlashtirdi.",
   "invite.blessing": "Alloh ularning baxtini abadiy qilsin",
   "wishes.label": "Tabriklar",
-  "wishes.title": "Yangi turmush qurayotganlarga tabriklar",
+  "wishes.title": "Tabriklar",
   "wishes.subtitle":
     "Qalbingizdagi eng iliq so'zlarni shu yerga yozing — tabriklaringiz biz uchun juda qadrli",
   "wishes.name": "Ismingiz",
@@ -198,11 +201,12 @@ const uzLatin: Messages = {
   "hero.inviteLabel": "Taklifnoma",
   "hero.bismillah": "Bismillahir Rahmonir Rahim",
   "hero.blessingWish": "Baxt tilaklari bilan",
+  "hero.scrollDown": "Pastga suring",
   "story.lovePathTitle": "Muhabbat yo'li",
   "story.lovePathSubtitle": "Har bir qadam — baxtga yaqinlashish",
   "story.y2022.title": "Birinchi uchrashuv",
   "story.y2022.desc": "Taqdir ularning yo'llarini birlashtirdi. Bir ko'rish — abadiy esda qolarli kun.",
-  "story.y2023.title": "Sevgi o'sdi",
+  "story.y2023.title": "Baxtli onlar",
   "story.y2023.desc": "Har bir suhbat, har bir duo — ularni yaqinlashtirdi va qalblarini bir qildi.",
   "story.y2024.title": "Unashtiruv",
   "story.y2024.desc": "Oila a'zolari duosi bilan ikki yurak rasmiy ravishda birlashtirildi.",
@@ -218,6 +222,8 @@ const uzLatin: Messages = {
   "schedule.brideGreeting.desc": "Kelinning yangi oilaga salomi",
   "section.ourStory": "Bizning hikoyamiz",
   "section.aboutEvent": "Tadbir haqida",
+  "section.scheduleTitle": "To'y dasturi",
+  "story.quoteNav": "Iqtibos {n}",
   "lang.switchAria": "Til: {label}. Boshqa tilga o'tish",
   "gallery.dashboardEyebrow": "To'y taklifnomasi",
   "gallery.dashboardSubtitle": "10 ta dizayn — yoqtiring va oching",
@@ -240,7 +246,7 @@ const uzCyrillic: Messages = {
   "invite.hearts": "{groom} ва {bride} — икки юрак, битта йўл. Аллоҳ таоло уларнинг қадамларини бирлаштирди.",
   "invite.blessing": "Аллоҳ уларнинг бахтини абадий қилсин",
   "wishes.label": "Табриклар",
-  "wishes.title": "Янги турмуш қураётганларга табриклар",
+  "wishes.title": "Табриклар",
   "wishes.subtitle":
     "Қалбингиздаги энг илик сўзларни шу ерга ёзинг — табрикларингиз биз учун жуда қадрли",
   "wishes.name": "Исмингиз",
@@ -313,12 +319,13 @@ const uzCyrillic: Messages = {
   "hero.inviteLabel": "Таклифнома",
   "hero.bismillah": "Бисмиллаҳир Раҳмонир Раҳим",
   "hero.blessingWish": "Бахт тилаклари билан",
+  "hero.scrollDown": "Пастга суринг",
   "story.lovePathTitle": "Муҳаббат йўли",
   "story.lovePathSubtitle": "Ҳар бир қадам — бахтга яқинлашиш",
   "story.y2022.title": "Биринчи учрашув",
   "story.y2022.desc":
     "Тақдир уларнинг йўлларини бирлаштирди. Бир кўриш — абадий есда қоларли кун.",
-  "story.y2023.title": "Севги ўсди",
+  "story.y2023.title": "Бахтли онлар",
   "story.y2023.desc":
     "Ҳар бир суҳбат, ҳар бир дуо — уларни яқинлаштирди ва қалбларини бир қилди.",
   "story.y2024.title": "Унаштирув",
@@ -337,12 +344,14 @@ const uzCyrillic: Messages = {
   "schedule.brideGreeting.desc": "Келиннинг янги оилага саломи",
   "section.ourStory": "Бизнинг ҳикоямиз",
   "section.aboutEvent": "Тадбир ҳақида",
+  "section.scheduleTitle": "Тўй дастури",
+  "story.quoteNav": "Иқтибос {n}",
   "lang.switchAria": "Тил: {label}. Бошқа тилга ўтиш",
-  "gallery.dashboardEyebrow": "Тўй taklifnomasi",
-  "gallery.dashboardSubtitle": "10 ta dizayn — yoqtiring va oching",
-  "intro.openEnvelope": "Такlifnomani oching",
-  "intro.open": "Oching",
-  "intro.inviteReveal": "Sizni to'yimizga taklif qilamiz",
+  "gallery.dashboardEyebrow": "Тўй таклифномаси",
+  "gallery.dashboardSubtitle": "10 та дизайн — ёқтириш ва очинг",
+  "intro.openEnvelope": "Таклифномани очинг",
+  "intro.open": "Очинг",
+  "intro.inviteReveal": "Сизни тўйимизга таклиф қиламиз",
 };
 
 const ru: Messages = {
@@ -358,7 +367,7 @@ const ru: Messages = {
   "invite.hearts": "{groom} и {bride} — два сердца, один путь. Аллах объединил их шаги.",
   "invite.blessing": "Пусть Аллах дарует им вечное счастье",
   "wishes.label": "Поздравления",
-  "wishes.title": "Поздравления вступающим в брак",
+  "wishes.title": "Поздравления",
   "wishes.subtitle":
     "Напишите здесь самые тёплые слова — ваши поздравления очень дороги для нас",
   "wishes.name": "Ваше имя",
@@ -431,11 +440,12 @@ const ru: Messages = {
   "hero.inviteLabel": "Приглашение",
   "hero.bismillah": "Bismillahir Rahmonir Rahim",
   "hero.blessingWish": "С наилучшими пожеланиями",
+  "hero.scrollDown": "Листайте вниз",
   "story.lovePathTitle": "Путь любви",
   "story.lovePathSubtitle": "Каждый шаг — к счастью",
   "story.y2022.title": "Первая встреча",
   "story.y2022.desc": "Судьба соединила их пути. Одна встреча — день, который запомнится навсегда.",
-  "story.y2023.title": "Любовь росла",
+  "story.y2023.title": "Счастливые моменты",
   "story.y2023.desc": "Каждый разговор и каждая молитва сближали их и сделали сердца единым.",
   "story.y2024.title": "Помолвка",
   "story.y2024.desc": "С благословением семьи два сердца официально соединились.",
@@ -451,6 +461,8 @@ const ru: Messages = {
   "schedule.brideGreeting.desc": "Salom kelin — приветствие новой семьи",
   "section.ourStory": "Наша история",
   "section.aboutEvent": "О мероприятии",
+  "section.scheduleTitle": "Программа свадьбы",
+  "story.quoteNav": "Цитата {n}",
   "lang.switchAria": "Язык: {label}. Переключить язык",
   "gallery.dashboardEyebrow": "Свадебное приглашение",
   "gallery.dashboardSubtitle": "10 дизайнов — лайкните и откройте",

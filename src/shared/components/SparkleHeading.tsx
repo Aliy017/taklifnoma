@@ -18,7 +18,7 @@ import {
   type SparkleThemeId,
 } from "@/shared/config/sparkle-themes";
 
-type HeadingTag = "h1" | "h2" | "h3";
+type HeadingTag = "h1" | "h2" | "h3" | "span";
 
 interface Anchor {
   x: number;
@@ -56,7 +56,7 @@ function collectLetterAnchors(element: HTMLElement, container: DOMRect): Anchor[
 
       anchors.push({
         x: rect.left + rect.width / 2 - container.left,
-        y: rect.top + rect.height / 2 - container.top,
+        y: rect.top + rect.height * 0.38 - container.top,
       });
     }
     node = walker.nextNode();
@@ -72,20 +72,20 @@ function randomSparkle(
   premium: boolean,
   slow: boolean
 ): SparkleParticle {
-  const angle = -Math.PI / 2 + (Math.random() - 0.5) * (slow ? 1.0 : 1.4);
+  const angle = -Math.PI / 2 + (Math.random() - 0.5) * 0.65;
   const distance = slow
-    ? 10 + Math.random() * 16
+    ? 12 + Math.random() * 16
     : premium
-      ? 14 + Math.random() * 22
+      ? 10 + Math.random() * 14
       : intensity === "high"
-        ? 28 + Math.random() * 40
-        : 18 + Math.random() * 28;
+        ? 14 + Math.random() * 22
+        : 11 + Math.random() * 18;
   const shapes: SparkleParticle["shape"][] = ["star", "diamond", "dot"];
 
   return {
     id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
-    x: anchor.x + (Math.random() - 0.5) * 8,
-    y: anchor.y + (Math.random() - 0.5) * 5,
+    x: anchor.x + (Math.random() - 0.5) * 4,
+    y: anchor.y + (Math.random() - 0.5) * 2.5,
     dx: Math.cos(angle) * distance,
     dy: Math.sin(angle) * distance,
     size: slow
@@ -93,11 +93,11 @@ function randomSparkle(
       : premium
         ? 4 + Math.random() * 5
         : intensity === "high"
-          ? 5 + Math.random() * 8
-          : 4 + Math.random() * 6,
+          ? 4 + Math.random() * 5
+          : 3.5 + Math.random() * 4.5,
     color: colors[Math.floor(Math.random() * colors.length)],
     shape: shapes[Math.floor(Math.random() * shapes.length)],
-    duration: slow ? 2.2 + Math.random() * 1.6 : premium ? 1.4 + Math.random() * 1.1 : 0.7 + Math.random() * 0.6,
+    duration: slow ? 2.2 + Math.random() * 1.4 : premium ? 1.5 + Math.random() * 1.1 : 1.1 + Math.random() * 1.0,
     rotate: Math.random() * 120,
   };
 }
@@ -191,6 +191,8 @@ export default function SparkleHeading({
     const step = premiumMobile ? 2 : 2;
     const maxTw = premiumMobile ? 12 : 18;
 
+    const wrapWidth = Math.max(rect.width, 1);
+
     setTwinkles(
       next
         .filter((_, i) => i % step === 0)
@@ -199,11 +201,12 @@ export default function SparkleHeading({
           id: `tw-${i}-${a.x.toFixed(1)}-${a.y.toFixed(1)}`,
           x: a.x,
           y: a.y,
-          delay: premiumMobile
-            ? (i * 0.42) % 5.5
-            : pace === "slow"
-              ? (i * 0.55) % 6.5
-              : (i * 0.22) % 3.2,
+          delay:
+            premiumMobile
+              ? (a.x / wrapWidth) * 5.5 + i * 0.06
+              : pace === "slow"
+                ? (a.x / wrapWidth) * 6.5 + i * 0.08
+                : (a.x / wrapWidth) * 7.5 + i * 0.05,
         }))
     );
   }, [pace, premiumMobile, sparkles]);
@@ -312,7 +315,7 @@ export default function SparkleHeading({
       )}
 
       {sparkles && (
-        <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden" aria-hidden>
+        <div className="sparkle-particles pointer-events-none absolute z-[2]" aria-hidden>
           {twinkles.map((t) => (
             <span
               key={t.id}
@@ -328,15 +331,19 @@ export default function SparkleHeading({
                   key={p.id}
                   className="absolute -translate-x-1/2 -translate-y-1/2 will-change-transform"
                   style={{ left: p.x, top: p.y }}
-                  initial={{ opacity: 0, scale: 0.6, x: 0, y: 0 }}
+                  initial={{ opacity: 0, scale: 0.5, x: 0, y: 0 }}
                   animate={{
-                    opacity: [0, 0.9, 0],
-                    scale: [0.6, 1, 0.8],
-                    x: p.dx,
+                    opacity: [0, 1, 0.75, 0.2, 0],
+                    scale: [0.35, 1, 0.85, 0.55, 0.3],
+                    x: p.dx * 0.18,
                     y: p.dy,
                   }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: p.duration, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{
+                    duration: p.duration,
+                    ease: [0.22, 1, 0.36, 1],
+                    times: [0, 0.12, 0.38, 0.72, 1],
+                  }}
                 >
                   <SparkleShape shape={p.shape} size={p.size} color={p.color} />
                 </motion.span>

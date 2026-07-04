@@ -39,8 +39,8 @@ const themes: Record<
     text: "text-[#c0c8d4]/80",
     heading: "font-semibold text-white",
     sub: "text-sm text-[#c0c8d4]/70",
-    badge: "rounded-full border border-[#c0c8d4]/30 px-3 py-1 text-xs text-[#c0c8d4]",
-    mapWrap: "overflow-hidden rounded-2xl border border-[#c0c8d4]/20 shadow-lg",
+    badge: "v2-hex-badge v2-hex-badge--sm text-xs text-[#c0c8d4]",
+    mapWrap: "v2-hex-map overflow-hidden shadow-lg",
   },
   "variant-3": {
     wrapper: "",

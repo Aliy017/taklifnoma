@@ -3,6 +3,7 @@
 import { useRef, type MouseEvent, type ReactNode } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
+import HexSurface from "./HexSurface";
 
 interface TiltCardProps {
   children: ReactNode;
@@ -26,9 +27,12 @@ export default function TiltCard({ children, className = "", glow = false }: Til
   }
 
   const card = (
-    <div className={`v2-glass v2-tilt-card rounded-2xl p-5 sm:p-7 ${glow ? "v2-tilt-card--glow" : ""}`}>
+    <HexSurface
+      variant={glow ? "glow" : "default"}
+      bodyClassName="v2-tilt-card p-5 sm:p-7"
+    >
       {children}
-    </div>
+    </HexSurface>
   );
 
   if (lite) {

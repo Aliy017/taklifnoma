@@ -35,7 +35,12 @@
 }
 
 .sparkle-heading-wrap--premium-mobile {
-  contain: layout style paint;
+  contain: layout style;
+}
+
+.sparkle-particles {
+  inset: 0;
+  overflow: visible;
 }
 
 .sparkle-halo {
@@ -106,9 +111,9 @@
   border-radius: 50%;
   background: var(--sh-twinkle);
   box-shadow:
-    0 0 4px var(--sh-twinkle-glow),
-    0 0 10px color-mix(in srgb, var(--sh-accent) 35%, transparent);
-  animation: sh-letter-twinkle 4s ease-in-out infinite;
+    0 0 5px var(--sh-twinkle-glow),
+    0 0 12px color-mix(in srgb, var(--sh-accent) 45%, transparent);
+  animation: sh-letter-twinkle 7.5s ease-in-out infinite;
   will-change: opacity, transform;
 }
 
@@ -155,15 +160,23 @@
   0%,
   100% {
     opacity: 0;
-    transform: scale(0.2);
+    transform: scale(0.25) translateY(0);
   }
-  40% {
-    opacity: 0.95;
-    transform: scale(1.2);
+  14% {
+    opacity: 1;
+    transform: scale(1.15) translateY(-2px);
   }
-  65% {
-    opacity: 0.25;
-    transform: scale(0.55);
+  42% {
+    opacity: 0.85;
+    transform: scale(0.95) translateY(-8px);
+  }
+  68% {
+    opacity: 0.45;
+    transform: scale(0.65) translateY(-14px);
+  }
+  88% {
+    opacity: 0;
+    transform: scale(0.3) translateY(-18px);
   }
 }
 
@@ -171,15 +184,23 @@
   0%,
   100% {
     opacity: 0;
-    transform: scale(0.15) translateY(2px);
+    transform: scale(0.25) translateY(0);
   }
-  35% {
-    opacity: 0.9;
-    transform: scale(1.15) translateY(-3px);
+  16% {
+    opacity: 0.95;
+    transform: scale(1.1) translateY(-2px);
   }
-  60% {
-    opacity: 0.3;
-    transform: scale(0.5) translateY(-6px);
+  45% {
+    opacity: 0.75;
+    transform: scale(0.9) translateY(-9px);
+  }
+  72% {
+    opacity: 0.35;
+    transform: scale(0.55) translateY(-15px);
+  }
+  90% {
+    opacity: 0;
+    transform: scale(0.3) translateY(-20px);
   }
 }
 
@@ -202,7 +223,7 @@
   }
 
   .sparkle-heading-wrap--premium-mobile .sparkle-letter-twinkle {
-    animation: sh-letter-twinkle-mobile 5.5s ease-in-out infinite;
+    animation: sh-letter-twinkle-mobile 12s ease-in-out infinite;
   }
 
   .sparkle-heading-wrap:not(.sparkle-heading-wrap--active) .sparkle-halo,
@@ -250,15 +271,23 @@
   0%,
   100% {
     opacity: 0;
-    transform: scale(0.15);
+    transform: scale(0.25) translateY(0);
   }
-  45% {
-    opacity: 0.85;
-    transform: scale(1.1);
+  15% {
+    opacity: 0.95;
+    transform: scale(1.1) translateY(-2px);
+  }
+  44% {
+    opacity: 0.8;
+    transform: scale(0.9) translateY(-7px);
   }
   70% {
-    opacity: 0.2;
-    transform: scale(0.5);
+    opacity: 0.35;
+    transform: scale(0.55) translateY(-12px);
+  }
+  88% {
+    opacity: 0;
+    transform: scale(0.3) translateY(-16px);
   }
 }
 
