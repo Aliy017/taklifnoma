@@ -9,6 +9,11 @@ import {
 } from "@/shared/lib/clients-store";
 import type { InvitationWish } from "@/shared/types/client";
 import { handleApiError } from "@/shared/lib/api-error";
+import {
+  assertWishIpAllowed,
+  blockIpAfterAdminDelete,
+  wishIpErrorMessage,
+} from "@/shared/lib/wish-ip-guard";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -78,6 +83,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Noto'g'ri tomondan tanlov" }, { status: 400 });
     }
 
+    const ipCheck = await assertWishIpAllowed(request, clientSlug || null);
+    if (!ipCheck.ok) {
+      return NextResponse.json({ error: wishIpErrorMessage(ipCheck.reason) }, { status: 403 });
+    }
+    const authorIp = ipCheck.ip;
+
     if (clientSlug) {
       const client = await getClientBySlug(clientSlug);
       if (!client || !client.active) {
@@ -94,6 +105,7 @@ export async function POST(request: NextRequest) {
         status: "pending",
         likes: 0,
         createdAt: new Date().toISOString(),
+        authorIp,
       };
       wishes.push(newWish);
       await writeInvitationWishes(wishes);
@@ -111,6 +123,7 @@ export async function POST(request: NextRequest) {
       message,
       createdAt: new Date().toISOString(),
       likes: 0,
+      authorIp,
     };
     wishes.push(newWish);
     await writeLegacyWishes(wishes);
@@ -135,15 +148,19 @@ export async function DELETE(request: NextRequest) {
     }
 
     const legacy = await readLegacyWishes();
-    if (legacy.some((w) => w.id === wishId)) {
+    const legacyWish = legacy.find((w) => w.id === wishId);
+    if (legacyWish) {
+      await blockIpAfterAdminDelete(legacyWish.authorIp);
       await writeLegacyWishes(legacy.filter((w) => w.id !== wishId));
       return NextResponse.json({ ok: true });
     }
 
     const wishes = await readInvitationWishes();
-    if (!wishes.some((w) => w.id === wishId)) {
+    const removed = wishes.find((w) => w.id === wishId);
+    if (!removed) {
       return NextResponse.json({ error: "Tabrik topilmadi" }, { status: 404 });
     }
+    await blockIpAfterAdminDelete(removed.authorIp);
     await writeInvitationWishes(wishes.filter((w) => w.id !== wishId));
     return NextResponse.json({ ok: true });
   } catch (error) {

@@ -7,6 +7,8 @@ export interface Wish {
   message: string;
   createdAt: string;
   likes: number;
+  /** Server-only: spam/blok uchun */
+  authorIp?: string;
 }
 
 export const WISH_SIDE_LABELS: Record<WishSide, string> = {

@@ -8,7 +8,8 @@ export type StoreKey =
   | "rsvp"
   | "clients"
   | "invitation_wishes"
-  | "admin_settings";
+  | "admin_settings"
+  | "wish_ip_blocks";
 
 const KV_KEYS: Record<StoreKey, string> = {
   likes: "taklifnoma:likes",
@@ -17,6 +18,7 @@ const KV_KEYS: Record<StoreKey, string> = {
   clients: "taklifnoma:clients",
   invitation_wishes: "taklifnoma:invitation_wishes",
   admin_settings: "taklifnoma:admin_settings",
+  wish_ip_blocks: "taklifnoma:wish_ip_blocks",
 };
 
 const FILE_NAMES: Record<StoreKey, string> = {
@@ -26,6 +28,7 @@ const FILE_NAMES: Record<StoreKey, string> = {
   clients: "clients.json",
   invitation_wishes: "invitation_wishes.json",
   admin_settings: "admin_settings.json",
+  wish_ip_blocks: "wish_ip_blocks.json",
 };
 
 function getRedis(): Redis | null {

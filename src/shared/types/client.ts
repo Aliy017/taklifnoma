@@ -43,6 +43,8 @@ export interface InvitationWish {
   status: "pending" | "approved";
   likes: number;
   createdAt: string;
+  /** Server-only: spam/blok uchun */
+  authorIp?: string;
 }
 
 export const RESERVED_SLUGS = new Set([

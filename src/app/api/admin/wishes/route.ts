@@ -7,6 +7,7 @@ import {
 import { verifyAdminRequest } from "@/shared/lib/admin-auth";
 import { handleApiError } from "@/shared/lib/api-error";
 import type { InvitationWish } from "@/shared/types/client";
+import { blockIpAfterAdminDelete } from "@/shared/lib/wish-ip-guard";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -53,6 +54,10 @@ export async function DELETE(request: NextRequest) {
     const body = await request.json();
     const id = String(body.id ?? "");
     const wishes = await readInvitationWishes();
+    const removed = wishes.find((w) => w.id === id);
+    if (removed) {
+      await blockIpAfterAdminDelete(removed.authorIp);
+    }
     await writeInvitationWishes(wishes.filter((w) => w.id !== id));
     return NextResponse.json({ ok: true });
   } catch (error) {
