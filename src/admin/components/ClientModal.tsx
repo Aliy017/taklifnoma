@@ -225,7 +225,7 @@ export default function ClientModal({ open, onClose, onSave, editing }: ClientMo
             <label className="mb-2 block text-xs font-medium text-slate-500">Shablon</label>
             <p className="mb-3 text-xs text-slate-400">Taklifnoma dizaynini tanlang — kartani bosing</p>
           </div>
-          <div className="admin-picker-grid max-h-64 overflow-y-auto pr-1">
+          <div className="admin-picker-grid max-h-64 overflow-y-auto pr-1" data-lenis-prevent>
             {TEMPLATE_OPTIONS.map((opt) => (
               <button
                 key={opt.id}

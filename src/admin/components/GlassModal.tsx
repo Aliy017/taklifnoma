@@ -3,6 +3,7 @@
 import { useEffect, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { useLenisScrollLock } from "@/shared/hooks/useLenisScrollLock";
 
 interface GlassModalProps {
   open: boolean;
@@ -13,6 +14,8 @@ interface GlassModalProps {
 }
 
 export default function GlassModal({ open, onClose, title, children, wide }: GlassModalProps) {
+  useLenisScrollLock(open);
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
@@ -48,6 +51,7 @@ export default function GlassModal({ open, onClose, title, children, wide }: Gla
             className={`admin-glass relative z-10 max-h-[92dvh] w-full overflow-y-auto rounded-t-2xl p-5 sm:rounded-2xl sm:p-6 ${
               wide ? "sm:max-w-xl" : "sm:max-w-md"
             }`}
+            data-lenis-prevent
           >
             <div className="mb-5 flex items-start justify-between gap-3">
               <h2 id="modal-title" className="font-serif text-xl font-bold text-[#0f2744]">

@@ -14,7 +14,7 @@ interface ClientTableProps {
 
 export default function ClientTable({ clients, onEdit, onDelete, onCopyLink }: ClientTableProps) {
   return (
-    <div className="admin-table-wrap hidden overflow-x-auto md:block">
+    <div className="admin-table-wrap hidden overflow-x-auto md:block" data-lenis-prevent-touch>
       <table className="w-full min-w-[720px] text-left text-sm">
         <thead>
           <tr className="border-b border-slate-100 bg-slate-50/80 text-xs uppercase tracking-wider text-slate-500">

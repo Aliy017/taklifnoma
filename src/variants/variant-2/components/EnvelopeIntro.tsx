@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useLiteMode } from "@/shared/hooks/useLiteMode";
 import { useVariantConfig } from "@/shared/hooks/useVariantConfig";
 import { useLocaleOptional } from "@/shared/i18n/LocaleContext";
+import { useLenisScrollLock } from "@/shared/hooks/useLenisScrollLock";
 import { variant2Config as variant2ConfigBase } from "../config";
 
 interface EnvelopeIntroProps {
@@ -20,6 +21,8 @@ export default function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
   const { groom, bride } = useVariantConfig(variant2ConfigBase);
   const [opening, setOpening] = useState(false);
   const [mounted, setMounted] = useState(false);
+
+  useLenisScrollLock(true);
 
   useEffect(() => {
     setMounted(true);

@@ -33,11 +33,20 @@ h4,
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   -webkit-text-size-adjust: 100%;
   overscroll-behavior-x: none;
   width: 100%;
   min-height: 100%;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+html.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
 }
 
 body {
@@ -198,10 +207,6 @@ html:has(.variant-10) body {
 
 /* Qotishni oldini olish */
 @media (max-width: 768px) {
-  html {
-    scroll-behavior: auto;
-  }
-
   .mobile-section {
     content-visibility: auto;
     contain-intrinsic-size: auto 480px;

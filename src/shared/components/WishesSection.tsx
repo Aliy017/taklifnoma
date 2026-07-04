@@ -582,7 +582,7 @@ export default function WishesSection({
                 {t("wishes.empty")}
               </p>
             ) : (
-              <div className="max-h-[460px] space-y-3 overflow-y-auto pr-0.5 sm:pr-1">
+              <div className="max-h-[460px] space-y-3 overflow-y-auto pr-0.5 sm:pr-1" data-lenis-prevent>
                 {displayWishes.map((wish, i) => (
                   <WishCard
                     key={wish.id}

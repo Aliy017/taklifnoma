@@ -85,7 +85,7 @@ export default function LovePath() {
 
         <div className="relative">
           <div className="v2-love-rail hidden sm:block" aria-hidden />
-          <div className="v2-love-scroll flex gap-4 overflow-x-auto pb-4 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:pb-0 lg:grid-cols-4">
+          <div className="v2-love-scroll flex gap-4 overflow-x-auto pb-4 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:pb-0 lg:grid-cols-4" data-lenis-prevent-touch>
             {story.map((item, i) => {
               const isActive = activeStory === i;
               const card = (

@@ -3,6 +3,7 @@ import { Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
 import "./sparkle-heading.css";
 import WeddingMusicPrefetch from "@/shared/components/WeddingMusicPrefetch";
+import SmoothScrollProvider from "@/shared/components/SmoothScrollProvider";
 import { weddingConfig } from "@/shared/config/wedding";
 
 const playfair = Playfair_Display({
@@ -46,8 +47,10 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col font-sans touch-manipulation">
-        <WeddingMusicPrefetch />
-        {children}
+        <SmoothScrollProvider>
+          <WeddingMusicPrefetch />
+          {children}
+        </SmoothScrollProvider>
       </body>
     </html>
   );

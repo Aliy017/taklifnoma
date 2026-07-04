@@ -43,7 +43,7 @@ export default function WishesPage() {
         description="Mehmon tabriklarini ko'rib chiqing va moderatsiya qiling"
       />
 
-      <div className="mb-6 flex gap-2 overflow-x-auto pb-1">
+      <div className="mb-6 flex gap-2 overflow-x-auto pb-1" data-lenis-prevent-touch>
         {(
           [
             { key: "all" as const, label: "Barchasi" },
