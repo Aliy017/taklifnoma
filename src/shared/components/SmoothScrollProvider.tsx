@@ -1,62 +1,59 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ReactLenis } from "lenis/react";
-import type { LenisRef } from "lenis/react";
-import { cancelFrame, frame } from "framer-motion";
+
+/** Desktop fine-pointer only — touch/mobil native scroll (tezroq, FPS barqaror). */
+function useLenisEnabled() {
+  const [enabled, setEnabled] = useState(false);
+
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const coarse = window.matchMedia("(pointer: coarse)");
+    const narrow = window.matchMedia("(max-width: 768px)");
+
+    const update = () => {
+      setEnabled(!reduced.matches && !coarse.matches && !narrow.matches);
+    };
+
+    update();
+    reduced.addEventListener("change", update);
+    coarse.addEventListener("change", update);
+    narrow.addEventListener("change", update);
+    return () => {
+      reduced.removeEventListener("change", update);
+      coarse.removeEventListener("change", update);
+      narrow.removeEventListener("change", update);
+    };
+  }, []);
+
+  return enabled;
+}
 
 const lenisOptions = {
-  lerp: 0.09,
-  duration: 1.15,
+  lerp: 0.18,
   smoothWheel: true,
-  syncTouch: true,
-  syncTouchLerp: 0.075,
+  syncTouch: false,
+  wheelMultiplier: 1.08,
   touchMultiplier: 1,
-  wheelMultiplier: 1,
-  autoRaf: false,
+  autoRaf: true,
   autoToggle: true,
   allowNestedScroll: true,
   anchors: {
-    duration: 1.1,
+    duration: 0.75,
     offset: 0,
   },
 } as const;
 
-function usePrefersReducedMotion() {
-  const [reduced, setReduced] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduced(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-
-  return reduced;
-}
-
 export default function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
-  const lenisRef = useRef<LenisRef>(null);
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const lenisEnabled = useLenisEnabled();
 
-  useEffect(() => {
-    if (prefersReducedMotion) return;
-
-    function update(data: { timestamp: number }) {
-      lenisRef.current?.lenis?.raf(data.timestamp);
-    }
-
-    frame.update(update, true);
-    return () => cancelFrame(update);
-  }, [prefersReducedMotion]);
-
-  if (prefersReducedMotion) {
+  if (!lenisEnabled) {
     return <>{children}</>;
   }
 
   return (
-    <ReactLenis root options={lenisOptions} ref={lenisRef}>
+    <ReactLenis root options={lenisOptions}>
       {children}
     </ReactLenis>
   );

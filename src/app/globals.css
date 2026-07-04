@@ -253,6 +253,20 @@ html:has(.variant-10) body {
   }
 }
 
+/* Lenis scroll paytida og'ir blur effektlarni o'chirish — FPS barqarorligi */
+html.lenis.lenis-scrolling .v2-glass,
+html.lenis.lenis-scrolling .admin-glass,
+html.lenis.lenis-scrolling .glass-card,
+html.lenis.lenis-scrolling [class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html.lenis.lenis-scrolling .v2-hero-glow,
+html.lenis.lenis-scrolling .v2-entry-rays {
+  opacity: 0.35;
+}
+
 /* Faqat desktopda will-change */
 @media (min-width: 769px) and (prefers-reduced-motion: no-preference) {
   .v3-petal {
