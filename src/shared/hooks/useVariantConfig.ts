@@ -100,9 +100,13 @@ export function useVariantConfig<T extends Record<string, unknown>>(base: T): T 
     const morningSchedule = config.morningSchedule as
       | Array<{ time: string; title: string; desc: string }>
       | undefined;
+    const schedule = config.schedule as
+      | Array<{ time: string; title: string; desc: string }>
+      | undefined;
 
     const localizedStory = localizeStoryArray(story, t, locale);
-    const localizedSchedule = localizeScheduleArray(morningSchedule, t, locale);
+    const localizedMorningSchedule = localizeScheduleArray(morningSchedule, t, locale);
+    const localizedSchedule = localizeScheduleArray(schedule, t, locale);
 
     return {
       ...config,
@@ -119,7 +123,8 @@ export function useVariantConfig<T extends Record<string, unknown>>(base: T): T 
       venue: localizedVenue,
       ...(localizedLocations ? { locations: localizedLocations } : {}),
       ...(localizedStory ? { story: localizedStory } : {}),
-      ...(localizedSchedule ? { morningSchedule: localizedSchedule } : {}),
+      ...(localizedMorningSchedule ? { morningSchedule: localizedMorningSchedule } : {}),
+      ...(localizedSchedule ? { schedule: localizedSchedule } : {}),
       inviteText: t("invite.wedding"),
       heroBlessing: t("hero.blessingWish"),
       weddingTypeDescription: t("invite.wedding"),

@@ -26,7 +26,9 @@ export default function TiltCard({ children, className = "", glow = false }: Til
   }
 
   const card = (
-    <div className={`v2-card rounded-2xl p-5 sm:p-8 ${glow ? "v2-card-glow" : ""}`}>{children}</div>
+    <div className={`v2-glass v2-tilt-card rounded-2xl p-5 sm:p-7 ${glow ? "v2-tilt-card--glow" : ""}`}>
+      {children}
+    </div>
   );
 
   if (lite) {
