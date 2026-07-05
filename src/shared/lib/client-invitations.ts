@@ -1,18 +1,25 @@
 import type { TemplateId } from "@/admin/types";
 import type { InvitationClient } from "@/shared/types/client";
 
-/** Kuyov (erkak tomondan) yoki kela/kelin (ayol tomondan) taklifnoma. */
-export type InvitationSide = "kuyov" | "kela";
+/** Kuyov (erkak tomondan) yoki kelin (ayol tomondan) taklifnoma. */
+export type InvitationSide = "kuyov" | "kelin";
 
-export const INVITATION_SIDES: InvitationSide[] = ["kuyov", "kela"];
+export const INVITATION_SIDES: InvitationSide[] = ["kuyov", "kelin"];
 
 export const INVITATION_SIDE_LABELS: Record<InvitationSide, string> = {
   kuyov: "Kuyov tomondan",
-  kela: "Kela tomondan",
+  kelin: "Kelin tomondan",
 };
 
+/** Eski `kela` havolalarini qo'llab-quvvatlash. */
+export function normalizeInvitationSide(value: string): InvitationSide | null {
+  if (value === "kuyov") return "kuyov";
+  if (value === "kelin" || value === "kela") return "kelin";
+  return null;
+}
+
 export function isInvitationSide(value: string): value is InvitationSide {
-  return value === "kuyov" || value === "kela";
+  return normalizeInvitationSide(value) !== null;
 }
 
 /** Eski `templateId` yozuvlarini ikki tomonga ham moslashtiradi. */
@@ -34,6 +41,11 @@ export function normalizeInvitationClient(client: InvitationClient): InvitationC
   };
 }
 
+export function clientUsesSameTemplate(client: InvitationClient): boolean {
+  const normalized = normalizeInvitationClient(client);
+  return normalized.groomTemplateId === normalized.brideTemplateId;
+}
+
 export function resolveTemplateForSide(
   client: InvitationClient,
   side: InvitationSide
@@ -45,14 +57,15 @@ export function resolveTemplateForSide(
   return normalized.brideTemplateId ?? normalized.templateId;
 }
 
-export function buildInvitationPath(slug: string, side: InvitationSide): string {
+export function buildInvitationPath(slug: string, side?: InvitationSide): string {
+  if (!side) return `/${slug}`;
   return `/${slug}/${side}`;
 }
 
 export function buildInvitationUrl(
   origin: string,
   slug: string,
-  side: InvitationSide,
+  side: InvitationSide | undefined,
   defaultLocale?: string
 ): string {
   let url = `${origin}${buildInvitationPath(slug, side)}`;

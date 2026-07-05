@@ -5,14 +5,17 @@ import { Pencil, Trash2, ExternalLink } from "lucide-react";
 import type { AdminClient } from "../types";
 import { TEMPLATE_OPTIONS } from "../types";
 import { latinToCyrillic } from "@/shared/i18n/transliterate";
-import type { InvitationSide } from "@/shared/lib/client-invitations";
+import {
+  clientUsesSameTemplate,
+  type InvitationSide,
+} from "@/shared/lib/client-invitations";
 
 interface ClientCardProps {
   client: AdminClient;
   index: number;
   onEdit: (client: AdminClient) => void;
   onDelete: (id: string) => void;
-  onCopyLink: (slug: string, side: InvitationSide, defaultLocale?: string) => void;
+  onCopyLink: (slug: string, side?: InvitationSide, defaultLocale?: string) => void;
 }
 
 function templateShort(id: string | undefined): string {
@@ -24,6 +27,7 @@ function templateShort(id: string | undefined): string {
 export default function ClientCard({ client, index, onEdit, onDelete, onCopyLink }: ClientCardProps) {
   const groomTemplate = client.groomTemplateId ?? client.templateId;
   const brideTemplate = client.brideTemplateId ?? client.templateId;
+  const sameTemplate = clientUsesSameTemplate(client);
 
   return (
     <motion.article
@@ -54,35 +58,59 @@ export default function ClientCard({ client, index, onEdit, onDelete, onCopyLink
       </div>
 
       <div className="mb-4 space-y-1.5 text-xs text-slate-500">
+        {sameTemplate ? (
+          <p>
+            <span className="font-medium text-slate-600">Shablon:</span> {templateShort(groomTemplate)}
+          </p>
+        ) : (
+          <>
+            <p>
+              <span className="font-medium text-slate-600">Kuyov:</span> {templateShort(groomTemplate)}
+            </p>
+            <p>
+              <span className="font-medium text-slate-600">Kelin:</span> {templateShort(brideTemplate)}
+            </p>
+          </>
+        )}
         <p>
-          <span className="font-medium text-slate-600">Kuyov:</span> {templateShort(groomTemplate)}
-        </p>
-        <p>
-          <span className="font-medium text-slate-600">Kela:</span> {templateShort(brideTemplate)}
-        </p>
-        <p>
-          Ko&apos;rishlar — kuyov: {(client.groomPageViews ?? 0).toLocaleString("uz-UZ")}, kela:{" "}
-          {(client.bridePageViews ?? 0).toLocaleString("uz-UZ")}
+          {sameTemplate ? (
+            <>Ko&apos;rishlar: {(client.pageViews ?? 0).toLocaleString("uz-UZ")}</>
+          ) : (
+            <>
+              Ko&apos;rishlar — kuyov: {(client.groomPageViews ?? 0).toLocaleString("uz-UZ")}, kelin:{" "}
+              {(client.bridePageViews ?? 0).toLocaleString("uz-UZ")}
+            </>
+          )}
         </p>
         <p className="truncate font-mono text-[11px] text-[#c9a84c]">/{client.slug}</p>
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
+      {sameTemplate ? (
         <button
           type="button"
-          onClick={() => onCopyLink(client.slug, "kuyov", client.defaultLocale)}
-          className="flex min-h-[40px] items-center justify-center rounded-xl border border-[#c9a84c]/30 text-xs font-medium text-[#a68b3c] hover:bg-[#c9a84c]/8"
+          onClick={() => onCopyLink(client.slug, undefined, client.defaultLocale)}
+          className="flex min-h-[40px] w-full items-center justify-center rounded-xl border border-[#c9a84c]/30 text-xs font-medium text-[#a68b3c] hover:bg-[#c9a84c]/8"
         >
-          Kuyov link
+          Asosiy link
         </button>
-        <button
-          type="button"
-          onClick={() => onCopyLink(client.slug, "kela", client.defaultLocale)}
-          className="flex min-h-[40px] items-center justify-center rounded-xl border border-[#c9a84c]/30 text-xs font-medium text-[#a68b3c] hover:bg-[#c9a84c]/8"
-        >
-          Kela link
-        </button>
-      </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            onClick={() => onCopyLink(client.slug, "kuyov", client.defaultLocale)}
+            className="flex min-h-[40px] items-center justify-center rounded-xl border border-[#c9a84c]/30 text-xs font-medium text-[#a68b3c] hover:bg-[#c9a84c]/8"
+          >
+            Kuyov link
+          </button>
+          <button
+            type="button"
+            onClick={() => onCopyLink(client.slug, "kelin", client.defaultLocale)}
+            className="flex min-h-[40px] items-center justify-center rounded-xl border border-[#c9a84c]/30 text-xs font-medium text-[#a68b3c] hover:bg-[#c9a84c]/8"
+          >
+            Kelin link
+          </button>
+        </div>
+      )}
 
       <div className="mt-2 grid grid-cols-2 gap-2">
         <button
@@ -110,7 +138,7 @@ export default function ClientCard({ client, index, onEdit, onDelete, onCopyLink
         className="mt-3 flex items-center justify-center gap-1 text-[11px] text-slate-400 hover:text-[#0f2744]"
       >
         <ExternalLink className="h-3 w-3" />
-        Tanlash sahifasini ko&apos;rish
+        {sameTemplate ? "Taklifnomani ko&apos;rish" : "Tanlash sahifasini ko&apos;rish"}
       </a>
     </motion.article>
   );

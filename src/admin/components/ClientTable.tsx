@@ -4,13 +4,16 @@ import { Pencil, Trash2 } from "lucide-react";
 import type { AdminClient } from "../types";
 import { TEMPLATE_OPTIONS } from "../types";
 import { latinToCyrillic } from "@/shared/i18n/transliterate";
-import type { InvitationSide } from "@/shared/lib/client-invitations";
+import {
+  clientUsesSameTemplate,
+  type InvitationSide,
+} from "@/shared/lib/client-invitations";
 
 interface ClientTableProps {
   clients: AdminClient[];
   onEdit: (client: AdminClient) => void;
   onDelete: (id: string) => void;
-  onCopyLink: (slug: string, side: InvitationSide, defaultLocale?: string) => void;
+  onCopyLink: (slug: string, side?: InvitationSide, defaultLocale?: string) => void;
 }
 
 function templateShort(id: string | undefined): string {
@@ -39,6 +42,7 @@ export default function ClientTable({ clients, onEdit, onDelete, onCopyLink }: C
             const brideTemplate = client.brideTemplateId ?? client.templateId;
             const groomViews = client.groomPageViews ?? 0;
             const brideViews = client.bridePageViews ?? 0;
+            const sameTemplate = clientUsesSameTemplate(client);
 
             return (
               <tr key={client.id} className="border-b border-slate-50 transition hover:bg-slate-50/50">
@@ -57,19 +61,31 @@ export default function ClientTable({ clients, onEdit, onDelete, onCopyLink }: C
                   <span className="text-xs text-slate-400">{client.weddingTime}</span>
                 </td>
                 <td className="px-5 py-4 text-slate-600">
-                  <p className="text-xs">
-                    <span className="font-medium text-slate-700">Kuyov:</span> {templateShort(groomTemplate)}
-                  </p>
-                  <p className="mt-1 text-xs">
-                    <span className="font-medium text-slate-700">Kela:</span> {templateShort(brideTemplate)}
-                  </p>
+                  {sameTemplate ? (
+                    <p className="text-xs">{templateShort(groomTemplate)}</p>
+                  ) : (
+                    <>
+                      <p className="text-xs">
+                        <span className="font-medium text-slate-700">Kuyov:</span> {templateShort(groomTemplate)}
+                      </p>
+                      <p className="mt-1 text-xs">
+                        <span className="font-medium text-slate-700">Kelin:</span> {templateShort(brideTemplate)}
+                      </p>
+                    </>
+                  )}
                 </td>
                 <td className="px-5 py-4 text-slate-600">
-                  <p className="text-xs">Kuyov: {groomViews.toLocaleString("uz-UZ")}</p>
-                  <p className="mt-0.5 text-xs">Kela: {brideViews.toLocaleString("uz-UZ")}</p>
-                  <p className="mt-1 text-[10px] text-slate-400">
-                    Jami: {client.pageViews.toLocaleString("uz-UZ")}
-                  </p>
+                  {sameTemplate ? (
+                    <p className="text-xs">{client.pageViews.toLocaleString("uz-UZ")}</p>
+                  ) : (
+                    <>
+                      <p className="text-xs">Kuyov: {groomViews.toLocaleString("uz-UZ")}</p>
+                      <p className="mt-0.5 text-xs">Kelin: {brideViews.toLocaleString("uz-UZ")}</p>
+                      <p className="mt-1 text-[10px] text-slate-400">
+                        Jami: {client.pageViews.toLocaleString("uz-UZ")}
+                      </p>
+                    </>
+                  )}
                 </td>
                 <td className="px-5 py-4">
                   <span
@@ -90,22 +106,35 @@ export default function ClientTable({ clients, onEdit, onDelete, onCopyLink }: C
                     >
                       <Pencil className="h-4 w-4" />
                     </button>
-                    <button
-                      type="button"
-                      onClick={() => onCopyLink(client.slug, "kuyov", client.defaultLocale)}
-                      className="rounded-lg px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-[#a68b3c] hover:bg-[#c9a84c]/10"
-                      title="Kuyov linki"
-                    >
-                      Kuyov
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => onCopyLink(client.slug, "kela", client.defaultLocale)}
-                      className="rounded-lg px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-[#a68b3c] hover:bg-[#c9a84c]/10"
-                      title="Kela linki"
-                    >
-                      Kela
-                    </button>
+                    {sameTemplate ? (
+                      <button
+                        type="button"
+                        onClick={() => onCopyLink(client.slug, undefined, client.defaultLocale)}
+                        className="rounded-lg px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-[#a68b3c] hover:bg-[#c9a84c]/10"
+                        title="Asosiy link"
+                      >
+                        Link
+                      </button>
+                    ) : (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => onCopyLink(client.slug, "kuyov", client.defaultLocale)}
+                          className="rounded-lg px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-[#a68b3c] hover:bg-[#c9a84c]/10"
+                          title="Kuyov linki"
+                        >
+                          Kuyov
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => onCopyLink(client.slug, "kelin", client.defaultLocale)}
+                          className="rounded-lg px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-[#a68b3c] hover:bg-[#c9a84c]/10"
+                          title="Kelin linki"
+                        >
+                          Kelin
+                        </button>
+                      </>
+                    )}
                     <button
                       type="button"
                       onClick={() => onDelete(client.id)}

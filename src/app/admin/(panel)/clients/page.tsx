@@ -39,11 +39,17 @@ export default function ClientsPage() {
     setModalOpen(true);
   }
 
-  function copyLink(slug: string, side: InvitationSide, defaultLocale?: string) {
+  function copyLink(slug: string, side?: InvitationSide, defaultLocale?: string) {
     const origin = typeof window !== "undefined" ? window.location.origin : "https://taklifnoma-opal.vercel.app";
     const url = buildInvitationUrl(origin, slug, side, defaultLocale);
     navigator.clipboard.writeText(url).then(() =>
-      showToast(side === "kuyov" ? "Kuyov linki nusxalandi!" : "Kela linki nusxalandi!")
+      showToast(
+        !side
+          ? "Asosiy link nusxalandi!"
+          : side === "kuyov"
+            ? "Kuyov linki nusxalandi!"
+            : "Kelin linki nusxalandi!"
+      )
     );
   }
 

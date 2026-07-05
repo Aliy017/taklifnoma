@@ -22,7 +22,7 @@ export interface InvitationClient {
   templateId: TemplateId;
   /** Kuyov tomondan taklifnoma shabloni */
   groomTemplateId?: TemplateId;
-  /** Kela (kelin) tomondan taklifnoma shabloni */
+  /** Kelin tomondan taklifnoma shabloni */
   brideTemplateId?: TemplateId;
   groomPageViews?: number;
   bridePageViews?: number;

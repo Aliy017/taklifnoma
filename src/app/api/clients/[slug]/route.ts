@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getClientBySlug, incrementClientViews } from "@/shared/lib/clients-store";
 import { buildClientContext } from "@/shared/lib/client-wedding";
 import { RESERVED_SLUGS } from "@/shared/types/client";
-import { isInvitationSide } from "@/shared/lib/client-invitations";
+import { normalizeInvitationSide } from "@/shared/lib/client-invitations";
 import { handleApiError } from "@/shared/lib/api-error";
 
 export const dynamic = "force-dynamic";
@@ -40,11 +40,12 @@ export async function POST(
       return NextResponse.json({ error: "Topilmadi" }, { status: 404 });
     }
 
-    let side: "kuyov" | "kela" = "kuyov";
+    let side: "kuyov" | "kelin" = "kuyov";
     try {
       const body = await request.json();
-      if (body?.side && isInvitationSide(String(body.side))) {
-        side = body.side;
+      const normalized = body?.side ? normalizeInvitationSide(String(body.side)) : null;
+      if (normalized) {
+        side = normalized;
       }
     } catch {
       /* empty body — legacy */

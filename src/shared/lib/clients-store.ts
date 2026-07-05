@@ -82,7 +82,7 @@ export async function incrementClientViews(slug: string, side: InvitationSide): 
   const next = clients.map((c) => {
     if (c.slug !== slug) return c;
     const groomPageViews = side === "kuyov" ? c.groomPageViews! + 1 : c.groomPageViews!;
-    const bridePageViews = side === "kela" ? c.bridePageViews! + 1 : c.bridePageViews!;
+    const bridePageViews = side === "kelin" ? c.bridePageViews! + 1 : c.bridePageViews!;
     return {
       ...c,
       groomPageViews,

@@ -283,13 +283,16 @@ export default function ClientModal({ open, onClose, onSave, editing }: ClientMo
           <div className="rounded-xl border border-slate-200/80 bg-slate-50/80 px-4 py-3 space-y-2">
             <p className="text-[10px] uppercase tracking-wider text-slate-400">Asosiy havola</p>
             <p className="font-mono text-sm text-[#0f2744]">/{slugPreview}</p>
-            {slugPreview !== "—" && (
+            {slugPreview !== "—" && !sameTemplate && (
               <>
                 <p className="text-[10px] uppercase tracking-wider text-slate-400 pt-1">Kuyov linki</p>
                 <p className="font-mono text-xs text-[#c9a84c]">{buildInvitationPath(slugPreview, "kuyov")}</p>
-                <p className="text-[10px] uppercase tracking-wider text-slate-400 pt-1">Kela linki</p>
-                <p className="font-mono text-xs text-[#c9a84c]">{buildInvitationPath(slugPreview, "kela")}</p>
+                <p className="text-[10px] uppercase tracking-wider text-slate-400 pt-1">Kelin linki</p>
+                <p className="font-mono text-xs text-[#c9a84c]">{buildInvitationPath(slugPreview, "kelin")}</p>
               </>
+            )}
+            {slugPreview !== "—" && sameTemplate && (
+              <p className="text-xs text-slate-500">Bir xil shablon — mehmonlar to&apos;g&apos;ridan-to&apos;g&apos;ri ochiladi.</p>
             )}
           </div>
         </div>
@@ -299,7 +302,7 @@ export default function ClientModal({ open, onClose, onSave, editing }: ClientMo
             <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Taklifnoma shablonlari</p>
               <p className="mt-1 text-xs text-slate-500">
-                Kuyov va kela tomondan alohida dizayn tanlash mumkin
+                Kuyov va kelin tomondan alohida dizayn tanlash mumkin
               </p>
             </div>
             <label className="flex cursor-pointer items-center gap-2 text-sm text-slate-600">
@@ -322,8 +325,8 @@ export default function ClientModal({ open, onClose, onSave, editing }: ClientMo
 
           {!sameTemplate && (
             <TemplatePicker
-              label="Kela tomondan"
-              description="Odatda kela (kelin) tarafidagi mehmonlar uchun"
+              label="Kelin tomondan"
+              description="Odatda kelin tarafidagi mehmonlar uchun"
               value={form.brideTemplateId}
               onChange={setBrideTemplate}
             />

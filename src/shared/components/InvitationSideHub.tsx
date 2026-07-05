@@ -45,8 +45,6 @@ function SideCard({
 }
 
 export default function InvitationSideHub({ client }: { client: InvitationClient }) {
-  const sameTemplate = client.groomTemplateId === client.brideTemplateId;
-
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center bg-gradient-to-b from-[#f5f0e8] to-[#ebe4d8] px-4 py-16">
       <div className="w-full max-w-lg text-center">
@@ -57,20 +55,18 @@ export default function InvitationSideHub({ client }: { client: InvitationClient
           {client.groomName} & {client.brideName}
         </h1>
         <p className="mt-3 text-sm text-slate-600">
-          Mehmonlar odatda kuyov yoki kela tomondan alohida taklifnoma yuborishadi. O&apos;zingizga mos
+          Mehmonlar odatda kuyov yoki kelin tomondan alohida taklifnoma yuborishadi. O&apos;zingizga mos
           tomondan tanlang.
         </p>
       </div>
 
-      <div className={`mt-10 grid w-full max-w-2xl gap-4 ${sameTemplate ? "sm:grid-cols-2" : "sm:grid-cols-2"}`}>
+      <div className="mt-10 grid w-full max-w-2xl gap-4 sm:grid-cols-2">
         <SideCard client={client} side="kuyov" />
-        <SideCard client={client} side="kela" />
+        <SideCard client={client} side="kelin" />
       </div>
 
       <p className="mt-8 max-w-md text-center text-xs text-slate-400">
-        {sameTemplate
-          ? "Ikkala tomonda bir xil dizayn, lekin alohida havolalar."
-          : "Har tomonga alohida dizayn tanlangan."}
+        Har tomonga alohida dizayn tanlangan.
       </p>
     </main>
   );
