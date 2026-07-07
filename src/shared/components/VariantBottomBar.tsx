@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import CreatorFooter from "@/shared/components/CreatorFooter";
 import VariantLikeButton from "@/shared/components/VariantLikeButton";
 import InvitationControls from "@/shared/components/InvitationControls";
+import WeddingMusicAutoplay from "@/shared/components/WeddingMusicAutoplay";
 import type { CreatorThemeId } from "@/shared/config/creator-themes";
 
 interface VariantBottomBarProps {
@@ -26,6 +27,7 @@ export default function VariantBottomBar({
 
   return (
     <>
+      <WeddingMusicAutoplay />
       <InvitationControls accent={accent} variantId={variantId} />
       <div className="flex justify-center px-4 py-4">
         <VariantLikeButton variantId={variantId} initialCount={initialCount} accent={accent} size="sm" />

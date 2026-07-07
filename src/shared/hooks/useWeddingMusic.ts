@@ -98,6 +98,7 @@ export function useWeddingMusic(options: UseWeddingMusicOptions = {}) {
     if (audio && !audio.paused && !audio.ended) return;
 
     let cancelled = false;
+    const timers: number[] = [];
     let removeListeners: (() => void) | undefined;
 
     const attempt = async () => {
@@ -113,19 +114,44 @@ export function useWeddingMusic(options: UseWeddingMusicOptions = {}) {
         removeListeners?.();
         void attempt();
       };
-      window.addEventListener("pointerdown", onGesture);
-      window.addEventListener("keydown", onGesture);
+      const opts: AddEventListenerOptions = { once: true, capture: true, passive: true };
+      window.addEventListener("pointerdown", onGesture, opts);
+      window.addEventListener("keydown", onGesture, opts);
+      window.addEventListener("touchstart", onGesture, opts);
       removeListeners = () => {
-        window.removeEventListener("pointerdown", onGesture);
-        window.removeEventListener("keydown", onGesture);
+        window.removeEventListener("pointerdown", onGesture, opts);
+        window.removeEventListener("keydown", onGesture, opts);
+        window.removeEventListener("touchstart", onGesture, opts);
       };
     };
 
-    const startAutoplay = () => {
-      void attempt().then((ok) => {
-        if (!ok && !cancelled) bindGestureRetry();
+    const scheduleRetries = () => {
+      [0, 150, 450, 1000, 2000].forEach((delay) => {
+        const id = window.setTimeout(() => {
+          void attempt().then((ok) => {
+            if (!ok && !cancelled && delay === 2000) bindGestureRetry();
+          });
+        }, delay);
+        timers.push(id);
       });
     };
+
+    const startAutoplay = () => {
+      scheduleRetries();
+    };
+
+    const onPageShow = () => {
+      if (!cancelled) scheduleRetries();
+    };
+
+    const onVisible = () => {
+      if (!cancelled && document.visibilityState === "visible") {
+        void attempt();
+      }
+    };
+
+    window.addEventListener("pageshow", onPageShow);
+    document.addEventListener("visibilitychange", onVisible);
 
     if (audio && audio.readyState < HTMLMediaElement.HAVE_FUTURE_DATA) {
       const onReady = () => {
@@ -133,13 +159,20 @@ export function useWeddingMusic(options: UseWeddingMusicOptions = {}) {
         startAutoplay();
       };
       audio.addEventListener("canplay", onReady);
-      removeListeners = () => audio.removeEventListener("canplay", onReady);
+      const prevRemove = removeListeners;
+      removeListeners = () => {
+        prevRemove?.();
+        audio.removeEventListener("canplay", onReady);
+      };
     } else {
       startAutoplay();
     }
 
     return () => {
       cancelled = true;
+      timers.forEach((id) => window.clearTimeout(id));
+      window.removeEventListener("pageshow", onPageShow);
+      document.removeEventListener("visibilitychange", onVisible);
       removeListeners?.();
     };
   }, [autoPlay, play, musicSrc]);
