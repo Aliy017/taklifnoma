@@ -12,7 +12,8 @@ export type TemplateId =
   | "variant-7"
   | "variant-8"
   | "variant-9"
-  | "variant-10";
+  | "variant-10"
+  | "variant-11";
 
 export interface AdminClient {
   id: string;
@@ -83,4 +84,5 @@ export const TEMPLATE_OPTIONS: { id: TemplateId; label: string; route: string }[
   { id: "variant-8", label: "Template v8 — Samarqand moviy", route: "/v8" },
   { id: "variant-9", label: "Template v9 — Rayhon bog'i", route: "/v9" },
   { id: "variant-10", label: "Template v10 — Anor bayrami", route: "/v10" },
+  { id: "variant-11", label: "Template v11 — Story elegans", route: "/v11" },
 ];

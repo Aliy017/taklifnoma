@@ -8,7 +8,8 @@ export type SparkleThemeId =
   | "variant-7"
   | "variant-8"
   | "variant-9"
-  | "variant-10";
+  | "variant-10"
+  | "variant-11";
 
 export interface SparkleThemeConfig {
   base: string;
@@ -121,6 +122,16 @@ export const sparkleThemes: Record<SparkleThemeId, SparkleThemeConfig> = {
     halo: "rgba(244, 132, 95, 0.26)",
     twinkle: "#fff5f0",
     twinkleGlow: "rgba(255, 215, 0, 0.8)",
+  },
+  "variant-11": {
+    base: "#1a1a1a",
+    mid: "#ffffff",
+    accent: "#e8e8e8",
+    highlight: "#ffffff",
+    sparkles: ["#ffffff", "#e5e5e5", "#d4d4d4", "#f5f5f5"],
+    halo: "rgba(255, 255, 255, 0.12)",
+    twinkle: "#ffffff",
+    twinkleGlow: "rgba(255, 255, 255, 0.75)",
   },
 };
 

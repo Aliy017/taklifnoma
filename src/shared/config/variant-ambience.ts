@@ -8,7 +8,8 @@ export type AmbienceThemeId =
   | "variant-7"
   | "variant-8"
   | "variant-9"
-  | "variant-10";
+  | "variant-10"
+  | "variant-11";
 
 export interface AmbienceOrb {
   x: string;
@@ -177,6 +178,20 @@ export const VARIANT_AMBIENCE: Record<AmbienceThemeId, AmbienceConfig> = {
     shapes: 5,
     shapesLite: 3,
   },
+  "variant-11": {
+    orbs: [
+      { x: "20%", y: "25%", size: "8rem", color: "rgba(255, 255, 255, 0.06)", dur: "12s" },
+      { x: "75%", y: "60%", size: "7rem", color: "rgba(255, 255, 255, 0.04)", dur: "14s", delay: "-5s" },
+    ],
+    orbsLite: 1,
+    particles: 6,
+    particlesLite: 3,
+    particleColor: "rgba(255, 255, 255, 0.35)",
+    shape: "ring",
+    shapeColor: "rgba(255, 255, 255, 0.2)",
+    shapes: 2,
+    shapesLite: 1,
+  },
 };
 
 export const VARIANT_ACCENTS: Record<AmbienceThemeId, string> = {
@@ -190,4 +205,5 @@ export const VARIANT_ACCENTS: Record<AmbienceThemeId, string> = {
   "variant-8": "#2B9FD9",
   "variant-9": "#047857",
   "variant-10": "#F4845F",
+  "variant-11": "#ffffff",
 };

@@ -133,6 +133,18 @@ export const variants: VariantMeta[] = [
     accent: "#F4845F",
     gradient: "from-orange-950/75 via-red-950/55 to-amber-950/60",
   },
+  {
+    id: "variant-11",
+    number: 11,
+    title: "Story elegans",
+    subtitle: "9:16 format — video fon, ikki bosqichli animatsiya",
+    route: "/v11",
+    status: "ready",
+    couple: "Firdavs & Marjona",
+    date: "17 Iyul, 2026",
+    accent: "#ffffff",
+    gradient: "from-black via-zinc-950 to-black",
+  },
 ];
 
 export function getVariant(id: string) {

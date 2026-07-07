@@ -17,6 +17,7 @@ import Variant7Page from "@/variants/variant-7";
 import Variant8Page from "@/variants/variant-8";
 import Variant9Page from "@/variants/variant-9";
 import Variant10Page from "@/variants/variant-10";
+import Variant11Page from "@/variants/variant-11";
 
 import "@/variants/variant-1/styles.css";
 import "@/variants/variant-2/styles.css";
@@ -28,6 +29,7 @@ import "@/variants/variant-7/styles.css";
 import "@/variants/variant-8/styles.css";
 import "@/variants/variant-9/styles.css";
 import "@/variants/variant-10/styles.css";
+import "@/variants/variant-11/styles.css";
 
 const VARIANT_PAGES: Record<TemplateId, ComponentType> = {
   "variant-1": Variant1Page,
@@ -40,6 +42,7 @@ const VARIANT_PAGES: Record<TemplateId, ComponentType> = {
   "variant-8": Variant8Page,
   "variant-9": Variant9Page,
   "variant-10": Variant10Page,
+  "variant-11": Variant11Page,
 };
 
 interface InvitationHostProps {
