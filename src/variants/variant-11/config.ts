@@ -5,6 +5,7 @@ export const variant11Config = {
   title: "Story elegans",
   subtitle: "9:16 format — video fon va ikki bosqichli animatsiya",
   ...weddingConfig,
+  groom: "Firdavsbek",
   bride: "Marjonabonu",
   weddingDateISO: "2026-07-19T11:00:00",
   displayDate: "19 Iyul, 2026",

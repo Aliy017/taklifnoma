@@ -140,7 +140,7 @@ export const variants: VariantMeta[] = [
     subtitle: "9:16 format — video fon, ikki bosqichli animatsiya",
     route: "/v11",
     status: "ready",
-    couple: "Firdavs & Marjona",
+    couple: "Firdavsbek & Marjonabonu",
     date: "19 Iyul, 2026",
     accent: "#ffffff",
     gradient: "from-black via-zinc-950 to-black",
