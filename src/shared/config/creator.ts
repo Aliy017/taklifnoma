@@ -1,5 +1,5 @@
 export const creatorConfig = {
-  name: "Aliy",
+  name: "ΞBム™",
   telegram: "https://t.me/notience",
   telegramHandle: "@notience",
 } as const;

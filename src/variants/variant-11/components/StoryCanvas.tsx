@@ -21,6 +21,7 @@ export default function StoryCanvas() {
   const lite = useLiteMode();
   const stageRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const bgImageRef = useRef<HTMLImageElement>(null);
 
   const dateParts = useMemo(
     () => formatStoryDateParts(config.weddingDateISO, config.displayTime, locale),
@@ -28,7 +29,9 @@ export default function StoryCanvas() {
   );
 
   const address = [config.venue?.region, config.venue?.place].filter(Boolean).join(", ");
-  const videoSrc = config.storyVideoSrc;
+  const videoSrc = config.storyVideoSrc?.trim() || "";
+  const bgImageSrc = config.storyBgImageSrc?.trim() || "";
+  const hasMedia = Boolean(bgImageSrc || videoSrc);
 
   function handleVideoError() {
     const el = videoRef.current;
@@ -49,6 +52,7 @@ export default function StoryCanvas() {
       const ringStrokes = q(".v11-ring-stroke");
       const mainReveals = q(".v11-main-reveal");
       const video = videoRef.current ?? q(".v11-video")[0];
+      const bgImage = bgImageRef.current ?? q(".v11-bg-image")[0];
 
       gsap.set(main, { autoAlpha: 0, scale: 0.94, visibility: "hidden" });
       gsap.set(intro, { autoAlpha: 1, scale: 1 });
@@ -66,9 +70,10 @@ export default function StoryCanvas() {
         return;
       }
 
-      if (video) {
-        gsap.set(video, { scale: 1.05 });
-        gsap.to(video, { scale: 1.12, duration: lite ? 6 : 9, ease: "none" });
+      const kenBurnsTarget = bgImage ?? video;
+      if (kenBurnsTarget) {
+        gsap.set(kenBurnsTarget, { scale: 1.05 });
+        gsap.to(kenBurnsTarget, { scale: 1.12, duration: lite ? 6 : 9, ease: "none" });
       }
 
       const particleData = particles.map((_, i) => ({
@@ -161,6 +166,16 @@ export default function StoryCanvas() {
     <div className="v11-shell">
       <div className="v11-stage" ref={stageRef} data-phase="story">
         <div className="v11-media" aria-hidden>
+          {bgImageSrc ? (
+            <img
+              ref={bgImageRef}
+              className="v11-bg-image"
+              src={bgImageSrc}
+              alt=""
+              fetchPriority="high"
+              decoding="async"
+            />
+          ) : null}
           {videoSrc ? (
             <video
               ref={videoRef}
@@ -175,7 +190,7 @@ export default function StoryCanvas() {
               <source src={videoSrc} type="video/mp4" />
             </video>
           ) : null}
-          <div className="v11-media-fallback" />
+          {!hasMedia ? <div className="v11-media-fallback" /> : null}
           <div className="v11-overlay" />
           <div className="v11-vignette" />
         </div>

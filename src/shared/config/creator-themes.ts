@@ -21,6 +21,10 @@ export const creatorThemes: Record<CreatorThemeId, CreatorThemeStyle> = {
       { accent: sparkleThemes[id].mid, accentSoft: sparkleThemes[id].accent },
     ])
   ) as Record<SparkleThemeId, CreatorThemeStyle>),
+  "variant-11": {
+    accent: "#d4af37",
+    accentSoft: "#e8d5a3",
+  },
 };
 
 export function getCreatorTheme(id: CreatorThemeId): CreatorThemeStyle {

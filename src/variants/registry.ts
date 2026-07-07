@@ -141,7 +141,7 @@ export const variants: VariantMeta[] = [
     route: "/v11",
     status: "ready",
     couple: "Firdavs & Marjona",
-    date: "17 Iyul, 2026",
+    date: "19 Iyul, 2026",
     accent: "#ffffff",
     gradient: "from-black via-zinc-950 to-black",
   },

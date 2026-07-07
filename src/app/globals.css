@@ -661,6 +661,7 @@ html.lenis.lenis-scrolling .variant-5 .v5-atlas-bg > div[class*="blur"] {
 .variant-4 .creator-badge-inner,
 .variant-6 .creator-badge-inner,
 .variant-8 .creator-badge-inner,
+.variant-11 .creator-badge-inner,
 .dashboard-gallery .creator-badge-inner {
   background: color-mix(in srgb, var(--creator-accent) 14%, rgba(12, 14, 22, 0.9));
   color: rgba(255, 255, 255, 0.9);
@@ -677,6 +678,7 @@ html.lenis.lenis-scrolling .variant-5 .v5-atlas-bg > div[class*="blur"] {
 .variant-4 .creator-badge-text,
 .variant-6 .creator-badge-text,
 .variant-8 .creator-badge-text,
+.variant-11 .creator-badge-text,
 .dashboard-gallery .creator-badge-text {
   color: color-mix(in srgb, var(--creator-accent-soft) 70%, white);
 }

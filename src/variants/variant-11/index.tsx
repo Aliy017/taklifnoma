@@ -7,7 +7,7 @@ export default function Variant11Page() {
   return (
     <main className="variant-11 relative">
       <StoryCanvas />
-      <VariantBottomBar variantId="variant-11" accent="#ffffff" />
+      <VariantBottomBar variantId="variant-11" accent="#d4af37" />
     </main>
   );
 }
