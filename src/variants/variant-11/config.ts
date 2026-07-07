@@ -15,8 +15,8 @@ export const variant11Config = {
   venue: {
     ...weddingConfig.venue,
     region: "",
-    place: "Chimyon, Zilol to'yxonasi",
-    address: "Chimyon, Zilol to'yxonasi",
+    place: "Chimyon, Zamin to'yxonasi",
+    address: "Chimyon, Zamin to'yxonasi",
   },
   storyBgImageSrc: "/couple/story-ring-bg.png",
   storyVideoSrc: "",
