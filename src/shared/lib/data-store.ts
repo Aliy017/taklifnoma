@@ -42,25 +42,32 @@ export function isKvStorageEnabled() {
   return getRedis() !== null;
 }
 
-export async function readStore<T>(key: StoreKey, fallback: T): Promise<T> {
+/**
+ * Faqat kalit MAVJUD BO'LMAGANDA null qaytaradi.
+ * Redis: get natijasi null bo'lsa null. Fayl: ENOENT bo'lsa null, boshqa
+ * har qanday o'qish/parse xatosini QAYTA OTADI — xatoni jim yutib, keyingi
+ * writeStore barcha ma'lumotni bitta yozuv bilan ustiga yozib yuborishining oldini oladi.
+ */
+export async function readStoreRaw<T>(key: StoreKey): Promise<T | null> {
   const redis = getRedis();
   if (redis) {
-    try {
-      const value = await redis.get<T>(KV_KEYS[key]);
-      return value ?? fallback;
-    } catch (error) {
-      console.error(`[data-store] Redis o'qish xatosi (${key}):`, error);
-      return fallback;
-    }
+    return (await redis.get<T>(KV_KEYS[key])) ?? null;
   }
 
   const filePath = path.join(process.cwd(), "data", FILE_NAMES[key]);
   try {
     const raw = await fs.readFile(filePath, "utf-8");
     return JSON.parse(raw) as T;
-  } catch {
-    return fallback;
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException)?.code === "ENOENT") {
+      return null;
+    }
+    throw error;
   }
+}
+
+export async function readStore<T>(key: StoreKey, fallback: T): Promise<T> {
+  return (await readStoreRaw<T>(key)) ?? fallback;
 }
 
 export async function writeStore<T>(key: StoreKey, value: T): Promise<void> {
@@ -78,5 +85,9 @@ export async function writeStore<T>(key: StoreKey, value: T): Promise<void> {
 
   const filePath = path.join(process.cwd(), "data", FILE_NAMES[key]);
   await fs.mkdir(path.dirname(filePath), { recursive: true });
-  await fs.writeFile(filePath, JSON.stringify(value, null, 2), "utf-8");
+  // Atomik yozish: avval vaqtinchalik faylga, keyin rename bilan ustiga.
+  // Shunday qilib yozish o'rtasida uzilsa ham asl fayl buzilmaydi.
+  const tmpPath = `${filePath}.${process.pid}.${Date.now()}.tmp`;
+  await fs.writeFile(tmpPath, JSON.stringify(value, null, 2), "utf-8");
+  await fs.rename(tmpPath, filePath);
 }
