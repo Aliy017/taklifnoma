@@ -1,4 +1,4 @@
-import { readStore, writeStore } from "@/shared/lib/data-store";
+import { readStore, readStoreRaw, writeStore } from "@/shared/lib/data-store";
 import type { InvitationClient, InvitationWish } from "@/shared/types/client";
 import { weddingConfig } from "@/shared/config/wedding";
 import { slugify } from "@/shared/lib/slugify";
@@ -55,12 +55,14 @@ export const DEFAULT_CLIENTS: InvitationClient[] = [
 ];
 
 export async function readClients(): Promise<InvitationClient[]> {
-  const clients = await readStore<InvitationClient[]>("clients", []);
-  if (clients.length === 0) {
+  const stored = await readStoreRaw<InvitationClient[]>("clients");
+  // DEFAULT_CLIENTS faqat kalit umuman yo'q bo'lganda (null) yoziladi.
+  // Bo'sh massiv (barcha mijozlar o'chirilgan) default'ni qayta tiklamaydi.
+  if (stored === null) {
     await writeStore("clients", DEFAULT_CLIENTS);
     return DEFAULT_CLIENTS.map(normalizeInvitationClient);
   }
-  return clients.map(normalizeInvitationClient);
+  return stored.map(normalizeInvitationClient);
 }
 
 export async function writeClients(clients: InvitationClient[]) {

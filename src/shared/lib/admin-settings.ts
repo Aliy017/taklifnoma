@@ -10,9 +10,12 @@ function isValidEmail(email: string) {
 }
 
 function defaultSettings(): AdminSettings {
+  // Default yo'q: repo public bo'lgani uchun hardcoded parol = har kim admin bo'ladi.
+  // Agar na env, na saqlangan sozlama bo'lsa — admin login yopiq (bo'sh parol
+  // hech qachon tenglashmaydi, verifyAdminRequest/login false qaytaradi).
   return {
-    email: (process.env.ADMIN_EMAIL ?? "admin@taklifnoma.uz").trim().toLowerCase(),
-    password: process.env.ADMIN_PASSWORD ?? "taklifnoma2026",
+    email: (process.env.ADMIN_EMAIL ?? "").trim().toLowerCase(),
+    password: process.env.ADMIN_PASSWORD ?? "",
   };
 }
 

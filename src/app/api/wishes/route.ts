@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { Wish, WishSide } from "@/shared/types/wish";
-import { MODERATOR_KEY } from "@/shared/config/wish-moderation";
+import { verifyAdminRequest } from "@/shared/lib/admin-auth";
 import { readStore, writeStore } from "@/shared/lib/data-store";
 import {
   getClientBySlug,
@@ -20,6 +20,13 @@ export const runtime = "nodejs";
 
 function normalizeWish(wish: Wish): Wish {
   return { ...wish, likes: wish.likes ?? 0 };
+}
+
+/** Public javobdan authorIp'ni olib tashlaydi — mehmonlar IP'si oshkor bo'lmasligi uchun. */
+function toPublicWish(wish: Wish) {
+  const { authorIp: _authorIp, ...rest } = wish;
+  void _authorIp;
+  return rest;
 }
 
 async function readLegacyWishes(): Promise<Wish[]> {
@@ -62,7 +69,7 @@ export async function GET(request: NextRequest) {
     if (b.likes !== a.likes) return b.likes - a.likes;
     return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
   });
-  return NextResponse.json(sorted.slice(0, 10));
+  return NextResponse.json(sorted.slice(0, 10).map(toPublicWish));
 }
 
 export async function POST(request: NextRequest) {
@@ -127,7 +134,7 @@ export async function POST(request: NextRequest) {
     };
     wishes.push(newWish);
     await writeLegacyWishes(wishes);
-    return NextResponse.json(newWish, { status: 201 });
+    return NextResponse.json(toPublicWish(newWish), { status: 201 });
   } catch (error) {
     return handleApiError(error);
   }
@@ -135,13 +142,14 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
+    // Moderatsiya kaliti klient kodida va public repoda hardcoded edi — har kim
+    // istalgan tabrikni o'chira olardi. Endi faqat admin sessiyasi ruxsat beradi.
+    if (!(await verifyAdminRequest(request))) {
+      return NextResponse.json({ error: "Ruxsat yo'q" }, { status: 403 });
+    }
+
     const body = await request.json();
     const wishId = String(body.wishId ?? "").trim();
-    const key = String(body.key ?? "").trim().toLowerCase();
-
-    if (key !== MODERATOR_KEY) {
-      return NextResponse.json({ error: "Moderatsiya kaliti noto'g'ri" }, { status: 403 });
-    }
 
     if (!wishId) {
       return NextResponse.json({ error: "Tabrik ID kerak" }, { status: 400 });

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { ADMIN_COOKIE_NAME, verifyAdminRequest } from "@/shared/lib/admin-auth";
+import { ADMIN_COOKIE_NAME, adminSessionToken, verifyAdminRequest } from "@/shared/lib/admin-auth";
 import { getAdminSettings, updateAdminCredentials } from "@/shared/lib/admin-settings";
 import { handleApiError } from "@/shared/lib/api-error";
 
@@ -65,7 +65,8 @@ export async function PATCH(request: NextRequest) {
 
     const settings = await getAdminSettings();
     const jar = await cookies();
-    jar.set(ADMIN_COOKIE_NAME, settings.password, {
+    // Xom parol emas — yangi paroldan hosil qilingan sessiya tokeni (eski sessiyalar yaroqsiz bo'ladi).
+    jar.set(ADMIN_COOKIE_NAME, adminSessionToken(settings.password), {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
